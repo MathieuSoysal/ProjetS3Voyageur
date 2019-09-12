@@ -1,6 +1,6 @@
 # ProjetS3Voyageur
 
-# Fonctionalités implémentées
+## Fonctionalités implémentées
 
 ## Bibliographie
 
