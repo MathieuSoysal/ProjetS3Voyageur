@@ -1,4 +1,4 @@
-package fr.umontpellier.iut;
+package projetS3Voyageur;
 
 public class App {
 
