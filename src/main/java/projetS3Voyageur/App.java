@@ -4,7 +4,9 @@ public class App {
 
     public static void main(String[] args) {
 
-        System.out.println("Hello World !");
+
+        Grille g = new Grille(10, 5);
+        System.out.println(g);
 
     }
 }
