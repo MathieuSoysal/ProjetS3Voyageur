@@ -63,6 +63,20 @@ public class Grille {
         return res;
     }
 
+    public Ville[] getVilles() {
+        Ville[] v = new Ville[this.getNbSommetPlaces()];
+        int index = 0;
+        for(int i = 0; i < this.grille.length; i++){
+            for(int j = 0; j < this.grille[i].length; j++){
+                if(!this.grille[i][j].isEstVide()){
+                    v[index] = this.grille[i][j].getVille();
+                    index++;
+                }
+            }
+        }
+        return v;
+    }
+
 
     //Méthodes & Fonctions
 
