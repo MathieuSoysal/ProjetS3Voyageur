@@ -15,5 +15,13 @@ public class Ville {
     }
 
 
+    //Méthodes & Fonctions
 
+
+    @Override
+    public String toString() {
+        return "Ville{" +
+                "idVille=" + idVille +
+                '}';
+    }
 }
