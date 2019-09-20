@@ -20,8 +20,9 @@ public class Ville {
 
     @Override
     public String toString() {
-        return "Ville{" +
-                "idVille=" + idVille +
-                '}';
+        if(idVille < 10){
+            return "0" + idVille;
+        }
+        return "" + idVille;
     }
 }

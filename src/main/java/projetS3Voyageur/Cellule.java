@@ -87,9 +87,9 @@ public class Cellule {
     @Override
     public String toString() {
         if(this.estVide){
-            return ".";
+            return "--";
         }else{
-            return "X";
+            return this.ville.toString();
         }
     }
 }
