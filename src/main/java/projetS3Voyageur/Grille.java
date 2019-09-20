@@ -11,19 +11,25 @@ public class Grille {
 
     public Grille(int taille, int nbSommet) {
         this.grille = new Cellule[taille][taille];
-        int i = 0;
-        while(nbSommet > 0 && i < this.grille.length){
-            int j = 0;
-            while(nbSommet > 0 && j < this.grille[i].length){
-                if(Util.randomMinMax(1, 20) == 20){
-                    this.grille[i][j] = new Cellule(this, false, i, j);
-                }else{
-                    this.grille[i][j] = new Cellule(this, true, i, j);
-                }
-                j++;
+
+        //On remplit la grille de cellules vides
+        for(int i = 0; i < this.grille.length; i++){
+            for(int j = 0; j < this.grille[i].length; j++){
+                this.grille[i][j] = new Cellule(this, true, i, j);
             }
-            i++;
         }
+
+        //On mets nbSommet villes dans la grille de manière aléatoire
+        for(int i = 0; i < nbSommet; i++){
+            int x = Util.randomMinMax(0, this.grille.length-1);
+            int y = Util.randomMinMax(0, this.grille[x].length-1);
+            while(!this.grille[x][y].isEstVide()){
+                x = Util.randomMinMax(0, this.grille.length-1);
+                y = Util.randomMinMax(0, this.grille[x].length-1);
+            }
+            this.grille[x][y].setVille(new Ville(this.grille[x][y]));
+        }
+
     }
 
 
@@ -43,6 +49,18 @@ public class Grille {
 
     public void setACellule(int x, int y, Cellule c){
         this.grille[x][y] = c;
+    }
+
+    public int getNbSommetPlaces() {
+        int res = 0;
+        for(int i = 0; i < this.grille.length; i++){
+            for(int j = 0; j < this.grille[i].length; j++){
+                if(!this.grille[i][j].isEstVide()){
+                    res++;
+                }
+            }
+        }
+        return res;
     }
 
 

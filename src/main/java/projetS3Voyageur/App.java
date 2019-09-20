@@ -5,8 +5,10 @@ public class App {
     public static void main(String[] args) {
 
 
-        Grille g = new Grille(10, 5);
-        System.out.println(g);
+        for(int i = 0; i < 5; i++) {
+            Grille g = new Grille(10, 10);
+            System.out.println(g);
+        }
 
     }
 }

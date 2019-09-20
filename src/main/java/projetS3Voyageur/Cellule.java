@@ -56,6 +56,7 @@ public class Cellule {
 
     public void setVille(Ville ville) {
         this.ville = ville;
+        this.estVide = false;
     }
 
     public void setGrille(Grille grille) {
