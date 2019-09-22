@@ -2,7 +2,8 @@
 
 ## Fonctionnalités disponibles
 
-Aucune pour le moment
+- Génération aléatoire de la grille
+- Affichage console de la grille
 
 ## Liste des site utiles
 
