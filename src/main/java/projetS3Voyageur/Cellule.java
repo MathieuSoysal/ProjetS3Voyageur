@@ -84,6 +84,10 @@ public class Cellule {
         return Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
     }
 
+    public double getDistance(Cellule c){
+        return Math.sqrt(Math.pow(this.getX() - c.getX(), 2) + Math.pow(this.getY() - c.getY(), 2));
+    }
+
     @Override
     public String toString() {
         if(this.estVide){

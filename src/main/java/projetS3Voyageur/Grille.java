@@ -10,6 +10,9 @@ public class Grille {
     //Constructeur
 
     public Grille(int taille, int nbSommet) {
+        if(nbSommet > taille*taille){
+            throw new IllegalArgumentException("nbsommet doit être inférieure au carré de la taille");
+        }
         this.grille = new Cellule[taille][taille];
 
         //On remplit la grille de cellules vides

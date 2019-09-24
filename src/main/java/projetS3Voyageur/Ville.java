@@ -14,6 +14,22 @@ public class Ville {
         this.cellule = cellule;
     }
 
+    public Ville(Ville v){
+        this.idVille = v.getIdVille();
+        this.cellule = v.getCellule();
+    }
+
+
+    //Getters & Setters
+
+    public Cellule getCellule() {
+        return cellule;
+    }
+
+    public int getIdVille() {
+        return idVille;
+    }
+
 
     //Méthodes & Fonctions
 

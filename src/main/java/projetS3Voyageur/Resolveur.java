@@ -1,5 +1,6 @@
 package projetS3Voyageur;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Resolveur {
@@ -28,16 +29,15 @@ public class Resolveur {
     //Méthodes & Fonctions
 
     public void brutForce(Ville villeDepart) {
-        ArrayList<Chemin> chemins = new ArrayList<>();
-        for(int i = 0; i < Util.factorielle(g.getNbSommetPlaces()); i++){
-            Chemin c = new Chemin(villeDepart);
-            chemins.add(c);
+        Chemin c = new Chemin(villeDepart);
+        ArrayList<Ville> villesPossibles= new ArrayList<>();
+        for(int i = 0; i < this.g.getVilles().length; i++){
+            villesPossibles.add(this.g.getVilles()[i]);
         }
-
-        //Affichage de chemins
-        for(int i = 0; i < chemins.size(); i++){
-            System.out.println(chemins.get(i));
-        }
+        villesPossibles.remove(villeDepart);
+        c.setVillesPossibles(villesPossibles);
+        Chemin res = c.getCheminPlusCourt();
+        System.out.println(res);
     }
 
 
