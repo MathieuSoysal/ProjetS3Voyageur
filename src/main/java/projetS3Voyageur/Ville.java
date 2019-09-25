@@ -4,27 +4,27 @@ public class Ville {
 
     private static int instanceCount = 0;
     private int idVille;
-    private Cellule cellule;
+    //private Cellule cellule;
 
 
     //Constructeur
-    public Ville(Cellule cellule) {
+    public Ville(/*Cellule cellule*/) {
         this.instanceCount++;
         this.idVille = this.instanceCount;
-        this.cellule = cellule;
+        //this.cellule = cellule;
     }
 
     public Ville(Ville v){
         this.idVille = v.getIdVille();
-        this.cellule = v.getCellule();
+        //this.cellule = v.getCellule();
     }
 
 
     //Getters & Setters
 
-    public Cellule getCellule() {
+    /*public Cellule getCellule() {
         return cellule;
-    }
+    }*/
 
     public int getIdVille() {
         return idVille;
