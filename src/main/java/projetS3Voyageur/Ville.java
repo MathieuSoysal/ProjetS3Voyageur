@@ -4,14 +4,25 @@ public class Ville {
 
     private static int instanceCount = 0;
     private int idVille;
-    private Cellule cellule;
+    private Sommet sommet;
 
 
     //Constructeur
-    public Ville(Cellule cellule) {
+    public Ville(Sommet sommet) {
         this.instanceCount++;
         this.idVille = this.instanceCount;
-        this.cellule = cellule;
+        this.sommet = sommet;
+    }
+
+    public Ville(Ville v){
+        this.idVille = v.getIdVille();
+    }
+
+
+    //Getters & Setters
+
+    public int getIdVille() {
+        return idVille;
     }
 
 
