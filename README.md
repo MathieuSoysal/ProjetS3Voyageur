@@ -2,8 +2,7 @@
 
 ## Fonctionnalités disponibles
 
-- Génération aléatoire de la grille
-- Affichage console de la grille
+-Génération aléatoire du Graphe
 
 ## Liste des site utiles
 
