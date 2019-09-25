@@ -55,6 +55,16 @@ public class Arrete {
 
     //Méthodes & Fonctions
 
+    public Sommet getAutreSommet(Sommet s){
+        if(this.sommet1.equals(s)){
+            return this.sommet2;
+        }else if(this.sommet2.equals(s)){
+            return this.sommet1;
+        }else{
+            throw new IllegalArgumentException("Le sommet doit être un des deux sommets de l'arrête!");
+        }
+    }
+
 
 
 }
