@@ -14,7 +14,7 @@ public class Arrete {
         this.graphe = graphe;
         this.sommet1 = sommet1;
         this.sommet2 = sommet2;
-        this.distance = Math.sqrt(Math.pow(this.sommet1.getX()-this.sommet2.getX(), 2) + Math.pow(this.sommet1.getY()-this.sommet2.getY(), 2));
+        this.distance = sommet1.distance(sommet2);
     }
 
 

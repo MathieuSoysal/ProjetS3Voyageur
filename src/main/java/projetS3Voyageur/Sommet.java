@@ -70,5 +70,13 @@ public class Sommet {
         return this.arretes.add(a);
     }
 
+    /**
+     * @param s: Sommet
+     * @return la distance entre {@code this} et {@code s}.
+     */
+    public double distance(Sommet s){
+        return Math.sqrt(Math.pow(this.x-s.getX(), 2) + Math.pow(this.y-s.getY(), 2));
+    }
+
 
 }
