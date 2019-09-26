@@ -6,11 +6,16 @@ public class Graphe {
 
     private ArrayList<Sommet> sommets;
     private ArrayList<Arrete> arretes;
+    private int taille;
 
 
     //Constructeurs
 
-    public Graphe(int nbSommet) {
+    public Graphe(int taille, int nbSommet) {
+        assert taille > 0: "la taille doit être strictement positive";
+
+        this.taille = taille;
+
         this.sommets = new ArrayList<>();
         genereSommet(nbSommet);
 
@@ -20,6 +25,14 @@ public class Graphe {
 
 
     //Getters & Setters
+
+    public int getTaille() {
+        return taille;
+    }
+
+    public void setTaille(int taille) {
+        this.taille = taille;
+    }
 
     public ArrayList<Sommet> getSommets() {
         return sommets;
@@ -79,6 +92,10 @@ public class Graphe {
                 autresSommets[j].ajouterArrete(a);
             }
         }
+    }
+
+    public Sommet getOneSommet(int i){
+        return this.sommets.get(i);
     }
 
     public void genereSommet(int nbSommet){

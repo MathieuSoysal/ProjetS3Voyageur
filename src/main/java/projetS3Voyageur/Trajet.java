@@ -33,6 +33,17 @@ public class Trajet {
         }
     }
 
+    public void ajouterTrajet(Trajet t){
+        this.sommets.addAll(t.getSommets());
+    }
 
+    public double distance(){
+        ArrayDeque<Sommet> tmp = new ArrayDeque<>(this.sommets);
+        double dist = 0;
+        for(int i = 0; i < tmp.size()-1; i++){
+            dist += tmp.poll().distance(tmp.peek());
+        }
+        return dist;
+    }
 
 }
