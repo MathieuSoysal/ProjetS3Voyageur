@@ -1,6 +1,7 @@
 package projetS3Voyageur;
 
 import java.util.ArrayDeque;
+import java.util.Objects;
 
 public class Trajet {
 
@@ -28,13 +29,15 @@ public class Trajet {
     //Méthodes & Fonctions
 
     public void ajouterSommet(Sommet s){
-        if(!this.sommets.contains(s)) {
-            this.sommets.addFirst(s);
+        if(!this.sommets.contains(s) || s.equals(this.sommets.peekFirst())){
+            this.sommets.addLast(s);
         }
     }
 
     public void ajouterTrajet(Trajet t){
-        this.sommets.addAll(t.getSommets());
+        while(!t.sommets.isEmpty()){
+            this.ajouterSommet(t.getSommets().pollFirst());
+        }
     }
 
     public double distance(){

@@ -104,4 +104,11 @@ public class Graphe {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Graphe{" +
+                "sommets=" + sommets +
+                ", taille=" + taille +
+                '}';
+    }
 }

@@ -15,19 +15,10 @@ public class App {
 
     private static Trajet getPlusCourt(Sommet s1, ArrayList<Sommet> sommetPossibles, Sommet sDepart) {
         Trajet t = new Trajet();
-        t.ajouterSommet(s1);
-        if (sommetPossibles.isEmpty()) {
+        if(sommetPossibles.isEmpty()){
             t.ajouterSommet(sDepart);
-            return t;
-        }
-        double min = Double.MAX_VALUE;
-        for (int i = 0; i < sommetPossibles.size(); i++) {
-            ArrayList<Sommet> autresSommets = new ArrayList<>(sommetPossibles);
-            autresSommets.remove(s1);
-            double dist = s1.distance(sommetPossibles.get(i)) + getPlusCourt(sommetPossibles.get(i), autresSommets, sDepart).distance();
-            if (dist < min) {
-                t.ajouterTrajet(getPlusCourt(sommetPossibles.get(i), autresSommets, sDepart));
-            }
+        }else{
+            //TODO
         }
         return t;
     }
@@ -38,7 +29,11 @@ public class App {
 
     public static void main(String[] args) {
 
-        Graphe g = new Graphe(100, 2);
+        Graphe g = new Graphe(100, 3);
+
+        System.out.println(g);
+
+        System.out.println();
 
         Trajet t = bruteForce(g, g.getOneSommet(0).getVille());
 
