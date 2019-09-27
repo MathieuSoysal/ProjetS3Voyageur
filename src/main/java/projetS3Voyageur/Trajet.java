@@ -46,4 +46,9 @@ public class Trajet {
         return dist;
     }
 
+    @Override
+    public String toString(){
+        return this.sommets.toString();
+    }
+
 }

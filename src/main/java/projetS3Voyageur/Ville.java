@@ -25,6 +25,10 @@ public class Ville {
         return idVille;
     }
 
+    public Sommet getSommet() {
+        return sommet;
+    }
+
 
     //Méthodes & Fonctions
 
