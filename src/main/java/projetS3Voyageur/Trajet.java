@@ -49,6 +49,10 @@ public class Trajet {
         return dist;
     }
 
+    public boolean isEmpty(){
+        return this.sommets.isEmpty();
+    }
+
     @Override
     public String toString(){
         return this.sommets.toString();

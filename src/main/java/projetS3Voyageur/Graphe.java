@@ -40,6 +40,7 @@ public class Graphe {
 
     public void setSommets(ArrayList<Sommet> sommets) {
         this.sommets = sommets;
+        genereArretes();
     }
 
     public ArrayList<Arrete> getArretes() {
@@ -73,6 +74,10 @@ public class Graphe {
     }
 
     public void genereArretes(){
+
+        if(!this.arretes.isEmpty()){
+            this.arretes.clear();
+        }
 
         for(int i = 0; i < this.sommets.size(); i++){
             Sommet[] autresSommets = new Sommet[this.sommets.size()-1];
