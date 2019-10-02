@@ -6,6 +6,10 @@ import org.junit.Test;
 
 public class TestVilles {
 
+    final int nbVille = (int) (Math.random() * 9) + 3;
+    final int derniereVille = nbVille - 1;
+    final int premiereVille = 0;
+
     // #region Test paramètre non valide
 
     @Test
@@ -19,31 +23,48 @@ public class TestVilles {
     }
 
     @Test
-    public void test_nbVille_tropelevee() {
+    public void test_nbVille_trop_Eleve() {
         assertThrows(IndexOutOfBoundsException.class, () -> new Villes(16));
     }
 
     // #endregion
 
-    Villes v = new Villes(3);
+    Villes v = new Villes(nbVille);
 
     @Test
     public void test_getNombredeVilles() {
-        assertEquals(3, v.getNombreDeVilles());
+        assertEquals(nbVille, v.getNombreDeVilles());
     }
 
     @Test
-    public void test_getPositionNumVille_indexOutOfBound(){
-        assertThrows(IndexOutOfBoundsException.class, () -> v.getPositionVille(6));
+    public void test_getPositionNumVille_indexOutOfBound() {
+        assertThrows(IndexOutOfBoundsException.class, () -> v.getPositionVille(nbVille));
+    }
+
+    // #region test setPosition
+
+    @Test
+    public void test_setPositionVille_premiereVille() {
+        Position nouvellePos = new Position((int) Math.random() * 50, (int) Math.random() * 50);
+        v.setPositionVille(premiereVille, nouvellePos);
+        assertEquals(nouvellePos.toString(), v.getPositionVille(premiereVille).toString());
     }
 
     @Test
-    public void test_setPositionVille(){
-        Position nouvellePos = new Position(2, 2);
-        v.setPositionVille(0,nouvellePos);
-        assertEquals(nouvellePos.toString(), v.getPositionVille(0).toString());
+    public void test_setPositionVille_derniereVille() {
+        Position nouvellePos = new Position((int) Math.random() * 50, (int) Math.random() * 50);
+        v.setPositionVille(derniereVille, nouvellePos);
+        assertEquals(nouvellePos.toString(), v.getPositionVille(derniereVille).toString());
     }
 
+    @Test
+    public void test_setPositionVille_villeRandom() {
+        int ville = (int) Math.random() * (nbVille - 1);
+        Position nouvellePos = new Position((int) Math.random() * 50, (int) Math.random() * 50);
+        v.setPositionVille(ville, nouvellePos);
+        assertEquals(nouvellePos.toString(), v.getPositionVille(ville).toString());
+    }
 
+    // #endregion test setPosition
 
 }
