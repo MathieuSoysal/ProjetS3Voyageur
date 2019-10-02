@@ -31,7 +31,7 @@ public class Voyageur {
             //TODO: Penser à faire l'interface recherche
             BrutForce brtforce = new BrutForce(pays);
             brtforce.recherche();
-            return "BruForce";
+            return brtforce.getParcour().getVillesEmprunté();
             default:
             return null;
         }
