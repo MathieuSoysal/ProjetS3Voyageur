@@ -3,7 +3,11 @@ package projetS3Voyageur;
 public class Villes {
     private int[][] positionDesVilles;
     private int nombreDeVilles;
-    private int dernierNumVille;
+    private int derniereVille;
+
+    final int x = 0;
+    final int y = 1;
+    final int villeSuivante = 1;
 
     public Villes(int nombreDeVilles) {
         if (nombreDeVilles < 3 | nombreDeVilles > 15) {
@@ -13,36 +17,36 @@ public class Villes {
         positionDesVilles = new int[nombreDeVilles][nombreDeVilles - 1];
 
         this.nombreDeVilles = nombreDeVilles;
-        this.dernierNumVille = nombreDeVilles - 1;
+        this.derniereVille = nombreDeVilles - 1;
 
-        for (int i = 0; i < dernierNumVille; i++) {
-            positionDesVilles[i][0] = (int) (Math.random() * 50); // 0 = x
-            positionDesVilles[i][1] = (int) (Math.random() * 50); // 1 = Y
+        for (int ville = 0; ville != derniereVille; ville += villeSuivante) {
+            positionDesVilles[ville][x] = (int) (Math.random() * 50); // x
+            positionDesVilles[ville][y] = (int) (Math.random() * 50); // Y
         }
     }
 
     /**
      * Enregistre une nouvelle position pour une ville donné en paramètre
      * 
-     * @param numVille    Numéro de la ville dont la position vas être modifier
+     * @param ville    Numéro de la ville dont la position vas être modifier
      * @param newPosVille Nouvelle position
      */
-    public void setPositionVille(int numVille, Position posVille) {
-        verifieNumVille(numVille);
-        positionDesVilles[numVille][0] = posVille.getX();
-        positionDesVilles[numVille][1] = posVille.getY();
+    public void setPositionVille(int ville, Position posVille) {
+        verifieNumVille(ville);
+        positionDesVilles[ville][x] = posVille.getX();
+        positionDesVilles[ville][y] = posVille.getY();
 
     }
 
     /**
      * Retourne la localisation d'un numéro de ville donnée en paramètre
      * 
-     * @param numVille numéro de la ville à localiser
+     * @param ville numéro de la ville à localiser
      * @return {@Code Position} la localisation de la ville
      */
-    public Position getPositionVille(int numVille) {
-        verifieNumVille(numVille);
-        return new Position(positionDesVilles[numVille][0], positionDesVilles[numVille][1]);
+    public Position getPositionVille(int ville) {
+        verifieNumVille(ville);
+        return new Position(positionDesVilles[ville][x], positionDesVilles[ville][y]);
     }
 
     public int getNombreDeVilles() {
@@ -50,14 +54,14 @@ public class Villes {
     }
 
     /**
-     * Vérifie si le numéro de la Ville saisi est bien valide
+     * Vérifie si le numéro de la ville saisi est bien valide
      * 
-     * @param numVille numéro de Ville
+     * @param ville numéro de ville
      */
-    private void verifieNumVille(int numVille) {
-        if (numVille < 0 && numVille > dernierNumVille) {
+    private void verifieNumVille(int ville) {
+        if (ville < 0 || ville > derniereVille) {
             throw new IndexOutOfBoundsException(
-                    "Le numéro de la ville doit être compris entre 0 et " + dernierNumVille);
+                    "Le numéro de la ville doit être compris entre 0 et " + derniereVille);
         }
     }
 

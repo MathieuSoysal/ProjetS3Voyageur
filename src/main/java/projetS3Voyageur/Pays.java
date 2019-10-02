@@ -5,26 +5,28 @@ public class Pays {
     private GestionDistance d;
 
     public Pays(int nombreDeVilles) {
-        if (nombreDeVilles < 3 || nombreDeVilles > 15) {
-            throw new IndexOutOfBoundsException("Le nombre de villes saisie doit être comprit entre 3 et 15");
-        }
-
         v = new Villes(nombreDeVilles);
-
         d = new GestionDistance(v);
+
     }
 
     // #region méthodes déléguées
 
     // #region Villes :
 
-    public void setPositionVille(int numVille, Position posVille) {
-        v.setPositionVille(numVille, posVille);
-        d.actualiseNumVille(numVille);
+    /**
+     * Enregistre une nouvelle position pour une ville donné en paramètre
+     * 
+     * @param Ville       Numéro de la ville dont la position vas être modifier
+     * @param newPosVille Nouvelle position
+     */
+    public void setPositionVille(int ville, Position posVille) {
+        v.setPositionVille(ville, posVille);
+        d.actualiseNumVille(ville);
     }
 
-    public Position getPositionVille(int numVille) {
-        return v.getPositionVille(numVille);
+    public Position getPositionVille(int ville) {
+        return v.getPositionVille(ville);
     }
 
     public int getNombreDeVilles() {
@@ -35,8 +37,15 @@ public class Pays {
 
     // #region Distance :
 
-    public double getDistanceEntreVilles(int numVille1, int numVille2) {
-        return d.getDistance(numVille1, numVille2);
+    /**
+     * Renvoi la distance entre deux villes
+     * 
+     * @param numVille1 numéro de la premère ville donné en paramètre
+     * @param numVille2 numéro de la seconde ville donné en paramètre
+     * @return {@code double}
+     */
+    public double getDistanceEntreVilles(int ville1, int ville2) {
+        return d.getDistance(ville1, ville2);
     }
 
     // #endregion Distance

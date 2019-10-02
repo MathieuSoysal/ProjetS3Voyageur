@@ -27,12 +27,12 @@ public class GestionDistance {
     /**
      * Renvoi la distance entre deux villes
      * 
-     * @param numVille1 numéro de la premère ville donné en paramètre
-     * @param numVille2 numéro de la seconde ville donné en paramètre
-     * @return {@code}int
+     * @param ville1 numéro de la premère ville donné en paramètre
+     * @param ville2 numéro de la seconde ville donné en paramètre
+     * @return {@code double}
      */
-    public double getDistance(int numVille1, int numVille2) {
-        return distancesV[numVille1][numVille2];
+    public double getDistance(int ville1, int ville2) {
+        return distancesV[ville1][ville2];
     }
 
     /**
@@ -45,11 +45,11 @@ public class GestionDistance {
         verifieNumVille(numVille);
         double hypotegnius;
 
-        for (int numVilI = 0; numVilI < nbVilles; numVilI++) {
-            if (numVilI != numVille) {
-                hypotegnius = hypotegnius(ecartEnX(numVilI, numVille), ecartEnY(numVilI, numVille));
-                distancesV[numVilI][numVille] = hypotegnius;
-                distancesV[numVille][numVilI] = hypotegnius;
+        for (int villeI = 0; villeI < nbVilles; villeI++) {
+            if (villeI != numVille) {
+                hypotegnius = hypotegnius(ecartEnX(villeI, numVille), ecartEnY(villeI, numVille));
+                distancesV[villeI][numVille] = hypotegnius;
+                distancesV[numVille][villeI] = hypotegnius;
 
             }
         }
@@ -60,25 +60,25 @@ public class GestionDistance {
     /**
      * Retourne l'écart entre deux points sur une même ordonnée X
      * 
-     * @param numVille1
-     * @param numVille2
+     * @param ville1
+     * @param ville2
      * @return {@code int} ecart sur l'ordonnée x entre les deux villes. Attention
      *         le resultat peut-être négatif
      */
-    private int ecartEnX(int numVille1, int numVille2) {
-        return villes.getPositionVille(numVille1).getX() - villes.getPositionVille(numVille2).getX();
+    private int ecartEnX(int ville1, int ville2) {
+        return villes.getPositionVille(ville1).getX() - villes.getPositionVille(ville2).getX();
     }
 
     /**
      * Retourne l'écart entre deux points sur une même ordonnée y
      * 
-     * @param numVille1
-     * @param numVille2
+     * @param ville1
+     * @param ville2
      * @return {@code int} ecart sur l'ordonnée y entre les deux villes. Attention
      *         le resultat peut-être négatif
      */
-    private int ecartEnY(int numVille1, int numVille2) {
-        return villes.getPositionVille(numVille1).getY() - villes.getPositionVille(numVille2).getY();
+    private int ecartEnY(int ville1, int ville2) {
+        return villes.getPositionVille(ville1).getY() - villes.getPositionVille(ville2).getY();
     }
 
     /**
