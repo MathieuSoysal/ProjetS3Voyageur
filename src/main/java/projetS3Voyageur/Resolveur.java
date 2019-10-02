@@ -35,15 +35,19 @@ public class Resolveur {
             return t;
         }else {
             double min = Double.MAX_VALUE;
+            ArrayList<Sommet> minFindeTrajet ;
             for (int i = 0; i < sommetPossibles.size(); i++) {
                 ArrayList<Sommet> autresSommets = new ArrayList<>(sommetPossibles);
                 autresSommets.remove(sommetPossibles.get(i));
                 double dist = s1.distance(sommetPossibles.get(i)) + this.getPlusCourt(sommetPossibles.get(i), autresSommets, sDepart).distance();
                 if (dist <= min) {
-                    t.ajouterTrajet(getPlusCourt(sommetPossibles.get(i), autresSommets, sDepart));
+
+                    //t.ajouterTrajet(getPlusCourt(sommetPossibles.get(i), autresSommets, sDepart));
                     min = dist;
+                    //mettre a jour minFindetrajet
                 }
             }
+            t.ajouterTrajet(getPlusCourt(sommetPossibles.get(i), minFindeTrajet, sDepart));
             return t;
         }
     }
