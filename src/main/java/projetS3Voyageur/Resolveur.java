@@ -35,7 +35,7 @@ public class Resolveur {
             return t;
         }else {
             double min = Double.MAX_VALUE;
-            ArrayList<Sommet> minFindeTrajet ;
+            Trajet court = new Trajet();
             for (int i = 0; i < sommetPossibles.size(); i++) {
                 ArrayList<Sommet> autresSommets = new ArrayList<>(sommetPossibles);
                 autresSommets.remove(sommetPossibles.get(i));
@@ -44,10 +44,10 @@ public class Resolveur {
 
                     //t.ajouterTrajet(getPlusCourt(sommetPossibles.get(i), autresSommets, sDepart));
                     min = dist;
-                    //mettre a jour minFindetrajet
+                    court = getPlusCourt(sommetPossibles.get(i), autresSommets, sDepart);
                 }
             }
-            t.ajouterTrajet(getPlusCourt(sommetPossibles.get(i), minFindeTrajet, sDepart));
+            t.ajouterTrajet(court);
             return t;
         }
     }
