@@ -26,16 +26,15 @@ public class BrutForce {
 
         this.parcourOptimum = new Parcour(Double.MAX_VALUE, "Non Changé");
 
-        rechercheAux(villesAVisiter, villeInital, 0.0, pays.getNombreDeVilles(), villeInital + "");
+        rechercheAux(villesAVisiter, villeInital, 0.0, pays.getNombreDeVilles()-1, villeInital + "");
     }
 
     private void rechercheAux(boolean villesAVisiter[], int villeDepart, double distanceParcourue, int nbVillesAVisiter,
             String villesEmprunté) {
 
-        nbVillesAVisiter--;
         villesAVisiter[villeDepart] = dejaVisite;
 
-        if (nbVillesAVisiter == plusDeVillesAVisiter) {
+        if (nbVillesAVisiter == 0) {
             if (distanceParcourue + pays.getDistanceEntreVilles(villeDepart, villeInital) < this.parcourOptimum
                     .getDistance())
                 this.parcourOptimum = new Parcour(
@@ -47,7 +46,7 @@ public class BrutForce {
 
                     rechercheAux(villesAVisiter.clone(), villeChoisie,
                             distanceParcourue + pays.getDistanceEntreVilles(villeDepart, villeChoisie),
-                            nbVillesAVisiter, villesEmprunté + villeChoisie);
+                            nbVillesAVisiter-1, villesEmprunté + villeChoisie);
                 }
 
             }
