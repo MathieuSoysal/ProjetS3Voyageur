@@ -8,7 +8,6 @@ public class Sommet {
     private Ville ville;
     private int x;
     private int y;
-    private ArrayList<Arrete> arretes;
 
 
     //Constructeurs
@@ -16,7 +15,6 @@ public class Sommet {
     public Sommet(Graphe graphe){
         this.graphe = graphe;
         this.ville = new Ville(this);
-        this.arretes = new ArrayList<>();
         this.x = Util.randomMinMax(0, graphe.getTaille());
         this.y = Util.randomMinMax(0, graphe.getTaille());
     }
@@ -56,19 +54,13 @@ public class Sommet {
         this.y = y;
     }
 
+    public void setCoords(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
 
     //Méthodes & Fonctions
-
-    /**
-     * @param a: Arrete
-     * @return {@code true} ssi l'Arrete {@code a} a bien ajoutée.
-     */
-    public boolean ajouterArrete(Arrete a){
-        if(!this.arretes.contains(a)){
-            return false;
-        }
-        return this.arretes.add(a);
-    }
 
     /**
      * @param s: Sommet

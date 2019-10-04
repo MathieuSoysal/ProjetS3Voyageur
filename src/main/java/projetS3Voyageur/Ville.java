@@ -9,8 +9,8 @@ public class Ville {
 
     //Constructeur
     public Ville(Sommet sommet) {
-        this.instanceCount++;
         this.idVille = this.instanceCount;
+        this.instanceCount++;
         this.sommet = sommet;
     }
 
