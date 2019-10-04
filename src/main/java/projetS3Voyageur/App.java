@@ -6,7 +6,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        Graphe g = new Graphe(100, 11);
+        Graphe g = new Graphe(100, 5);
         System.err.println(g);
 
         Resolveur r = new Resolveur(g, g.getOneSommet(0).getVille());

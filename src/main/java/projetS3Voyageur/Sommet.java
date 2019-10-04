@@ -78,11 +78,15 @@ public class Sommet {
         return Math.sqrt(Math.pow(this.x-s.getX(), 2) + Math.pow(this.y-s.getY(), 2));
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Sommet{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }*/
+    @Override
+    public String toString(){
+        return this.ville.getIdVille() + "";
     }
 }
