@@ -72,9 +72,23 @@ public class TestBrutForce {
     @Test
     public void test_ParcourOptimum_Pour_6villes_desorde() {
 
-        Pays pays = new Pays(6);
 
+        Pays pays = new Pays(6);
+        
         brutForce = new BrutForce(pays);
+
+        pays.setPositionVille(0, new Position(2, 2));
+        pays.setPositionVille(1, new Position(2, 3));
+        pays.setPositionVille(2, new Position(2, 4));
+        pays.setPositionVille(3, new Position(2, 5));
+        pays.setPositionVille(4, new Position(2, 6));
+        pays.setPositionVille(5, new Position(2, 7));
+
+
+        brutForce.recherche();
+
+        double distanceMinimum= brutForce.getParcour().getDistance();
+
 
         pays.setPositionVille(0, new Position(2, 2));
         pays.setPositionVille(4, new Position(2, 3));
@@ -86,7 +100,7 @@ public class TestBrutForce {
 
         brutForce.recherche();
 
-        assertEquals("0453120", brutForce.getParcour().getVillesEmprunté());
+        assertEquals(distanceMinimum, brutForce.getParcour().getDistance());
 
     }
 
