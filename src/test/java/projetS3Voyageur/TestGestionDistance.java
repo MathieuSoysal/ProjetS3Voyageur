@@ -60,7 +60,7 @@ public class TestGestionDistance {
         assertEquals(hypotegnius(posVille1, posVille2), d.getDistance(numVille1, numVille2));
     }
 
-    // #region Test  (getDistance(X,Y) == getDistance(Y,X) ) avec un setPosition
+    // #region Test (getDistance(X,Y) == getDistance(Y,X) ) avec un setPosition
     @Test
     public void test_getDistance_0et1_eguale_getDistance_1et0_avecSetPosition() {
         int numVille1 = 0;
@@ -103,8 +103,6 @@ public class TestGestionDistance {
         assertEquals(d.getDistance(numVille2, numVille1), d.getDistance(numVille1, numVille2));
     }
 
-
-
     // #endregion test GetDistance avec un SetPosition
 
     // #region test getDistance
@@ -139,6 +137,23 @@ public class TestGestionDistance {
         Position ville2 = v.getPositionVille(numVille2);
 
         assertEquals(hypotegnius(ville1, ville2), d.getDistance(numVille1, numVille2));
+    }
+
+    @Test
+    public void test_EXTREME_getDistance_entre_deux_villes() {
+
+        for (int i = 0; i < 30; i++) {
+            Villes villes = new Villes(5);
+            GestionDistance gD = new GestionDistance(villes);
+
+            int numVille1 = (int) (Math.random() * 4);
+            int numVille2 = (int) (Math.random() * 4);
+
+            Position ville1 = villes.getPositionVille(numVille1);
+            Position ville2 = villes.getPositionVille(numVille2);
+
+            assertEquals(hypotegnius(ville1, ville2), gD.getDistance(numVille1, numVille2));
+        }
     }
 
     // #region Test getDistance(X,Y) == getDistance(Y,X)
