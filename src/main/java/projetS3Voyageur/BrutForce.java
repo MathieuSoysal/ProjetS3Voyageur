@@ -1,12 +1,12 @@
 package projetS3Voyageur;
 
-
 public class BrutForce {
     final boolean dejaVisite = true;
     final boolean nonVisite = false;
     final int plusDeVillesAVisiter = 0;
 
     private int villeInital;
+    private int nombreDeVilles;
 
     private Pays pays;
     private Parcour parcourOptimum;
@@ -14,48 +14,46 @@ public class BrutForce {
     public BrutForce(Pays pays) {
         this.pays = pays;
         this.villeInital = 0;
+        nombreDeVilles = pays.getNombreDeVilles();
     }
 
     public void recherche() {
 
-        boolean villesAVisiter[] = new boolean[pays.getNombreDeVilles()];
+        boolean villesAVisiter[] = new boolean[nombreDeVilles];
+        this.parcourOptimum = new Parcour(Double.MAX_VALUE, "Parcourt par défaut");
 
-        for (int i = 0; i < pays.getNombreDeVilles(); i++) {
+        for (int i = 0; i < nombreDeVilles; i++)
             villesAVisiter[i] = nonVisite;
-        }
 
-        this.parcourOptimum = new Parcour(Double.MAX_VALUE, "Non Changé");
-
-        rechercheAux(villesAVisiter, villeInital, 0.0, pays.getNombreDeVilles()-1, villeInital + "");
+        rechercheAux(villesAVisiter, villeInital, 0.0, nombreDeVilles - 1, String.valueOf(villeInital));
     }
 
-    private void rechercheAux(boolean villesAVisiter[], int villeDepart, double distanceParcourue, int nbVillesAVisiter,
+    private void rechercheAux(boolean villesAVisiter[], int villeActuel, double distanceParcourue, int nbVillesAVisiter,
             String villesEmprunté) {
 
-        villesAVisiter[villeDepart] = dejaVisite;
+        villesAVisiter[villeActuel] = dejaVisite;
 
         if (nbVillesAVisiter == 0) {
-            if (distanceParcourue + pays.getDistanceEntreVilles(villeDepart, villeInital) < this.parcourOptimum
-                    .getDistance())
-                this.parcourOptimum = new Parcour(
-                        distanceParcourue + pays.getDistanceEntreVilles(villeDepart, villeInital),
-                        villesEmprunté + villeInital);
-        } else {
-            for (int villeChoisie = 0; villeChoisie < pays.getNombreDeVilles(); villeChoisie++) {
-                if (villesAVisiter[villeChoisie] == nonVisite) {
+            double distanceParcourueFinal = distanceParcourue + pays.getDistanceEntreVilles(villeActuel, villeInital);
 
-                    rechercheAux(villesAVisiter.clone(), villeChoisie,
-                            distanceParcourue + pays.getDistanceEntreVilles(villeDepart, villeChoisie),
-                            nbVillesAVisiter-1, villesEmprunté + villeChoisie);
+            if (distanceParcourueFinal < parcourOptimum.getDistance())
+                parcourOptimum = new Parcour(distanceParcourueFinal, villesEmprunté + villeInital);
+
+        } else {
+            for (int villeChoisie = 0; villeChoisie < nombreDeVilles; villeChoisie++) {
+
+                if (villesAVisiter[villeChoisie] == nonVisite) {
+                    double distanceParcourueActuel = distanceParcourue
+                            + pays.getDistanceEntreVilles(villeActuel, villeChoisie);
+
+                    rechercheAux(villesAVisiter.clone(), villeChoisie, distanceParcourueActuel, nbVillesAVisiter - 1,
+                            villesEmprunté + villeChoisie);
                 }
 
             }
         }
 
     }
-
-
-
 
     public Parcour getParcour() {
         return parcourOptimum;
