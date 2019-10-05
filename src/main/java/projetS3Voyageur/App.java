@@ -1,9 +1,7 @@
 package projetS3Voyageur;
-
-import projetS3Voyageur.MathieuS.*;
-import projetS3Voyageur.MatthiasD.*;
-
 public class App {
+
+//TODO: Attention ce programme est à faire en dernier lorsque tout les programmes ont validé les tests
 
     public static void main(String[] args) {
         long startTime; // variable pour récupéré l'heure (en miniseconde) à la quelle on commence le
@@ -20,13 +18,13 @@ public class App {
         int pointMS = 0; // nombre de fois où l'algo a étais le plus rapide (au sein d'une boucle)
         int pointMD = 0; // nombre de fois où l'algo a étais le plus rapide (au sein d'une boucle)
 
+        RepertoireAlgos exe = new RepertoireAlgos();
+
         int nombreDeTestes = 20;
         for (int i = 0; i < nombreDeTestes; i++) {
             startTime = System.currentTimeMillis();
             // #region MathieuS
-            Pays p = new Pays(10);
-            BrutForce b = new BrutForce(p);
-            b.recherche();
+            exe.mathieuS();
             // #endregion MathieuS
             endTime = System.currentTimeMillis();
             timeMS = endTime - startTime;
@@ -34,9 +32,7 @@ public class App {
 
             startTime = System.currentTimeMillis();
             // #region MatthiasD
-            Graphe g = new Graphe(50, 10);
-            Resolveur r = new Resolveur(g, g.getOneSommet(0).getVille());
-            r.bruteForce();
+            exe.matthiasD();
             // #endregion MatthiasD
             endTime = System.currentTimeMillis();
             timeMD = endTime - startTime;
