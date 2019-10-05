@@ -6,20 +6,22 @@ import projetS3Voyageur.MatthiasD.*;
 public class App {
 
     public static void main(String[] args) {
-        long startTime;
-        long endTime;
+        long startTime; // variable pour récupéré l'heure (en miniseconde) à la quelle on commence le
+                        // probramme
+        long endTime;// variable pour récupéré l'heure (en miniseconde) à la quelle on arrête le
+                     // probramme
 
-        long timeMS;
-        long timeMD;
+        long timeMS; // variable permetant de stocké le temps mit pour l'exécution d'un algo
+        long timeMD; // variable permetant de stocké le temps mit pour l'exécution d'un algo
 
         long tempsMoyenMS = 0;
         long tempsMoyenMD = 0;
 
-        int pointMS = 0;
-        int pointMD = 0;
+        int pointMS = 0; // nombre de fois où l'algo a étais le plus rapide (au sein d'une boucle)
+        int pointMD = 0; // nombre de fois où l'algo a étais le plus rapide (au sein d'une boucle)
 
-        int fin = 15;
-        for (int i = 0; i < fin; i++) {
+        int nombreDeTestes = 20;
+        for (int i = 0; i < nombreDeTestes; i++) {
             startTime = System.currentTimeMillis();
             // #region MathieuS
             Pays p = new Pays(10);
@@ -28,7 +30,7 @@ public class App {
             // #endregion MathieuS
             endTime = System.currentTimeMillis();
             timeMS = endTime - startTime;
-            tempsMoyenMS += timeMS / fin;
+            tempsMoyenMS += timeMS / nombreDeTestes;
 
             startTime = System.currentTimeMillis();
             // #region MatthiasD
@@ -38,13 +40,13 @@ public class App {
             // #endregion MatthiasD
             endTime = System.currentTimeMillis();
             timeMD = endTime - startTime;
-            tempsMoyenMD += timeMD / fin;
+            tempsMoyenMD += timeMD / nombreDeTestes;
 
             pointMD += (timeMD < timeMS) ? 1 : 0;
             pointMS += (timeMS < timeMD) ? 1 : 0;
 
-            // System.out.println((((double)i)/((double)fin))*100);
-            int charge = (int) ((((double) i) / ((double) fin)) * 100);
+            // System.out.println((((double)i)/((double)nombreDeTestes))*100);
+            int charge = (int) ((((double) i) / ((double) nombreDeTestes)) * 100);
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n         [");
             for (int j = 0; j < 100; j++) {
                 System.out.print((j <= charge) ? "#" : ".");
