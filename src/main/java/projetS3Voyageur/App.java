@@ -4,8 +4,10 @@ class App {
 
     public static void main(String[] args) {
 
-        Tester test = new Tester(AlgoLuncher.MathieuS, AlgoLuncher.MatthiasD);
-        test.afficher();
+        Comparer compare = new Comparer(AlgoLuncher.MathieuS, AlgoLuncher.MathieuS);
+        compare.setNombreDeTest(100);
+        compare.setNombreDeVilles(10);
+        compare.afficher();
     }
 
 }
