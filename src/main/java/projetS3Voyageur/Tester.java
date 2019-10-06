@@ -5,11 +5,11 @@ public class Tester {
     // TODO: Attention ce programme est à faire en dernier lorsque tout les
     // programmes ont validé les tests
 
-    private ExecuteAlgos algo1;
-    private ExecuteAlgos algo2;
+    private AlgoLuncher algo1;
+    private AlgoLuncher algo2;
     private int nombreDeTestes = 20;
 
-    public Tester(ExecuteAlgos algo1, ExecuteAlgos algo2) {
+    public Tester(AlgoLuncher algo1, AlgoLuncher algo2) {
         this.algo1 = algo1;
         this.algo2 = algo2;
     }
@@ -67,14 +67,14 @@ public class Tester {
             System.out.print("] \n \n \n \n");
         }
 
-        System.out.println("\n  " + algo2.getNomAlgo() + " :\n" + "Points obtenue : " + pointAlgo2
+        System.out.println("\n  " + algo2.getNom() + " :\n" + "Points obtenue : " + pointAlgo2
                 + "\n Temps moyen de recherche : " + tempsMoyenAlgo2);
 
-        System.out.println("\n  " + algo1.getNomAlgo() + " :\n" + "Points obtenue : " + pointAlgo1
+        System.out.println("\n  " + algo1.getNom() + " :\n" + "Points obtenue : " + pointAlgo1
                 + "\n Temps moyen de recherche : " + tempsMoyenAlgo1);
 
         System.out.println("\n L'algo le plus rapide a étais celui de la branche :"
-                + ((pointAlgo1 > pointAlgo2) ? algo1.getNomAlgo() : algo2.getNomAlgo()));
+                + ((pointAlgo1 > pointAlgo2) ? algo1.getNom() : algo2.getNom()));
 
     }
 
