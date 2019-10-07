@@ -1,40 +1,30 @@
 package projetS3Voyageur;
 
 public class Villes {
-    private int[][] positionDesVilles;
+    private Position[] positionDesVilles;
     private int nombreDeVilles;
-    private int derniereVille;
-
-    final int x = 0;
-    final int y = 1;
-    final int villeSuivante = 1;
 
     public Villes(int nombreDeVilles) {
         if (nombreDeVilles < 3 | nombreDeVilles > 15) {
             throw new IndexOutOfBoundsException("Veuillez écrire un nombre de villes compris entre 3 et 15");
         }
-
-        positionDesVilles = new int[nombreDeVilles][nombreDeVilles - 1];
-
         this.nombreDeVilles = nombreDeVilles;
-        this.derniereVille = nombreDeVilles - 1;
+        positionDesVilles = new Position[nombreDeVilles];
 
-        for (int ville = 0; ville != derniereVille; ville += villeSuivante) {
-            positionDesVilles[ville][x] = (int) (Math.random() * 50); // x
-            positionDesVilles[ville][y] = (int) (Math.random() * 50); // Y
+        for (int ville = 0; ville < nombreDeVilles; ville++) {
+            positionDesVilles[ville] = new Position((int) (Math.random() * 50), (int) (Math.random() * 50));
         }
     }
 
     /**
      * Enregistre une nouvelle position pour une ville donné en paramètre
      * 
-     * @param ville    Numéro de la ville dont la position vas être modifier
+     * @param ville       Numéro de la ville dont la position vas être modifier
      * @param newPosVille Nouvelle position
      */
     public void setPositionVille(int ville, Position posVille) {
         verifieNumVille(ville);
-        positionDesVilles[ville][x] = posVille.getX();
-        positionDesVilles[ville][y] = posVille.getY();
+        positionDesVilles[ville] = posVille;
 
     }
 
@@ -46,7 +36,7 @@ public class Villes {
      */
     public Position getPositionVille(int ville) {
         verifieNumVille(ville);
-        return new Position(positionDesVilles[ville][x], positionDesVilles[ville][y]);
+        return positionDesVilles[ville];
     }
 
     public int getNombreDeVilles() {
@@ -59,9 +49,9 @@ public class Villes {
      * @param ville numéro de ville
      */
     private void verifieNumVille(int ville) {
-        if (ville < 0 || ville > derniereVille) {
+        if (ville < 0 || ville > nombreDeVilles - 1) {
             throw new IndexOutOfBoundsException(
-                    "Le numéro de la ville doit être compris entre 0 et " + derniereVille);
+                    "Le numéro de la ville doit être compris entre 0 et " + (nombreDeVilles - 1));
         }
     }
 
