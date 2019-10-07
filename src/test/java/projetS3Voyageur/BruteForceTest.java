@@ -12,14 +12,22 @@ public class BruteForceTest {
     BruteForce bf;
 
     @Test
-    public void recherche1(){
-        Pays pays = new Pays(5);
-        pays.setPositionVille(0,2,2);
-        pays.setPositionVille(1,2,3);
-        pays.setPositionVille(2,2,4);
-        pays.setPositionVille(3,2,5);
-        pays.setPositionVille(4,2,6);
+    public void test_repetition() {
+        for (int i = 0; i < 5; i++) {
+            Pays pays = new Pays(5);
+            bf = new BruteForce(pays, pays.getOneVille(0));
+            bf.recherche();
+        }
+    }
 
+    @Test
+    public void recherche1() {
+        Pays pays = new Pays(5);
+        pays.setPositionVille(0, 2, 2);
+        pays.setPositionVille(1, 2, 3);
+        pays.setPositionVille(2, 2, 4);
+        pays.setPositionVille(3, 2, 5);
+        pays.setPositionVille(4, 2, 6);
 
         bf = new BruteForce(pays, pays.getOneVille(0));
 
