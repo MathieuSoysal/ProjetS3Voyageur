@@ -1,5 +1,7 @@
 package projetS3Voyageur;
 
+import java.util.Arrays;
+
 public class Pays {
 
     private Ville[] villes;
@@ -8,10 +10,13 @@ public class Pays {
     //Constructeurs
 
     public Pays(int nbVilles){
-        if(nbVilles < 2){
-            throw new IllegalArgumentException("Il doit y avoir au moins 2 villes dans un pays");
+        if(nbVilles <= 0){
+            throw new IllegalArgumentException("Un pays doit avoir au moins une ville !");
         }
         this.villes = new Ville[nbVilles];
+        for(int i = 0; i < this.villes.length; i++){
+            this.villes[i] = new Ville();
+        }
     }
 
 
@@ -29,8 +34,14 @@ public class Pays {
         return this.villes.length;
     }
 
-    public double getDistance(int indexVille1, int indexVille2){
-        return this.villes[indexVille1].distance(this.villes[indexVille2]);
-    }
 
+    //Méthodes & Fonctions
+
+
+    @Override
+    public String toString() {
+        return "Pays{" +
+                "villes=" + Arrays.toString(villes) +
+                '}';
+    }
 }

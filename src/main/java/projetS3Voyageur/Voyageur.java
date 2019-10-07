@@ -6,6 +6,7 @@ public class Voyageur {
 
     private Pays pays;
     private ArrayList<Ville> villesAVisiter;
+    private Ville villeDepart;
 
 
     //Constructeurs
@@ -20,13 +21,20 @@ public class Voyageur {
     //Méthodes & Fonctions
 
     public void initVillesAVisiter() {
+        this.villesAVisiter = new ArrayList<>();
         for(int i = 0; i < this.pays.getNbVille(); i++){
             this.villesAVisiter.add(this.pays.getOneVille(i));
         }
     }
 
     public void setVilleDepart(Ville v){
+        this.villeDepart = v;
         this.villesAVisiter.remove(v);
+    }
+
+    public Parcours recherche(){
+        BruteForce bf = new BruteForce(this.pays, this.villeDepart);
+        return bf.recherche();
     }
 
 }

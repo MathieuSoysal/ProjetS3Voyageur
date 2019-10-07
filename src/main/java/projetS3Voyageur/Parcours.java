@@ -11,11 +11,6 @@ public class Parcours {
 
     //Constructeurs
 
-    public Parcours(double distance, ArrayDeque<Ville> villesEmpruntees){
-        this.distance = distance;
-        this.villesEmpruntees = villesEmpruntees;
-    }
-
     public Parcours(){
         this.distance = 0;
         this.villesEmpruntees = new ArrayDeque<>();
@@ -36,14 +31,15 @@ public class Parcours {
     //Méthodes & Fonctions
 
     public void ajouterVille(Ville v){
-        //On ajoute v à this.villesEmpruntees
-        this.villesEmpruntees.offer(v);
 
         //On rajoute la distance entre la dernière ville de this et v
         //si ce n'est pas la première ville que l'on ajoute
         if(!this.villesEmpruntees.isEmpty()){
             this.distance += this.villesEmpruntees.peekLast().distance(v);
         }
+
+        //On ajoute v à this.villesEmpruntees
+        this.villesEmpruntees.offer(v);
     }
 
     public void ajouterParcours(Parcours p){

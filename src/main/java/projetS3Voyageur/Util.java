@@ -20,12 +20,36 @@ public class Util {
         }
     }
 
+    /**
+     * @param t: boolean[]
+     * @return {@code true} ssi toutes les cases de {@code t} sont {@code true}.
+     */
     public static boolean isAllTrue(boolean[] t){
         int i = 0;
         while(i < t.length && t[i]){
             i++;
         }
         return i >= t.length;
+    }
+
+    /**
+     * @param t: boolean[]
+     * @return une copie de {@code t}.
+     */
+    public static boolean[] clone(boolean[] t){
+        boolean[] res = new boolean[t.length];
+        for(int i = 0; i < res.length; i++){
+            res[i] = t[i];
+        }
+        return res;
+    }
+
+    public static long factorielle(long n){
+        if(n <= 1){
+            return 1;
+        }else{
+            return n * factorielle(n-1);
+        }
     }
 
 }

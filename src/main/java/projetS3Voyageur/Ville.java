@@ -24,26 +24,6 @@ public class Ville {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public void setCoords(int x, int y){
         this.x = x;
         this.y = y;
@@ -58,5 +38,18 @@ public class Ville {
      */
     public double distance(Ville v){
         return Math.sqrt(Math.pow(this.x - v.x, 2)+Math.pow(this.y - v.y, 2));
+    }
+
+    /*public String showAttributs(){
+        return "Ville{" +
+                "id=" + id +
+                ", x=" + x +
+                ", y=" + y +
+                '}';
+    }*/
+
+    @Override
+    public String toString() {
+        return this.id + "";
     }
 }

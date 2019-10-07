@@ -6,6 +6,9 @@ public class BruteForce {
     private int nbVille;
     private Ville villeDepart;
 
+    private long nbBranchefait;
+    private long nbPossibilites;
+
 
     //Constructeurs
 
@@ -13,6 +16,28 @@ public class BruteForce {
         this.pays = pays;
         this.villeDepart = villeDepart;
         this.nbVille = pays.getNbVille();
+
+        this.nbBranchefait = 0;
+        this.nbPossibilites = Util.factorielle(this.nbVille-1);
+    }
+
+
+    //Getters & Setters
+
+    public Pays getPays() {
+        return pays;
+    }
+
+    public void setPays(Pays pays) {
+        this.pays = pays;
+    }
+
+    public Ville getVilleDepart() {
+        return villeDepart;
+    }
+
+    public void setVilleDepart(Ville villeDepart) {
+        this.villeDepart = villeDepart;
     }
 
 
@@ -21,26 +46,47 @@ public class BruteForce {
     /**
      *
      * @param v
-     * @param villesAVisitees: boolean[] les cases contiennent {@code true} ssi la Ville dont l'id correspond
+     * @param villesAVisiter: boolean[] les cases contiennent {@code true} ssi la Ville dont l'id correspond
      *                       à l'index de la case a été visitée.
      * @return Le parcours le plus court partant de {@code v} passant par toute les villes n'ayant pas encore
      * été visitée et retournant à {@code this.villeDepart}.
      */
-    public Parcours rechercheAux(Ville v, boolean[] villesAVisitees) {
+    private Parcours rechercheAux(Ville v, boolean[] villesAVisiter) {
         Parcours p = new Parcours();
         p.ajouterVille(v);
-        if(Util.isAllTrue(villesAVisitees)){
+        if(Util.isAllTrue(villesAVisiter)){
+            this.nbBranchefait++;
+            System.out.println(this.nbBranchefait + "/" + this.nbPossibilites);
+
             p.ajouterVille(this.villeDepart);
             return p;
         }else{
             double distanceOptimum = Double.MAX_VALUE;
             Parcours parcoursOptimum = new Parcours();
-            for(int i = 0; i < villesAVisitees.length; i++){
-                if(!villesAVisitees[i]){
-                    double dist = this.pays.getOneVille(i)
+            for(int i = 0; i < villesAVisiter.length; i++){
+                if(!villesAVisiter[i]){
+                    boolean[] villesAVisiterBis = Util.clone(villesAVisiter);
+                    villesAVisiterBis[i] = true;
+                    Parcours pTemp = rechercheAux(this.pays.getOneVille(i), villesAVisiterBis);
+                    double distance = v.distance(this.pays.getOneVille(i)) + pTemp.getDistance();
+                    if(distance < distanceOptimum){
+                        distanceOptimum = distance;
+                        parcoursOptimum = pTemp;
+                    }
                 }
             }
+            p.ajouterParcours(parcoursOptimum);
+            return p;
         }
+    }
+
+    public Parcours recherche() {
+        boolean[] villesAVisiter = new boolean[this.nbVille];
+        for(int i = 0; i < villesAVisiter.length; i++){
+            villesAVisiter[i] = false;
+        }
+        villesAVisiter[this.villeDepart.getId()] = true;
+        return rechercheAux(this.villeDepart, villesAVisiter);
     }
 
 }
