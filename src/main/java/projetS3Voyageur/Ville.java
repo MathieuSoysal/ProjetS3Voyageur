@@ -3,41 +3,60 @@ package projetS3Voyageur;
 public class Ville {
 
     private static int instanceCount = 0;
-    private int idVille;
-    private Sommet sommet;
+    private int id;
+    private int x;
+    private int y;
 
 
-    //Constructeur
-    public Ville(Sommet sommet) {
-        this.idVille = this.instanceCount;
-        this.instanceCount++;
-        this.sommet = sommet;
-    }
+    //Constructeurs
 
-    public Ville(Ville v){
-        this.idVille = v.getIdVille();
+    public Ville(){
+        this.id = instanceCount;
+        instanceCount++;
+        this.x = Util.randomMinMax(0, 100);
+        this.y = Util.randomMinMax(0, 100);
     }
 
 
     //Getters & Setters
 
-    public int getIdVille() {
-        return idVille;
+    public int getId() {
+        return id;
     }
 
-    public Sommet getSommet() {
-        return sommet;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setCoords(int x, int y){
+        this.x = x;
+        this.y = y;
     }
 
 
     //Méthodes & Fonctions
 
-
-    @Override
-    public String toString() {
-        if(idVille < 10){
-            return "0" + idVille;
-        }
-        return "" + idVille;
+    /**
+     * @param v: Ville
+     * @return la distance entre {@code this} et {@code v} calculée à l'aide du théorème de Pythagore
+     */
+    public double distance(Ville v){
+        return Math.sqrt(Math.pow(this.x - v.x, 2)+Math.pow(this.y - v.y, 2));
     }
 }

@@ -5,7 +5,6 @@ import java.util.Random;
 public class Util {
 
     /**
-     *
      * @param min: int
      * @param max: int
      * @return un int entre min et max
@@ -21,17 +20,12 @@ public class Util {
         }
     }
 
-    /**
-     *
-     * @param n: int
-     * @return n! (n factorielle)
-     */
-    public static int factorielle(int n){
-        if(n <= 1){
-            return 1;
-        }else{
-            return n * factorielle(n-1);
+    public static boolean isAllTrue(boolean[] t){
+        int i = 0;
+        while(i < t.length && t[i]){
+            i++;
         }
+        return i >= t.length;
     }
 
 }
