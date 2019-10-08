@@ -5,7 +5,7 @@ public class Villes {
     private int nombreDeVilles;
 
     public Villes(int nombreDeVilles) {
-        if (nombreDeVilles < 3 | nombreDeVilles > 15) {
+        if (nombreDeVilles < 3) {
             throw new IndexOutOfBoundsException("Veuillez écrire un nombre de villes compris entre 3 et 15");
         }
         this.nombreDeVilles = nombreDeVilles;
