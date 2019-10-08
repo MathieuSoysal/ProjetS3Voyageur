@@ -1,20 +1,25 @@
 package projetS3Voyageur;
 
 public class Parcour{
-    private double distanceParcour;
+    private double distanceParcourue;
     private String villesEmprunté;
     
-    public Parcour(double distanceParcour,String villesEmprunté){
-        this.distanceParcour = distanceParcour;
+    public Parcour(double distanceParcourue,String villesEmprunté){
+        this.distanceParcourue = distanceParcourue;
         this.villesEmprunté = villesEmprunté;
     }
 
     public double getDistance(){
-        return distanceParcour;
+        return distanceParcourue;
     }
 
     public String getVillesEmprunté(){
         return villesEmprunté;
+    }
+
+    @Override
+    public String toString() {
+        return "Le parcours le plus court à une distance parcourue de : " + distanceParcourue + "\n  villes empruntées :" + villesEmprunté ;
     }
 
 }
