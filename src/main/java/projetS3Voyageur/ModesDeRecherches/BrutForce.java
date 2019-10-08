@@ -1,23 +1,21 @@
-package projetS3Voyageur;
+package projetS3Voyageur.ModesDeRecherches;
+import projetS3Voyageur.*;
 
-public class BrutForce {
+public class BrutForce implements ModeRecherche {
     final boolean dejaVisite = true;
     final boolean nonVisite = false;
     final int plusDeVillesAVisiter = 0;
+    private Pays pays;
 
     private int villeInital;
     private int nombreDeVilles;
 
-    private Pays pays;
     private Parcour parcourOptimum;
-
-    public BrutForce(Pays pays) {
+    
+    public void recherche(Pays pays, int villeDepart) {
         this.pays = pays;
-        this.villeInital = 0;
+        villeInital = villeDepart;
         nombreDeVilles = pays.getNombreDeVilles();
-    }
-
-    public void recherche() {
 
         boolean villesAVisiter[] = new boolean[nombreDeVilles];
         this.parcourOptimum = new Parcour(Double.MAX_VALUE, "Parcourt par défaut");
@@ -37,7 +35,7 @@ public class BrutForce {
             double distanceParcourueFinal = distanceParcourue + pays.getDistanceEntreVilles(villeActuel, villeInital);
 
             if (distanceParcourueFinal < parcourOptimum.getDistance())
-                parcourOptimum = new Parcour(distanceParcourueFinal, villesEmprunté + villeInital);
+                parcourOptimum = new Parcour(distanceParcourueFinal, villesEmprunté +"->"+ villeInital);
 
         } else {
             for (int villeChoisie = 0; villeChoisie < nombreDeVilles; villeChoisie++) {
@@ -47,7 +45,7 @@ public class BrutForce {
                             + pays.getDistanceEntreVilles(villeActuel, villeChoisie);
 
                     rechercheAux(villesAVisiter.clone(), villeChoisie, distanceParcourueActuel, nbVillesAVisiter - 1,
-                            villesEmprunté + villeChoisie);
+                            villesEmprunté +"->"+ villeChoisie);
                 }
 
             }

@@ -3,38 +3,25 @@ package projetS3Voyageur;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
+
 public class Voyageur {
     private Pays pays;
-    private Deque<Integer> villesAVisiter = new LinkedList<>();
+    private int villeDepart;
 
     public Voyageur(Pays pays, int numVilleDepart) {
         this.pays = pays;
-        initVillesAVisiter();
         setVilleDepart(numVilleDepart);
     }
 
-    private void initVillesAVisiter() {
-        for (Integer i = 0; i < pays.getNombreDeVilles(); i++) {
-            villesAVisiter.add(i);
-        }
-    }
 
     public void setVilleDepart(int numVille) {
-        while (villesAVisiter.peek() != numVille) {
-            villesAVisiter.offer(villesAVisiter.poll());
-        }
+        villeDepart = numVille;
     }
 
-    public String recherche(Recherche modeDeRecherche){
-        switch (modeDeRecherche){
-            case BrutForce:
-            //TODO: Penser à faire l'interface recherche
-            BrutForce brtforce = new BrutForce(pays);
-            brtforce.recherche();
-            return brtforce.getParcour().getVillesEmprunté();
-            default:
-            return null;
-        }
+    public String getParcour(ModeRecherche modeRecherche){
+        modeRecherche.recherche(pays, villeDepart);
+        return modeRecherche.getParcour().toString();
     }
 
 
