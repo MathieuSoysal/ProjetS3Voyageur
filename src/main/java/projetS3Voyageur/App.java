@@ -8,7 +8,7 @@ public class App {
 
         Pays france = new Pays(12);
         Voyageur mrSmins = new Voyageur(france, 0);
-         System.out.println(mrSmins.getParcour(new BrutForce()));
+         System.out.println(mrSmins.getParcours(new BrutForce()));
 
     }
 }

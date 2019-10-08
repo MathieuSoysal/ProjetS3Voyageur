@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Test;
 
+import projetS3Voyageur.CompositionPays.Position;
+import projetS3Voyageur.CompositionPays.Villes;
+
 public class TestVilles {
 
     final int nbVille = (int) (Math.random() * 9) + 3;

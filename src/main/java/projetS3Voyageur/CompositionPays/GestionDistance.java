@@ -1,4 +1,4 @@
-package projetS3Voyageur;
+package projetS3Voyageur.CompositionPays;
 
 
 public class GestionDistance {

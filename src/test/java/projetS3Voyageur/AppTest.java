@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Test;
 
+import projetS3Voyageur.CompositionPays.*;
+
 public class AppTest {
 
     @Test

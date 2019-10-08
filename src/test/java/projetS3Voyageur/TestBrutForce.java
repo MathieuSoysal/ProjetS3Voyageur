@@ -1,11 +1,13 @@
 package projetS3Voyageur;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import projetS3Voyageur.ModesDeRecherches.*;
+import projetS3Voyageur.CompositionPays.Position;
+import projetS3Voyageur.ModesDeRecherches.BrutForce;
+import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class TestBrutForce {
     private ModeRecherche brutForce = new BrutForce();

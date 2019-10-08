@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import projetS3Voyageur.CompositionPays.*;
+
 public class TestGestionDistance {
     Villes v;
     GestionDistance d;
