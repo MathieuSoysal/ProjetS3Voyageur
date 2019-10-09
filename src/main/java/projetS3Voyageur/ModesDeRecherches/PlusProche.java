@@ -33,13 +33,15 @@ public class PlusProche implements ModeRecherche {
     public void rechercheAux(boolean[] villesAVisiter, int villeActuel, int nbVillesAVisite) {
 
         if (nbVillesAVisite != 0) {
-            int villePlusProche = 0;
+            int villePlusProche = 1;
             double distanceMin = Double.MAX_VALUE;
             double distanceEntreVilles = 0;
             for (int villeI = 0; villeI < nombreDeVilles; villeI++) {
                 distanceEntreVilles = pays.getDistanceEntreVilles(villeActuel, villeI);
-                villePlusProche = (villesAVisiter[villeI] == nonVisite && distanceMin > distanceEntreVilles) ? villeI
-                        : villePlusProche;
+                if ((villesAVisiter[villeI] == nonVisite) && (distanceEntreVilles < distanceMin)) {
+                    villePlusProche = villeI;
+                    distanceMin = distanceEntreVilles;
+                }
             }
             villesAVisiter[villePlusProche] = visite;
             distanceParcourue += distanceEntreVilles;
