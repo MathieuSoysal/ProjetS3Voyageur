@@ -14,8 +14,9 @@ public class Pays {
             throw new IllegalArgumentException("Un pays doit avoir au moins une ville !");
         }
         this.villes = new Ville[nbVilles];
-        for(int i = 0; i < this.villes.length; i++){
+        for(int i = 0; i < this.villes.length; i++) {
             this.villes[i] = new Ville();
+            this.villes[i].setId(this.villes[i].getId() - this.villes[0].getId());
         }
     }
 
