@@ -15,6 +15,39 @@ public class TestBadTrack {
 
     // #region Ajout test Comparaison BrutForce
 
+    // #region Test avec set ville de départ
+
+    @Test
+    public void test_comparaisont_10villes_avecBrutForce_ville_depart_3() {
+        for (int i = 0; i < 10; i++) {
+            Pays pays = new Pays(10);
+            int villeDepart = (int) (Math.random() * 9);
+
+            ModeRecherche brutForce = new BrutForce();
+
+            brutForceMax.recherche(pays, villeDepart);
+            brutForce.recherche(pays, villeDepart);
+
+            assertEquals(brutForce.getParcour().getDistance(), brutForceMax.getParcour().getDistance());
+        }
+    }
+
+    @Test
+    public void test_comparaisont_9villes_avecBrutForce_villeDepart2() {
+        for (int i = 0; i < 15; i++) {
+            Pays pays = new Pays(9);
+            int villeDepart = (int) (Math.random() * 8);
+            ModeRecherche brutForce = new BrutForce();
+
+            brutForceMax.recherche(pays, villeDepart);
+            brutForce.recherche(pays, villeDepart);
+
+            assertEquals(brutForce.getParcour().getDistance(), brutForceMax.getParcour().getDistance());
+        }
+    }
+
+    // #endregion Test avec set ville de départ
+
     @Test
     public void test_comparaisont_10villes_avecBrutForce() {
         for (int i = 0; i < 10; i++) {
