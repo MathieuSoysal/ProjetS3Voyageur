@@ -25,10 +25,6 @@ public class TestVilles {
         assertThrows(IndexOutOfBoundsException.class, () -> new Villes(0));
     }
 
-    @Test
-    public void test_nbVille_trop_Eleve() {
-        assertThrows(IndexOutOfBoundsException.class, () -> new Villes(16));
-    }
 
     // #endregion
 
