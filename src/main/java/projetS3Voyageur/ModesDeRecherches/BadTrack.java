@@ -2,7 +2,7 @@ package projetS3Voyageur.ModesDeRecherches;
 
 import projetS3Voyageur.*;
 
-public class BrutForceMax implements ModeRecherche {
+public class BadTrack implements ModeRecherche {
     final boolean dejaVisite = true;
     final boolean nonVisite = false;
     final int plusDeVillesAVisiter = 0;

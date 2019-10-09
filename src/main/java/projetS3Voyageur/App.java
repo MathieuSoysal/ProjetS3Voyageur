@@ -9,7 +9,7 @@ public class App {
         Pays france = new Pays(10);
         Voyageur mrSmins = new Voyageur(france, 0);
          System.out.println(mrSmins.getParcours(new PlusProche()));
-         System.out.println(mrSmins.getParcours(new BrutForceMax()));
+         System.out.println(mrSmins.getParcours(new BadTrack()));
          System.out.println(mrSmins.getParcours(new BrutForce()));
 
     }
