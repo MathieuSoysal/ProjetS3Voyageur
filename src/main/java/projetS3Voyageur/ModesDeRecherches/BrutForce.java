@@ -10,7 +10,7 @@ public class BrutForce implements ModeRecherche {
     private int villeInital;
     private int nombreDeVilles;
 
-    private Parcour parcourOptimum;
+    private Parcours parcoursOptimum;
     
     public void recherche(Pays pays, int villeDepart) {
         this.pays = pays;
@@ -18,7 +18,7 @@ public class BrutForce implements ModeRecherche {
         nombreDeVilles = pays.getNombreDeVilles();
 
         boolean villesAVisiter[] = new boolean[nombreDeVilles];
-        this.parcourOptimum = new Parcour(Double.MAX_VALUE, "Parcourt par défaut");
+        this.parcoursOptimum = new Parcours(Double.MAX_VALUE, "Parcours par défaut");
 
         for (int i = 0; i < nombreDeVilles; i++)
             villesAVisiter[i] = nonVisite;
@@ -34,8 +34,8 @@ public class BrutForce implements ModeRecherche {
         if (nbVillesAVisiter == 0) {
             double distanceParcourueFinal = distanceParcourue + pays.getDistanceEntreVilles(villeActuel, villeInital);
 
-            if (distanceParcourueFinal < parcourOptimum.getDistance())
-                parcourOptimum = new Parcour(distanceParcourueFinal, villesEmprunté +"->"+ villeInital);
+            if (distanceParcourueFinal < parcoursOptimum.getDistance())
+                parcoursOptimum = new Parcours(distanceParcourueFinal, villesEmprunté +"->"+ villeInital);
 
         } else {
             for (int villeChoisie = 0; villeChoisie < nombreDeVilles; villeChoisie++) {
@@ -53,8 +53,8 @@ public class BrutForce implements ModeRecherche {
 
     }
 
-    public Parcour getParcour() {
-        return parcourOptimum;
+    public Parcours getParcour() {
+        return parcoursOptimum;
     }
 
 }

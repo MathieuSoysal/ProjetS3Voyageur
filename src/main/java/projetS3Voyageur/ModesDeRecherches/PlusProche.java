@@ -36,16 +36,21 @@ public class PlusProche implements ModeRecherche {
             int villePlusProche = 1;
             double distanceMin = Double.MAX_VALUE;
             double distanceEntreVilles = 0;
+
             for (int villeI = 0; villeI < nombreDeVilles; villeI++) {
+
                 distanceEntreVilles = pays.getDistanceEntreVilles(villeActuel, villeI);
+
                 if ((villesAVisiter[villeI] == nonVisite) && (distanceEntreVilles < distanceMin)) {
                     villePlusProche = villeI;
                     distanceMin = distanceEntreVilles;
                 }
             }
+
             villesAVisiter[villePlusProche] = visite;
             distanceParcourue += distanceEntreVilles;
             villesEmpruntee += "->" + villePlusProche;
+
             rechercheAux(villesAVisiter.clone(), villePlusProche, nbVillesAVisite - 1);
         } else {
             distanceParcourue += pays.getDistanceEntreVilles(villeActuel, villeInital);
@@ -54,9 +59,9 @@ public class PlusProche implements ModeRecherche {
     }
 
     @Override
-    public Parcour getParcour() {
+    public Parcours getParcour() {
 
-        return new Parcour(distanceParcourue, villesEmpruntee);
+        return new Parcours(distanceParcourue, villesEmpruntee);
     }
 
 }

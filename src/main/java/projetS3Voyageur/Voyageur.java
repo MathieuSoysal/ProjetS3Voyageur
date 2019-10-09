@@ -1,7 +1,5 @@
 package projetS3Voyageur;
 
-import java.util.Deque;
-import java.util.LinkedList;
 
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 

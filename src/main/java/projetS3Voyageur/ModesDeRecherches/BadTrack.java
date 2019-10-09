@@ -11,7 +11,7 @@ public class BadTrack implements ModeRecherche {
     private int villeInital;
     private int nombreDeVilles;
 
-    private Parcour parcourOptimum;
+    private Parcours parcourOptimum;
 
     public void recherche(Pays pays, int villeDepart) {
         this.pays = pays;
@@ -19,7 +19,7 @@ public class BadTrack implements ModeRecherche {
         nombreDeVilles = pays.getNombreDeVilles();
 
         boolean villesAVisiter[] = new boolean[nombreDeVilles];
-        this.parcourOptimum = new Parcour(Double.MAX_VALUE, "Parcourt par défaut");
+        this.parcourOptimum = new Parcours(Double.MAX_VALUE, "Parcours par défaut");
 
         for (int i = 0; i < nombreDeVilles; i++)
             villesAVisiter[i] = nonVisite;
@@ -38,7 +38,7 @@ public class BadTrack implements ModeRecherche {
                         + pays.getDistanceEntreVilles(villeActuel, villeInital);
 
                 if (distanceParcourueFinal < parcourOptimum.getDistance())
-                    parcourOptimum = new Parcour(distanceParcourueFinal, villesEmprunté + "->" + villeInital);
+                    parcourOptimum = new Parcours(distanceParcourueFinal, villesEmprunté + "->" + villeInital);
 
             } else {
                 for (int villeChoisie = 0; villeChoisie < nombreDeVilles; villeChoisie++) {
@@ -57,7 +57,7 @@ public class BadTrack implements ModeRecherche {
 
     }
 
-    public Parcour getParcour() {
+    public Parcours getParcour() {
         return parcourOptimum;
     }
 
