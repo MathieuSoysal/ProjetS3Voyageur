@@ -6,22 +6,69 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.Test;
 
 import projetS3Voyageur.CompositionPays.Position;
-import projetS3Voyageur.ModesDeRecherches.BrutForceMax;
+import projetS3Voyageur.ModesDeRecherches.BadTrack;
+import projetS3Voyageur.ModesDeRecherches.BrutForce;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
-public class TestBrutForceMax {
-    private ModeRecherche brutForce = new BrutForceMax();
+public class TestBadTrack {
+    private ModeRecherche brutForceMax = new BadTrack();
+
+    // #region Ajout test Comparaison BrutForce
+
+    @Test
+    public void test_comparaisont_10villes_avecBrutForce() {
+        for (int i = 0; i < 10; i++) {
+            Pays pays = new Pays(10);
+
+            ModeRecherche brutForce = new BrutForce();
+
+            brutForceMax.recherche(pays, 0);
+            brutForce.recherche(pays, 0);
+
+            assertEquals(brutForce.getParcour().getDistance(), brutForceMax.getParcour().getDistance());
+        }
+    }
+
+    @Test
+    public void test_comparaisont_9villes_avecBrutForce() {
+        for (int i = 0; i < 15; i++) {
+            Pays pays = new Pays(9);
+
+            ModeRecherche brutForce = new BrutForce();
+
+            brutForceMax.recherche(pays, 0);
+            brutForce.recherche(pays, 0);
+
+            assertEquals(brutForce.getParcour().getDistance(), brutForceMax.getParcour().getDistance());
+        }
+    }
+
+    @Test
+    public void test_comparaisont_8villes_avecBrutForce() {
+        for (int i = 0; i < 50; i++) {
+            Pays pays = new Pays(8);
+
+            ModeRecherche brutForce = new BrutForce();
+
+            brutForceMax.recherche(pays, 0);
+            brutForce.recherche(pays, 0);
+
+            assertEquals(brutForce.getParcour().getDistance(), brutForceMax.getParcour().getDistance());
+        }
+    }
+
+    // #endregion Ajout test COmparaison BrutForce
 
     @Test
     public void test_si_les_villes_ont_des_positions_random() {
 
-        brutForce.recherche(new Pays(6), 0);
+        brutForceMax.recherche(new Pays(6), 0);
 
-        String parcours1 = brutForce.getParcour().getVillesEmprunté();
+        String parcours1 = brutForceMax.getParcour().getVillesEmprunté();
 
-        brutForce.recherche(new Pays(6), 0);
+        brutForceMax.recherche(new Pays(6), 0);
 
-        assertNotEquals(parcours1, brutForce.getParcour().getVillesEmprunté());
+        assertNotEquals(parcours1, brutForceMax.getParcour().getVillesEmprunté());
 
     }
 
@@ -39,9 +86,9 @@ public class TestBrutForceMax {
         pays.setPositionVille(2, new Position(positionX, 4));
         pays.setPositionVille(3, new Position(positionX, 5));
 
-        brutForce.recherche(pays, 0);
+        brutForceMax.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->0", brutForce.getParcour().getVillesEmprunté());
+        assertEquals("0->1->2->3->0", brutForceMax.getParcour().getVillesEmprunté());
 
     }
 
@@ -58,9 +105,9 @@ public class TestBrutForceMax {
         pays.setPositionVille(3, new Position(positionX, 5));
         pays.setPositionVille(4, new Position(positionX, 6));
 
-        brutForce.recherche(pays, 0);
+        brutForceMax.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->4->0", brutForce.getParcour().getVillesEmprunté());
+        assertEquals("0->1->2->3->4->0", brutForceMax.getParcour().getVillesEmprunté());
 
     }
 
@@ -78,9 +125,9 @@ public class TestBrutForceMax {
         pays.setPositionVille(4, new Position(positionX, 6));
         pays.setPositionVille(5, new Position(positionX, 7));
 
-        brutForce.recherche(pays, 0);
+        brutForceMax.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->4->5->0", brutForce.getParcour().getVillesEmprunté());
+        assertEquals("0->1->2->3->4->5->0", brutForceMax.getParcour().getVillesEmprunté());
 
     }
 
@@ -98,9 +145,9 @@ public class TestBrutForceMax {
         pays.setPositionVille(4, new Position(positionX, 6));
         pays.setPositionVille(5, new Position(positionX, 7));
 
-        brutForce.recherche(pays, 0);
+        brutForceMax.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->4->5->0", brutForce.getParcour().getVillesEmprunté());
+        assertEquals("0->1->2->3->4->5->0", brutForceMax.getParcour().getVillesEmprunté());
 
     }
 
@@ -118,9 +165,9 @@ public class TestBrutForceMax {
         pays.setPositionVille(4, new Position(positionX, 6));
         pays.setPositionVille(5, new Position(positionX, 7));
 
-        brutForce.recherche(pays, 0);
+        brutForceMax.recherche(pays, 0);
 
-        double distanceMinimum = brutForce.getParcour().getDistance();
+        double distanceMinimum = brutForceMax.getParcour().getDistance();
 
         pays.setPositionVille(0, new Position(positionX, 2));
         pays.setPositionVille(4, new Position(positionX, 3));
@@ -129,9 +176,9 @@ public class TestBrutForceMax {
         pays.setPositionVille(1, new Position(positionX, 6));
         pays.setPositionVille(2, new Position(positionX, 7));
 
-        brutForce.recherche(pays, 0);
+        brutForceMax.recherche(pays, 0);
 
-        assertEquals(distanceMinimum, brutForce.getParcour().getDistance());
+        assertEquals(distanceMinimum, brutForceMax.getParcour().getDistance());
 
     }
 
@@ -153,9 +200,9 @@ public class TestBrutForceMax {
             pays.setPositionVille(4, new Position(positionX, t[4]));
             pays.setPositionVille(5, new Position(positionX, t[5]));
 
-            brutForce.recherche(pays, 0);
+            brutForceMax.recherche(pays, 0);
 
-            assertEquals(calculeDistanceLinaire(t), brutForce.getParcour().getDistance());
+            assertEquals(calculeDistanceLinaire(t), brutForceMax.getParcour().getDistance());
         }
 
     }
@@ -176,9 +223,9 @@ public class TestBrutForceMax {
         pays.setPositionVille(2, new Position(4, positionY));
         pays.setPositionVille(3, new Position(5, positionY));
 
-        brutForce.recherche(pays, 0);
+        brutForceMax.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->0", brutForce.getParcour().getVillesEmprunté());
+        assertEquals("0->1->2->3->0", brutForceMax.getParcour().getVillesEmprunté());
 
     }
 
@@ -195,9 +242,9 @@ public class TestBrutForceMax {
         pays.setPositionVille(3, new Position(5, positionY));
         pays.setPositionVille(4, new Position(6, positionY));
 
-        brutForce.recherche(pays, 0);
+        brutForceMax.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->4->0", brutForce.getParcour().getVillesEmprunté());
+        assertEquals("0->1->2->3->4->0", brutForceMax.getParcour().getVillesEmprunté());
 
     }
 
@@ -215,9 +262,9 @@ public class TestBrutForceMax {
         pays.setPositionVille(4, new Position(6, positionY));
         pays.setPositionVille(5, new Position(7, positionY));
 
-        brutForce.recherche(pays, 0);
+        brutForceMax.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->4->5->0", brutForce.getParcour().getVillesEmprunté());
+        assertEquals("0->1->2->3->4->5->0", brutForceMax.getParcour().getVillesEmprunté());
 
     }
 
@@ -235,9 +282,9 @@ public class TestBrutForceMax {
         pays.setPositionVille(4, new Position(6, positionY));
         pays.setPositionVille(5, new Position(7, positionY));
 
-        brutForce.recherche(pays, 0);
+        brutForceMax.recherche(pays, 0);
 
-        double distanceMinimum = brutForce.getParcour().getDistance();
+        double distanceMinimum = brutForceMax.getParcour().getDistance();
 
         pays.setPositionVille(0, new Position(2, positionY));
         pays.setPositionVille(4, new Position(3, positionY));
@@ -246,9 +293,9 @@ public class TestBrutForceMax {
         pays.setPositionVille(1, new Position(6, positionY));
         pays.setPositionVille(2, new Position(7, positionY));
 
-        brutForce.recherche(pays, 0);
+        brutForceMax.recherche(pays, 0);
 
-        assertEquals(distanceMinimum, brutForce.getParcour().getDistance());
+        assertEquals(distanceMinimum, brutForceMax.getParcour().getDistance());
 
     }
 
@@ -270,9 +317,9 @@ public class TestBrutForceMax {
             pays.setPositionVille(4, new Position(t[4], positionY));
             pays.setPositionVille(5, new Position(t[5], positionY));
 
-            brutForce.recherche(pays, 0);
+            brutForceMax.recherche(pays, 0);
 
-            assertEquals(calculeDistanceLinaire(t), brutForce.getParcour().getDistance());
+            assertEquals(calculeDistanceLinaire(t), brutForceMax.getParcour().getDistance());
         }
 
     }
