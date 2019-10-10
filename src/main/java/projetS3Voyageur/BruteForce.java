@@ -6,19 +6,12 @@ public class BruteForce {
     private int nbVille;
     private Ville villeDepart;
 
-    private long nbBranchefait;
-    private long nbPossibilites;
-
-
     //Constructeurs
 
     public BruteForce(Pays pays, Ville villeDepart){
         this.pays = pays;
         this.villeDepart = villeDepart;
         this.nbVille = pays.getNbVille();
-
-        this.nbBranchefait = 0;
-        this.nbPossibilites = Util.factorielle(this.nbVille-1);
     }
 
 
@@ -55,9 +48,6 @@ public class BruteForce {
         Parcours p = new Parcours();
         p.ajouterVille(v);
         if(Util.isAllTrue(villesAVisiter)){
-            this.nbBranchefait++;
-            System.out.println(this.nbBranchefait + "/" + this.nbPossibilites);
-
             p.ajouterVille(this.villeDepart);
             return p;
         }else{
