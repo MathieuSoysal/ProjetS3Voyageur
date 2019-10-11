@@ -62,6 +62,7 @@ public class UltimeCSV {
 
 
     public static void main(String[] args) {
+        //écrire marche mais lire ne marche pas
 
         List<String[]> liste = new ArrayList<String[]>();
         String[] villes = {"Paris", "Marseille", "Bordeaux"};
