@@ -10,7 +10,7 @@ public class App {
         // int nbIteration = 50;
         // for (int i = 0; i < nbIteration; i++) {
 
-            Pays france = new Pays(4);
+            Pays france = new Pays(13);
 
         //     long timeAlgo = new CurrentCPU(new BrutForce(), pays, 0).getTime();
         //     if (timeAlgo != 0)

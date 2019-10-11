@@ -337,7 +337,7 @@ public class TestBadTrack {
 
         Pays pays = new Pays(6);
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 15; i++) {
 
             int positionY = (int) (Math.random() * 50);
 
