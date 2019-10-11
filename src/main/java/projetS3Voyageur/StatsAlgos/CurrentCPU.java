@@ -1,12 +1,15 @@
-package projetS3Voyageur.ModesDeRecherches;
-
+package projetS3Voyageur.StatsAlgos;
 
 import java.lang.management.*;
 
+import projetS3Voyageur.Pays;
+import projetS3Voyageur.CompositionPays.Position;
+import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
+import projetS3Voyageur.ModesDeRecherches.PlusProche;
+
 public class CurrentCPU implements Runnable {
 
-    public static void main(String[] args)
-            throws Exception {
+    public static void main(String[] args) throws Exception {
 
         long temps = System.nanoTime();
         CurrentCPU test = new CurrentCPU();
@@ -30,15 +33,20 @@ public class CurrentCPU implements Runnable {
             long cpu = thread.getCurrentThreadCpuTime();
             Thread.sleep(300);
             long temps = System.nanoTime();
-            while (System.nanoTime() - temps < 700000000);
+            // ModeRecherche algo = new PlusProche();
+            // Pays pays = new Pays(6);
+            // for (int i = 0; i < 6; i++)
+            // pays.setPositionVille(i, new Position(0, i));
+
+            // algo.recherche(pays, 0);
+            for (int i = 0; i < 30; i++)
+                System.out.println("hi"); //TODO: Attention le temps qu'il renvoie n'est pas juste varie de 0 à 13750000 (voir plus)
             this.cpu = thread.getCurrentThreadCpuTime() - cpu;
+        } catch (InterruptedException e) {
         }
-        catch (InterruptedException e) {}
 
         finally {
             notify();
         }
     }
 }
-
-
