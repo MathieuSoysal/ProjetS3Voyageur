@@ -63,13 +63,12 @@ public class UltimeCSV {
 
     public static void main(String[] args) {
 
-        List<String> liste = new ArrayList<String>();
+        List<String[]> liste = new ArrayList<String[]>();
+        String[] villes = {"Paris", "Marseille", "Bordeaux"};
 
-        liste.add("Paris");
-        liste.add("Marseille");
-        liste.add("Bordeaux");
+       liste.add(villes);
 
-      /*  writeCSV(liste, ";", "ville.csv");*/
+       /* writeCSV(liste, ";", "ville.csv");*/
         readCSV(";", "ville.csv");
 
     }
