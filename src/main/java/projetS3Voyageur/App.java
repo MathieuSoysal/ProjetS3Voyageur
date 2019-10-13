@@ -8,8 +8,8 @@ public class App {
 
     public static void main(String[] args) throws Exception {
 
-        Comparer compare = new Comparer(new BrutForceV3_2(), new BrutForce());
-        compare.setNombreDeTest(5);
+        Comparer compare = new Comparer(new BrutForceV3_1(), new BrutForceV3_2());
+        compare.setNombreDeTest(100);
         compare.setNombreDeVilles(12);
         compare.afficher();
     }

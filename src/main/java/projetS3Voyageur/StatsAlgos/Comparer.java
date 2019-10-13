@@ -18,6 +18,10 @@ public class Comparer {
     private int nombreDeVilles = 10;
     private byte villeDepart = 0;
 
+    private String etapeChargementAttein = "##";
+    private String etapeChargementNonAttein = "#.";
+    private String barreDeChargement = "[#...................................................................................................]";
+
     public Comparer(ModeRecherche algo1, ModeRecherche algo2) {
         this.algo1 = algo1;
         this.algo2 = algo2;
@@ -32,6 +36,11 @@ public class Comparer {
     }
 
     public void afficher() {
+
+        for (int i = 1; i < (int) ((((double) 1) / ((double) nombreDeTestes)) * 100); i++) {
+            etapeChargementAttein += '#';
+            etapeChargementNonAttein += '.';
+        }
 
         for (int i = 0; i < nombreDeTestes; i++) {
 
@@ -58,11 +67,11 @@ public class Comparer {
 
     private void barreDeChargement(int i) {
         int charge = (int) ((((double) i) / ((double) nombreDeTestes)) * 100);
-        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n         [");
-        for (int j = 0; j < 100; j++) {
-            System.out.print((j <= charge) ? "#" : ".");
+        int chargePrecedant = ((int) ((((double) (i - 1)) / ((double) nombreDeTestes)) * 100));
+        if ((charge - chargePrecedant) != 0) {
+            barreDeChargement = barreDeChargement.replace(etapeChargementNonAttein, etapeChargementAttein);
         }
-        System.out.print("] \n \n \n \n");
+        System.out.print("\r" + barreDeChargement);
     }
 
     private long calculeTempsExecution(ModeRecherche algo) {
