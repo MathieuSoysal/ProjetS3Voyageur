@@ -23,9 +23,12 @@ public class App {
         // System.out.println(timeAlgo1 / nbIteration);
 
         Voyageur mrSmins = new Voyageur(france, 0);
-        System.out.println(mrSmins.getParcours(new PlusProche()));
-        System.out.println(mrSmins.getParcours(new BadTrack()));
+        long start = System.currentTimeMillis();
+        System.out.println(mrSmins.getParcours(new BrutForceV3()));
+        System.out.println(start-System.currentTimeMillis());
+        start = System.currentTimeMillis();
         System.out.println(mrSmins.getParcours(new BrutForce()));
+        System.out.println(start-System.currentTimeMillis());
 
     }
 }
