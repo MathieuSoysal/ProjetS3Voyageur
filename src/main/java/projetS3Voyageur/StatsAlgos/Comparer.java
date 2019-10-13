@@ -16,7 +16,7 @@ public class Comparer {
     private long tempsMoyenAlgo2 = 0;
 
     private int nombreDeVilles = 10;
-    private int villeDepart = 0;
+    private byte villeDepart = 0;
 
     public Comparer(ModeRecherche algo1, ModeRecherche algo2) {
         this.algo1 = algo1;
