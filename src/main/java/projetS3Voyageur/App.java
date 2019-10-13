@@ -8,7 +8,7 @@ public class App {
 
     public static void main(String[] args) throws Exception {
 
-        Comparer compare = new Comparer(new BrutForceV3_1(), new BrutForceV3_2());
+        Comparer compare = new Comparer(new BrutForceV3_1(), new BrutForceV4());
         compare.setNombreDeTest(100);
         compare.setNombreDeVilles(12);
         compare.afficher();

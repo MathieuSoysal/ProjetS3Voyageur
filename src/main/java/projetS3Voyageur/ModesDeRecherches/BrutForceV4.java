@@ -2,7 +2,7 @@ package projetS3Voyageur.ModesDeRecherches;
 
 import projetS3Voyageur.*;
 
-public class BrutForceV3_2 implements ModeRecherche {
+public class BrutForceV4 implements ModeRecherche {
 
     private int overFlow;
 
@@ -18,7 +18,7 @@ public class BrutForceV3_2 implements ModeRecherche {
         this.pays = pays;
         this.villeInitial = (byte) villeInitialP;
         nombreDeVilles = (byte) pays.getNombreDeVilles();
-        overFlow = 1 << nombreDeVilles;
+        overFlow = (1 << nombreDeVilles)-1;
         distanceOptimum = Double.MAX_VALUE;
 
         rechercheAuxDistance(1 << villeInitial, villeInitial, 0.0);
@@ -33,7 +33,7 @@ public class BrutForceV3_2 implements ModeRecherche {
         // Je prend en compte que la VilleActuell est déjà une ville visité
         if (distanceParcourue < distanceOptimum) {
 
-            if ((villesVisite + 1) == overFlow) {
+            if (villesVisite == overFlow) {
                 double distanceParcourueFinal = distanceParcourue
                         + pays.getDistanceEntreVilles(villeActuel, villeInitial);
 
@@ -61,11 +61,11 @@ public class BrutForceV3_2 implements ModeRecherche {
     }
 
     //TODO: à voir si on peut appliquer DRY
-    private void rechercheAuxDistance(int villesVisite, int villeActuel, double distanceParcourue) {
+    private void rechercheAuxDistance(int villesVisite, byte villeActuel, double distanceParcourue) {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
 
-        if ((villesVisite + 1) == overFlow) {
+        if (villesVisite == overFlow) {
             double distanceParcourueFinal = distanceParcourue + pays.getDistanceEntreVilles(villeActuel, villeInitial);
 
             if (distanceParcourueFinal < distanceOptimum) {
@@ -77,7 +77,7 @@ public class BrutForceV3_2 implements ModeRecherche {
                     villesVisite); villeFomatBinaire < overFlow; villeFomatBinaire = villeNonVisite(
                             villeFomatBinaire << 1, villesVisite)) {
 
-                int villeChoisie = Math.getExponent(villeFomatBinaire);
+                byte villeChoisie = (byte) (Math.getExponent(villeFomatBinaire));
 
                 rechercheAuxDistance(villesVisite + villeFomatBinaire, (villeChoisie),
                         distanceParcourue + pays.getDistanceEntreVilles(villeActuel, villeChoisie));
@@ -100,7 +100,7 @@ public class BrutForceV3_2 implements ModeRecherche {
 
     private int villeNonVisite(int villeActuel, int villesVisite) {
         villeActuel += villesVisite;
-        return villeActuel - (villeActuel & villesVisite);
+        return villeActuel ^ (villeActuel & villesVisite);
     }
 
     private byte[] emprunteVille(byte[] villesEmpruntees, int index, byte villeSuivante) {

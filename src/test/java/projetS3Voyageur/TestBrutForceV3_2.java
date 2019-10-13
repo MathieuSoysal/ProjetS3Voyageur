@@ -7,11 +7,11 @@ import org.junit.Test;
 
 import projetS3Voyageur.CompositionPays.Position;
 import projetS3Voyageur.ModesDeRecherches.BrutForceV3;
-import projetS3Voyageur.ModesDeRecherches.BrutForceV3_2;
+import projetS3Voyageur.ModesDeRecherches.BrutForceV4;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class TestBrutForceV3_2 {
-    private ModeRecherche algo = new BrutForceV3_2();
+    private ModeRecherche algo = new BrutForceV4();
 
     // #region test avec les résultat issue de BrutForce v2
     @Test
