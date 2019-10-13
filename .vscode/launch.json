@@ -9,13 +9,6 @@
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - CurrentCPU",
-            "request": "launch",
-            "mainClass": "projetS3Voyageur.ModesDeRecherches.CurrentCPU",
-            "projectName": "ProjetS3Voyageur"
-        },
-        {
-            "type": "java",
             "name": "CodeLens (Launch) - App",
             "request": "launch",
             "mainClass": "projetS3Voyageur.App",
