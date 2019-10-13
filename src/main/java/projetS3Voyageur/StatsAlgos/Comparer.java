@@ -46,12 +46,13 @@ public class Comparer {
 
         System.out.println("\n  Deuxième algo en paramètre :\n Temps moyen de recherche : " + tempsMoyenAlgo2);
 
-
-
-        System.out.println(" \n         Le " + ((tempsMoyenAlgo1 < tempsMoyenAlgo2) ? "premier" : "deuxième") + " algo est "
-                + ((((Double.min(tempsMoyenAlgo1, tempsMoyenAlgo2)) / (Double.max(tempsMoyenAlgo1, tempsMoyenAlgo2)))
-                        * 100))
-                + "% plus rapide !");
+        System.out
+                .println(
+                        " \n         Le " + ((tempsMoyenAlgo1 < tempsMoyenAlgo2) ? "premier" : "deuxième")
+                                + " algo est "
+                                + ((((Double.max(tempsMoyenAlgo1, tempsMoyenAlgo2))
+                                        / (Double.min(tempsMoyenAlgo1, tempsMoyenAlgo2)) - 1) * 100))
+                                + "% plus rapide !");
 
     }
 
