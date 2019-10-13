@@ -1,35 +1,16 @@
 package projetS3Voyageur;
 
 import projetS3Voyageur.ModesDeRecherches.*;
+import projetS3Voyageur.StatsAlgos.Comparer;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
 
-        // long timeAlgo1 = 0;
-        // int nbIteration = 50;
-        // for (int i = 0; i < nbIteration; i++) {
-
-            Pays france = new Pays(13);
-
-        //     long timeAlgo = new CurrentCPU(new BrutForce(), pays, 0).getTime();
-        //     if (timeAlgo != 0)
-        //         timeAlgo1 += timeAlgo;
-        //     else
-        //         nbIteration--;
-        //     // System.out.println(i+"%");
-        // }
-
-        // System.out.println(timeAlgo1 / nbIteration);
-
-        Voyageur mrSmins = new Voyageur(france, 0);
-        long start = System.currentTimeMillis();
-        System.out.println(mrSmins.getParcours(new BrutForceV3()));
-        System.out.println(start-System.currentTimeMillis());
-        start = System.currentTimeMillis();
-        System.out.println(mrSmins.getParcours(new BrutForce()));
-        System.out.println(start-System.currentTimeMillis());
-
+        Comparer compare = new Comparer(new BrutForce(), new BrutForceV3());
+        compare.setNombreDeTest(100);
+        compare.setNombreDeVilles(11);
+        compare.afficher();
     }
 }
 
