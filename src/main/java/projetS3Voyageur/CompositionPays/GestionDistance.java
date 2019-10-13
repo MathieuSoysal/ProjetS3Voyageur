@@ -1,5 +1,6 @@
 package projetS3Voyageur.CompositionPays;
 
+import static java.lang.Math.hypot;
 
 public class GestionDistance {
 
@@ -17,12 +18,11 @@ public class GestionDistance {
 
         for (int i = 0; i < nbVilles; i++) {
             for (int j = 0; j < nbVilles; j++) {
-                    distancesV[i][j] = hypotegnius(ecartEnX(i, j), ecartEnY(i, j));
+                distancesV[i][j] = hypot(ecartEnX(i, j), ecartEnY(i, j));
             }
         }
 
     }
-    
 
     /**
      * Renvoi la distance entre deux villes
@@ -47,7 +47,7 @@ public class GestionDistance {
 
         for (int villeI = 0; villeI < nbVilles; villeI++) {
             if (villeI != numVille) {
-                hypotegnius = hypotegnius(ecartEnX(villeI, numVille), ecartEnY(villeI, numVille));
+                hypotegnius = hypot(ecartEnX(villeI, numVille), ecartEnY(villeI, numVille));
                 distancesV[villeI][numVille] = hypotegnius;
                 distancesV[numVille][villeI] = hypotegnius;
 
@@ -79,18 +79,6 @@ public class GestionDistance {
      */
     private int ecartEnY(int ville1, int ville2) {
         return villes.getPositionVille(ville1).getY() - villes.getPositionVille(ville2).getY();
-    }
-
-    /**
-     * Retourne l'hyptégnius entre une droit x et une droite y, selon la formule de
-     * Pythagore
-     * 
-     * @param distanceX ecart entre deux points sur l'ordonné x
-     * @param distanceY ecart entre deux points sur l'ordonné y
-     * @return {@code int} retourne l'hyptégnius
-     */
-    private double hypotegnius(int distanceX, int distanceY) {
-        return  Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
     }
 
         /**
