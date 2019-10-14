@@ -1,16 +1,22 @@
 package projetS3Voyageur;
 
 import projetS3Voyageur.ModesDeRecherches.*;
+import projetS3Voyageur.StatsAlgos.Analyser;
 import projetS3Voyageur.StatsAlgos.Comparer;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
-        ModeRecherche[] listAlgo = { new BrutForceV3(), new BrutForceV3_1(), new BrutForceV4() };
-        Comparer compare = new Comparer(listAlgo);
-        compare.setNombreDeTest(10);
-        compare.setNombreDeVilles(12);
-        compare.afficher();
+
+        Analyser analyse = new Analyser(new BrutForceV4());
+        analyse.setNbIteration(120);
+        analyse.afficher();
+
+        // ModeRecherche[] listAlgo = { new BrutForceV3(), new BrutForceV3_1(), new BrutForceV4() };
+        // Comparer compare = new Comparer(listAlgo);
+        // compare.setNombreDeTest(100);
+        // compare.setNombreDeVilles(11);
+        // compare.afficher();
     }
 }
 // Pays france = new Pays(11);
