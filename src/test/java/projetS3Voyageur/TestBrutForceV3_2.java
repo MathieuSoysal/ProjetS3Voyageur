@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.Test;
 
 import projetS3Voyageur.CompositionPays.Position;
-import projetS3Voyageur.ModesDeRecherches.BrutForceV3;
 import projetS3Voyageur.ModesDeRecherches.BrutForceV4;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 

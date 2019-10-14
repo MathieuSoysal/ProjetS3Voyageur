@@ -1,6 +1,5 @@
 package projetS3Voyageur;
 
-import projetS3Voyageur.CompositionPays.Position;
 import projetS3Voyageur.ModesDeRecherches.*;
 import projetS3Voyageur.StatsAlgos.Comparer;
 

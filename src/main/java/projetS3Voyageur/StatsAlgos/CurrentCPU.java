@@ -2,10 +2,7 @@ package projetS3Voyageur.StatsAlgos;
 
 import java.lang.management.*;
 
-import projetS3Voyageur.Pays;
-import projetS3Voyageur.CompositionPays.Position;
-import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
-import projetS3Voyageur.ModesDeRecherches.PlusProche;
+
 
 public class CurrentCPU implements Runnable {
 
