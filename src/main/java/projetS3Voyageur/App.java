@@ -8,7 +8,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         ModeRecherche[] listAlgo = { new BrutForceV3(), new BrutForceV3_1(), new BrutForceV4() };
         Comparer compare = new Comparer(listAlgo);
-        compare.setNombreDeTest(25);
+        compare.setNombreDeTest(10);
         compare.setNombreDeVilles(12);
         compare.afficher();
     }

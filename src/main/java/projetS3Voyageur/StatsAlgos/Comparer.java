@@ -12,6 +12,7 @@ public class Comparer {
     private int nombreDeTestes = 20;
 
     private double tempsMoyenAlgo[];
+    private double tempsMoyenAlgoVariance[];
 
     private int nombreDeVilles = 10;
     private byte villeDepart = 0;
@@ -23,6 +24,7 @@ public class Comparer {
     public Comparer(ModeRecherche[] listAlgo) {
         this.listAlgo = listAlgo;
         this.tempsMoyenAlgo = new double[listAlgo.length];
+        this.tempsMoyenAlgoVariance = new double[listAlgo.length];
 
     }
 
@@ -46,15 +48,17 @@ public class Comparer {
         }
         double tempsPlusLent = recupéreTempsPlusLent();
         for (int i = 0; i < tempsMoyenAlgo.length; i++) {
+            double ecartType = Math.sqrt(tempsMoyenAlgoVariance[i] - Math.pow(tempsMoyenAlgo[i], 2));
             int poucentage = (int) ((((tempsPlusLent) / ((tempsMoyenAlgo[i]))) - 1) * 100);
             System.out.println("\n algo n°" + i + " dans la liste :\n Temps moyen de recherche : " + tempsMoyenAlgo[i]
-                    + "\n En moyenne " + poucentage + " % plus rapide que l'algo le plus lent."+"\n");
+                    + "\n En moyenne " + poucentage + " % plus rapide que l'algo le plus lent."
+                    + "\n Marge d'erreure : " + ecartType);
 
         }
 
     }
 
-    public void calculeTempsExecutionBrut(){
+    public void calculeTempsExecutionBrut() {
         for (int i = 0; i < nombreDeTestes; i++) {
 
             effectueAlgos();
@@ -62,10 +66,12 @@ public class Comparer {
         }
     }
 
-
     private void effectueAlgos() {
         for (int j = 0; j < listAlgo.length; j++) {
-            tempsMoyenAlgo[j] += calculeTempsExecution(listAlgo[j]);
+            double tempsExecution = calculeTempsExecution(listAlgo[j]);
+            tempsMoyenAlgo[j] += tempsExecution / nombreDeTestes;
+            tempsMoyenAlgoVariance[j] += (Math.pow(tempsExecution, 2)) / nombreDeTestes;
+
         }
     }
 
@@ -93,12 +99,12 @@ public class Comparer {
         System.out.print("\r" + barreDeChargement);
     }
 
-    private double calculeTempsExecution(ModeRecherche algo) {
+    private long calculeTempsExecution(ModeRecherche algo) {
         long startTime = System.currentTimeMillis();
         algo.recherche(new Pays(nombreDeVilles), villeDepart);
         ;
         long endTime = System.currentTimeMillis();
-        return (endTime - startTime) / nombreDeTestes;
+        return (endTime - startTime);
     }
 
     // #region Pour les tests
