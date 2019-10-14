@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - UltimeCSV",
+            "request": "launch",
+            "mainClass": "projetS3Voyageur.ModesDeRecherches.UltimeCSV",
+            "projectName": "ProjetS3Voyageur"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - App",
             "request": "launch",
             "mainClass": "projetS3Voyageur.App",
