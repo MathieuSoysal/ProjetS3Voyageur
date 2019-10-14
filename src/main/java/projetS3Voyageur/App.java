@@ -1,41 +1,28 @@
 package projetS3Voyageur;
 
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.BenchmarkMode;
-import org.openjdk.jmh.annotations.Fork;
-import org.openjdk.jmh.annotations.Mode;
-
-import java.io.IOException;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
 
 public class App {
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @Fork(value = 1, warmups = 1)
-    public void init(){
-        //Do nothing
-    }
 
 
     public static void main(String[] args) {
 
-        try{
-            org.openjdk.jmh.Main.main(args);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-
-        /*Pays pays = new Pays(10);
+        Pays pays = new Pays(12);
 
         Voyageur v = new Voyageur(pays, pays.getOneVille(0));
 
         System.out.println("Nombre de possibilitées : " + Util.factorielle(pays.getNbVille()-1));
         System.out.println("Execution en cours (Cela peut prendre plusieurs minutes [voir heures])...");
 
+        long startTime = System.nanoTime();
+
         Parcours p = v.recherche();
 
-        System.out.println(p);*/
+        long endTime = System.nanoTime();
+
+        System.out.println(p);
+        System.out.println("Temps passé : " + (endTime - startTime)/1000000 + "ms");
 
     }
 }
