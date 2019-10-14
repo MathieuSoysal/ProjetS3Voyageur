@@ -3,9 +3,15 @@
         {
             "type": "java",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "name": "CodeLens (Launch) - CurrentCPU",
             "request": "launch",
             "mainClass": "projetS3Voyageur.StatsAlgos.CurrentCPU",
+=======
+            "name": "CodeLens (Launch) - UltimeCSV",
+            "request": "launch",
+            "mainClass": "projetS3Voyageur.ModesDeRecherches.UltimeCSV",
+>>>>>>> a4692ca618c1c4ffaba62edb6fcc959b29fe48a9
 =======
             "name": "CodeLens (Launch) - UltimeCSV",
             "request": "launch",
