@@ -8,12 +8,10 @@ public class Comparer {
     // TODO: Attention ce programme est à faire en dernier lorsque tout les
     // programmes ont validé les tests
 
-    private ModeRecherche algo1;
-    private ModeRecherche algo2;
+    private ModeRecherche[] listAlgo;
     private int nombreDeTestes = 20;
 
-    private long tempsMoyenAlgo1 = 0;
-    private long tempsMoyenAlgo2 = 0;
+    private double tempsMoyenAlgo[];
 
     private int nombreDeVilles = 10;
     private byte villeDepart = 0;
@@ -22,9 +20,10 @@ public class Comparer {
     private String etapeChargementNonAttein = "#.";
     private String barreDeChargement = "[#...................................................................................................]";
 
-    public Comparer(ModeRecherche algo1, ModeRecherche algo2) {
-        this.algo1 = algo1;
-        this.algo2 = algo2;
+    public Comparer(ModeRecherche[] listAlgo) {
+        this.listAlgo = listAlgo;
+        this.tempsMoyenAlgo = new double[listAlgo.length];
+
     }
 
     public void setNombreDeTest(int nombreDeTests) {
@@ -37,32 +36,52 @@ public class Comparer {
 
     public void afficher() {
 
+        barreDeChargementInit();
+
+        for (int i = 0; i < nombreDeTestes; i++) {
+
+            effectueAlgos();
+
+            barreDeChargement(i);
+        }
+        double tempsPlusLent = recupéreTempsPlusLent();
+        for (int i = 0; i < tempsMoyenAlgo.length; i++) {
+            int poucentage = (int) ((((tempsPlusLent) / ((tempsMoyenAlgo[i]))) - 1) * 100);
+            System.out.println("\n algo n°" + i + " dans la liste :\n Temps moyen de recherche : " + tempsMoyenAlgo[i]
+                    + "\n En moyenne " + poucentage + " % plus rapide que l'algo le plus lent."+"\n");
+
+        }
+
+    }
+
+    public void calculeTempsExecutionBrut(){
+        for (int i = 0; i < nombreDeTestes; i++) {
+
+            effectueAlgos();
+
+        }
+    }
+
+
+    private void effectueAlgos() {
+        for (int j = 0; j < listAlgo.length; j++) {
+            tempsMoyenAlgo[j] += calculeTempsExecution(listAlgo[j]);
+        }
+    }
+
+    private double recupéreTempsPlusLent() {
+        double tempsPlusLent = 0.;
+        for (double tempsMoyen : tempsMoyenAlgo) {
+            tempsPlusLent = (tempsMoyen > tempsPlusLent) ? tempsMoyen : tempsPlusLent;
+        }
+        return tempsPlusLent;
+    }
+
+    private void barreDeChargementInit() {
         for (int i = 1; i < (int) ((((double) 1) / ((double) nombreDeTestes)) * 100); i++) {
             etapeChargementAttein += '#';
             etapeChargementNonAttein += '.';
         }
-
-        for (int i = 0; i < nombreDeTestes; i++) {
-
-            tempsMoyenAlgo1 += calculeTempsExecution(algo1) / nombreDeTestes;
-
-            tempsMoyenAlgo2 += calculeTempsExecution(algo2) / nombreDeTestes;
-
-            barreDeChargement(i);
-        }
-
-        System.out.println("\n  Premier algo en paramètre :\n Temps moyen de recherche : " + tempsMoyenAlgo1);
-
-        System.out.println("\n  Deuxième algo en paramètre :\n Temps moyen de recherche : " + tempsMoyenAlgo2);
-
-        System.out
-                .println(
-                        " \n         Le " + ((tempsMoyenAlgo1 < tempsMoyenAlgo2) ? "premier" : "deuxième")
-                                + " algo est "
-                                + ((((Double.max(tempsMoyenAlgo1, tempsMoyenAlgo2))
-                                        / (Double.min(tempsMoyenAlgo1, tempsMoyenAlgo2)) - 1) * 100))
-                                + "% plus rapide !");
-
     }
 
     private void barreDeChargement(int i) {
@@ -74,31 +93,19 @@ public class Comparer {
         System.out.print("\r" + barreDeChargement);
     }
 
-    private long calculeTempsExecution(ModeRecherche algo) {
+    private double calculeTempsExecution(ModeRecherche algo) {
         long startTime = System.currentTimeMillis();
         algo.recherche(new Pays(nombreDeVilles), villeDepart);
         ;
         long endTime = System.currentTimeMillis();
-        return endTime - startTime;
+        return (endTime - startTime) / nombreDeTestes;
     }
 
     // #region Pour les tests
 
-    public void calculeTempsExecutionBrut() {
-        for (int i = 0; i < nombreDeTestes; i++) {
-
-            tempsMoyenAlgo1 += calculeTempsExecution(algo1) / nombreDeTestes;
-
-            tempsMoyenAlgo2 += calculeTempsExecution(algo2) / nombreDeTestes;
-        }
+    public double getTempsMoyenAlgo(int i) {
+        return tempsMoyenAlgo[i];
     }
 
-    public long getTempsMoyenAlgo1() {
-        return tempsMoyenAlgo1;
-    }
-
-    public long getTempsMoyenAlgo2() {
-        return tempsMoyenAlgo2;
-    }
     // #endregion pour les tests
 }

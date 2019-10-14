@@ -5,19 +5,21 @@ import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import projetS3Voyageur.ModesDeRecherches.BrutForce;
+import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 import projetS3Voyageur.StatsAlgos.Comparer;
 
 public class ComparerTest {
 
     @Test
     public void test_temps_execution_moyen() {
-        Comparer test = new Comparer(new BrutForce(), new BrutForce());
+        ModeRecherche[] listAlgo = {new BrutForce(), new BrutForce()};
+        Comparer test = new Comparer(listAlgo);
         test.setNombreDeTest(100);
         test.setNombreDeVilles(10);
         test.calculeTempsExecutionBrut();
 
-        long timeAlgo1 = test.getTempsMoyenAlgo1();
-        long timeAlgo2 = test.getTempsMoyenAlgo2();
+        double timeAlgo1 = test.getTempsMoyenAlgo(1);
+        double timeAlgo2 = test.getTempsMoyenAlgo(2);
 
         // même si je lance deux fois le même programe il y a une légére fluctuation
         // même sur 100 tests

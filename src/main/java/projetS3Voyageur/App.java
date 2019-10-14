@@ -6,9 +6,9 @@ import projetS3Voyageur.StatsAlgos.Comparer;
 public class App {
 
     public static void main(String[] args) throws Exception {
-
-        Comparer compare = new Comparer(new BrutForceV3_1(), new BrutForceV4());
-        compare.setNombreDeTest(100);
+        ModeRecherche[] listAlgo = { new BrutForceV3(), new BrutForceV3_1(), new BrutForceV4() };
+        Comparer compare = new Comparer(listAlgo);
+        compare.setNombreDeTest(25);
         compare.setNombreDeVilles(12);
         compare.afficher();
     }
