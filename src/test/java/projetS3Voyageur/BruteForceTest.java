@@ -41,4 +41,12 @@ public class BruteForceTest {
 
         assertEquals(villes.toString(), bf.recherche().getVillesEmpruntees().toString());
     }
+
+    @Test
+    public void recherche2(){
+        Pays pays = new Pays(15);
+        bf = new BruteForce(pays, pays.getOneVille(0));
+        Parcours p = bf.recherche();
+        System.out.println(p);
+    }
 }
