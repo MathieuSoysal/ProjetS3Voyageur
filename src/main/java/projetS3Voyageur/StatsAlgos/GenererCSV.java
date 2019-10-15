@@ -50,6 +50,7 @@ public class GenererCSV {
         int i = 0;
         String[] statsAlgo;
         for (ModeRecherche currentAlgo : listAlgo) {
+            System.out.println("\n"+currentAlgo.getNom()+" :");
             analyse = new Analyser(nbVillesMax, nbIteration, currentAlgo);
             analyse.calcul();
             statsAlgo = convertToString(i++, analyse.getResultat());
@@ -76,8 +77,8 @@ public class GenererCSV {
     /**
      * @param nbVillesMax the nbVillesMax to set
      */
-    public void setNbVillesMax(byte nbVillesMax) {
-        this.nbVillesMax = nbVillesMax;
+    public void setNbVillesMax(int nbVillesMax) {
+        this.nbVillesMax = (byte) nbVillesMax;
     }
 
     /**
