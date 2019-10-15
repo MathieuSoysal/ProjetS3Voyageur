@@ -18,8 +18,8 @@ public class ComparerTest {
         test.setNombreDeVilles(10);
         test.calculeTempsExecutionBrut();
 
-        double timeAlgo1 = test.getTempsMoyenAlgo(1);
-        double timeAlgo2 = test.getTempsMoyenAlgo(2);
+        double timeAlgo1 = test.getTempsMoyenAlgo(0);
+        double timeAlgo2 = test.getTempsMoyenAlgo(1);
 
         // même si je lance deux fois le même programe il y a une légére fluctuation
         // même sur 100 tests
