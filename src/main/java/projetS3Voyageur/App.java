@@ -3,20 +3,32 @@ package projetS3Voyageur;
 import projetS3Voyageur.ModesDeRecherches.*;
 import projetS3Voyageur.StatsAlgos.Analyser;
 import projetS3Voyageur.StatsAlgos.Comparer;
+import projetS3Voyageur.StatsAlgos.GenererCSV;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
+        ModeRecherche[] listeAlgo = {new BrutForceV3(), new BrutForceV3_1(),new BrutForceV4(), new BadTrack()};
+        GenererCSV fichierCSV = new GenererCSV(listeAlgo, "Stats.csv");
+        fichierCSV.Genere();
 
         // Analyser analyse = new Analyser(new BrutForceV4());
         // analyse.setNbIteration(120);
+        //analyse.calculer();
         // analyse.afficher();
 
-        ModeRecherche[] listAlgo = { new BrutForceV3(), new BrutForceV3_1(), new BrutForceV4() };
-        Comparer compare = new Comparer(listAlgo);
-        compare.setNombreDeTest(100);
-        compare.setNombreDeVilles(11);
-        compare.afficher();
+        // byte nbVillesMax = (byte) 11;
+        // String[] attributs=new String[nbVillesMax+1];
+        // attributs[0] = "Algorithmes";
+        // for (byte i = 0; i < nbVillesMax; i++) {
+        //     attributs[i + 1] = String.valueOf(i + 3);
+        // }
+
+        // ModeRecherche[] listAlgo = { new BrutForceV3(), new BrutForceV3_1(), new BrutForceV4() };
+        // Comparer compare = new Comparer(listAlgo);
+        // compare.setNombreDeTest(100);
+        // compare.setNombreDeVilles(11);
+        // compare.afficher();
     }
 }
 // Pays france = new Pays(11);

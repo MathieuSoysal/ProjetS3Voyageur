@@ -37,7 +37,35 @@ public class Analyser {
 
     }
 
+    public void afficher() {
+        //TODO: vérifier qu'il à déjà fait un calculer
+        for (int i = 0; i < tempsMoyenParVilles.length; i++) {
+            double ecartType = Math.sqrt(margeErreurParVilles[i] - Math.pow(tempsMoyenParVilles[i], 2));
+            System.out.println("\n " + algo.getNom() + " : " + " Résultat avec " + (i + 3)
+                    + " villes  :\n Temps moyen de recherche : " + tempsMoyenParVilles[i] + "\n Marge d'erreur : "
+                    + ecartType);
+
+        }
+    }
+
+    public void calcul() {
+        barreDeChargementInit(nbIteration);
+        for (byte nbVille = 3; nbVille < nbVillesMax; nbVille++) {
+            barreDeChargement = BARRE_DE_CHARGEMENT_INIT;
+            for (byte i = 0; i < nbIteration; i++) {
+                double tempsExecution = calculeTempsExecution(nbVille);
+                tempsMoyenParVilles[nbVille - 3] += tempsExecution / nbIteration;
+                margeErreurParVilles[nbVille - 3] += (Math.pow(tempsExecution, 2)) / nbIteration;
+                barreDeChargement(i, nbVille);
+            }
+        }
+    }
+
     // #region setter / Getter
+
+    public double[] getResultat(){
+        return tempsMoyenParVilles;
+    }
 
     /**
      * @param nbVillesMax the nbVillesMax to set
@@ -54,27 +82,6 @@ public class Analyser {
     }
 
     // #endregion setter/ getter
-
-    public void afficher() {
-        barreDeChargementInit(nbIteration);
-        for (byte nbVille = 3; nbVille < nbVillesMax; nbVille++) {
-            barreDeChargement = BARRE_DE_CHARGEMENT_INIT;
-            for (byte i = 0; i < nbIteration; i++) {
-                double tempsExecution = calculeTempsExecution(nbVille);
-                tempsMoyenParVilles[nbVille - 3] += tempsExecution / nbIteration;
-                margeErreurParVilles[nbVille - 3] += (Math.pow(tempsExecution, 2)) / nbIteration;
-                barreDeChargement(i, nbVille);
-            }
-        }
-
-        for (int i = 0; i < tempsMoyenParVilles.length; i++) {
-            double ecartType = Math.sqrt(margeErreurParVilles[i] - Math.pow(tempsMoyenParVilles[i], 2));
-            System.out.println("\n " + algo.getNom() + " : " + " Résultat avec " + (i + 3)
-                    + " villes  :\n Temps moyen de recherche : " + tempsMoyenParVilles[i] + "\n Marge d'erreur : "
-                    + ecartType);
-
-        }
-    }
 
     // #region Barre de chargement
 
