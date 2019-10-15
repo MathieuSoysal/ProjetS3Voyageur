@@ -50,9 +50,13 @@ public class Comparer {
         for (int i = 0; i < tempsMoyenAlgo.length; i++) {
             double ecartType = Math.sqrt(tempsMoyenAlgoVariance[i] - Math.pow(tempsMoyenAlgo[i], 2));
             int poucentage = (int) ((((tempsPlusLent) / ((tempsMoyenAlgo[i]))) - 1) * 100);
-            System.out.println("\n Résultat avec " + listAlgo[i].getNom() + " :\n Temps moyen de recherche : "
-                    + tempsMoyenAlgo[i] + "\n En moyenne " + poucentage + " % plus rapide que l'algo le plus lent."
-                    + "\n Marge d'erreur : " + ecartType);
+
+            String tempsMoyenObtenue = " :\n Temps moyen de recherche : " + tempsMoyenAlgo[i];
+            String differenceAvecPlusLent = "\n En moyenne " + poucentage + " % plus rapide que l'algo le plus lent.";
+            String margeErreur = "\n Marge d'erreur : " + ecartType;
+
+            System.out.println("\n Résultat avec " + listAlgo[i].getNom() + tempsMoyenObtenue + differenceAvecPlusLent
+                    + margeErreur);
 
         }
 
