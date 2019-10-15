@@ -81,4 +81,9 @@ public class BrutForceV3 implements ModeRecherche {
         return villesEmpruntees.clone();
     }
 
+    @Override
+    public String getNom() {
+        return "BrutForce v3";
+    }
+
 }

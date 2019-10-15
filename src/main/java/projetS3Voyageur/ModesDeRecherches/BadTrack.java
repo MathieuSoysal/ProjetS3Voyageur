@@ -61,4 +61,9 @@ public class BadTrack implements ModeRecherche {
         return parcourOptimum;
     }
 
+    @Override
+    public String getNom() {
+        return "BadTrack";
+    }
+
 }

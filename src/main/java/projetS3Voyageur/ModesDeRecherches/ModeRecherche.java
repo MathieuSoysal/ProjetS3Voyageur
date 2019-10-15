@@ -5,4 +5,5 @@ public interface ModeRecherche{
 
     public void recherche(Pays pays,int villeDepart);
     public Parcours getParcour();
+    public String getNom();
 }

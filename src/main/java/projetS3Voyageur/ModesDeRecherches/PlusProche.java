@@ -64,4 +64,9 @@ public class PlusProche implements ModeRecherche {
         return new Parcours(distanceParcourue, villesEmpruntee);
     }
 
+    @Override
+    public String getNom() {
+        return "PlusProche";
+    }
+
 }

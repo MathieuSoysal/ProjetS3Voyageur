@@ -50,7 +50,7 @@ public class Analyser {
      * @param nbIteration the nbIteration to set
      */
     public void setNbIteration(int nbIteration) {
-        this.nbIteration =  nbIteration;
+        this.nbIteration = nbIteration;
     }
 
     // #endregion setter/ getter
@@ -69,8 +69,9 @@ public class Analyser {
 
         for (int i = 0; i < tempsMoyenParVilles.length; i++) {
             double ecartType = Math.sqrt(margeErreurParVilles[i] - Math.pow(tempsMoyenParVilles[i], 2));
-            System.out.println("\n Résultat avec " + (i + 3) + " villes  :\n Temps moyen de recherche : "
-                    + tempsMoyenParVilles[i] + "\n Marge d'erreur : " + ecartType);
+            System.out.println("\n " + algo.getNom() + " : " + " Résultat avec " + (i + 3)
+                    + " villes  :\n Temps moyen de recherche : " + tempsMoyenParVilles[i] + "\n Marge d'erreur : "
+                    + ecartType);
 
         }
     }

@@ -57,4 +57,9 @@ public class BrutForce implements ModeRecherche {
         return parcoursOptimum;
     }
 
+    @Override
+    public String getNom() {
+        return "BrutForce";
+    }
+
 }
