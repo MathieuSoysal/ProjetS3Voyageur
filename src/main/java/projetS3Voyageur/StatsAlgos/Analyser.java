@@ -66,13 +66,13 @@ public class Analyser {
         boolean securite = true;
         for (byte nbVille = 3; nbVille < nbVillesMax; nbVille++) {
             barreDeChargement = BARRE_DE_CHARGEMENT_INIT;
-            for (byte i = 0; i < nbIteration && securite; i++) {
+            for (byte i = 0; (i < nbIteration) && securite; i++) {
                 double tempsExecution = calculeTempsExecution(nbVille);
                 tempsMoyenParVilles[nbVille - 3] += tempsExecution / nbIteration;
                 margeErreurParVilles[nbVille - 3] += (Math.pow(tempsExecution, 2)) / nbIteration;
                 barreDeChargement(i, nbVille);
-                securite = ((tempsMoyenParVilles[nbVille - 3]
-                        * (nbIteration / ((i == 0) ? 1 : i)) < (tempsMaximum * 1000)));
+                securite = (((tempsMoyenParVilles[nbVille - 3]
+                        * (nbIteration / ((i == 0) ? 1 : i))) < (tempsMaximum * 1000)));
             }
             tempsMoyenParVilles[nbVille - 3] = (!securite) ? 0 : tempsMoyenParVilles[nbVille - 3];
         }
@@ -115,7 +115,7 @@ public class Analyser {
         if ((charge - chargePrecedant) != 0) {
             barreDeChargement = barreDeChargement.replace(etapeChargementNonAttein, etapeChargementAttein);
         }
-        System.out.print("\rnombre de villes :" + (nbVille + "/" + (nbVillesMax - 1) + " " + barreDeChargement));
+        System.out.print("\rnombre de villes :" + (nbVille + "/" + (nbVillesMax) + " " + barreDeChargement));
     }
 
     // #endregion barre de Chargement

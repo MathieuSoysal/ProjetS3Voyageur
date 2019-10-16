@@ -10,7 +10,7 @@ public class GenererCSV {
 
     private byte nbVillesMax = 12;
     private int nbIteration = 100;
-    private long tempsMax = Long.MAX_VALUE;
+    private long tempsMax = 180;
 
     private ModeRecherche[] listAlgo;
 
