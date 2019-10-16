@@ -8,11 +8,15 @@ import projetS3Voyageur.StatsAlgos.GenererCSV;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        ModeRecherche[] listeAlgo = {new BrutForceV3(), new BrutForceV3_1(),new BrutForceV4(), new BadTrack()};
-        GenererCSV fichierCSV = new GenererCSV(listeAlgo, "Stats.csv");
-        fichierCSV.setTempsMax(3);
-        fichierCSV.setNbVillesMax(16);
-        fichierCSV.Genere();
+        ModeRecherche badTrack = new BadTrackV2();
+        badTrack.recherche(new Pays(6),0);
+        System.out.println(badTrack.getParcour().getDistance());
+
+        // ModeRecherche[] listeAlgo = {new BrutForceV3(), new BrutForceV3_1(),new BrutForceV4(), new BadTrack()};
+        // GenererCSV fichierCSV = new GenererCSV(listeAlgo, "Stats.csv");
+        // fichierCSV.setTempsMax(3);
+        // fichierCSV.setNbVillesMax(16);
+        // fichierCSV.Genere();
 
         // Analyser analyse = new Analyser(new BrutForceV4());
         // analyse.setNbIteration(120);
