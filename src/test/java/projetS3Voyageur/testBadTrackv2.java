@@ -12,7 +12,7 @@ import projetS3Voyageur.ModesDeRecherches.BrutForce;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class testBadTrackv2 {
-    private ModeRecherche brutForceMax = new BadTrackV2();
+    private ModeRecherche badTrackv2 = new BadTrackV2();
 
     // #region Ajout test Comparaison BrutForce
 
@@ -26,9 +26,9 @@ public class testBadTrackv2 {
         pays.setPositionVille(2, new Position(193, 957));
         pays.setPositionVille(3, new Position(582, 183));
 
-        brutForceMax.recherche(pays, 0);
+        badTrackv2.recherche(pays, 0);
 
-        assertEquals(2463, (int) (brutForceMax.getParcour().getDistance()));
+        assertEquals(2463, (int) (badTrackv2.getParcour().getDistance()));
     }
 
     @Test
@@ -40,9 +40,9 @@ public class testBadTrackv2 {
         pays.setPositionVille(3, new Position(54, 754));
         pays.setPositionVille(4, new Position(29, 745));
 
-        brutForceMax.recherche(pays, 0);
+        badTrackv2.recherche(pays, 0);
 
-        assertEquals(1281, (int) (brutForceMax.getParcour().getDistance()));
+        assertEquals(1281, (int) (badTrackv2.getParcour().getDistance()));
     }
 
     @Test
@@ -55,9 +55,9 @@ public class testBadTrackv2 {
         pays.setPositionVille(4, new Position(345, 855));
         pays.setPositionVille(5, new Position(645, 452));
 
-        brutForceMax.recherche(pays, 0);
+        badTrackv2.recherche(pays, 0);
 
-        assertEquals(1813, (int) (brutForceMax.getParcour().getDistance()));
+        assertEquals(1813, (int) (badTrackv2.getParcour().getDistance()));
     }
 
     @Test
@@ -71,9 +71,9 @@ public class testBadTrackv2 {
         pays.setPositionVille(5, new Position(508, 209));
         pays.setPositionVille(6, new Position(298, 408));
 
-        brutForceMax.recherche(pays, 0);
+        badTrackv2.recherche(pays, 0);
 
-        assertEquals(1640, (int) (brutForceMax.getParcour().getDistance()));
+        assertEquals(1640, (int) (badTrackv2.getParcour().getDistance()));
     }
 
     @Test
@@ -88,9 +88,9 @@ public class testBadTrackv2 {
         pays.setPositionVille(6, new Position(728, 374));
         pays.setPositionVille(7, new Position(898, 192));
 
-        brutForceMax.recherche(pays, 0);
+        badTrackv2.recherche(pays, 0);
 
-        assertEquals(13046, (int) (brutForceMax.getParcour().getDistance()));
+        assertEquals(13046, (int) (badTrackv2.getParcour().getDistance()));
     }
 
     @Test
@@ -106,9 +106,9 @@ public class testBadTrackv2 {
         pays.setPositionVille(7, new Position(8918, 1922));
         pays.setPositionVille(8, new Position(8098, 1142));
 
-        brutForceMax.recherche(pays, 0);
+        badTrackv2.recherche(pays, 0);
 
-        assertEquals(20058, (int) (brutForceMax.getParcour().getDistance()));
+        assertEquals(20058, (int) (badTrackv2.getParcour().getDistance()));
     }
 
     @Test
@@ -125,9 +125,9 @@ public class testBadTrackv2 {
         pays.setPositionVille(8, new Position(530, 24));
         pays.setPositionVille(9, new Position(890, 152));
 
-        brutForceMax.recherche(pays, 0);
+        badTrackv2.recherche(pays, 0);
 
-        assertEquals(3081, (int) (brutForceMax.getParcour().getDistance()));
+        assertEquals(3081, (int) (badTrackv2.getParcour().getDistance()));
     }
 
     @Test
@@ -145,9 +145,9 @@ public class testBadTrackv2 {
         pays.setPositionVille(9, new Position(518, 817));
         pays.setPositionVille(10, new Position(25, 104));
 
-        brutForceMax.recherche(pays, 0);
+        badTrackv2.recherche(pays, 0);
 
-        assertEquals(2451, (int) (brutForceMax.getParcour().getDistance()));
+        assertEquals(2451, (int) (badTrackv2.getParcour().getDistance()));
     }
 
     // #endregion test avec les résultats issue de BrutForce v2
@@ -162,10 +162,10 @@ public class testBadTrackv2 {
 
             ModeRecherche brutForce = new BrutForce();
 
-            brutForceMax.recherche(pays, villeDepart);
+            badTrackv2.recherche(pays, villeDepart);
             brutForce.recherche(pays, villeDepart);
 
-            assertEquals(brutForce.getParcour().getDistance(), brutForceMax.getParcour().getDistance());
+            assertEquals(brutForce.getParcour().getDistance(), badTrackv2.getParcour().getDistance());
         }
     }
 
@@ -176,10 +176,10 @@ public class testBadTrackv2 {
             int villeDepart = (int) (Math.random() * 8);
             ModeRecherche brutForce = new BrutForce();
 
-            brutForceMax.recherche(pays, villeDepart);
+            badTrackv2.recherche(pays, villeDepart);
             brutForce.recherche(pays, villeDepart);
 
-            assertEquals(brutForce.getParcour().getDistance(), brutForceMax.getParcour().getDistance());
+            assertEquals(brutForce.getParcour().getDistance(), badTrackv2.getParcour().getDistance());
         }
     }
 
@@ -192,10 +192,10 @@ public class testBadTrackv2 {
 
             ModeRecherche brutForce = new BrutForce();
 
-            brutForceMax.recherche(pays, 0);
+            badTrackv2.recherche(pays, 0);
             brutForce.recherche(pays, 0);
 
-            assertEquals(brutForce.getParcour().getDistance(), brutForceMax.getParcour().getDistance());
+            assertEquals(brutForce.getParcour().getDistance(), badTrackv2.getParcour().getDistance());
         }
     }
 
@@ -206,10 +206,10 @@ public class testBadTrackv2 {
 
             ModeRecherche brutForce = new BrutForce();
 
-            brutForceMax.recherche(pays, 0);
+            badTrackv2.recherche(pays, 0);
             brutForce.recherche(pays, 0);
 
-            assertEquals(brutForce.getParcour().getDistance(), brutForceMax.getParcour().getDistance());
+            assertEquals(brutForce.getParcour().getDistance(), badTrackv2.getParcour().getDistance());
         }
     }
 
@@ -220,10 +220,10 @@ public class testBadTrackv2 {
 
             ModeRecherche brutForce = new BrutForce();
 
-            brutForceMax.recherche(pays, 0);
+            badTrackv2.recherche(pays, 0);
             brutForce.recherche(pays, 0);
 
-            assertEquals(brutForce.getParcour().getDistance(), brutForceMax.getParcour().getDistance());
+            assertEquals(brutForce.getParcour().getDistance(), badTrackv2.getParcour().getDistance());
         }
     }
 
@@ -232,13 +232,13 @@ public class testBadTrackv2 {
     @Test
     public void test_si_les_villes_ont_des_positions_random() {
 
-        brutForceMax.recherche(new Pays(6), 0);
+        badTrackv2.recherche(new Pays(6), 0);
 
-        String parcours1 = brutForceMax.getParcour().getVillesEmprunté();
+        String parcours1 = badTrackv2.getParcour().getVillesEmprunté();
 
-        brutForceMax.recherche(new Pays(6), 0);
+        badTrackv2.recherche(new Pays(6), 0);
 
-        assertNotEquals(parcours1, brutForceMax.getParcour().getVillesEmprunté());
+        assertNotEquals(parcours1, badTrackv2.getParcour().getVillesEmprunté());
 
     }
 
@@ -261,9 +261,9 @@ public class testBadTrackv2 {
         pays.setPositionVille(4, new Position(positionX, 6));
         pays.setPositionVille(5, new Position(positionX, 7));
 
-        brutForceMax.recherche(pays, 0);
+        badTrackv2.recherche(pays, 0);
 
-        double distanceMinimum = brutForceMax.getParcour().getDistance();
+        double distanceMinimum = badTrackv2.getParcour().getDistance();
 
         pays.setPositionVille(0, new Position(positionX, 2));
         pays.setPositionVille(4, new Position(positionX, 3));
@@ -272,9 +272,9 @@ public class testBadTrackv2 {
         pays.setPositionVille(1, new Position(positionX, 6));
         pays.setPositionVille(2, new Position(positionX, 7));
 
-        brutForceMax.recherche(pays, 0);
+        badTrackv2.recherche(pays, 0);
 
-        assertEquals(distanceMinimum, brutForceMax.getParcour().getDistance());
+        assertEquals(distanceMinimum, badTrackv2.getParcour().getDistance());
 
     }
 
@@ -296,9 +296,9 @@ public class testBadTrackv2 {
             pays.setPositionVille(4, new Position(positionX, t[4]));
             pays.setPositionVille(5, new Position(positionX, t[5]));
 
-            brutForceMax.recherche(pays, 0);
+            badTrackv2.recherche(pays, 0);
 
-            assertEquals(calculeDistanceLinaire(t), brutForceMax.getParcour().getDistance());
+            assertEquals(calculeDistanceLinaire(t), badTrackv2.getParcour().getDistance());
         }
 
     }
@@ -321,9 +321,9 @@ public class testBadTrackv2 {
         pays.setPositionVille(4, new Position(6, positionY));
         pays.setPositionVille(5, new Position(7, positionY));
 
-        brutForceMax.recherche(pays, 0);
+        badTrackv2.recherche(pays, 0);
 
-        double distanceMinimum = brutForceMax.getParcour().getDistance();
+        double distanceMinimum = badTrackv2.getParcour().getDistance();
 
         pays.setPositionVille(0, new Position(2, positionY));
         pays.setPositionVille(4, new Position(3, positionY));
@@ -332,9 +332,9 @@ public class testBadTrackv2 {
         pays.setPositionVille(1, new Position(6, positionY));
         pays.setPositionVille(2, new Position(7, positionY));
 
-        brutForceMax.recherche(pays, 0);
+        badTrackv2.recherche(pays, 0);
 
-        assertEquals(distanceMinimum, brutForceMax.getParcour().getDistance());
+        assertEquals(distanceMinimum, badTrackv2.getParcour().getDistance());
 
     }
 
@@ -356,9 +356,9 @@ public class testBadTrackv2 {
             pays.setPositionVille(4, new Position(t[4], positionY));
             pays.setPositionVille(5, new Position(t[5], positionY));
 
-            brutForceMax.recherche(pays, 0);
+            badTrackv2.recherche(pays, 0);
 
-            assertEquals(calculeDistanceLinaire(t), brutForceMax.getParcour().getDistance());
+            assertEquals(calculeDistanceLinaire(t), badTrackv2.getParcour().getDistance());
         }
 
     }

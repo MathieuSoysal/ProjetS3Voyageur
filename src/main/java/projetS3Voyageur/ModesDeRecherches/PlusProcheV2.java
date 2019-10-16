@@ -112,7 +112,7 @@ public class PlusProcheV2 implements ModeRecherche {
 
     @Override
     public String getNom() {
-        return "BrutForce v4";
+        return "PlusProche v2";
     }
 
 }

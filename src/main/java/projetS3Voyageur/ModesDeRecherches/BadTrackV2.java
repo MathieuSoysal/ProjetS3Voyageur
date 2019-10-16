@@ -112,7 +112,7 @@ public class BadTrackV2 implements ModeRecherche {
 
     @Override
     public String getNom() {
-        return "BrutForce v4";
+        return "BadTrack v2";
     }
 
 }
