@@ -9,11 +9,11 @@ public class App {
 
     public static void main(String[] args) throws Exception {
 
-        // ModeRecherche[] listeAlgo = {new BrutForce(), new BrutForceV3(), new BrutForceV3_1(),new BrutForceV4(), new BadTrack(), new BadTrackV2(),new TrackProches()};
-        // GenererCSV fichierCSV = new GenererCSV(listeAlgo, "Stats.csv");
-        // fichierCSV.setTempsMax(7);
-        // fichierCSV.setNbVillesMax(20);
-        // fichierCSV.Genere();
+        ModeRecherche[] listeAlgo = {new BrutForce(), new BrutForceV3(), new BrutForceV3_1(),new BrutForceV4(), new BadTrack(), new BadTrackV2(),new TrackProches()};
+        GenererCSV fichierCSV = new GenererCSV(listeAlgo, "Stats.csv");
+        fichierCSV.setTempsMax(8);
+        fichierCSV.setNbVillesMax(20);
+        fichierCSV.Genere();
 
         // Analyser analyse = new Analyser(new BrutForceV4());
         // analyse.setNbIteration(120);
@@ -27,11 +27,11 @@ public class App {
         //     attributs[i + 1] = String.valueOf(i + 3);
         // }
 
-        ModeRecherche[] listAlgo = { new BadTrackV2(),new TrackProches(), new PlusProcheV2(), new PlusProche() };
-        Comparer compare = new Comparer(listAlgo);
-        compare.setNombreDeTest(1000);
-        compare.setNombreDeVilles(11);
-        compare.afficher();
+        // ModeRecherche[] listAlgo = { new BadTrackV2(),new TrackProches(), new PlusProcheV2(), new PlusProche() };
+        // Comparer compare = new Comparer(listAlgo);
+        // compare.setNombreDeTest(1000);
+        // compare.setNombreDeVilles(11);
+        // compare.afficher();
     }
 }
 // Pays france = new Pays(11);
