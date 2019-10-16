@@ -12,7 +12,7 @@ import projetS3Voyageur.ModesDeRecherches.PlusProche;
 import projetS3Voyageur.ModesDeRecherches.PlusProcheV2;
 
 public class testPlusProcheV2 {
-    private ModeRecherche badTrackv2 = new PlusProcheV2();
+    private ModeRecherche plusProchev2 = new PlusProcheV2();
     private ModeRecherche badTrackv1 = new PlusProche();
 
     // #region test sur Y
@@ -28,12 +28,12 @@ public class testPlusProcheV2 {
         pays.setPositionVille(2, new Position(positionX, 4));
         pays.setPositionVille(3, new Position(positionX, 5));
 
-        badTrackv2.recherche(pays, 0);
-        badTrackv1.recherche(pays, 0);
+        plusProchev2.recherche(pays, 0);
 
         long distanceBadTrackv1 = (long) badTrackv1.getParcour().getDistance();
-        long distanceBadTrackv2 = (long) badTrackv2.getParcour().getDistance();
+        long distanceBadTrackv2 = (long) plusProchev2.getParcour().getDistance();
 
+        assertEquals("0>1>2>3>0", plusProchev2.getParcour().getVillesEmprunté());
         assertEquals(6, distanceBadTrackv2);
 
     }
@@ -51,13 +51,11 @@ public class testPlusProcheV2 {
         pays.setPositionVille(3, new Position(positionX, 5));
         pays.setPositionVille(4, new Position(positionX, 6));
 
-        badTrackv2.recherche(pays, 0);
-        badTrackv1.recherche(pays, 0);
+        plusProchev2.recherche(pays, 0);
 
-        long distance = (long) badTrackv2.getParcour().getDistance();
 
-        assertEquals((1 + 1 + 1 + 1 + 4), distance);
-        assertEquals(distance, (long) parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
+        assertEquals("0>1>2>3>4>0", plusProchev2.getParcour().getVillesEmprunté());
+        assertEquals((1 + 1 + 1 + 1 + 4), (long) plusProchev2.getParcour().getDistance());
 
     }
 
@@ -75,10 +73,10 @@ public class testPlusProcheV2 {
         pays.setPositionVille(4, new Position(positionX, 6));
         pays.setPositionVille(5, new Position(positionX, 7));
 
-        badTrackv2.recherche(pays, 0);
-        badTrackv1.recherche(pays, 0);
+        plusProchev2.recherche(pays, 0);
 
-        assertEquals((10), (long) badTrackv2.getParcour().getDistance());
+        assertEquals("0>1>2>3>4>5>0", plusProchev2.getParcour().getVillesEmprunté());
+        assertEquals((10), (long) plusProchev2.getParcour().getDistance());
 
     }
     // #endregion test sur Y
@@ -96,10 +94,10 @@ public class testPlusProcheV2 {
         pays.setPositionVille(2, new Position(4, positionY));
         pays.setPositionVille(3, new Position(5, positionY));
 
-        badTrackv2.recherche(pays, 0);
-        badTrackv1.recherche(pays, 0);
+        plusProchev2.recherche(pays, 0);
 
-        assertEquals(6, (long) badTrackv2.getParcour().getDistance());
+        assertEquals("0>1>2>3>0", plusProchev2.getParcour().getVillesEmprunté());
+        assertEquals(6, (long) plusProchev2.getParcour().getDistance());
 
     }
 
@@ -116,10 +114,10 @@ public class testPlusProcheV2 {
         pays.setPositionVille(3, new Position(5, positionY));
         pays.setPositionVille(4, new Position(6, positionY));
 
-        badTrackv2.recherche(pays, 0);
-        badTrackv1.recherche(pays, 0);
+        plusProchev2.recherche(pays, 0);
 
-        assertEquals(8, (long) badTrackv2.getParcour().getDistance());
+        assertEquals("0>1>2>3>4>0", plusProchev2.getParcour().getVillesEmprunté());
+        assertEquals(8, (long) plusProchev2.getParcour().getDistance());
 
     }
 
@@ -137,10 +135,10 @@ public class testPlusProcheV2 {
         pays.setPositionVille(4, new Position(6, positionY));
         pays.setPositionVille(5, new Position(7, positionY));
 
-        badTrackv2.recherche(pays, 0);
-        badTrackv1.recherche(pays, 0);
+        plusProchev2.recherche(pays, 0);
 
-        assertEquals(10, (long) badTrackv2.getParcour().getDistance());
+        assertEquals("0>1>2>3>4>5>0", plusProchev2.getParcour().getVillesEmprunté());
+        assertEquals(10, (long) plusProchev2.getParcour().getDistance());
 
     }
 
