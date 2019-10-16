@@ -10,10 +10,10 @@ public class GenererCSV {
 
     private byte nbVillesMax = 12;
     private int nbIteration = 100;
+    private long tempsMax = Long.MAX_VALUE;
 
     private ModeRecherche[] listAlgo;
 
-    private String[][] statsAlgos;
     private ArrayList<String[]> tuples = new ArrayList<>();
 
     private String nonFichier;
@@ -24,9 +24,13 @@ public class GenererCSV {
     public GenererCSV(ModeRecherche[] listAlgo, String nonFichier) {
         this.listAlgo = listAlgo;
         this.nonFichier = nonFichier;
+        initTuple();
+    }
+
+    private void initTuple() {
         String[] attributs = new String[nbVillesMax - 2];
         attributs[0] = "Algorithmes";
-        for (byte i = 0; i < (nbVillesMax-3); i++) {
+        for (byte i = 0; i < (nbVillesMax - 3); i++) {
             attributs[i + 1] = String.valueOf(i + 3);
         }
         tuples.add(attributs);
@@ -42,7 +46,7 @@ public class GenererCSV {
         this.nbVillesMax = (byte) nbVillesMax;
         this.nbIteration = nbIteration;
         this.listAlgo = listAlgo;
-        statsAlgos = new String[listAlgo.length][nbVillesMax - 3];
+        initTuple();
     }
 
     public void Genere() {
@@ -50,9 +54,9 @@ public class GenererCSV {
         int i = 0;
         String[] statsAlgo;
         for (ModeRecherche currentAlgo : listAlgo) {
-            System.out.println("\n"+currentAlgo.getNom()+" :");
+            System.out.println("\n" + currentAlgo.getNom() + " :");
             analyse = new Analyser(nbVillesMax, nbIteration, currentAlgo);
-            analyse.calcul();
+            analyse.calculSafe(tempsMax);
             statsAlgo = convertToString(i++, analyse.getResultat());
             statsAlgo[0] = currentAlgo.getNom();
             tuples.add(statsAlgo);
@@ -65,7 +69,10 @@ public class GenererCSV {
     private String[] convertToString(int indexAglo, double[] tempsMoyenParVilles) {
         String statsAlgo[] = new String[tempsMoyenParVilles.length + 1];
         for (int i = 0; i < tempsMoyenParVilles.length; i++) {
-            statsAlgo[i+1] = String.valueOf(tempsMoyenParVilles[i]).replace('.', ',');
+            if (tempsMoyenParVilles[i] != 0)
+                statsAlgo[i + 1] = String.valueOf(tempsMoyenParVilles[i]).replace('.', ',');
+            else
+                statsAlgo[i + 1] = "";
         }
         return statsAlgo;
     }
@@ -86,6 +93,13 @@ public class GenererCSV {
      */
     public void setNbIteration(int nbIteration) {
         this.nbIteration = nbIteration;
+    }
+
+    /**
+     * @param tempsMax the tempsMax to set
+     */
+    public void setTempsMax(long tempsMax) {
+        this.tempsMax = tempsMax;
     }
 
     // #endregion Settet

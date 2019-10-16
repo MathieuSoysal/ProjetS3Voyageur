@@ -71,8 +71,10 @@ public class Analyser {
                 tempsMoyenParVilles[nbVille - 3] += tempsExecution / nbIteration;
                 margeErreurParVilles[nbVille - 3] += (Math.pow(tempsExecution, 2)) / nbIteration;
                 barreDeChargement(i, nbVille);
-                securite = (tempsMoyenParVilles[nbVille - 3] * (nbIteration / i) > (tempsMaximum * 1000));
+                securite = ((tempsMoyenParVilles[nbVille - 3]
+                        * (nbIteration / ((i == 0) ? 1 : i)) < (tempsMaximum * 1000)));
             }
+            tempsMoyenParVilles[nbVille - 3] = (!securite) ? 0 : tempsMoyenParVilles[nbVille - 3];
         }
     }
 

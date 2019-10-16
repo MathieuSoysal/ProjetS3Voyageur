@@ -10,6 +10,8 @@ import projetS3Voyageur.StatsAlgos.Comparer;
 
 public class ComparerTest {
 
+//TODO: ajouter les autres tests
+
     @Test
     public void test_temps_execution_moyen() {
         ModeRecherche[] listAlgo = {new BrutForce(), new BrutForce()};
