@@ -2,16 +2,22 @@ package projetS3Voyageur;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import projetS3Voyageur.CompositionPays.Position;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 import projetS3Voyageur.ModesDeRecherches.PlusProche;
 
-public class TestPlusProche {
+public class TestPlusProche { 
+
+    // class Obsoléte se référé à la deuxième version
+    
+
     private ModeRecherche plusProche = new PlusProche();
 
     // #region test sur Y
+    @Ignore
     @Test
     public void test_distanceLinaireSurY_ParcourOptimum_Pour_4villes() {
 
@@ -32,6 +38,7 @@ public class TestPlusProche {
 
     }
 
+    @Ignore
     @Test
     public void test_distanceLinaireSurY_ParcourOptimum_Pour_5villes() {
 
@@ -52,6 +59,7 @@ public class TestPlusProche {
 
     }
 
+    @Ignore
     @Test
     public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes_distance_linaire() {
 
@@ -73,6 +81,7 @@ public class TestPlusProche {
 
     }
 
+    @Ignore
     @Test
     public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes() {
 
@@ -96,6 +105,7 @@ public class TestPlusProche {
     // #endregion test sur Y
     // #region distance linaire sur X
 
+    @Ignore
     @Test
     public void test_distanceLinaireSurX_distanceLinaireSurX_ParcourOptimum_Pour_4villes() {
 
@@ -115,6 +125,7 @@ public class TestPlusProche {
 
     }
 
+    @Ignore
     @Test
     public void test_distanceLinaireSurX_ParcourOptimum_Pour_5villes() {
 
@@ -135,6 +146,7 @@ public class TestPlusProche {
 
     }
 
+    @Ignore
     @Test
     public void test_distanceLinaireSurX_ParcourOptimum_Pour_6villes_distance_linaire() {
 
