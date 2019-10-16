@@ -2,6 +2,7 @@ package projetS3Voyageur;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static projetS3Voyageur.OutilsTest.parcoursVilles;
 
 import org.junit.Test;
 
@@ -42,6 +43,8 @@ public class TestBrutForce {
         brutForce.recherche(pays, 0);
 
         assertEquals("0->1->2->3->0", brutForce.getParcour().getVillesEmprunté());
+        assertEquals(brutForce.getParcour().getDistance(),
+                parcoursVilles(pays, brutForce.getParcour().getVillesEmprunté(),"->"));
 
     }
 
@@ -61,6 +64,8 @@ public class TestBrutForce {
         brutForce.recherche(pays, 0);
 
         assertEquals("0->1->2->3->4->0", brutForce.getParcour().getVillesEmprunté());
+        assertEquals(brutForce.getParcour().getDistance(),
+                parcoursVilles(pays, brutForce.getParcour().getVillesEmprunté(),"->"));
 
     }
 
@@ -81,7 +86,8 @@ public class TestBrutForce {
         brutForce.recherche(pays, 0);
 
         assertEquals("0->1->2->3->4->5->0", brutForce.getParcour().getVillesEmprunté());
-
+        assertEquals(brutForce.getParcour().getDistance(),
+                parcoursVilles(pays, brutForce.getParcour().getVillesEmprunté(),"->"));
     }
 
     @Test
@@ -101,7 +107,8 @@ public class TestBrutForce {
         brutForce.recherche(pays, 0);
 
         assertEquals("0->1->2->3->4->5->0", brutForce.getParcour().getVillesEmprunté());
-
+        assertEquals(brutForce.getParcour().getDistance(),
+                parcoursVilles(pays, brutForce.getParcour().getVillesEmprunté(),"->"));
     }
 
     @Test
@@ -132,7 +139,8 @@ public class TestBrutForce {
         brutForce.recherche(pays, 0);
 
         assertEquals(distanceMinimum, brutForce.getParcour().getDistance());
-
+        assertEquals(brutForce.getParcour().getDistance(),
+                parcoursVilles(pays, brutForce.getParcour().getVillesEmprunté(),"->"));
     }
 
     @Test // TODO: Précision se test est possible de fair en sorte qu'il soit plus rapide
@@ -157,6 +165,8 @@ public class TestBrutForce {
 
             assertEquals(calculeDistanceLinaire(t), brutForce.getParcour().getDistance());
         }
+        assertEquals(brutForce.getParcour().getDistance(),
+                parcoursVilles(pays, brutForce.getParcour().getVillesEmprunté(),"->"));
 
     }
 
@@ -179,7 +189,8 @@ public class TestBrutForce {
         brutForce.recherche(pays, 0);
 
         assertEquals("0->1->2->3->0", brutForce.getParcour().getVillesEmprunté());
-
+        assertEquals(brutForce.getParcour().getDistance(),
+                parcoursVilles(pays, brutForce.getParcour().getVillesEmprunté(),"->"));
     }
 
     @Test
@@ -198,7 +209,8 @@ public class TestBrutForce {
         brutForce.recherche(pays, 0);
 
         assertEquals("0->1->2->3->4->0", brutForce.getParcour().getVillesEmprunté());
-
+        assertEquals(brutForce.getParcour().getDistance(),
+                parcoursVilles(pays, brutForce.getParcour().getVillesEmprunté(),"->"));
     }
 
     @Test
@@ -218,7 +230,8 @@ public class TestBrutForce {
         brutForce.recherche(pays, 0);
 
         assertEquals("0->1->2->3->4->5->0", brutForce.getParcour().getVillesEmprunté());
-
+        assertEquals(brutForce.getParcour().getDistance(),
+                parcoursVilles(pays, brutForce.getParcour().getVillesEmprunté(),"->"));
     }
 
     @Test
@@ -249,7 +262,8 @@ public class TestBrutForce {
         brutForce.recherche(pays, 0);
 
         assertEquals(distanceMinimum, brutForce.getParcour().getDistance());
-
+        assertEquals(brutForce.getParcour().getDistance(),
+                parcoursVilles(pays, brutForce.getParcour().getVillesEmprunté(),"->"));
     }
 
     @Test // TODO: Précision se test est possible de fair en sorte qu'il soit plus rapide
@@ -274,6 +288,8 @@ public class TestBrutForce {
 
             assertEquals(calculeDistanceLinaire(t), brutForce.getParcour().getDistance());
         }
+        assertEquals(brutForce.getParcour().getDistance(),
+                parcoursVilles(pays, brutForce.getParcour().getVillesEmprunté(),"->"));
 
     }
     // #endregion distance linaire sur X

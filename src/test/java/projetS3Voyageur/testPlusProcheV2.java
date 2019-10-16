@@ -2,6 +2,7 @@ package projetS3Voyageur;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static projetS3Voyageur.OutilsTest.parcoursVilles;
 
 import org.junit.Test;
 
@@ -25,7 +26,7 @@ public class testPlusProcheV2 {
         pays.setPositionVille(0, new Position(positionX, 2));
         pays.setPositionVille(1, new Position(positionX, 3));
         pays.setPositionVille(2, new Position(positionX, 4));
-        pays.setPositionVille(3, new Position(positionX, 5)); 
+        pays.setPositionVille(3, new Position(positionX, 5));
 
         badTrackv2.recherche(pays, 0);
         badTrackv1.recherche(pays, 0);
@@ -53,7 +54,10 @@ public class testPlusProcheV2 {
         badTrackv2.recherche(pays, 0);
         badTrackv1.recherche(pays, 0);
 
-        assertEquals((1+1+1+1+4), (long) badTrackv2.getParcour().getDistance());
+        long distance = (long) badTrackv2.getParcour().getDistance();
+
+        assertEquals((1 + 1 + 1 + 1 + 4), distance);
+        assertEquals(distance, (long) parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
 
     }
 

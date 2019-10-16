@@ -2,6 +2,7 @@ package projetS3Voyageur;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static projetS3Voyageur.OutilsTest.parcoursVilles;
 
 import org.junit.Test;
 
@@ -16,7 +17,6 @@ public class testBadTrackv2 {
 
     // #region Ajout test Comparaison BrutForce
 
-    
     // #region test avec les résultat issue de BrutForce v2
     @Test
     public void test_4villes_comparaisons_brutForce() {
@@ -29,6 +29,8 @@ public class testBadTrackv2 {
         badTrackv2.recherche(pays, 0);
 
         assertEquals(2463, (int) (badTrackv2.getParcour().getDistance()));
+        assertEquals(badTrackv2.getParcour().getDistance(),
+                parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -43,6 +45,8 @@ public class testBadTrackv2 {
         badTrackv2.recherche(pays, 0);
 
         assertEquals(1281, (int) (badTrackv2.getParcour().getDistance()));
+        assertEquals(badTrackv2.getParcour().getDistance(),
+                parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -58,6 +62,8 @@ public class testBadTrackv2 {
         badTrackv2.recherche(pays, 0);
 
         assertEquals(1813, (int) (badTrackv2.getParcour().getDistance()));
+        assertEquals(badTrackv2.getParcour().getDistance(),
+                parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -74,6 +80,8 @@ public class testBadTrackv2 {
         badTrackv2.recherche(pays, 0);
 
         assertEquals(1640, (int) (badTrackv2.getParcour().getDistance()));
+        assertEquals(badTrackv2.getParcour().getDistance(),
+                parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -91,6 +99,8 @@ public class testBadTrackv2 {
         badTrackv2.recherche(pays, 0);
 
         assertEquals(13046, (int) (badTrackv2.getParcour().getDistance()));
+        assertEquals(badTrackv2.getParcour().getDistance(),
+                parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -109,6 +119,8 @@ public class testBadTrackv2 {
         badTrackv2.recherche(pays, 0);
 
         assertEquals(20058, (int) (badTrackv2.getParcour().getDistance()));
+        assertEquals(badTrackv2.getParcour().getDistance(),
+                parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -128,6 +140,8 @@ public class testBadTrackv2 {
         badTrackv2.recherche(pays, 0);
 
         assertEquals(3081, (int) (badTrackv2.getParcour().getDistance()));
+        assertEquals(badTrackv2.getParcour().getDistance(),
+                parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -148,6 +162,8 @@ public class testBadTrackv2 {
         badTrackv2.recherche(pays, 0);
 
         assertEquals(2451, (int) (badTrackv2.getParcour().getDistance()));
+        assertEquals(badTrackv2.getParcour().getDistance(),
+                parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
     }
 
     // #endregion test avec les résultats issue de BrutForce v2
@@ -166,6 +182,8 @@ public class testBadTrackv2 {
             brutForce.recherche(pays, villeDepart);
 
             assertEquals(brutForce.getParcour().getDistance(), badTrackv2.getParcour().getDistance());
+            assertEquals(badTrackv2.getParcour().getDistance(),
+                    parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
         }
     }
 
@@ -180,6 +198,8 @@ public class testBadTrackv2 {
             brutForce.recherche(pays, villeDepart);
 
             assertEquals(brutForce.getParcour().getDistance(), badTrackv2.getParcour().getDistance());
+            assertEquals(badTrackv2.getParcour().getDistance(),
+                    parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
         }
     }
 
@@ -196,6 +216,8 @@ public class testBadTrackv2 {
             brutForce.recherche(pays, 0);
 
             assertEquals(brutForce.getParcour().getDistance(), badTrackv2.getParcour().getDistance());
+            assertEquals(badTrackv2.getParcour().getDistance(),
+                    parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
         }
     }
 
@@ -210,6 +232,8 @@ public class testBadTrackv2 {
             brutForce.recherche(pays, 0);
 
             assertEquals(brutForce.getParcour().getDistance(), badTrackv2.getParcour().getDistance());
+            assertEquals(badTrackv2.getParcour().getDistance(),
+                    parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
         }
     }
 
@@ -224,6 +248,8 @@ public class testBadTrackv2 {
             brutForce.recherche(pays, 0);
 
             assertEquals(brutForce.getParcour().getDistance(), badTrackv2.getParcour().getDistance());
+            assertEquals(badTrackv2.getParcour().getDistance(),
+                    parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
         }
     }
 
@@ -244,8 +270,7 @@ public class testBadTrackv2 {
 
     // #region distance linaire sur Y
 
-
-    //TODO: Corrigé l'affichage
+    // TODO: Corrigé l'affichage
 
     @Test
     public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes_desorde() {
@@ -275,6 +300,8 @@ public class testBadTrackv2 {
         badTrackv2.recherche(pays, 0);
 
         assertEquals(distanceMinimum, badTrackv2.getParcour().getDistance());
+        assertEquals(badTrackv2.getParcour().getDistance(),
+                parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
 
     }
 
@@ -299,6 +326,8 @@ public class testBadTrackv2 {
             badTrackv2.recherche(pays, 0);
 
             assertEquals(calculeDistanceLinaire(t), badTrackv2.getParcour().getDistance());
+            assertEquals(badTrackv2.getParcour().getDistance(),
+                    parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
         }
 
     }
@@ -335,6 +364,8 @@ public class testBadTrackv2 {
         badTrackv2.recherche(pays, 0);
 
         assertEquals(distanceMinimum, badTrackv2.getParcour().getDistance());
+        assertEquals(badTrackv2.getParcour().getDistance(),
+                parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
 
     }
 
@@ -359,6 +390,8 @@ public class testBadTrackv2 {
             badTrackv2.recherche(pays, 0);
 
             assertEquals(calculeDistanceLinaire(t), badTrackv2.getParcour().getDistance());
+            assertEquals(badTrackv2.getParcour().getDistance(),
+                    parcoursVilles(pays, badTrackv2.getParcour().getVillesEmprunté(), ">"));
         }
 
     }

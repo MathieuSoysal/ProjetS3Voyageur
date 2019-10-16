@@ -2,6 +2,7 @@ package projetS3Voyageur;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static projetS3Voyageur.OutilsTest.parcoursVilles;
 
 import org.junit.Test;
 
@@ -24,6 +25,8 @@ public class TestBrutForceV3_2 {
         algo.recherche(pays, 0);
 
         assertEquals(2463, (int) (algo.getParcour().getDistance()));
+        assertEquals(algo.getParcour().getDistance(),
+                parcoursVilles(pays, algo.getParcour().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -38,6 +41,8 @@ public class TestBrutForceV3_2 {
         algo.recherche(pays, 0);
 
         assertEquals(1281, (int) (algo.getParcour().getDistance()));
+        assertEquals(algo.getParcour().getDistance(),
+                parcoursVilles(pays, algo.getParcour().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -53,6 +58,8 @@ public class TestBrutForceV3_2 {
         algo.recherche(pays, 0);
 
         assertEquals(1813, (int) (algo.getParcour().getDistance()));
+        assertEquals(algo.getParcour().getDistance(),
+                parcoursVilles(pays, algo.getParcour().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -69,6 +76,8 @@ public class TestBrutForceV3_2 {
         algo.recherche(pays, 0);
 
         assertEquals(1640, (int) (algo.getParcour().getDistance()));
+        assertEquals(algo.getParcour().getDistance(),
+                parcoursVilles(pays, algo.getParcour().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -86,6 +95,8 @@ public class TestBrutForceV3_2 {
         algo.recherche(pays, 0);
 
         assertEquals(13046, (int) (algo.getParcour().getDistance()));
+        assertEquals(algo.getParcour().getDistance(),
+                parcoursVilles(pays, algo.getParcour().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -104,6 +115,8 @@ public class TestBrutForceV3_2 {
         algo.recherche(pays, 0);
 
         assertEquals(20058, (int) (algo.getParcour().getDistance()));
+        assertEquals(algo.getParcour().getDistance(),
+                parcoursVilles(pays, algo.getParcour().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -123,6 +136,8 @@ public class TestBrutForceV3_2 {
         algo.recherche(pays, 0);
 
         assertEquals(3081, (int) (algo.getParcour().getDistance()));
+        assertEquals(algo.getParcour().getDistance(),
+                parcoursVilles(pays, algo.getParcour().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -143,6 +158,8 @@ public class TestBrutForceV3_2 {
         algo.recherche(pays, 0);
 
         assertEquals(2451, (int) (algo.getParcour().getDistance()));
+        assertEquals(algo.getParcour().getDistance(),
+                parcoursVilles(pays, algo.getParcour().getVillesEmprunté(),">"));
     }
 
     // #endregion test avec les résultats issue de BrutForce v2
@@ -190,6 +207,8 @@ public class TestBrutForceV3_2 {
         algo.recherche(pays, 0);
 
         assertEquals(distanceMinimum, algo.getParcour().getDistance());
+        assertEquals(algo.getParcour().getDistance(),
+                parcoursVilles(pays, algo.getParcour().getVillesEmprunté(),">"));
 
     }
 
@@ -214,6 +233,8 @@ public class TestBrutForceV3_2 {
             algo.recherche(pays, 0);
 
             assertEquals(calculeDistanceLinaire(t), algo.getParcour().getDistance());
+            assertEquals(algo.getParcour().getDistance(),
+                    parcoursVilles(pays, algo.getParcour().getVillesEmprunté(),">"));
         }
 
     }
@@ -250,6 +271,8 @@ public class TestBrutForceV3_2 {
         algo.recherche(pays, 0);
 
         assertEquals(distanceMinimum, algo.getParcour().getDistance());
+        assertEquals(algo.getParcour().getDistance(),
+                parcoursVilles(pays, algo.getParcour().getVillesEmprunté(),">"));
 
     }
 
@@ -274,6 +297,8 @@ public class TestBrutForceV3_2 {
             algo.recherche(pays, 0);
 
             assertEquals(calculeDistanceLinaire(t), algo.getParcour().getDistance());
+            assertEquals(algo.getParcour().getDistance(),
+                    parcoursVilles(pays, algo.getParcour().getVillesEmprunté(),">"));
         }
 
     }
