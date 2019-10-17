@@ -1,5 +1,7 @@
 # Default ignored files
 /workspace.xml
-.vscode
+
+
+.vscode/*
 .travis.yml
 azure-pipelines.yml
