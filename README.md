@@ -1,7 +1,7 @@
 # ![](logo-voyageur.png) Le voyageur de commerce
 ### IUT Montpellier-Sète – Département Informatique
 * **Eléves:** [Zaid Nadir](mailto:nadir.zaid@umontpellier.fr), [Soysal Mathieu](mailto:mathieu.soysal@umontpellier.fr), [Delon Matthias](mailto:matthias.delon@umontpellier.fr), [Ravet-lecourt Florian](mailto:florian.ravet-lecourt@umontpellier.fr)
-* **Enseignants:** [Coletta Rémi](mailto:remi.coletta@umontpellier.fr)
+* **Enseignant:** [Coletta Rémi](mailto:remi.coletta@umontpellier.fr)
 
 Réunion du 18 septembre 2019
 ----------------------------
