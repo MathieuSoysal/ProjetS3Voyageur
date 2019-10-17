@@ -10,10 +10,11 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         ModeRecherche[] listeAlgo = {new BrutForce(), new BrutForceV3(), new BrutForceV3_1(),new BrutForceV4(), new BadTrack(), new BadTrackV2(),new TrackProches()};
-        GenererCSV fichierCSV = new GenererCSV(listeAlgo, "Stats.csv");
-        fichierCSV.setTempsMax(8);
+        GenererCSV fichierCSV = new GenererCSV(listeAlgo, "Stats-1.csv");
+        fichierCSV.setTempsMax(11);
         fichierCSV.setNbVillesMax(20);
         fichierCSV.Genere();
+
 
         // Analyser analyse = new Analyser(new BrutForceV4());
         // analyse.setNbIteration(120);
