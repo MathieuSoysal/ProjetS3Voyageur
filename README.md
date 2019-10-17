@@ -13,7 +13,7 @@ Réunion du 18 septembre 2019
 
 **Définition du cahier des charges :**
 
-  * **énoncé du problème :** nous devons trouver avec un nombre de ville quelconque supérieur ou égale à 4, répartie de manière aléatoire sans doublons le parcours le plus optimal. 
+  * **Énoncé du problème :** nous devons trouver avec un nombre de ville quelconque supérieur ou égale à 4, répartie de manière aléatoire sans doublons le parcours le plus optimal. 
 
 ***Les différentes méthodes de résolution :***
 
