@@ -3,7 +3,7 @@ package projetS3Voyageur.ModesDeRecherches;
 import projetS3Voyageur.Parcours;
 import projetS3Voyageur.Pays;
 
-public class BrutForceV4 implements ModeRecherche {
+public class BrutForceV4_1 implements ModeRecherche {
 
     private int overFlow;
 
@@ -12,14 +12,17 @@ public class BrutForceV4 implements ModeRecherche {
     private byte villeInitial;
     private byte nombreDeVilles;
 
+    private double[][] distanceEntreVilles;
+
     private double distanceOptimum;
     private byte[] villesEmprunteesOptimum;
 
     public void recherche(Pays pays, int villeInitialP) {
+        this.distanceEntreVilles = pays.getDistancesV();
         this.pays = pays;
         this.villeInitial = (byte) villeInitialP;
         nombreDeVilles = (byte) pays.getNombreDeVilles();
-        overFlow = (1 << nombreDeVilles)-1;
+        overFlow = (1 << nombreDeVilles) - 1;
         distanceOptimum = Double.MAX_VALUE;
 
         rechercheAuxDistance(1 << villeInitial, villeInitial, 0.0);
@@ -61,17 +64,16 @@ public class BrutForceV4 implements ModeRecherche {
 
     }
 
-    //TODO: à voir si on peut appliquer DRY
+    // TODO: à voir si on peut appliquer DRY
     private void rechercheAuxDistance(int villesVisite, byte villeActuel, double distanceParcourue) {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
 
         if (villesVisite == overFlow) {
-            double distanceParcourueFinal = distanceParcourue + pays.getDistanceEntreVilles(villeActuel, villeInitial);
 
-            if (distanceParcourueFinal < distanceOptimum) {
-                distanceOptimum = distanceParcourueFinal;
-            }
+            distanceOptimum = (distanceParcourue + distanceEntreVilles[villeActuel][villeInitial] < distanceOptimum)
+                    ? distanceParcourue + pays.getDistanceEntreVilles(villeActuel, villeInitial)
+                    : distanceOptimum;
         } else {
 
             for (int villeFomatBinaire = villeNonVisite(1,
@@ -81,7 +83,7 @@ public class BrutForceV4 implements ModeRecherche {
                 byte villeChoisie = (byte) (Math.getExponent(villeFomatBinaire));
 
                 rechercheAuxDistance(villesVisite + villeFomatBinaire, (villeChoisie),
-                        distanceParcourue + pays.getDistanceEntreVilles(villeActuel, villeChoisie));
+                        distanceParcourue + distanceEntreVilles[villeActuel][villeChoisie]);
 
             }
 
@@ -111,7 +113,7 @@ public class BrutForceV4 implements ModeRecherche {
 
     @Override
     public String getNom() {
-        return "BrutForce v4";
+        return "BrutForce v4.1";
     }
 
 }

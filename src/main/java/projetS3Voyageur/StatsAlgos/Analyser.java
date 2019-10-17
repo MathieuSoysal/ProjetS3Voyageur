@@ -87,8 +87,8 @@ public class Analyser {
     /**
      * @param nbVillesMax the nbVillesMax to set
      */
-    public void setNbVillesMax(byte nbVillesMax) {
-        this.nbVillesMax = nbVillesMax;
+    public void setNbVillesMax(int nbVillesMax) {
+        this.nbVillesMax = (byte) nbVillesMax;
     }
 
     /**
