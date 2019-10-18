@@ -2,19 +2,22 @@ package projetS3Voyageur;
 
 import projetS3Voyageur.ModesDeRecherches.BadTrackV2;
 import projetS3Voyageur.ModesDeRecherches.BrutForceV3_1;
+import projetS3Voyageur.StatsAlgos.GenererCSV;
+import projetS3Voyageur.ModesDeRecherches.*;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
 
         // #region Generer un fichier CSV
-        // ModeRecherche[] listeAlgo = {new BrutForce(), new BrutForceV3(), new
-        // BrutForceV3_1(),new BrutForceV4(), new BadTrack(), new BadTrackV2(),new
-        // TrackProches()};
-        // GenererCSV fichierCSV = new GenererCSV(listeAlgo, "Stats.csv");
-        // fichierCSV.setTempsMax(8);
-        // fichierCSV.setNbVillesMax(20);
-        // fichierCSV.Genere();
+        ModeRecherche[] listeAlgo = {new BrutForce(), new BrutForceV3(), new
+        BrutForceV3_1(),new BrutForceV4(), new BadTrack(), new BadTrackV2(),new
+        TrackProches()};
+        GenererCSV fichierCSV = new GenererCSV(listeAlgo, "Stats.csv");
+        fichierCSV.setNbIteration(200);
+        fichierCSV.setTempsMax(8);
+        fichierCSV.setNbVillesMax(20);
+        fichierCSV.Genere();
 
         // #region analyser approfondie d'un algo en particulier
         // Analyser analyse = new Analyser(new BrutForceV4());
@@ -29,10 +32,10 @@ public class App {
         // compare.setNombreDeVilles(11);
         // compare.afficher();
 
-        Pays france = new Pays(15);
-        Voyageur mrSmins = new Voyageur(france, 0);
+        // Pays france = new Pays(14);
+        // Voyageur mrSmins = new Voyageur(france, 0);
 
-        System.out.println(mrSmins.getParcours(new BadTrackV2()));
+        // System.out.println(mrSmins.getParcours(new BadTrackV2()));
 
     }
 }
