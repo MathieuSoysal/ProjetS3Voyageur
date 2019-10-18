@@ -1,7 +1,6 @@
 package projetS3Voyageur.ModesDeRecherches;
 
-import projetS3Voyageur.Parcours;
-import projetS3Voyageur.Pays;
+import projetS3Voyageur.*;
 
 public class BrutForceV4 implements ModeRecherche {
 

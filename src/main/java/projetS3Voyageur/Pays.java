@@ -49,17 +49,6 @@ public class Pays {
         return d.getDistance(ville1, ville2);
     }
 
-    /**
-     * @return
-     * @see projetS3Voyageur.CompositionPays.GestionDistance#getDistancesV()
-     */
-
-    public double[][] getDistancesV() {
-        return d.getDistancesV();
-    }
-
-    
-
     // #endregion Distance
 
     // #endregion Méthodes Déléguées

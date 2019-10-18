@@ -93,12 +93,5 @@ public class GestionDistance {
         }
     }
 
-    /**
-     * @return the distancesV
-     */
-    public double[][] getDistancesV() {
-        return distancesV;
-    }
-
     // #endregion
 }
