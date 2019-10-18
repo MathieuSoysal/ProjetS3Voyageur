@@ -1,4 +1,4 @@
-# ![](logo-voyageur.png) Le voyageur de commerce
+# ![](logo-voyageur.png) Le voyageur de commerce 
 ### IUT Montpellier-Sète – Département Informatique
 * **Eléves:** [Zaid Nadir](mailto:nadir.zaid@umontpellier.fr), [Soysal Mathieu](mailto:mathieu.soysal@umontpellier.fr), [Delon Matthias](mailto:matthias.delon@umontpellier.fr), [Ravet-lecourt Florian](mailto:florian.ravet-lecourt@umontpellier.fr)
 * **Enseignant:** [Coletta Rémi](mailto:remi.coletta@umontpellier.fr)
@@ -33,17 +33,31 @@ Réunion du 18 septembre 2019
    Réunion du 2 octobre 2019 
   -------------------------
   
+   **Contenue de la réunion :**
+   
+   * Explication détaillé des différents BrutForce réalisé
+   * Mise en valeur des avantage/inconvéniants des deux algorithmes.
+  
    **Travail à faire pour la prochaine fois :**
    
-   * Amelioration du Bruteforce.
+   * Vériffication/Amélioration du Bruteforce.
    * Effectuer plusieurs tests.
+   * Comparé les résultats (calcul de trajet) obtenue des différents algos BrutForce
    
   Réunion du 9 octobre 2019 
-  -------------------------
+  -------------------------  
+  
+   **Contenue de la réunion :**
+   
+   * Compte rendue des algorithmes de recherches réalisé lors de la semaine :
+       - BackTrack
+       - Heuristique
+   * Mise en démonstration sur tableau blanc de l'idée du futur algo
+   * Initation et démonstration sur tableau du minimum spanning tree
   
   **Travail à faire pour la prochaine fois :**
 
-* Réaliser (améliorer)  l’algorithme Backtrack.
+* Réaliser un l'agorithme BackTrack combiné avec l'algorithme heuristique
 * Réaliser le minimum spending tree.
 * Mesurer le temps CPU des programmes au lieu du temps de la machine.
 * Faire en sorte que le programme stock lui-même le parcours dans un fichier CSV.
