@@ -8,6 +8,9 @@ import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class GenererCSV {
 
+    //TODO: Néttoyer la class
+    //TODO: ajouter un calcul safe pour la méthode avec le graphe syncronisé
+
     private byte nbVillesMax = 12;
     private int nbIteration = 100;
     private long tempsMax = 180;
@@ -21,10 +24,19 @@ public class GenererCSV {
     /**
      * @param listAlgo
      */
-    public GenererCSV(ModeRecherche[] listAlgo, String nonFichier) {
-        this.listAlgo = listAlgo;
-        this.nonFichier = nonFichier;
-        initTuple();
+    // public GenererCSV(ModeRecherche[] listAlgo, String nonFichier) {
+    // this.listAlgo = listAlgo;
+    // this.nonFichier = nonFichier;
+    // initTuple();
+    // }
+
+    private void initTupleSyncro() {
+        String[] attributs = new String[listAlgo.length + 2];
+        attributs[0] = "Nombre de villes";
+        for (byte i = 0; i < (listAlgo.length); i++) {
+            attributs[i + 1] = listAlgo[i].getNom();
+        }
+        tuples.add(attributs);
     }
 
     private void initTuple() {
@@ -41,21 +53,42 @@ public class GenererCSV {
      * @param nbIteration
      * @param listAlgo
      */
-    public GenererCSV(int nbVillesMax, int nbIteration, ModeRecherche[] listAlgo, String nonFichier) {
-        // TODO: Vérifier les valeurs saisie
-        this.nbVillesMax = (byte) nbVillesMax;
-        this.nbIteration = nbIteration;
+    // public GenererCSV(int nbVillesMax, int nbIteration, ModeRecherche[] listAlgo,
+    // String nonFichier) {
+    // // TODO: Vérifier les valeurs saisie
+    // this.nbVillesMax = (byte) nbVillesMax;
+    // this.nbIteration = nbIteration;
+    // this.listAlgo = listAlgo;
+    // initTuple();
+    // }
+
+    public void GenereSyncro(int nbVillesMax, int nbIteration, ModeRecherche[] listAlgo, String nonFichier) {
+        Comparer compare;
         this.listAlgo = listAlgo;
-        initTuple();
+        this.nbVillesMax = (byte) (nbVillesMax+1);
+        String[] statsAlgo = new String[listAlgo.length + 1];
+        initTupleSyncro();
+        for (byte nbVille = 3; nbVille != nbVillesMax+1; nbVille++) {
+            System.out.println("\n Nombre de villes actuel :" + nbVille);
+            compare = new Comparer(listAlgo, nbVille, nbIteration);
+            compare.calcule();
+            statsAlgo = convertToString(compare.getListTempsMoyenAlgo());
+            statsAlgo[0] = String.valueOf(nbVille);
+            tuples.add(statsAlgo.clone());
+        }
+        writeCSV(tuples, ";", nonFichier);
     }
 
-    public void Genere() {
+    public void Genere(int nbVillesMax, int nbIteration, ModeRecherche[] listAlgo, String nonFichier) {
         Analyser analyse;
+        this.listAlgo = listAlgo;
+        this.nbVillesMax = (byte) nbVillesMax;
         int i = 0;
         String[] statsAlgo;
+        initTuple();
         for (ModeRecherche currentAlgo : listAlgo) {
             System.out.println("\n" + currentAlgo.getNom() + " :");
-            analyse = new Analyser(nbVillesMax, nbIteration, currentAlgo);
+            analyse = new Analyser((byte) nbVillesMax, nbIteration, currentAlgo);
             analyse.calculSafe(tempsMax);
             statsAlgo = convertToString(i++, analyse.getResultat());
             statsAlgo[0] = currentAlgo.getNom();
@@ -65,6 +98,18 @@ public class GenererCSV {
     }
 
     // #region Outils
+
+    private String[] convertToString(double[] tempsMoyenPourUneVille) {
+        String statsAlgo[] = new String[tempsMoyenPourUneVille.length + 1];
+
+        for (int i = 0; i < tempsMoyenPourUneVille.length; i++) {
+            if (tempsMoyenPourUneVille[i] != 0)
+                statsAlgo[i + 1] = String.valueOf(tempsMoyenPourUneVille[i]).replace('.', ',');
+            else
+                statsAlgo[i + 1] = "";
+        }
+        return statsAlgo;
+    }
 
     private String[] convertToString(int indexAglo, double[] tempsMoyenParVilles) {
         String statsAlgo[] = new String[tempsMoyenParVilles.length + 1];

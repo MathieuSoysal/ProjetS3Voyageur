@@ -1,8 +1,6 @@
 package projetS3Voyageur;
 
-import projetS3Voyageur.ModesDeRecherches.BadTrackV2;
-import projetS3Voyageur.ModesDeRecherches.BrutForceV3_1;
-import projetS3Voyageur.StatsAlgos.GenererCSV;
+import projetS3Voyageur.StatsAlgos.*;
 import projetS3Voyageur.ModesDeRecherches.*;
 
 public class App {
@@ -10,14 +8,10 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // #region Generer un fichier CSV
-        ModeRecherche[] listeAlgo = {new BrutForce(), new BrutForceV3(), new
-        BrutForceV3_1(),new BrutForceV4(), new BadTrack(), new BadTrackV2(),new
-        TrackProches()};
-        GenererCSV fichierCSV = new GenererCSV(listeAlgo, "Stats.csv");
-        fichierCSV.setNbIteration(200);
-        fichierCSV.setTempsMax(8);
-        fichierCSV.setNbVillesMax(20);
-        fichierCSV.Genere();
+        ModeRecherche[] listeAlgo = { new BrutForce(), new BrutForceV3(), new BrutForceV3_1(), new BrutForceV4(),
+                new BadTrack(), new BadTrackV2(), new TrackProches() };
+        GenererCSV fichierCSV = new GenererCSV();
+        fichierCSV.GenereSyncro(10, 50, listeAlgo, "StatsGrapheSyncro.csv");
 
         // #region analyser approfondie d'un algo en particulier
         // Analyser analyse = new Analyser(new BrutForceV4());

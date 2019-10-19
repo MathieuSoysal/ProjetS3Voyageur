@@ -124,7 +124,6 @@ public class Analyser {
     private long calculeTempsExecution(byte nbVilles) {
         long startTime = System.currentTimeMillis();
         algo.recherche(new Pays(nbVilles), 0);
-        ;
         long endTime = System.currentTimeMillis();
         return (endTime - startTime);
     }

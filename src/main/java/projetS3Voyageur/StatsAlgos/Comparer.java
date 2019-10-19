@@ -28,6 +28,15 @@ public class Comparer {
 
     }
 
+    public Comparer(ModeRecherche[] listAlgo, int nombreDeVilles, int nombreDeTests) {
+        this.listAlgo = listAlgo;
+        this.tempsMoyenAlgo = new double[listAlgo.length];
+        this.tempsMoyenAlgoVariance = new double[listAlgo.length];
+        this.nombreDeTestes = nombreDeTests;
+        this.nombreDeVilles = nombreDeVilles;
+
+    }
+
     public void setNombreDeTest(int nombreDeTests) {
         this.nombreDeTestes = nombreDeTests;
     }
@@ -36,7 +45,7 @@ public class Comparer {
         this.nombreDeVilles = nombreDeVilles;
     }
 
-    public void afficher() {
+    public void calcule() {
 
         barreDeChargementInit();
 
@@ -46,6 +55,10 @@ public class Comparer {
 
             barreDeChargement(i);
         }
+
+    }
+
+    public void afficher() {
         double tempsPlusLent = recupéreTempsPlusLent();
         for (int i = 0; i < tempsMoyenAlgo.length; i++) {
             double ecartType = Math.sqrt(tempsMoyenAlgoVariance[i] - Math.pow(tempsMoyenAlgo[i], 2));
@@ -117,5 +130,8 @@ public class Comparer {
         return tempsMoyenAlgo[i];
     }
 
+    public double[] getListTempsMoyenAlgo() {
+        return tempsMoyenAlgo;
+    }
     // #endregion pour les tests
 }
