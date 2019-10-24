@@ -1,6 +1,5 @@
 package projetS3Voyageur.ModesDeRecherches;
 
-
 import projetS3Voyageur.*;
 
 public class BrutForceV3_1 implements ModeRecherche {
@@ -14,7 +13,6 @@ public class BrutForceV3_1 implements ModeRecherche {
 
     private double distanceOptimum;
     private int[] villesEmprunteesOptimum;
-
 
     public void recherche(Pays pays, int villeInitial) {
         this.pays = pays;
@@ -40,8 +38,8 @@ public class BrutForceV3_1 implements ModeRecherche {
         } else {
 
             for (int villeFomatBinaire = villeNonVisite(1,
-                    villesVisite); villeFomatBinaire < overFlow; villeFomatBinaire = villeNonVisite(villeFomatBinaire << 1,
-                            villesVisite)) {
+                    villesVisite); villeFomatBinaire < overFlow; villeFomatBinaire = villeNonVisite(
+                            villeFomatBinaire << 1, villesVisite)) {
 
                 int villeChoisie = Math.getExponent(villeFomatBinaire);
 

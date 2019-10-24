@@ -46,8 +46,8 @@ public class BrutForceV3 implements ModeRecherche {
         } else {
 
             for (int villeFomatBinaire = villeNonVisite(1,
-                    villesVisite); villeFomatBinaire < overFlow; villeFomatBinaire = villeNonVisite(villeFomatBinaire << 1,
-                            villesVisite)) {
+                    villesVisite); villeFomatBinaire < overFlow; villeFomatBinaire = villeNonVisite(
+                            villeFomatBinaire << 1, villesVisite)) {
 
                 int villeChoisie = (ConversionFormatBinaireEnNumVille.get(villeFomatBinaire));
 

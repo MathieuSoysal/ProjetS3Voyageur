@@ -1,4 +1,5 @@
 package projetS3Voyageur.ModesDeRecherches;
+
 import projetS3Voyageur.*;
 
 public class BrutForce implements ModeRecherche {
@@ -11,7 +12,7 @@ public class BrutForce implements ModeRecherche {
     private int nombreDeVilles;
 
     private Parcours parcoursOptimum;
-    
+
     public void recherche(Pays pays, int villeDepart) {
         this.pays = pays;
         villeInital = villeDepart;
@@ -35,7 +36,7 @@ public class BrutForce implements ModeRecherche {
             double distanceParcourueFinal = distanceParcourue + pays.getDistanceEntreVilles(villeActuel, villeInital);
 
             if (distanceParcourueFinal < parcoursOptimum.getDistance())
-                parcoursOptimum = new Parcours(distanceParcourueFinal, villesEmprunté +"->"+ villeInital);
+                parcoursOptimum = new Parcours(distanceParcourueFinal, villesEmprunté + "->" + villeInital);
 
         } else {
             for (int villeChoisie = 0; villeChoisie < nombreDeVilles; villeChoisie++) {
@@ -45,7 +46,7 @@ public class BrutForce implements ModeRecherche {
                             + pays.getDistanceEntreVilles(villeActuel, villeChoisie);
 
                     rechercheAux(villesAVisiter.clone(), villeChoisie, distanceParcourueActuel, nbVillesAVisiter - 1,
-                            villesEmprunté +"->"+ villeChoisie);
+                            villesEmprunté + "->" + villeChoisie);
                 }
 
             }
