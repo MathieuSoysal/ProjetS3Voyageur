@@ -5,6 +5,9 @@ import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class Comparer {
 
+    private byte iterationActuel = 0;
+    private double tempsMax = 240;
+
     // TODO: Attention ce programme est à faire en dernier lorsque tout les
     // programmes ont validé les tests
 
@@ -28,7 +31,9 @@ public class Comparer {
 
     }
 
-    public Comparer(ModeRecherche[] listAlgo, int nombreDeVilles, int nombreDeTests) {
+    //TODO: note pour moi-m^me Mathieu oublie pas que tu as mis en paramètre tempsMax
+    public Comparer(ModeRecherche[] listAlgo, int nombreDeVilles, int nombreDeTests, double tempsMax) {
+        this.tempsMax = tempsMax;
         this.listAlgo = listAlgo;
         this.tempsMoyenAlgo = new double[listAlgo.length];
         this.tempsMoyenAlgoVariance = new double[listAlgo.length];
@@ -37,26 +42,30 @@ public class Comparer {
 
     }
 
-    public void setNombreDeTest(int nombreDeTests) {
-        this.nombreDeTestes = nombreDeTests;
-    }
-
-    public void setNombreDeVilles(int nombreDeVilles) {
-        this.nombreDeVilles = nombreDeVilles;
-    }
+    // #region méthodes de calcul
 
     public void calcule() {
 
         barreDeChargementInit();
 
+        for (iterationActuel = 0; iterationActuel < nombreDeTestes; iterationActuel++) {
+
+            effectueAlgos();
+
+            barreDeChargement(iterationActuel);
+        }
+
+    }
+
+    public void calculeTempsExecutionBrut() {
         for (int i = 0; i < nombreDeTestes; i++) {
 
             effectueAlgos();
 
-            barreDeChargement(i);
         }
-
     }
+
+    // #endregion méthode de calcul
 
     public void afficher() {
         double tempsPlusLent = recupéreTempsPlusLent();
@@ -75,31 +84,21 @@ public class Comparer {
 
     }
 
-    public void calculeTempsExecutionBrut() {
-        for (int i = 0; i < nombreDeTestes; i++) {
-
-            effectueAlgos();
-
-        }
-    }
-
+    /**
+     * Execute tous les algorithme dans la liste, en vérifiant qu'il ne dépasse
+     * pas le temps imparti @tempsMax
+     */
     private void effectueAlgos() {
         for (int j = 0; j < listAlgo.length; j++) {
-            double tempsExecution = calculeTempsExecution(listAlgo[j]);
-            tempsMoyenAlgo[j] += tempsExecution / nombreDeTestes;
-            tempsMoyenAlgoVariance[j] += (Math.pow(tempsExecution, 2)) / nombreDeTestes;
-
+            if (((tempsMoyenAlgo[j] * (nombreDeTestes - iterationActuel)) / 1000) < tempsMax) {
+                double tempsExecution = calculeTempsExecution(listAlgo[j]);
+                tempsMoyenAlgo[j] += tempsExecution / nombreDeTestes;
+                tempsMoyenAlgoVariance[j] += (Math.pow(tempsExecution, 2)) / nombreDeTestes;
+            }
         }
     }
 
-    private double recupéreTempsPlusLent() {
-        double tempsPlusLent = 0.;
-        for (double tempsMoyen : tempsMoyenAlgo) {
-            tempsPlusLent = (tempsMoyen > tempsPlusLent) ? tempsMoyen : tempsPlusLent;
-        }
-        return tempsPlusLent;
-    }
-
+    // #region Outils Barre de Chargement
     private void barreDeChargementInit() {
         for (int i = 1; i < (int) ((((double) 1) / ((double) nombreDeTestes)) * 100); i++) {
             etapeChargementAttein += '#';
@@ -115,7 +114,9 @@ public class Comparer {
         }
         System.out.print("\r" + barreDeChargement);
     }
+    // #endregion Outils barre de chargement
 
+    // #region outils calcul sur le temps
     private long calculeTempsExecution(ModeRecherche algo) {
         long startTime = System.currentTimeMillis();
         algo.recherche(new Pays(nombreDeVilles), villeDepart);
@@ -124,7 +125,27 @@ public class Comparer {
         return (endTime - startTime);
     }
 
-    // #region Pour les tests
+    private double recupéreTempsPlusLent() {
+        double tempsPlusLent = 0.;
+        for (double tempsMoyen : tempsMoyenAlgo) {
+            tempsPlusLent = (tempsMoyen > tempsPlusLent) ? tempsMoyen : tempsPlusLent;
+        }
+        return tempsPlusLent;
+    }
+    // #endregion outils calcul sur le temps
+
+    // #region setters & getters
+    public void setNombreDeTest(int nombreDeTests) {
+        this.nombreDeTestes = nombreDeTests;
+    }
+
+    public void setNombreDeVilles(int nombreDeVilles) {
+        this.nombreDeVilles = nombreDeVilles;
+    }
+
+    public void setTempsMax(double tempsMax) {
+        this.tempsMax = tempsMax;
+    }
 
     public double getTempsMoyenAlgo(int i) {
         return tempsMoyenAlgo[i];
@@ -133,5 +154,5 @@ public class Comparer {
     public double[] getListTempsMoyenAlgo() {
         return tempsMoyenAlgo;
     }
-    // #endregion pour les tests
+    // #endregion setters & getters
 }

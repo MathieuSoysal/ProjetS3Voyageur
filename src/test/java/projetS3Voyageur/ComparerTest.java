@@ -27,4 +27,6 @@ public class ComparerTest {
         // même sur 100 tests
         assertTrue((Math.abs(timeAlgo1 - timeAlgo2)) < 5);
     }
+
+    
 }
