@@ -78,16 +78,16 @@ public class Analyser {
         }
     }
 
-    public void calculGroupee(){
-        for (byte nbVille = 3; nbVille != nbVillesMax + 1; nbVille++) {
-            System.out.println("\n Nombre de villes actuel :" + nbVille);
-            compare = new Comparer(listAlgo, nbVille, nbIteration, tempsMax);
-            compare.calcule();
-            statsAlgo = convertToString(compare.getListTempsMoyenAlgo());
-            statsAlgo[0] = String.valueOf(nbVille);
-            tuples.add(statsAlgo.clone());
-        }
-    }
+    // public void calculGroupee(){
+    //     for (byte nbVille = 3; nbVille != nbVillesMax + 1; nbVille++) {
+    //         System.out.println("\n Nombre de villes actuel :" + nbVille);
+    //         compare = new Comparer(listAlgo, nbVille, nbIteration, tempsMax);
+    //         compare.calcule();
+    //         statsAlgo = convertToString(compare.getListTempsMoyenAlgo());
+    //         statsAlgo[0] = String.valueOf(nbVille);
+    //         tuples.add(statsAlgo.clone());
+    //     }
+    // }
 
     // #region setter / Getter
 
