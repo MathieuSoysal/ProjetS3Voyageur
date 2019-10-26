@@ -13,6 +13,10 @@ public class BadTrack implements ModeRecherche {
 
     private Parcours parcourOptimum;
 
+    /**
+     * Recherche le parcours le plus optimisé pour visité toute les villes
+     * 
+     */
     public void recherche(Pays pays, int villeDepart) {
         this.pays = pays;
         villeInital = villeDepart;
@@ -27,6 +31,15 @@ public class BadTrack implements ModeRecherche {
         rechercheAux(villesAVisiter, villeInital, 0.0, nombreDeVilles - 1, String.valueOf(villeInital));
     }
 
+    /**
+     * recherche récusivement le parcourt le plus court possible
+     * 
+     * @param villesAVisiter    villes qui reste à visité
+     * @param villeActuel       ville dans la quelle se situe l'algo
+     * @param distanceParcourue distance parcourue depuis la première itération
+     * @param nbVillesAVisiter  Variable de fin de la récursiv
+     * @param villesEmprunté    Stock par ordre chronologique les numéros des villes emprunté
+     */
     private void rechercheAux(boolean villesAVisiter[], int villeActuel, double distanceParcourue, int nbVillesAVisiter,
             String villesEmprunté) {
         villesAVisiter[villeActuel] = dejaVisite;
@@ -57,10 +70,20 @@ public class BadTrack implements ModeRecherche {
 
     }
 
+    /**
+     * Après la recherche retourne le parcous le plus optimisé
+     * 
+     * @return {@code Parcours}
+     */
     public Parcours getParcour() {
         return parcourOptimum;
     }
 
+    /**
+     * Renvoi le nom de l'algorithme de recherche
+     * 
+     * @return {@code String}
+     */
     @Override
     public String getNom() {
         return "BadTrack";
