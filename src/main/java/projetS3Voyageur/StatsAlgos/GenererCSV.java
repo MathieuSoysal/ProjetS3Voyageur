@@ -8,8 +8,8 @@ import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class GenererCSV {
 
-    //TODO: Néttoyer la class
-    //TODO: ajouter un calcul safe pour la méthode avec le graphe syncronisé
+    // TODO: Néttoyer la class
+    // TODO: ajouter un calcul safe pour la méthode avec le graphe syncronisé
 
     private byte nbVillesMax = 12;
     private int nbIteration = 100;
@@ -62,13 +62,27 @@ public class GenererCSV {
     // initTuple();
     // }
 
+    /**
+     * Cette méthode permet de générer un fichier CSV possèdant les statistique de
+     * temps d'exécution des différents ModeRecherche donnés en paramètre. Sa
+     * spécificité réside dans le fait que pour chaque itération elle donne le même
+     * pays/graphique en paramètre aux différents algorithmes, ainsi la comparaison
+     * entre les différents algos est moins affectée par le facteur aléatoire d'un
+     * pays/graphique.
+     * 
+     * 
+     * @param nbVillesMax Nombre de villes où les algos doivent s'arrêter
+     * @param nbIteration Nombre de fois qu'on execute les algos pour chaque nbVille
+     * @param listAlgo    Liste de ModeRecherche à comparer
+     * @param nonFichier  Le nom du fichier au quelle les statistique seront stocké
+     */
     public void GenereSyncro(int nbVillesMax, int nbIteration, ModeRecherche[] listAlgo, String nonFichier) {
         Comparer compare;
         this.listAlgo = listAlgo;
-        this.nbVillesMax = (byte) (nbVillesMax+1);
+        this.nbVillesMax = (byte) (nbVillesMax + 1);
         String[] statsAlgo = new String[listAlgo.length + 1];
         initTupleSyncro();
-        for (byte nbVille = 3; nbVille != nbVillesMax+1; nbVille++) {
+        for (byte nbVille = 3; nbVille != nbVillesMax + 1; nbVille++) {
             System.out.println("\n Nombre de villes actuel :" + nbVille);
             compare = new Comparer(listAlgo, nbVille, nbIteration);
             compare.calcule();
