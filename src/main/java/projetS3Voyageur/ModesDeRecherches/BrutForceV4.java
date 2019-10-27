@@ -14,6 +14,11 @@ public class BrutForceV4 implements ModeRecherche {
     private double distanceOptimum;
     private byte[] villesEmprunteesOptimum;
 
+    /**
+     * Recherche depuis une ville de départ le parcours le plus optimisé pour
+     * visiter toutes les villes d'un pays.
+     */
+    @Override
     public void recherche(Pays pays, int villeInitialP) {
         this.pays = pays;
         this.villeInitial = (byte) villeInitialP;
@@ -26,7 +31,14 @@ public class BrutForceV4 implements ModeRecherche {
                 emprunteVille(new byte[nombreDeVilles + 1], 0, villeInitial));
     }
 
-    // TODO: à voir si on peut appliquer DRY
+    /**
+     * Recherche récursivement la distance du parcours le plus court possible.
+     * 
+     * @param villesVisite      Villes qui ont étais visité jusqu'à présent
+     * @param villeActuel       Ville dans laquelle se situe l'algo
+     * @param distanceParcourue Stock par ordre chronologique les numéros des villes
+     *                          empruntées
+     */
     private void rechercheAuxDistance(int villesVisite, byte villeActuel, double distanceParcourue) {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
@@ -54,7 +66,17 @@ public class BrutForceV4 implements ModeRecherche {
 
     }
 
-    // TODO: à voir si on peut appliqué DRY
+    /**
+     * Recherche récusivement le parcours le plus court possible. En vérifiant que
+     * la distance parcourue ne soit pas plus longue que la distance la distance
+     * optimum enregistré avec rchercheDistanceAux().
+     * 
+     * @param villesVisite      Villes qui ont étais visité jusqu'à présent
+     * @param villeActuel       Ville dans laquelle se situe l'algo
+     * @param distanceParcourue Distance parcourue depuis la première itération
+     * @param villesEmprunté    Stock par ordre chronologique les numéros des villes
+     *                          emprunté
+     */
     private void rechercheAuxVillesEmpruntees(int villesVisite, byte villeActuel, double distanceParcourue,
             byte[] villesEmprunté) {
 
@@ -88,6 +110,59 @@ public class BrutForceV4 implements ModeRecherche {
 
     }
 
+    // #region Outils
+
+    /**
+     * Renvois un type int où chaque bit représente une ville, si un bit 0 elle
+     * n'est pas visitée, si un bit vaut 1 elle a été visitée. La méthode récupère
+     * les villes visitées et la ville actuelle si la ville actuelle fait partie des
+     * villes déjà visitée elle le fait passer à une ville non visitée.
+     * 
+     * @param villeActuel  Chaque bit du int représente une ville seul l'un des bit
+     *                     du int représente la ville actuel
+     * @param villesVisite Chaque bit du int représente les villes visité
+     * @return {@code int} Renvois un int avec un seul bit à 1, son emplacement
+     *         représente une ville non visitée.
+     */
+    private int villeNonVisite(int villeActuel, int villesVisite) {
+        villeActuel += villesVisite;
+        return villeActuel ^ (villeActuel & villesVisite);
+    }
+
+    /**
+     * Stock par ordre chronologique les villes visitées.
+     * 
+     * @param villesEmpruntees Tableau de int où chaque case représente le numéro
+     *                         d'une ville visité
+     * @param index            index à la quelle le numéro de la ville visité doit
+     *                         être ajouté
+     * @param villeVisitee     Numéro de la ville visitée
+     * @return
+     */
+    private byte[] emprunteVille(byte[] villesEmpruntees, int index, byte villeSuivante) {
+        villesEmpruntees[index] = villeSuivante;
+        return villesEmpruntees.clone();
+    }
+
+    // #endregion Outils
+
+    // #region Getters
+
+    /**
+     * Renvois le nom de l'algorithme de recherche
+     * 
+     * @return {@code String}
+     */
+    @Override
+    public String getNom() {
+        return "BrutForce v4";
+    }
+
+    /**
+     * Dois être exécuté après la recherche() Retourne le parcours le plus optimisé
+     * 
+     * @return {@code Parcours}
+     */
     public Parcours getParcour() {
         // TODO: Ajouter l'exception avec un getParcours sans avoir fait de recherche
         String villesEmpruntees = String.valueOf(villesEmprunteesOptimum[0]);
@@ -98,19 +173,6 @@ public class BrutForceV4 implements ModeRecherche {
         return new Parcours(distanceOptimum, villesEmpruntees);
     }
 
-    private int villeNonVisite(int villeActuel, int villesVisite) {
-        villeActuel += villesVisite;
-        return villeActuel ^ (villeActuel & villesVisite);
-    }
-
-    private byte[] emprunteVille(byte[] villesEmpruntees, int index, byte villeSuivante) {
-        villesEmpruntees[index] = villeSuivante;
-        return villesEmpruntees.clone();
-    }
-
-    @Override
-    public String getNom() {
-        return "BrutForce v4";
-    }
+    // #endregion Getters
 
 }

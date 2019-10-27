@@ -14,6 +14,11 @@ public class PlusProcheV2 implements ModeRecherche {
     private double distanceOptimum;
     private String villesEmprunteesOptimum;
 
+    /**
+     * Recherche depuis une ville de départ le parcours pour visiter toutes les
+     * villes d'un pays, en allant à la ville la plus proche non visitée.
+     */
+    @Override
     public void recherche(Pays pays, int villeInitialP) {
         this.pays = pays;
         this.villeInitial = (byte) villeInitialP;
@@ -22,12 +27,19 @@ public class PlusProcheV2 implements ModeRecherche {
         distanceOptimum = Double.MAX_VALUE;
         villesEmprunteesOptimum = String.valueOf(villeInitial);
 
-        rechercheAuxDistance(1 << villeInitial, villeInitial, 0.0);
+        rechercheAux(1 << villeInitial, villeInitial, 0.0);
 
     }
 
-    // TODO: à voir si on peut appliquer DRY
-    private void rechercheAuxDistance(int villesVisite, byte villeActuel, double distanceParcourue) {
+    /**
+     * Recherche la ville la plus proche parmis les villes non visitées pour y
+     * aller.
+     * 
+     * @param villesVisite      Villes qui ont été visitées jusqu'à présent.
+     * @param villeActuel       Ville où se situe l'algorithme.
+     * @param distanceParcourue Distance parcourue depuis la première itération
+     */
+    private void rechercheAux(int villesVisite, byte villeActuel, double distanceParcourue) {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
 
@@ -51,27 +63,56 @@ public class PlusProcheV2 implements ModeRecherche {
 
             }
             villesEmprunteesOptimum += ">" + villePlusProche;
-            rechercheAuxDistance((villesVisite + (1 << villePlusProche)), (villePlusProche),
-                    distanceParcourue + distanceMin);
+            rechercheAux((villesVisite + (1 << villePlusProche)), (villePlusProche), distanceParcourue + distanceMin);
 
         }
 
     }
 
+    // #region Outils
+
+    /**
+     * Renvois un type int où chaque bit représente une ville, si un bit 0 elle
+     * n'est pas visitée, si un bit vaut 1 elle a été visitée. La méthode récupère
+     * les villes visitées et la ville actuelle si la ville actuelle fait partie des
+     * villes déjà visitée elle le fait passer à une ville non visitée.
+     * 
+     * @param villeActuel  Chaque bit du int représente une ville seul l'un des bit
+     *                     du int représente la ville actuel
+     * @param villesVisite Chaque bit du int représente les villes visité
+     * @return {@code int} Renvois un int avec un seul bit à 1, son emplacement
+     *         représente une ville non visitée.
+     */
+    private int villeNonVisite(int villeActuel, int villesVisite) {
+        villeActuel += villesVisite;
+        return villeActuel ^ (villeActuel & villesVisite);
+    }
+
+    // #endregion Outils
+
+    // #region Getters
+
+    /**
+     * Renvoi le nom de l'algorithme de recherche
+     * 
+     * @return {@code String}
+     */
+    @Override
+    public String getNom() {
+        return "PlusProche v2";
+    }
+
+    /**
+     * Dois être éxecuté après la recherche() Retourne le parcous le plus optimisé
+     * 
+     * @return {@code Parcours}
+     */
     public Parcours getParcour() {
         // TODO: Ajouter l'exception avec un getParcours sans avoir fait de recherche
 
         return new Parcours(distanceOptimum, villesEmprunteesOptimum);
     }
 
-    private int villeNonVisite(int villeActuel, int villesVisite) {
-        villeActuel += villesVisite;
-        return villeActuel ^ (villeActuel & villesVisite);
-    }
-
-    @Override
-    public String getNom() {
-        return "PlusProche v2";
-    }
+    // #endregion Getters
 
 }

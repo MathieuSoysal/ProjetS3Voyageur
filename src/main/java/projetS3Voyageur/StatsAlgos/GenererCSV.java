@@ -64,8 +64,9 @@ public class GenererCSV {
 
     /**
      * Cette méthode permet de générer un fichier CSV possèdant les statistique de
-     * temps d'exécution des différents ModeRecherche donnés en paramètre. Sa
-     * spécificité réside dans le fait que pour chaque itération elle donne le même
+     * temps d'exécution des différents ModeRecherche donnés en paramètre. 
+     * TODO: Elle n'as à gérer ça
+     * Sa spécificité réside dans le fait que pour chaque itération elle donne le même
      * pays/graphique en paramètre aux différents algorithmes, ainsi la comparaison
      * entre les différents algos est moins affectée par le facteur aléatoire d'un
      * pays/graphique.

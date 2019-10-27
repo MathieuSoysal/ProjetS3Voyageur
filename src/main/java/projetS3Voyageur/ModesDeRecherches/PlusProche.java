@@ -13,6 +13,10 @@ public class PlusProche implements ModeRecherche {
     double distanceParcourue = 0;
     String villesEmpruntee;
 
+    /**
+     * Recherche depuis une ville de départ le parcours pour visiter toutes les
+     * villes d'un pays, en allant à la ville la plus proche non visitée.
+     */
     @Override
     public void recherche(Pays pays, int villeDepart) {
         this.pays = pays;
@@ -30,6 +34,14 @@ public class PlusProche implements ModeRecherche {
 
     }
 
+    /**
+     * Recherche la villes la plus proche non visitée pour y aller
+     * 
+     * @param villesAVisiter  Ville qui reste à visiter
+     * @param villeActuel     Ville où est situé l'algo
+     * @param nbVillesAVisite Nombre de villes qui reste à visiter (variable
+     *                        d'arrêt)
+     */
     public void rechercheAux(boolean[] villesAVisiter, int villeActuel, int nbVillesAVisite) {
 
         if (nbVillesAVisite != 0) {
@@ -58,15 +70,29 @@ public class PlusProche implements ModeRecherche {
         }
     }
 
+    // #region Getters
+
+    /**
+     * Dois être éxecuté après la recherche() Retourne le parcous le plus optimisé
+     * 
+     * @return {@code Parcours}
+     */
     @Override
     public Parcours getParcour() {
 
         return new Parcours(distanceParcourue, villesEmpruntee);
     }
 
+    /**
+     * Renvoi le nom de l'algorithme de recherche
+     * 
+     * @return {@code String}
+     */
     @Override
     public String getNom() {
         return "PlusProche";
     }
+
+    // #endregion Getters
 
 }

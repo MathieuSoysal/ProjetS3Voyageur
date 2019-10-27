@@ -13,6 +13,11 @@ public class BrutForce implements ModeRecherche {
 
     private Parcours parcoursOptimum;
 
+    /**
+     * Recherche depuis une ville de départ le parcours le plus optimisé pour
+     * visiter toutes les villes d'un pays.
+     */
+    @Override
     public void recherche(Pays pays, int villeDepart) {
         this.pays = pays;
         villeInital = villeDepart;
@@ -27,6 +32,16 @@ public class BrutForce implements ModeRecherche {
         rechercheAux(villesAVisiter, villeInital, 0.0, nombreDeVilles - 1, String.valueOf(villeInital));
     }
 
+    /**
+     * Recherche récursivement le parcours le plus court possible.
+     * 
+     * @param villesAVisiter    villes qui reste à visité
+     * @param villeActuel       ville dans la quelle se situe l'algo
+     * @param distanceParcourue distance parcourue depuis la première itération
+     * @param nbVillesAVisiter  Variable de fin de la récursiv
+     * @param villesEmprunté    Stock par ordre chronologique les numéros des villes
+     *                          emprunté
+     */
     private void rechercheAux(boolean villesAVisiter[], int villeActuel, double distanceParcourue, int nbVillesAVisiter,
             String villesEmprunté) {
 
@@ -54,10 +69,20 @@ public class BrutForce implements ModeRecherche {
 
     }
 
+    /**
+     * Dois être exécuté après la recherche() Retourne le parcours le plus optimisé
+     * 
+     * @return {@code Parcours}
+     */
     public Parcours getParcour() {
         return parcoursOptimum;
     }
 
+    /**
+     * Renvoi le nom de l'algorithme de recherche
+     * 
+     * @return {@code String}
+     */
     @Override
     public String getNom() {
         return "BrutForce";
