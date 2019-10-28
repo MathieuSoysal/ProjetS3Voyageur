@@ -18,14 +18,14 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // #region Generer un fichier CSV
-        ModeRecherche[] listeAlgo = { new BrutForce(), new BrutForceV3(), new
-        BrutForceV3_1(), new BrutForceV4(),
-        new BadTrack(), new BadTrackV2(), new TrackProches() };
-        GenererCSV fichierCSV = new GenererCSV();
-        fichierCSV.setTempsMax(17);
-        fichierCSV.setNbIteration(100);
-        fichierCSV.setNbVillesMax(15);
-        fichierCSV.GenereSyncro(listeAlgo);
+        // ModeRecherche[] listeAlgo = { new BrutForce(), new BrutForceV3(), new
+        // BrutForceV3_1(), new BrutForceV4(),
+        // new BadTrack(), new BadTrackV2(), new TrackProches() };
+        // GenererCSV fichierCSV = new GenererCSV();
+        // fichierCSV.setTempsMax(17);
+        // fichierCSV.setNbIteration(100);
+        // fichierCSV.setNbVillesMax(15);
+        // fichierCSV.GenereSyncro(listeAlgo);
 
       
 
@@ -37,13 +37,12 @@ public class App {
         // analyse.afficher();
 
         // #region comparer plusieurs algos :
-        // ModeRecherche[] listAlgo = {new BadTrackV2(), new TrackProches(),new
-        // BrutForceV4()};
-        // Comparer compare = new Comparer(listAlgo);
-        // compare.setNombreDeTest(100);
-        // compare.setNombreDeVilles(12);
-        // compare.calcule();
-        // compare.afficher();
+        ModeRecherche[] listAlgo = {new TrackProchesV1_1(), new TrackProchesV1()};
+        Comparer compare = new Comparer(listAlgo);
+        compare.setNombreDeTest(600);
+        compare.setNombreDeVilles(12);
+        compare.calcule();
+        compare.afficher();
 
         // Pays france = new Pays(14);
         // Voyageur mrSmins = new Voyageur(france, 0);

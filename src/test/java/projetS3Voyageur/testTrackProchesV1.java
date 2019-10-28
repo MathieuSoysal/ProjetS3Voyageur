@@ -8,10 +8,10 @@ import org.junit.Test;
 
 import projetS3Voyageur.CompositionPays.Position;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
-import projetS3Voyageur.ModesDeRecherches.TrackProches;
+import projetS3Voyageur.ModesDeRecherches.TrackProchesV1;
 
-public class testTrackProches {
-    private ModeRecherche algo = new TrackProches();
+public class testTrackProchesV1 {
+    private ModeRecherche algo = new TrackProchesV1();
 
     // #region test avec les résultat issue de BrutForce v2
     @Test

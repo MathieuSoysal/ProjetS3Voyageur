@@ -2,11 +2,12 @@ package projetS3Voyageur.ModesDeRecherches;
 
 import projetS3Voyageur.*;
 
-public class TrackProches implements ModeRecherche {
+public class TrackProchesV1_1 implements ModeRecherche {
 
     private int overFlow;
 
     private Pays pays;
+    private double[] distancesPlusCourt;
 
     private byte villeInitial;
     private byte nombreDeVilles;
@@ -25,6 +26,8 @@ public class TrackProches implements ModeRecherche {
         nombreDeVilles = (byte) pays.getNombreDeVilles();
         overFlow = (1 << nombreDeVilles) - 1;
         distanceOptimum = Double.MAX_VALUE;
+
+        distancesPlusCourt = distancesPlusCourts();
 
         rechercheAuxDistanceProche(1 << villeInitial, villeInitial, 0.0);
         rechercheAuxDistance(1 << villeInitial, villeInitial, 0.0);
@@ -47,7 +50,10 @@ public class TrackProches implements ModeRecherche {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
 
-        if (distanceParcourue < distanceOptimum) {
+        if (distanceParcourue < distanceOptimum && ((distanceParcourue
+                + distancesPlusCourt[(nombreDeVilles - Integer.bitCount(villesVisite))]) < distanceOptimum)) {
+            if (Integer.bitCount(villesVisite) > (nombreDeVilles / 2))
+                rechercheAuxDistanceProche(villesVisite, villeActuel, distanceParcourue);
             if (villesVisite == overFlow) {
                 double distanceParcourueFinal = distanceParcourue
                         + pays.getDistanceEntreVilles(villeActuel, villeInitial);
@@ -197,6 +203,40 @@ public class TrackProches implements ModeRecherche {
         villesEmpruntees[index] = villeSuivante;
         return villesEmpruntees.clone();
     }
+
+    private double distancePlusCourtEntre2Villes(double minimumSuperieur) {
+        int villesVisite = 0;
+        double resultat = Double.MAX_VALUE;
+        for (int villeFormatBinaire = villeNonVisite(1,
+                villesVisite); villeFormatBinaire < overFlow; villeFormatBinaire = villeNonVisite(
+                        villeFormatBinaire << 1, villesVisite)) {
+            for (int villeFormatBinaire2 = villeNonVisite(1,
+                    villeFormatBinaire); villeFormatBinaire2 < overFlow; villeFormatBinaire2 = villeNonVisite(
+                            villeFormatBinaire2 << 1, villeFormatBinaire)) {
+                resultat = (minimumSuperieur < Double.min(resultat,
+                        pays.getDistanceEntreVilles(Math.getExponent(villeFormatBinaire),
+                                Math.getExponent(villeFormatBinaire2))))
+                                        ? Double.min(resultat,
+                                                pays.getDistanceEntreVilles(Math.getExponent(villeFormatBinaire),
+                                                        Math.getExponent(villeFormatBinaire2)))
+                                        : resultat;
+            }
+
+        }
+        return resultat;
+    }
+
+    private double[] distancesPlusCourts() {
+        int i = 0;
+        double[] resultat = new double[nombreDeVilles];
+        for (double minValue = distancePlusCourtEntre2Villes(0); resultat[nombreDeVilles
+                - 1] == 0.; minValue = distancePlusCourtEntre2Villes(minValue)) {
+            resultat[i++] = minValue + resultat[(i == 1) ? 0 : i - 2];
+        }
+
+        return resultat;
+    }
+
     // #endregion Outils Utile
 
     // #region Getters
@@ -223,7 +263,7 @@ public class TrackProches implements ModeRecherche {
      */
     @Override
     public String getNom() {
-        return "TrackProches";
+        return "TrackProches v1.1";
     }
 
     // #endregion Getters
