@@ -23,7 +23,9 @@ public class App {
         new BadTrack(), new BadTrackV2(), new TrackProches() };
         GenererCSV fichierCSV = new GenererCSV();
         fichierCSV.setTempsMax(17);
-        fichierCSV.GenereSyncro(15, 100, listeAlgo, LocalDate.now() + ".csv");
+        fichierCSV.setNbIteration(100);
+        fichierCSV.setNbVillesMax(15);
+        fichierCSV.GenereSyncro(listeAlgo);
 
       
 

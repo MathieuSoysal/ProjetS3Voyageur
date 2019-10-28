@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -22,36 +22,18 @@ public class GenererCSV {
     private byte nbVillesMax = 12;
     private int nbIteration = 100;
     private long tempsMax = 180;
+    private String nomFichier = String.valueOf(LocalDate.now());
 
     private ModeRecherche[] listAlgo;
 
     private ArrayList<String[]> tuples = new ArrayList<>();
 
-    private String nonFichier;
-
-    /**
-     * @param listAlgo
-     */
-    // public GenererCSV(ModeRecherche[] listAlgo, String nonFichier) {
-    // this.listAlgo = listAlgo;
-    // this.nonFichier = nonFichier;
-    // initTuple();
-    // }
 
     private void initTupleSyncro() {
         String[] attributs = new String[listAlgo.length + 2];
         attributs[0] = "Nombre de villes";
         for (byte i = 0; i < (listAlgo.length); i++) {
             attributs[i + 1] = listAlgo[i].getNom();
-        }
-        tuples.add(attributs);
-    }
-
-    private void initTuple() {
-        String[] attributs = new String[nbVillesMax - 2];
-        attributs[0] = "Algorithmes";
-        for (byte i = 0; i < (nbVillesMax - 3); i++) {
-            attributs[i + 1] = String.valueOf(i + 3);
         }
         tuples.add(attributs);
     }
@@ -70,10 +52,9 @@ public class GenererCSV {
      * @param listAlgo    Liste de ModeRecherche à comparer
      * @param nonFichier  Le nom du fichier au quelle les statistique seront stocké
      */
-    public void GenereSyncro(int nbVillesMax, int nbIteration, ModeRecherche[] listAlgo, String nonFichier) {
+    public void GenereSyncro( ModeRecherche[] listAlgo) {
         Comparer compare;
         this.listAlgo = listAlgo;
-        this.nbVillesMax = (byte) (nbVillesMax + 1);
         String[] statsAlgo = new String[listAlgo.length + 1];
         initTupleSyncro();
         compare = new Comparer(listAlgo, 3, nbIteration, tempsMax);
@@ -86,25 +67,7 @@ public class GenererCSV {
             tuples.add(statsAlgo.clone());
         }
 
-        creerFichier(nonFichier);
-    }
-
-    public void Genere(int nbVillesMax, int nbIteration, ModeRecherche[] listAlgo, String nonFichier) {
-        Analyser analyse;
-        this.listAlgo = listAlgo;
-        this.nbVillesMax = (byte) nbVillesMax;
-        int i = 0;
-        String[] statsAlgo;
-        initTuple();
-        for (ModeRecherche currentAlgo : listAlgo) {
-            System.out.println("\n" + currentAlgo.getNom() + " :");
-            analyse = new Analyser((byte) nbVillesMax, nbIteration, currentAlgo);
-            analyse.calculSafe(tempsMax);
-            statsAlgo = convertToString(i++, analyse.getResultat());
-            statsAlgo[0] = currentAlgo.getNom();
-            tuples.add(statsAlgo);
-        }
-        creerFichier(nonFichier);
+        creerFichier(nomFichier+".csv");
     }
 
     // #region Outils
@@ -115,17 +78,6 @@ public class GenererCSV {
         for (int i = 0; i < tempsMoyenPourUneVille.length; i++) {
             if (tempsMoyenPourUneVille[i] != 0)
                 statsAlgo[i + 1] = String.valueOf(tempsMoyenPourUneVille[i]).replace('.', ',');
-            else
-                statsAlgo[i + 1] = "";
-        }
-        return statsAlgo;
-    }
-
-    private String[] convertToString(int indexAglo, double[] tempsMoyenParVilles) {
-        String statsAlgo[] = new String[tempsMoyenParVilles.length + 1];
-        for (int i = 0; i < tempsMoyenParVilles.length; i++) {
-            if (tempsMoyenParVilles[i] != 0)
-                statsAlgo[i + 1] = String.valueOf(tempsMoyenParVilles[i]).replace('.', ',');
             else
                 statsAlgo[i + 1] = "";
         }
@@ -202,6 +154,20 @@ public class GenererCSV {
      */
     public void setTempsMax(long tempsMax) {
         this.tempsMax = tempsMax;
+    }
+
+    /**
+     * @return the nomFichier
+     */
+    public String getNomFichier() {
+        return nomFichier;
+    }
+
+    /**
+     * @param nomFichier the nomFichier to set
+     */
+    public void setNomFichier(String nomFichier) {
+        this.nomFichier = nomFichier;
     }
 
     // #endregion Settet
