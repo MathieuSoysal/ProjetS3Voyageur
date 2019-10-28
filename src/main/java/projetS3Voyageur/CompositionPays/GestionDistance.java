@@ -25,7 +25,7 @@ public class GestionDistance {
     }
 
     /**
-     * Renvoi la distance entre deux villes
+     * Renvois la distance entre deux villes
      * 
      * @param ville1 numéro de la premère ville donné en paramètre
      * @param ville2 numéro de la seconde ville donné en paramètre
@@ -81,7 +81,7 @@ public class GestionDistance {
         return villes.getPositionVille(ville1).getY() - villes.getPositionVille(ville2).getY();
     }
 
-        /**
+    /**
      * Vérifie si le numéro de la Ville saisi est bien valide
      * 
      * @param numVille numéro de Ville

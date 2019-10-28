@@ -12,6 +12,8 @@ public class Comparer {
     // programmes ont validé les tests
 
     private ModeRecherche[] listAlgo;
+    private boolean[] algosDepassantTemps;
+
     private int nombreDeTestes = 20;
 
     private double tempsMoyenAlgo[];
@@ -20,22 +22,25 @@ public class Comparer {
     private int nombreDeVilles = 10;
     private byte villeDepart = 0;
 
-    private String etapeChargementAttein = "##";
-    private String etapeChargementNonAttein = "#.";
-    private String barreDeChargement = "[#...................................................................................................]";
+    private String etapeChargementAttein;
+    private String etapeChargementNonAttein;
+    private final String BARRE_CHARGEMENT_APPARENCE = "[#...................................................................................................]";
+    private String barreDeChargement;
 
     public Comparer(ModeRecherche[] listAlgo) {
         this.listAlgo = listAlgo;
         this.tempsMoyenAlgo = new double[listAlgo.length];
         this.tempsMoyenAlgoVariance = new double[listAlgo.length];
-
+        this.algosDepassantTemps = new boolean[listAlgo.length];
     }
 
-    //TODO: note pour moi-m^me Mathieu oublie pas que tu as mis en paramètre tempsMax
+    // TODO: note pour moi-m^me Mathieu oublie pas que tu as mis en paramètre
+    // tempsMax
     public Comparer(ModeRecherche[] listAlgo, int nombreDeVilles, int nombreDeTests, double tempsMax) {
         this.tempsMax = tempsMax;
         this.listAlgo = listAlgo;
         this.tempsMoyenAlgo = new double[listAlgo.length];
+        this.algosDepassantTemps = new boolean[listAlgo.length];
         this.tempsMoyenAlgoVariance = new double[listAlgo.length];
         this.nombreDeTestes = nombreDeTests;
         this.nombreDeVilles = nombreDeVilles;
@@ -47,6 +52,9 @@ public class Comparer {
     public void calcule() {
 
         barreDeChargementInit();
+
+        this.tempsMoyenAlgo = new double[listAlgo.length];
+        this.tempsMoyenAlgoVariance = new double[listAlgo.length];
 
         for (iterationActuel = 0; iterationActuel < nombreDeTestes; iterationActuel++) {
 
@@ -85,25 +93,34 @@ public class Comparer {
     }
 
     /**
-     * Execute tous les algorithme dans la liste, en vérifiant qu'il ne dépasse
-     * pas le temps imparti @tempsMax
+     * Execute tous les algorithme dans la liste, en vérifiant qu'il ne dépasse pas
+     * le temps imparti @tempsMax
      */
     private void effectueAlgos() {
+        Pays pays = new Pays(nombreDeVilles);
         for (int j = 0; j < listAlgo.length; j++) {
-            if (((tempsMoyenAlgo[j] * (nombreDeTestes - iterationActuel)) / 1000) < tempsMax) {
-                double tempsExecution = calculeTempsExecution(listAlgo[j]);
+            if (!algosDepassantTemps[j] && (iterationActuel == 0
+                    || ((tempsMoyenAlgo[j] * (nombreDeTestes / iterationActuel))) < (tempsMax * 1000))) {
+                double tempsExecution = calculeTempsExecution(listAlgo[j], pays);
                 tempsMoyenAlgo[j] += tempsExecution / nombreDeTestes;
                 tempsMoyenAlgoVariance[j] += (Math.pow(tempsExecution, 2)) / nombreDeTestes;
+            } else {
+                algosDepassantTemps[j] = true;
+                tempsMoyenAlgo[j] = 0;
             }
         }
     }
 
     // #region Outils Barre de Chargement
     private void barreDeChargementInit() {
+        etapeChargementAttein = "##";
+        etapeChargementNonAttein = "#.";
         for (int i = 1; i < (int) ((((double) 1) / ((double) nombreDeTestes)) * 100); i++) {
             etapeChargementAttein += '#';
             etapeChargementNonAttein += '.';
         }
+        barreDeChargement = BARRE_CHARGEMENT_APPARENCE;
+        System.out.print(barreDeChargement);
     }
 
     private void barreDeChargement(int i) {
@@ -117,10 +134,9 @@ public class Comparer {
     // #endregion Outils barre de chargement
 
     // #region outils calcul sur le temps
-    private long calculeTempsExecution(ModeRecherche algo) {
+    private long calculeTempsExecution(ModeRecherche algo, Pays pays) {
         long startTime = System.currentTimeMillis();
-        algo.recherche(new Pays(nombreDeVilles), villeDepart);
-        ;
+        algo.recherche(pays, villeDepart);
         long endTime = System.currentTimeMillis();
         return (endTime - startTime);
     }

@@ -11,8 +11,8 @@ public class App {
         ModeRecherche[] listeAlgo = { new BrutForce(), new BrutForceV3(), new BrutForceV3_1(), new BrutForceV4(),
                 new BadTrack(), new BadTrackV2(), new TrackProches() };
         GenererCSV fichierCSV = new GenererCSV();
-        fichierCSV.setTempsMax(3);
-        fichierCSV.GenereSyncro(15, 50, listeAlgo, "StatsGrapheSyncroAvecTempsMax.csv");
+        fichierCSV.setTempsMax(4);
+        fichierCSV.GenereSyncro(15, 50, listeAlgo, "StatsTrackProche.csv");
 
         // #region analyser approfondie d'un algo en particulier
         // Analyser analyse = new Analyser(new BrutForceV4());

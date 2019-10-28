@@ -83,9 +83,10 @@ public class GenererCSV {
         this.nbVillesMax = (byte) (nbVillesMax + 1);
         String[] statsAlgo = new String[listAlgo.length + 1];
         initTupleSyncro();
+        compare = new Comparer(listAlgo, 3, nbIteration, tempsMax);
         for (byte nbVille = 3; nbVille != nbVillesMax + 1; nbVille++) {
             System.out.println("\n Nombre de villes actuel :" + nbVille);
-            compare = new Comparer(listAlgo, nbVille, nbIteration, tempsMax);
+            compare.setNombreDeVilles(nbVille);
             compare.calcule();
             statsAlgo = convertToString(compare.getListTempsMoyenAlgo());
             statsAlgo[0] = String.valueOf(nbVille);
