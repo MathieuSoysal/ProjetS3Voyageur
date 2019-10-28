@@ -1,6 +1,16 @@
 package projetS3Voyageur;
 
 import projetS3Voyageur.StatsAlgos.*;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.time.LocalDate;
+import java.util.Map;
+
 import projetS3Voyageur.ModesDeRecherches.*;
 
 public class App {
@@ -8,11 +18,15 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // #region Generer un fichier CSV
-        ModeRecherche[] listeAlgo = { new BrutForce(), new BrutForceV3(), new BrutForceV3_1(), new BrutForceV4(),
-                new BadTrack(), new BadTrackV2(), new TrackProches() };
+        ModeRecherche[] listeAlgo = { new BrutForce(), new BrutForceV3(), new
+        BrutForceV3_1(), new BrutForceV4(),
+        new BadTrack(), new BadTrackV2(), new TrackProches() };
         GenererCSV fichierCSV = new GenererCSV();
-        fichierCSV.setTempsMax(1);
-        fichierCSV.GenereSyncro(10, 50, listeAlgo, "tests.csv");
+        fichierCSV.setTempsMax(17);
+        fichierCSV.GenereSyncro(15, 100, listeAlgo, LocalDate.now() + ".csv");
+
+      
+
 
         // #region analyser approfondie d'un algo en particulier
         // Analyser analyse = new Analyser(new BrutForceV4());
@@ -21,7 +35,8 @@ public class App {
         // analyse.afficher();
 
         // #region comparer plusieurs algos :
-        // ModeRecherche[] listAlgo = {new BadTrackV2(), new TrackProches(),new BrutForceV4()};
+        // ModeRecherche[] listAlgo = {new BadTrackV2(), new TrackProches(),new
+        // BrutForceV4()};
         // Comparer compare = new Comparer(listAlgo);
         // compare.setNombreDeTest(100);
         // compare.setNombreDeVilles(12);

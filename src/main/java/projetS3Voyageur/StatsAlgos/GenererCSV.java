@@ -2,8 +2,15 @@ package projetS3Voyageur.StatsAlgos;
 
 import static projetS3Voyageur.StatsAlgos.CSV.writeCSV;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
 
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
@@ -50,26 +57,12 @@ public class GenererCSV {
     }
 
     /**
-     * @param nbVillesMax
-     * @param nbIteration
-     * @param listAlgo
-     */
-    // public GenererCSV(int nbVillesMax, int nbIteration, ModeRecherche[] listAlgo,
-    // String nonFichier) {
-    // // TODO: Vérifier les valeurs saisie
-    // this.nbVillesMax = (byte) nbVillesMax;
-    // this.nbIteration = nbIteration;
-    // this.listAlgo = listAlgo;
-    // initTuple();
-    // }
-
-    /**
      * Cette méthode permet de générer un fichier CSV possèdant les statistique de
-     * temps d'exécution des différents ModeRecherche donnés en paramètre. TODO:
-     * Elle n'as à gérer ça Sa spécificité réside dans le fait que pour chaque
-     * itération elle donne le même pays/graphique en paramètre aux différents
-     * algorithmes, ainsi la comparaison entre les différents algos est moins
-     * affectée par le facteur aléatoire d'un pays/graphique.
+     * temps d'exécution des différents ModeRecherche donnés en paramètre. Sa
+     * spécificité réside dans le fait que pour chaque itération elle donne le même
+     * pays/graphique en paramètre aux différents algorithmes, ainsi la comparaison
+     * entre les différents algos est moins affectée par le facteur aléatoire d'un
+     * pays/graphique.
      * 
      * 
      * @param nbVillesMax Nombre de villes où les algos doivent s'arrêter
@@ -95,8 +88,6 @@ public class GenererCSV {
 
         creerFichier(nonFichier);
     }
-
-
 
     public void Genere(int nbVillesMax, int nbIteration, ModeRecherche[] listAlgo, String nonFichier) {
         Analyser analyse;
@@ -142,9 +133,50 @@ public class GenererCSV {
     }
 
     private void creerFichier(String nonFichier) {
-        File f = new File("Statistiques/" + System.getProperty("user.name") + "/syncro");
+        File f = new File("Statistiques/" + getNameOrdinateur());
         f.mkdirs();
-        writeCSV(tuples, ";", new File(f,nonFichier));
+        try {
+            recupereComposant(f);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        writeCSV(tuples, ";", new File(f, nonFichier));
+    }
+
+    private String getNameOrdinateur() {
+        Map<String, String> env = System.getenv();
+        if (env.containsKey("COMPUTERNAME"))
+            return env.get("COMPUTERNAME");
+        else if (env.containsKey("HOSTNAME"))
+            return env.get("HOSTNAME");
+        else
+            return System.getProperty("user.name");
+    }
+
+    private void recupereComposant(File f) throws IOException, InterruptedException {
+        String commande = "";
+        BufferedWriter writer = new BufferedWriter(new FileWriter(new File(f, "config.txt")));
+
+        switch (System.getProperty("os.name")) {
+        case "Windows 10":
+            commande = "wmic cpu";
+            break;
+        default:
+            commande = "cat/proc/cpuinfo";
+        }
+        Runtime r = Runtime.getRuntime();
+        Process p = r.exec(commande);
+        p.waitFor();
+        BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line = "";
+
+        while ((line = b.readLine()) != null) {
+            writer.write(line+"\n");
+        }
+
+        writer.close();
+        b.close();
+
     }
 
     // #endregion Outils
