@@ -2,6 +2,7 @@ package projetS3Voyageur.StatsAlgos;
 
 import static projetS3Voyageur.StatsAlgos.CSV.writeCSV;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
@@ -64,12 +65,11 @@ public class GenererCSV {
 
     /**
      * Cette méthode permet de générer un fichier CSV possèdant les statistique de
-     * temps d'exécution des différents ModeRecherche donnés en paramètre. 
-     * TODO: Elle n'as à gérer ça
-     * Sa spécificité réside dans le fait que pour chaque itération elle donne le même
-     * pays/graphique en paramètre aux différents algorithmes, ainsi la comparaison
-     * entre les différents algos est moins affectée par le facteur aléatoire d'un
-     * pays/graphique.
+     * temps d'exécution des différents ModeRecherche donnés en paramètre. TODO:
+     * Elle n'as à gérer ça Sa spécificité réside dans le fait que pour chaque
+     * itération elle donne le même pays/graphique en paramètre aux différents
+     * algorithmes, ainsi la comparaison entre les différents algos est moins
+     * affectée par le facteur aléatoire d'un pays/graphique.
      * 
      * 
      * @param nbVillesMax Nombre de villes où les algos doivent s'arrêter
@@ -92,8 +92,11 @@ public class GenererCSV {
             statsAlgo[0] = String.valueOf(nbVille);
             tuples.add(statsAlgo.clone());
         }
-        writeCSV(tuples, ";", nonFichier);
+
+        creerFichier(nonFichier);
     }
+
+
 
     public void Genere(int nbVillesMax, int nbIteration, ModeRecherche[] listAlgo, String nonFichier) {
         Analyser analyse;
@@ -110,7 +113,7 @@ public class GenererCSV {
             statsAlgo[0] = currentAlgo.getNom();
             tuples.add(statsAlgo);
         }
-        writeCSV(tuples, ";", nonFichier);
+        creerFichier(nonFichier);
     }
 
     // #region Outils
@@ -136,6 +139,12 @@ public class GenererCSV {
                 statsAlgo[i + 1] = "";
         }
         return statsAlgo;
+    }
+
+    private void creerFichier(String nonFichier) {
+        File f = new File("Statistiques/" + System.getProperty("user.name") + "/syncro");
+        f.mkdirs();
+        writeCSV(tuples, ";", new File(f,nonFichier));
     }
 
     // #endregion Outils
