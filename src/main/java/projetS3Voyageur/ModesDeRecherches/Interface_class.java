@@ -31,6 +31,7 @@ public class Interface_class implements Interface {
 
 
     public Interface_class() {
+
         JFrame f = new JFrame();
         p = new JPanel();
         JButton b = new JButton("dessiner");
@@ -41,7 +42,7 @@ public class Interface_class implements Interface {
 
             }
         };
-        b.addActionListener(this);
+      /*  b.addActionListener(this);*/
 
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
