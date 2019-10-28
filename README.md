@@ -2,18 +2,10 @@
 ### IUT Montpellier-Sète – Département Informatique
 * **Eléves:** [Zaid Nadir](mailto:nadir.zaid@umontpellier.fr), [Soysal Mathieu](mailto:mathieu.soysal@umontpellier.fr), [Delon Matthias](mailto:matthias.delon@umontpellier.fr), [Ravet-lecourt Florian](mailto:florian.ravet-lecourt@umontpellier.fr)
 * **Enseignant:** [Coletta Rémi](mailto:remi.coletta@umontpellier.fr)
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-![alt text](GraphiqueStatistiqueAlgorithmes.PNG "Title")
-=======
-=======
->>>>>>> 42c384fff98bead017727b90e61f1f2d085c7a29
 Réunion du 18 septembre 2019
 ----------------------------
 
 ### Cahier des charges
-<<<<<<< HEAD
 
 **Définition du cahier des charges :**
 
@@ -71,7 +63,6 @@ Réunion du 18 septembre 2019
 * Réaliser un graphique linéaire comparatif de ces deux programmes en fonction du temps CPU et du nombre de ville.
 
 
->>>>>>> 42c384fff98bead017727b90e61f1f2d085c7a29
 =======
 
 **Définition du cahier des charges :**
