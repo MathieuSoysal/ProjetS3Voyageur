@@ -5,7 +5,7 @@ import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class Comparer {
 
-    private byte iterationActuel = 0;
+    private int iterationActuel = 0;
     private double tempsMax = 240;
 
     // TODO: Attention ce programme est à faire en dernier lorsque tout les
