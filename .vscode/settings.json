@@ -3,4 +3,7 @@
     "java.dependency.packagePresentation": "hierarchical",
     "java.dependency.syncWithFolderExplorer": true,
     "java.errors.incompleteClasspath.severity": "error",
+    "git-graph.commitOrdering": "author-date",
+    "java.format.settings.profile": "VoyageurCommerce",
+    "java.jdt.ls.vmargs": "-noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication -Dcom.sun.management.jmxremote.*** -Xverify:none "
 }

@@ -17,6 +17,13 @@ public class App {
 
     public static void main(String[] args) throws Exception {
 
+        // System.in.read();
+
+
+        // Voyageur mrSmins = new Voyageur(new Pays(17), 0);
+
+        // System.out.println(mrSmins.getParcours(new TrackProchesV1_1()));
+
         // #region Generer un fichier CSV
         // ModeRecherche[] listeAlgo = { new BrutForce(), new BrutForceV3(), new
         // BrutForceV3_1(), new BrutForceV4(),
@@ -27,9 +34,6 @@ public class App {
         // fichierCSV.setNbVillesMax(15);
         // fichierCSV.GenereSyncro(listeAlgo);
 
-      
-
-
         // #region analyser approfondie d'un algo en particulier
         // Analyser analyse = new Analyser(new BrutForceV4());
         // analyse.setNbIteration(120);
@@ -37,10 +41,10 @@ public class App {
         // analyse.afficher();
 
         // #region comparer plusieurs algos :
-        ModeRecherche[] listAlgo = {new TrackProchesV1_1(), new TrackProchesV1()};
+        ModeRecherche[] listAlgo = {new TrackProchesV1_1(), new TrackProchesV1_2()};
         Comparer compare = new Comparer(listAlgo);
-        compare.setNombreDeTest(600);
-        compare.setNombreDeVilles(12);
+        compare.setNombreDeTest(1200);
+        compare.setNombreDeVilles(13);
         compare.calcule();
         compare.afficher();
 
@@ -63,10 +67,6 @@ public class App {
 // france.setPositionVille(8, new Position(652, 707));
 // france.setPositionVille(9, new Position(518, 817));
 // france.setPositionVille(10, new Position(25, 104));
-
-// Voyageur mrSmins = new Voyageur(france, 0);
-
-// System.out.println(mrSmins.getParcours(new BrutForce()));
 
 // for (int i = 0; i < 11; i++) {
 // System.out.println((int) (Math.random() * 1000));
