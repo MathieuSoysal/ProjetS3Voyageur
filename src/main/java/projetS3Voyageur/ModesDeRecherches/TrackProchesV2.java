@@ -2,7 +2,7 @@ package projetS3Voyageur.ModesDeRecherches;
 
 import projetS3Voyageur.*;
 
-public class TrackProchesV1_2 implements ModeRecherche {
+public class TrackProchesV2 implements ModeRecherche {
 
     private int overFlow;
 
@@ -51,7 +51,7 @@ public class TrackProchesV1_2 implements ModeRecherche {
         // Je prend en compte que la VilleActuell est déjà une ville visité
 
         if (distanceParcourue < distanceOptimum && ((distanceParcourue
-                + distancesPlusCourt[(nombreDeVilles - Integer.bitCount(villesVisite))]) < distanceOptimum)) {
+                + distancesPlusCourt[(nombreDeVilles - Integer.bitCount(villesVisite))]) <= distanceOptimum)) {
             if (Integer.bitCount(villesVisite) > (nombreDeVilles / 2))
                 rechercheAuxDistanceProche(villesVisite, villeActuel, distanceParcourue);
             if (villesVisite == overFlow) {
@@ -140,7 +140,7 @@ public class TrackProchesV1_2 implements ModeRecherche {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
         if (distanceParcourue < distanceOptimum && ((distanceParcourue
-                + distancesPlusCourt[(nombreDeVilles - Integer.bitCount(villesVisite))]) < distanceOptimum)) {
+                + distancesPlusCourt[(nombreDeVilles - Integer.bitCount(villesVisite))]) <= distanceOptimum)) {
 
             if (villesVisite == overFlow) {
                 double distanceParcourueFinal = distanceParcourue
@@ -205,7 +205,7 @@ public class TrackProchesV1_2 implements ModeRecherche {
         return villesEmpruntees.clone();
     }
 
-    private double distancePlusCourtEntre2Villes(double minimumSuperieur) {
+    private double distancePlusCourtEntre2Villes(double minimumSuperieur, int index) {
         int villesVisite = 0;
         double resultat = Double.MAX_VALUE;
         for (int villeFormatBinaire = villeNonVisite(1,
@@ -214,27 +214,42 @@ public class TrackProchesV1_2 implements ModeRecherche {
             for (int villeFormatBinaire2 = villeNonVisite(1,
                     villeFormatBinaire); villeFormatBinaire2 < overFlow; villeFormatBinaire2 = villeNonVisite(
                             villeFormatBinaire2 << 1, villeFormatBinaire)) {
-                resultat = (minimumSuperieur < Double.min(resultat,
-                        pays.getDistanceEntreVilles(Math.getExponent(villeFormatBinaire),
-                                Math.getExponent(villeFormatBinaire2))))
-                                        ? Double.min(resultat,
-                                                pays.getDistanceEntreVilles(Math.getExponent(villeFormatBinaire),
-                                                        Math.getExponent(villeFormatBinaire2)))
-                                        : resultat;
+
+                double valeurMinimal = pays.getDistanceEntreVilles(Math.getExponent(villeFormatBinaire),
+                        Math.getExponent(villeFormatBinaire2));
+
+                if ((valeurMinimal < resultat) && (minimumSuperieur <= valeurMinimal)
+                        && (pairDeVillesNonVisite(villeFormatBinaire | villeFormatBinaire2))) {
+                    resultat = valeurMinimal;
+                    pairDeVilleVisite[index] = villeFormatBinaire + villeFormatBinaire2;
+
+                }
             }
 
         }
+
         return resultat;
     }
 
+    private int[] pairDeVilleVisite;
+
     private double[] distancesPlusCourts() {
+        pairDeVilleVisite = new int[nombreDeVilles + 1];
         int i = 0;
         double[] resultat = new double[nombreDeVilles];
-        for (double minValue = distancePlusCourtEntre2Villes(0); resultat[nombreDeVilles
-                - 1] == 0.; minValue = distancePlusCourtEntre2Villes(minValue)) {
+        for (double minValue = distancePlusCourtEntre2Villes(0,
+                0); i < resultat.length; minValue = distancePlusCourtEntre2Villes(minValue, i)) {
             resultat[i++] = minValue + resultat[(i == 1) ? 0 : i - 2];
         }
 
+        return resultat;
+    }
+
+    private boolean pairDeVillesNonVisite(int pairDeVilleActuel) {
+        boolean resultat = true;
+        for (int pairVille : pairDeVilleVisite) {
+            resultat = ((pairDeVilleActuel ^ pairVille) != 0) && resultat;
+        }
         return resultat;
     }
 

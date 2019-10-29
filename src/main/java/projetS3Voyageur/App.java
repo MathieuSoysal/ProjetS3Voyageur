@@ -41,10 +41,10 @@ public class App {
         // analyse.afficher();
 
         // #region comparer plusieurs algos :
-        ModeRecherche[] listAlgo = {new TrackProchesV1_1(), new TrackProchesV1_2()};
+        ModeRecherche[] listAlgo = {new TrackProchesV1_1(), new TrackProchesV2()};
         Comparer compare = new Comparer(listAlgo);
-        compare.setNombreDeTest(1200);
-        compare.setNombreDeVilles(13);
+        compare.setNombreDeTest(600);
+        compare.setNombreDeVilles(12);
         compare.calcule();
         compare.afficher();
 
