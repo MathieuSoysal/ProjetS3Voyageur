@@ -69,7 +69,7 @@ public class Comparer {
 
     private void CalculEcartType() {
         for (int i = 0; i < margeErreurAlgos.length; i++) {
-            margeErreurAlgos[i] = margeErreurAlgos[i] - Math.pow(tempsMoyenAlgos[i], 2);
+            margeErreurAlgos[i] = Math.sqrt(margeErreurAlgos[i] - Math.pow(tempsMoyenAlgos[i], 2));
         }
     }
 
@@ -107,7 +107,7 @@ public class Comparer {
         Pays pays = new Pays(nombreDeVilles);
         for (int j = 0; j < listAlgo.length; j++) {
             if (!algosDepassantTemps[j] && (iterationActuel == 0
-                    || ((tempsMoyenAlgos[j] * (nombreDeTestes / iterationActuel))) < (tempsMax * 1000))) {
+                    || ((tempsMoyenAlgos[j] * (nombreDeTestes / iterationActuel))) < tempsMax)) {
                 double tempsExecution = calculeTempsExecution(listAlgo[j], pays);
                 tempsMoyenAlgos[j] += tempsExecution / nombreDeTestes;
                 margeErreurAlgos[j] += (Math.pow(tempsExecution, 2)) / nombreDeTestes;
@@ -146,7 +146,7 @@ public class Comparer {
         long startTime = System.currentTimeMillis();
         algo.recherche(pays, villeDepart);
         long endTime = System.currentTimeMillis();
-        return (endTime - startTime);
+        return (endTime - startTime) / 1000;
     }
 
     private double recupéreTempsPlusLent() {
