@@ -14,7 +14,6 @@ import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 public class GenererCSV {
 
     // TODO: Néttoyer la class
-    // TODO: ajouter un calcul safe pour la méthode avec le graphe syncronisé
 
     private byte nbVillesMax = 12;
     private int nbIteration = 100;
@@ -29,11 +28,12 @@ public class GenererCSV {
     private ArrayList<String[]> tableauMargeErreur = new ArrayList<>();
 
     private void initTupleSyncro() {
-        String[] attributs = new String[listAlgo.length + 1];
+        String[] attributs = new String[listAlgo.length + 2];
         attributs[0] = "Nombre de villes";
         for (byte i = 0; i != (listAlgo.length); i++) {
             attributs[i + 1] = listAlgo[i].getNom();
         }
+        attributs[listAlgo.length + 1] = "Marge d'erreur CurrentTime";
         tableauStats.add(attributs);
         tableauMargeErreur.add(attributs);
     }
@@ -72,14 +72,17 @@ public class GenererCSV {
     }
 
     private void actualiseStats(Comparer compare, byte nbVille) {
-        tableauStats.add(construitTuple(compare.getListTempsMoyenAlgo(), nbVille));
-        tableauMargeErreur.add(construitTuple(compare.getListMargeErreurAlgos(), nbVille));
+
+        tableauStats.add(construitTuple(compare.getListTempsMoyenAlgo(), nbVille, compare.getMargeErreurCurrentTime()));
+
+        tableauMargeErreur
+                .add(construitTuple(compare.getListMargeErreurAlgos(), nbVille, compare.getMargeErreurCurrentTime()));
     }
 
-    private String[] construitTuple(double[] listDouble, byte nbVille) {
-        String[] tuple = new String[listDouble.length + 1];
-        tuple = convertToString(listDouble);
+    private String[] construitTuple(double[] listDouble, byte nbVille, double margeErreurCurrentTime) {
+        String[] tuple = convertToString(listDouble);
         tuple[0] = String.valueOf(nbVille);
+        tuple[listDouble.length + 1] = String.valueOf(margeErreurCurrentTime);
         return tuple;
     }
     // #region Outils
@@ -87,7 +90,10 @@ public class GenererCSV {
     private String[] convertToString(double[] listDouble) {
 
         String statsAlgos[] = new String[listDouble.length
-                + 1 /* +1 car le premier element est réservé à l'indication du nbVille */];
+                + 2 /*
+                     * +2 car le premier et dernier element sont réservés à l'indication du nbVille
+                     * et de la marge d'erreur du currentTime
+                     */];
 
         for (int i = 0; i < listDouble.length; i++) {
             if (listDouble[i] != 0)
