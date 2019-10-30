@@ -1,6 +1,7 @@
 package projetS3Voyageur.StatsAlgos;
 
 import projetS3Voyageur.Pays;
+import projetS3Voyageur.ModesDeRecherches.BrutForceV2;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class Comparer {
@@ -8,17 +9,19 @@ public class Comparer {
     private int iterationActuel = 0;
     private double tempsMax = 240;
 
-    // TODO: Attention ce programme est à faire en dernier lorsque tout les
-    // programmes ont validé les tests
+    // Calcul de la varience du CurrentTime :
+    private byte dernierElement;
+    private final ModeRecherche ALGOREFERENCE = new BrutForceV2();
+    private final Pays PAYSREFERENCE = new Pays(9);
 
-    private ModeRecherche[] listAlgo;
     private boolean[] algosDepassantTemps;
 
-    private int nombreDeTestes = 20;
+    private ModeRecherche[] listAlgo;
 
     private double tempsMoyenAlgos[];
     private double margeErreurAlgos[];
 
+    private int nombreDeTestes = 20;
     private int nombreDeVilles = 10;
     private byte villeDepart = 0;
 
@@ -29,9 +32,10 @@ public class Comparer {
 
     public Comparer(ModeRecherche[] listAlgo) {
         this.listAlgo = listAlgo;
-        this.tempsMoyenAlgos = new double[listAlgo.length];
-        this.margeErreurAlgos = new double[listAlgo.length];
-        this.algosDepassantTemps = new boolean[listAlgo.length];
+        tempsMoyenAlgos = new double[listAlgo.length];
+        margeErreurAlgos = new double[listAlgo.length];
+        algosDepassantTemps = new boolean[listAlgo.length];
+        dernierElement = (byte) listAlgo.length;
     }
 
     // TODO: note pour moi-m^me Mathieu oublie pas que tu as mis en paramètre
@@ -39,11 +43,11 @@ public class Comparer {
     public Comparer(ModeRecherche[] listAlgo, int nombreDeVilles, int nombreDeTests, double tempsMax) {
         this.tempsMax = tempsMax;
         this.listAlgo = listAlgo;
-        this.algosDepassantTemps = new boolean[listAlgo.length];
-        this.tempsMoyenAlgos = new double[listAlgo.length];
-        this.margeErreurAlgos = new double[listAlgo.length];
         this.nombreDeTestes = nombreDeTests;
         this.nombreDeVilles = nombreDeVilles;
+        algosDepassantTemps = new boolean[listAlgo.length];
+        tempsMoyenAlgos = new double[listAlgo.length];
+        margeErreurAlgos = new double[listAlgo.length];
 
     }
 
@@ -53,8 +57,8 @@ public class Comparer {
 
         barreDeChargementInit();
 
-        this.tempsMoyenAlgos = new double[listAlgo.length];
-        this.margeErreurAlgos = new double[listAlgo.length];
+        tempsMoyenAlgos = new double[listAlgo.length + 1];
+        margeErreurAlgos = new double[listAlgo.length + 1];
 
         for (iterationActuel = 0; iterationActuel < nombreDeTestes; iterationActuel++) {
 
@@ -85,7 +89,7 @@ public class Comparer {
 
     public void afficher() {
         double tempsPlusLent = recupéreTempsPlusLent();
-        for (int i = 0; i < tempsMoyenAlgos.length; i++) {
+        for (int i = 0; i < listAlgo.length; i++) {
             int poucentage = (int) ((((tempsPlusLent) / ((tempsMoyenAlgos[i]))) - 1) * 100);
 
             String tempsMoyenObtenue = " :\n Temps moyen de recherche : " + tempsMoyenAlgos[i];
@@ -93,9 +97,11 @@ public class Comparer {
             String margeErreur = "\n Marge d'erreur : " + margeErreurAlgos[i];
 
             System.out.println("\n Résultat avec " + listAlgo[i].getNom() + tempsMoyenObtenue + differenceAvecPlusLent
-                    + margeErreur);
+                    + margeErreur + "\n");
 
         }
+        System.out.println("Marge d'erreur de la machine : "
+                + (int) ((tempsMoyenAlgos[dernierElement] / margeErreurAlgos[dernierElement])) + "%");
 
     }
 
@@ -105,9 +111,11 @@ public class Comparer {
      */
     private void effectueAlgos() {
         Pays pays = new Pays(nombreDeVilles);
+        calculVarianceCurrentTime();
+
         for (int j = 0; j < listAlgo.length; j++) {
             if (!algosDepassantTemps[j] && (iterationActuel == 0
-                    || ((tempsMoyenAlgos[j] * (nombreDeTestes / iterationActuel))) < tempsMax)) {
+                    || ((tempsMoyenAlgos[j] * (nombreDeTestes / iterationActuel))) < tempsMax * 1000)) {
                 double tempsExecution = calculeTempsExecution(listAlgo[j], pays);
                 tempsMoyenAlgos[j] += tempsExecution / nombreDeTestes;
                 margeErreurAlgos[j] += (Math.pow(tempsExecution, 2)) / nombreDeTestes;
@@ -117,6 +125,13 @@ public class Comparer {
                 margeErreurAlgos[j] = 0;
             }
         }
+        calculVarianceCurrentTime();
+    }
+
+    private void calculVarianceCurrentTime() {
+        double tempsExecution = calculeTempsExecution(ALGOREFERENCE, PAYSREFERENCE);
+        tempsMoyenAlgos[dernierElement] += tempsExecution / (nombreDeTestes * 2);
+        margeErreurAlgos[dernierElement] += (Math.pow(tempsExecution, 2)) / (nombreDeTestes * 2);
     }
 
     // #region Outils Barre de Chargement
@@ -146,7 +161,7 @@ public class Comparer {
         long startTime = System.currentTimeMillis();
         algo.recherche(pays, villeDepart);
         long endTime = System.currentTimeMillis();
-        return (endTime - startTime) / 1000;
+        return (endTime - startTime);
     }
 
     private double recupéreTempsPlusLent() {
