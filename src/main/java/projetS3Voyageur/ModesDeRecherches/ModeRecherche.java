@@ -5,24 +5,25 @@ import projetS3Voyageur.*;
 public interface ModeRecherche {
 
     /**
-     * Calcul en interne le parcours le plus court pour visiter toutes les villes d'un pays
+     * Recherche depuis une ville de départ le parcours le plus optimisé pour
+     * visiter toutes les villes d'un pays.
      * 
-     * @param pays        Le pays concerné par la recherche
-     * @param villeDepart Le numéro de la ville de départ
+     * @param pays          Le pays concerné par la recherche
+     * @param villeInitiale Le numéro de la ville de départ
      */
-    public void recherche(Pays pays, int villeDepart);
+    public void recherche(Pays pays, int villeInitiale);
 
     /**
-     * Renvois le parcours le plus optimisé après la recherche() de celle-ci
+     * @près-requis : Cette méthode doit être exécuté après la méthode recherche().
      * 
-     * @return {@code Parcours}
+     * @return {@code Parcours} parcours le plus optimisé qu'il ai trouvé
      */
     public Parcours getParcours();
 
     /**
-     * Récupère le nom de l'algortihme de recherche
+     * Renvois le nom de l'algorithme de recherche
      * 
-     * @return {@code String}
+     * @return {@code String} Nom de l'algorithme
      */
     public String getNom();
 }

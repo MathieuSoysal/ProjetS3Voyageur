@@ -6,11 +6,11 @@ import projetS3Voyageur.*;
 
 public class BrutForceV3 implements ModeRecherche {
 
-    private int overFlow;
+    private int toutesVillesVisitees;
 
     private Pays pays;
 
-    private int villeInitial;
+    private int villeInitiale;
     private int nombreDeVilles;
 
     private double distanceOptimum;
@@ -21,20 +21,24 @@ public class BrutForceV3 implements ModeRecherche {
     /**
      * Recherche depuis une ville de départ le parcours le plus optimisé pour
      * visiter toutes les villes d'un pays.
+     * 
+     * @param pays          Le pays concerné par la recherche
+     * @param villeInitiale Le numéro de la ville de départ
      */
     @Override
-    public void recherche(Pays pays, int villeInitial) {
+    public void recherche(Pays pays, int villeInitiale) {
         this.pays = pays;
-        this.villeInitial = villeInitial;
+        this.villeInitiale = villeInitiale;
         nombreDeVilles = pays.getNombreDeVilles();
-        overFlow = 1 << nombreDeVilles;
+        toutesVillesVisitees = 1 << nombreDeVilles;
         distanceOptimum = Double.MAX_VALUE;
 
         for (Integer i = 0; i != nombreDeVilles; i++) {
             ConversionFormatBinaireEnNumVille.put(1 << i, i);
         }
 
-        rechercheAux(1 << villeInitial, villeInitial, 0.0, emprunteVille(new int[nombreDeVilles + 1], 0, villeInitial));
+        rechercheAux(1 << villeInitiale, villeInitiale, 0.0,
+                emprunteVille(new int[nombreDeVilles + 1], 0, villeInitiale));
     }
 
     /**
@@ -51,18 +55,18 @@ public class BrutForceV3 implements ModeRecherche {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
 
-        if ((villesVisitees + 1) == overFlow) {
+        if ((villesVisitees + 1) == toutesVillesVisitees) {
             double distanceParcourueFinal = distanceParcourue
-                    + pays.getDistanceEntreVilles(villeActuelle, villeInitial);
+                    + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
 
             if (distanceParcourueFinal < distanceOptimum) {
                 distanceOptimum = distanceParcourueFinal;
-                villesEmprunteesOptimum = emprunteVille(villesEmprunté, nombreDeVilles, villeInitial);
+                villesEmprunteesOptimum = emprunteVille(villesEmprunté, nombreDeVilles, villeInitiale);
             }
         } else {
 
             for (int villeFomatBinaire = villeNonVisitee(1,
-                    villesVisitees); villeFomatBinaire < overFlow; villeFomatBinaire = villeNonVisitee(
+                    villesVisitees); villeFomatBinaire < toutesVillesVisitees; villeFomatBinaire = villeNonVisitee(
                             villeFomatBinaire << 1, villesVisitees)) {
 
                 int villeChoisie = (ConversionFormatBinaireEnNumVille.get(villeFomatBinaire));
@@ -101,17 +105,22 @@ public class BrutForceV3 implements ModeRecherche {
     }
 
     /**
-     * Stock par ordre chronologique les villes visitées.
+     * Stock par ordre chronologique la nouvelle ville visitée à la liste des villes
+     * visitées.
      * 
-     * @param villesEmpruntees Tableau de int où chaque case représente le numéro
-     *                         d'une ville visité
-     * @param index            index à la quelle le numéro de la ville visité doit
-     *                         être ajouté
-     * @param villeVisitee     Numéro de la ville visitée
-     * @return
+     * @param villesEmpruntees  Tableau de int où chaque case représente le numéro
+     *                          d'une ville visité
+     * 
+     * @param indexVilleVisitee index auquel le numéro de la ville visité doit être
+     *                          ajouté
+     * 
+     * @param villeVisitee      Numéro de la ville visitée
+     * 
+     * @return {@code int[]} Une liste de int contenant par ordre chronologique les
+     *         villes empruntées
      */
-    private int[] emprunteVille(int[] villesEmpruntees, int index, int villeSuivante) {
-        villesEmpruntees[index] = villeSuivante;
+    private int[] emprunteVille(int[] villesEmpruntees, int indexVilleVisitee, int villeSuivante) {
+        villesEmpruntees[indexVilleVisitee] = villeSuivante;
         return villesEmpruntees.clone();
     }
     // #endregion Outils
@@ -119,20 +128,11 @@ public class BrutForceV3 implements ModeRecherche {
     // #region Getters
 
     /**
-     * Renvois le nom de l'algorithme de recherche
+     * @près-requis : Cette méthode doit être exécuté après la méthode recherche().
      * 
-     * @return {@code String}
+     * @return {@code Parcours} parcours le plus optimisé qu'il ai trouvé
      */
     @Override
-    public String getNom() {
-        return "BrutForce v3";
-    }
-
-    /**
-     * Dois être exécuté après la recherche() Retourne le parcours le plus optimisé
-     * 
-     * @return {@code Parcours}
-     */
     public Parcours getParcours() {
         // TODO: Ajouter l'exception avec un getParcours sans avoir fait de recherche
         String villesEmpruntees = String.valueOf(villesEmprunteesOptimum[0]);
@@ -141,6 +141,16 @@ public class BrutForceV3 implements ModeRecherche {
         }
 
         return new Parcours(distanceOptimum, villesEmpruntees);
+    }
+
+    /**
+     * Renvois le nom de l'algorithme de recherche
+     * 
+     * @return {@code String} Nom de l'algorithme
+     */
+    @Override
+    public String getNom() {
+        return "BrutForce v3";
     }
 
     // #endregion Getters

@@ -5,22 +5,24 @@ import projetS3Voyageur.*;
 public class BrutForceV2 implements ModeRecherche {
     final boolean dejaVisitee = true;
     final boolean nonVisitee = false;
-    final int plusDeVillesAVisiter = 0;
     private Pays pays;
 
-    private int villeInital;
+    private int villeInitale;
     private int nombreDeVilles;
 
     private Parcours parcoursOptimum;
 
     /**
-     * Recherche depuis une ville de départ le parcours le plus optimisé pour
+     * Recherche depuis une ville de départ, le parcours le plus optimisé pour
      * visiter toutes les villes d'un pays.
+     * 
+     * @param pays          Le pays concerné par la recherche
+     * @param villeInitiale Le numéro de la ville de départ
      */
     @Override
-    public void recherche(Pays pays, int villeDepart) {
+    public void recherche(Pays pays, int villeInitiale) {
         this.pays = pays;
-        villeInital = villeDepart;
+        villeInitale = villeInitiale;
         nombreDeVilles = pays.getNombreDeVilles();
 
         boolean villesAVisiter[] = new boolean[nombreDeVilles];
@@ -29,7 +31,7 @@ public class BrutForceV2 implements ModeRecherche {
         for (int i = 0; i < nombreDeVilles; i++)
             villesAVisiter[i] = nonVisitee;
 
-        rechercheAux(villesAVisiter, villeInital, 0.0, nombreDeVilles - 1, String.valueOf(villeInital));
+        rechercheAux(villesAVisiter, villeInitale, 0.0, nombreDeVilles - 1, String.valueOf(villeInitale));
     }
 
     /**
@@ -48,10 +50,11 @@ public class BrutForceV2 implements ModeRecherche {
         villesAVisiter[villeActuelle] = dejaVisitee;
 
         if (nbVillesAVisiter == 0) {
-            double distanceParcourueFinal = distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInital);
+            double distanceParcourueFinal = distanceParcourue
+                    + pays.getDistanceEntreVilles(villeActuelle, villeInitale);
 
             if (distanceParcourueFinal < parcoursOptimum.getDistance())
-                parcoursOptimum = new Parcours(distanceParcourueFinal, villesEmpruntees + "->" + villeInital);
+                parcoursOptimum = new Parcours(distanceParcourueFinal, villesEmpruntees + "->" + villeInitale);
 
         } else {
             for (int villeChoisie = 0; villeChoisie < nombreDeVilles; villeChoisie++) {
@@ -72,10 +75,11 @@ public class BrutForceV2 implements ModeRecherche {
     // #region Getters
 
     /**
-     * Dois être exécuté après la recherche() Retourne le parcours le plus optimisé
+     * @près-requis : Cette méthode doit être exécuté après la méthode recherche().
      * 
-     * @return {@code Parcours}
+     * @return {@code Parcours} parcours le plus optimisé qu'il ai trouvé
      */
+    @Override
     public Parcours getParcours() {
         return parcoursOptimum;
     }

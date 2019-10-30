@@ -4,11 +4,11 @@ import projetS3Voyageur.*;
 
 public class PlusProcheV2 implements ModeRecherche {
 
-    private int overFlow;
+    private int toutesVillesVisitees;
 
     private Pays pays;
 
-    private byte villeInitial;
+    private byte villeInitiale;
     private byte nombreDeVilles;
 
     private double distanceOptimum;
@@ -17,17 +17,20 @@ public class PlusProcheV2 implements ModeRecherche {
     /**
      * Recherche depuis une ville de départ le parcours pour visiter toutes les
      * villes d'un pays, en allant à la ville la plus proche non visitée.
+     * 
+     * @param pays          Le pays concerné par la recherche
+     * @param villeInitiale Le numéro de la ville de départ
      */
     @Override
-    public void recherche(Pays pays, int villeInitialP) {
+    public void recherche(Pays pays, int villeInitiale) {
         this.pays = pays;
-        this.villeInitial = (byte) villeInitialP;
+        this.villeInitiale = (byte) villeInitiale;
         nombreDeVilles = (byte) pays.getNombreDeVilles();
-        overFlow = (1 << nombreDeVilles) - 1;
+        toutesVillesVisitees = (1 << nombreDeVilles) - 1;
         distanceOptimum = Double.MAX_VALUE;
-        villesEmprunteesOptimum = String.valueOf(villeInitial);
+        villesEmprunteesOptimum = String.valueOf(villeInitiale);
 
-        rechercheAux(1 << villeInitial, villeInitial, 0.0);
+        rechercheAux(1 << this.villeInitiale, this.villeInitiale, 0.0);
 
     }
 
@@ -35,25 +38,25 @@ public class PlusProcheV2 implements ModeRecherche {
      * Recherche la ville la plus proche parmis les villes non visitées pour y
      * aller.
      * 
-     * @param villesVisitees      Villes qui ont été visitées jusqu'à présent.
-     * @param villeActuelle       Ville où se situe l'algorithme.
+     * @param villesVisitees    Villes qui ont été visitées jusqu'à présent.
+     * @param villeActuelle     Ville où se situe l'algorithme.
      * @param distanceParcourue Distance parcourue depuis la première itération
      */
     private void rechercheAux(int villesVisitees, byte villeActuelle, double distanceParcourue) {
 
-        // Je prend en compte que la VilleActuell est déjà une ville visité
+        // Je prend en compte que VilleActuelle est déjà une ville visitée
 
-        if (villesVisitees == overFlow) {
-            villesEmprunteesOptimum += ">" + villeInitial;
-            distanceOptimum = distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitial);
+        if (villesVisitees == toutesVillesVisitees) {
+            villesEmprunteesOptimum += ">" + villeInitiale;
+            distanceOptimum = distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
         } else {
             double distanceMin = Long.MAX_VALUE;
             byte villePlusProche = 0;
-            for (int villeFomatBinaire = villeNonVisitee(1,
-                    villesVisitees); villeFomatBinaire < overFlow; villeFomatBinaire = villeNonVisitee(
-                            villeFomatBinaire << 1, villesVisitees)) {
+            for (int villeFormatBinaire = villeNonVisitee(1,
+                    villesVisitees); villeFormatBinaire < toutesVillesVisitees; villeFormatBinaire = villeNonVisitee(
+                            villeFormatBinaire << 1, villesVisitees)) {
 
-                byte villeChoisie = (byte) (Math.getExponent(villeFomatBinaire));
+                byte villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));
 
                 double distanceVilleChoisie = pays.getDistanceEntreVilles(villeActuelle, villeChoisie);
                 if (distanceVilleChoisie < distanceMin) {
@@ -97,24 +100,25 @@ public class PlusProcheV2 implements ModeRecherche {
     // #region Getters
 
     /**
-     * Renvoi le nom de l'algorithme de recherche
+     * @près-requis : Cette méthode doit être exécuté après la méthode recherche().
      * 
-     * @return {@code String}
+     * @return {@code Parcours} parcours le plus optimisé qu'il ai trouvé
      */
     @Override
-    public String getNom() {
-        return "PlusProche v2";
-    }
-
-    /**
-     * Dois être éxecuté après la recherche() Retourne le parcous le plus optimisé
-     * 
-     * @return {@code Parcours}
-     */
     public Parcours getParcours() {
         // TODO: Ajouter l'exception avec un getParcours sans avoir fait de recherche
 
         return new Parcours(distanceOptimum, villesEmprunteesOptimum);
+    }
+
+    /**
+     * Renvois le nom de l'algorithme de recherche
+     * 
+     * @return {@code String} Nom de l'algorithme
+     */
+    @Override
+    public String getNom() {
+        return "PlusProche v2";
     }
 
     // #endregion Getters

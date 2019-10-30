@@ -4,11 +4,11 @@ import projetS3Voyageur.*;
 
 public class BrutForceV4 implements ModeRecherche {
 
-    private int overFlow;
+    private int toutesVillesVisitees;
 
     private Pays pays;
 
-    private byte villeInitial;
+    private byte villeInitiale;
     private byte nombreDeVilles;
 
     private double distanceOptimum;
@@ -17,25 +17,28 @@ public class BrutForceV4 implements ModeRecherche {
     /**
      * Recherche depuis une ville de départ le parcours le plus optimisé pour
      * visiter toutes les villes d'un pays.
+     * 
+     * @param pays          Le pays concerné par la recherche
+     * @param villeInitiale Le numéro de la ville de départ
      */
     @Override
-    public void recherche(Pays pays, int villeInitialP) {
+    public void recherche(Pays pays, int villeInitiale) {
         this.pays = pays;
-        this.villeInitial = (byte) villeInitialP;
+        this.villeInitiale = (byte) villeInitiale;
         nombreDeVilles = (byte) pays.getNombreDeVilles();
-        overFlow = (1 << nombreDeVilles) - 1;
+        toutesVillesVisitees = (1 << nombreDeVilles) - 1;
         distanceOptimum = Double.MAX_VALUE;
 
-        rechercheAuxDistance(1 << villeInitial, villeInitial, 0.0);
-        rechercheAuxVillesEmpruntees(1 << villeInitial, villeInitial, 0.0,
-                emprunteVille(new byte[nombreDeVilles + 1], 0, villeInitial));
+        rechercheAuxDistance(1 << this.villeInitiale, this.villeInitiale, 0.0);
+        rechercheAuxVillesEmpruntees(1 << this.villeInitiale, this.villeInitiale, 0.0,
+                emprunteVille(new byte[nombreDeVilles + 1], 0, this.villeInitiale));
     }
 
     /**
      * Recherche récursivement la distance du parcours le plus court possible.
      * 
-     * @param villesVisitees      Villes qui ont étais visité jusqu'à présent
-     * @param villeActuelle       Ville dans laquelle se situe l'algo
+     * @param villesVisitees    Villes qui ont étais visité jusqu'à présent
+     * @param villeActuelle     Ville dans laquelle se situe l'algo
      * @param distanceParcourue Stock par ordre chronologique les numéros des villes
      *                          empruntées
      */
@@ -43,21 +46,22 @@ public class BrutForceV4 implements ModeRecherche {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
 
-        if (villesVisitees == overFlow) {
-            double distanceParcourueFinal = distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitial);
+        if (villesVisitees == toutesVillesVisitees) {
+            double distanceParcourueFinal = distanceParcourue
+                    + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
 
             if (distanceParcourueFinal < distanceOptimum) {
                 distanceOptimum = distanceParcourueFinal;
             }
         } else {
 
-            for (int villeFomatBinaire = villeNonVisitee(1,
-                    villesVisitees); villeFomatBinaire < overFlow; villeFomatBinaire = villeNonVisitee(
-                            villeFomatBinaire << 1, villesVisitees)) {
+            for (int villeFormatBinaire = villeNonVisitee(1,
+                    villesVisitees); villeFormatBinaire < toutesVillesVisitees; villeFormatBinaire = villeNonVisitee(
+                            villeFormatBinaire << 1, villesVisitees)) {
 
-                byte villeChoisie = (byte) (Math.getExponent(villeFomatBinaire));
+                byte villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));
 
-                rechercheAuxDistance(villesVisitees + villeFomatBinaire, (villeChoisie),
+                rechercheAuxDistance(villesVisitees + villeFormatBinaire, (villeChoisie),
                         distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeChoisie));
 
             }
@@ -67,41 +71,45 @@ public class BrutForceV4 implements ModeRecherche {
     }
 
     /**
-     * Recherche récusivement le parcours le plus court possible. En vérifiant que
-     * la distance parcourue ne soit pas plus longue que la distance la distance
-     * optimum enregistré avec rchercheDistanceAux().
+     * Recherche récursivement le parcours le plus court possible. En vérifiant que
+     * la distance parcourue n'est pas plus longue que la distance la distance
+     * optimum enregistrée via rechercheDistanceAux().
      * 
-     * @param villesVisitees      Villes qui ont étais visité jusqu'à présent
-     * @param villeActuelle       Ville dans laquelle se situe l'algo
+     * @param villesVisitees    Villes qui ont été visitées depuis la première
+     *                          itération
+     * 
+     * @param villeActuelle     Ville dans laquelle se situe l'algo
+     * 
      * @param distanceParcourue Distance parcourue depuis la première itération
-     * @param villesEmprunté    Stock par ordre chronologique les numéros des villes
-     *                          emprunté
+     * 
+     * @param villesEmpruntees  Stock par ordre chronologique les numéros des villes
+     *                          empruntées
      */
     private void rechercheAuxVillesEmpruntees(int villesVisitees, byte villeActuelle, double distanceParcourue,
-            byte[] villesEmprunté) {
+            byte[] villesEmpruntees) {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
         if (distanceParcourue < distanceOptimum) {
 
-            if (villesVisitees == overFlow) {
+            if (villesVisitees == toutesVillesVisitees) {
                 double distanceParcourueFinal = distanceParcourue
-                        + pays.getDistanceEntreVilles(villeActuelle, villeInitial);
+                        + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
 
                 if (distanceParcourueFinal == distanceOptimum) {
                     distanceOptimum = distanceParcourueFinal;
-                    villesEmprunteesOptimum = emprunteVille(villesEmprunté, nombreDeVilles, villeInitial);
+                    villesEmprunteesOptimum = emprunteVille(villesEmpruntees, nombreDeVilles, villeInitiale);
                 }
             } else {
 
-                for (int villeFomatBinaire = villeNonVisitee(1,
-                        villesVisitees); villeFomatBinaire < overFlow; villeFomatBinaire = villeNonVisitee(
-                                villeFomatBinaire << 1, villesVisitees)) {
+                for (int villeFormatBinaire = villeNonVisitee(1,
+                        villesVisitees); villeFormatBinaire < toutesVillesVisitees; villeFormatBinaire = villeNonVisitee(
+                                villeFormatBinaire << 1, villesVisitees)) {
 
-                    byte villeChoisie = (byte) Math.getExponent(villeFomatBinaire);
+                    byte villeChoisie = (byte) Math.getExponent(villeFormatBinaire);
 
-                    rechercheAuxVillesEmpruntees(villesVisitees + villeFomatBinaire, (villeChoisie),
+                    rechercheAuxVillesEmpruntees(villesVisitees + villeFormatBinaire, (villeChoisie),
                             distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeChoisie),
-                            emprunteVille(villesEmprunté, Integer.bitCount(villesVisitees), villeChoisie));
+                            emprunteVille(villesEmpruntees, Integer.bitCount(villesVisitees), villeChoisie));
 
                 }
 
@@ -134,17 +142,22 @@ public class BrutForceV4 implements ModeRecherche {
     }
 
     /**
-     * Stock par ordre chronologique les villes visitées.
+     * Stock par ordre chronologique la nouvelle ville visitée à la liste des villes
+     * visitées.
      * 
-     * @param villesEmpruntees Tableau de int où chaque case représente le numéro
-     *                         d'une ville visité
-     * @param index            index à la quelle le numéro de la ville visité doit
-     *                         être ajouté
-     * @param villeVisitee     Numéro de la ville visitée
-     * @return
+     * @param villesEmpruntees  Tableau de int où chaque case représente le numéro
+     *                          d'une ville visité
+     * 
+     * @param indexVilleVisitee index auquel le numéro de la ville visité doit être
+     *                          ajouté
+     * 
+     * @param villeVisitee      Numéro de la ville visitée
+     * 
+     * @return {@code int[]} Une liste de int contenant par ordre chronologique les
+     *         villes empruntées
      */
-    private byte[] emprunteVille(byte[] villesEmpruntees, int index, byte villeSuivante) {
-        villesEmpruntees[index] = villeSuivante;
+    private byte[] emprunteVille(byte[] villesEmpruntees, int indexVilleVisitee, byte villeSuivante) {
+        villesEmpruntees[indexVilleVisitee] = villeSuivante;
         return villesEmpruntees.clone();
     }
 
@@ -153,20 +166,11 @@ public class BrutForceV4 implements ModeRecherche {
     // #region Getters
 
     /**
-     * Renvois le nom de l'algorithme de recherche
+     * @près-requis : Cette méthode doit être exécuté après la méthode recherche().
      * 
-     * @return {@code String}
+     * @return {@code Parcours} parcours le plus optimisé qu'il ai trouvé
      */
     @Override
-    public String getNom() {
-        return "BrutForce v4";
-    }
-
-    /**
-     * Dois être exécuté après la recherche() Retourne le parcours le plus optimisé
-     * 
-     * @return {@code Parcours}
-     */
     public Parcours getParcours() {
         // TODO: Ajouter l'exception avec un getParcours sans avoir fait de recherche
         String villesEmpruntees = String.valueOf(villesEmprunteesOptimum[0]);
@@ -175,6 +179,16 @@ public class BrutForceV4 implements ModeRecherche {
         }
 
         return new Parcours(distanceOptimum, villesEmpruntees);
+    }
+
+    /**
+     * Renvois le nom de l'algorithme de recherche
+     * 
+     * @return {@code String} Nom de l'algorithme
+     */
+    @Override
+    public String getNom() {
+        return "BrutForce v4";
     }
 
     // #endregion Getters

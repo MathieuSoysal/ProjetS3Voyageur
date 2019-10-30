@@ -4,33 +4,36 @@ import projetS3Voyageur.*;
 
 public class PlusProche implements ModeRecherche {
 
-    private static final boolean nonVisite = false;
-    private static final boolean visite = true;
+    private static final boolean nonVisitee = false;
+    private static final boolean visitee = true;
     private Pays pays;
-    private int villeInital;
+    private int villeInitale;
     private int nombreDeVilles;
 
     double distanceParcourue = 0;
-    String villesEmpruntee;
+    String villesEmpruntees;
 
     /**
      * Recherche depuis une ville de départ le parcours pour visiter toutes les
      * villes d'un pays, en allant à la ville la plus proche non visitée.
+     * 
+     * @param pays          Le pays concerné par la recherche
+     * @param villeInitiale Le numéro de la ville de départ
      */
     @Override
-    public void recherche(Pays pays, int villeDepart) {
+    public void recherche(Pays pays, int villeInitiale) {
         this.pays = pays;
-        villeInital = villeDepart;
+        villeInitale = villeInitiale;
         nombreDeVilles = pays.getNombreDeVilles();
         boolean villesAVisiter[] = new boolean[nombreDeVilles];
 
         for (int villeI = 0; villeI < nombreDeVilles; villeI++)
-            villesAVisiter[villeI] = nonVisite;
+            villesAVisiter[villeI] = nonVisitee;
 
-        villesAVisiter[villeInital] = visite;
-        villesEmpruntee = String.valueOf(villeInital);
+        villesAVisiter[villeInitale] = visitee;
+        villesEmpruntees = String.valueOf(villeInitale);
 
-        rechercheAux(villesAVisiter, villeInital, pays.getNombreDeVilles() - 1);
+        rechercheAux(villesAVisiter, villeInitale, pays.getNombreDeVilles() - 1);
 
     }
 
@@ -39,12 +42,12 @@ public class PlusProche implements ModeRecherche {
      * 
      * @param villesAVisiter  Ville qui reste à visiter
      * @param villeActuel     Ville où est situé l'algo
-     * @param nbVillesAVisite Nombre de villes qui reste à visiter (variable
-     *                        d'arrêt)
+     * @param nbVillesAVisiter Nombre de villes qui reste à visiter (variable
+     *                        d'arrêt de la méthode récursive)
      */
-    public void rechercheAux(boolean[] villesAVisiter, int villeActuel, int nbVillesAVisite) {
+    public void rechercheAux(boolean[] villesAVisiter, int villeActuel, int nbVillesAVisiter) {
 
-        if (nbVillesAVisite != 0) {
+        if (nbVillesAVisiter != 0) {
             int villePlusProche = 1;
             double distanceMin = Double.MAX_VALUE;
             double distanceEntreVilles = 0;
@@ -53,40 +56,40 @@ public class PlusProche implements ModeRecherche {
 
                 distanceEntreVilles = pays.getDistanceEntreVilles(villeActuel, villeI);
 
-                if ((villesAVisiter[villeI] == nonVisite) && (distanceEntreVilles < distanceMin)) {
+                if ((villesAVisiter[villeI] == nonVisitee) && (distanceEntreVilles < distanceMin)) {
                     villePlusProche = villeI;
                     distanceMin = distanceEntreVilles;
                 }
             }
 
-            villesAVisiter[villePlusProche] = visite;
+            villesAVisiter[villePlusProche] = visitee;
             distanceParcourue += distanceEntreVilles;
-            villesEmpruntee += "->" + villePlusProche;
+            villesEmpruntees += "->" + villePlusProche;
 
-            rechercheAux(villesAVisiter.clone(), villePlusProche, nbVillesAVisite - 1);
+            rechercheAux(villesAVisiter.clone(), villePlusProche, nbVillesAVisiter - 1);
         } else {
-            distanceParcourue += pays.getDistanceEntreVilles(villeActuel, villeInital);
-            villesEmpruntee += "->" + villeInital;
+            distanceParcourue += pays.getDistanceEntreVilles(villeActuel, villeInitale);
+            villesEmpruntees += "->" + villeInitale;
         }
     }
 
     // #region Getters
 
     /**
-     * Dois être éxecuté après la recherche() Retourne le parcous le plus optimisé
+     * @près-requis : Cette méthode doit être exécuté après la méthode recherche().
      * 
-     * @return {@code Parcours}
+     * @return {@code Parcours} parcours le plus optimisé qu'il ai trouvé
      */
     @Override
     public Parcours getParcours() {
 
-        return new Parcours(distanceParcourue, villesEmpruntee);
+        return new Parcours(distanceParcourue, villesEmpruntees);
     }
 
     /**
-     * Renvoi le nom de l'algorithme de recherche
+     * Renvois le nom de l'algorithme de recherche
      * 
-     * @return {@code String}
+     * @return {@code String} Nom de l'algorithme
      */
     @Override
     public String getNom() {
