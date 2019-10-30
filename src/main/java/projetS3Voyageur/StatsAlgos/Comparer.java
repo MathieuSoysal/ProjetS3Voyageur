@@ -10,9 +10,10 @@ public class Comparer {
     private double tempsMax = 240;
 
     // Calcul de la varience du CurrentTime :
-    private byte dernierElement;
     private final ModeRecherche ALGOREFERENCE = new BrutForceV2();
     private final Pays PAYSREFERENCE = new Pays(9);
+    private double moyenneCurrentTime;
+    private double ecartTypeCurrentTime;
 
     private boolean[] algosDepassantTemps;
 
@@ -35,7 +36,6 @@ public class Comparer {
         tempsMoyenAlgos = new double[listAlgo.length];
         margeErreurAlgos = new double[listAlgo.length];
         algosDepassantTemps = new boolean[listAlgo.length];
-        dernierElement = (byte) listAlgo.length;
     }
 
     // TODO: note pour moi-m^me Mathieu oublie pas que tu as mis en paramètre
@@ -54,15 +54,18 @@ public class Comparer {
     // #region méthodes de calcul
 
     public void calcule() {
+        moyenneCurrentTime = 0;
+        ecartTypeCurrentTime = 0;
 
         barreDeChargementInit();
 
-        tempsMoyenAlgos = new double[listAlgo.length + 1];
-        margeErreurAlgos = new double[listAlgo.length + 1];
+        tempsMoyenAlgos = new double[listAlgo.length];
+        margeErreurAlgos = new double[listAlgo.length];
 
         for (iterationActuel = 0; iterationActuel < nombreDeTestes; iterationActuel++) {
-
+            calculVarianceCurrentTime();
             effectueAlgos();
+            calculVarianceCurrentTime();
 
             barreDeChargement(iterationActuel);
         }
@@ -100,8 +103,9 @@ public class Comparer {
                     + margeErreur + "\n");
 
         }
-        System.out.println("Marge d'erreur du CurrentTime : "
-                + (int) ((tempsMoyenAlgos[dernierElement] / margeErreurAlgos[dernierElement])) + "%");
+        if (moyenneCurrentTime != 0)
+            System.out.println("Marge d'erreur du CurrentTime : "
+                    + String.valueOf(getMargeErreurCurrentTime()).substring(0, 4) + "%");
 
     }
 
@@ -111,7 +115,6 @@ public class Comparer {
      */
     private void effectueAlgos() {
         Pays pays = new Pays(nombreDeVilles);
-        calculVarianceCurrentTime();
 
         for (int j = 0; j < listAlgo.length; j++) {
             if (!algosDepassantTemps[j] && (iterationActuel == 0
@@ -125,13 +128,12 @@ public class Comparer {
                 margeErreurAlgos[j] = 0;
             }
         }
-        calculVarianceCurrentTime();
     }
 
     private void calculVarianceCurrentTime() {
         double tempsExecution = calculeTempsExecution(ALGOREFERENCE, PAYSREFERENCE);
-        tempsMoyenAlgos[dernierElement] += tempsExecution / (nombreDeTestes * 2);
-        margeErreurAlgos[dernierElement] += (Math.pow(tempsExecution, 2)) / (nombreDeTestes * 2);
+        moyenneCurrentTime += tempsExecution / (nombreDeTestes * 2);
+        ecartTypeCurrentTime += (Math.pow(tempsExecution, 2)) / (nombreDeTestes * 2);
     }
 
     // #region Outils Barre de Chargement
@@ -196,6 +198,10 @@ public class Comparer {
 
     public double[] getListMargeErreurAlgos() {
         return margeErreurAlgos;
+    }
+
+    public double getMargeErreurCurrentTime() {
+        return Math.sqrt(ecartTypeCurrentTime - Math.pow(moyenneCurrentTime, 2)) / (moyenneCurrentTime / 100);
     }
     // #endregion setters & getters
 }
