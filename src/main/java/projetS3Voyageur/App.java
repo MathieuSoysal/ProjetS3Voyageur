@@ -25,9 +25,9 @@ public class App {
         // System.out.println(mrSmins.getParcours(new TrackProchesV1_1()));
 
         // #region Generer un fichier CSV
-        ModeRecherche[] listeAlgo = { new BrutForce(), new BrutForceV3(), new
+        ModeRecherche[] listeAlgo = { new BrutForceV2(), new BrutForceV3(), new
         BrutForceV3_1(), new BrutForceV4(),
-        new BadTrack(), new BadTrackV2(), new TrackProchesV1(), new TrackProchesV1_1(), new TrackProchesV2()};
+        new BackTrackV1(), new BackTrackV2(), new TrackProchesV1(), new TrackProchesV1_1(), new TrackProchesV2()};
         GenererCSV fichierCSV = new GenererCSV();
         fichierCSV.setTempsMax(17);
         fichierCSV.setNbIteration(100);

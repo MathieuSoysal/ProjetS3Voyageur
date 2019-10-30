@@ -19,7 +19,7 @@ public class Voyageur {
 
     public String getParcours(ModeRecherche modeRecherche){
         modeRecherche.recherche(pays, villeDepart);
-        return modeRecherche.getParcour().toString();
+        return modeRecherche.getParcours().toString();
     }
 
 

@@ -24,8 +24,8 @@ public class testTrackProchesV2 {
 
         algo.recherche(pays, 0);
 
-        assertEquals(2463, (int) (algo.getParcour().getDistance()));
-        assertEquals(algo.getParcour().getDistance(), parcoursVilles(pays, algo.getParcour().getVillesEmprunté(), ">"));
+        assertEquals(2463, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -39,8 +39,8 @@ public class testTrackProchesV2 {
 
         algo.recherche(pays, 0);
 
-        assertEquals(1281, (int) (algo.getParcour().getDistance()));
-        assertEquals(algo.getParcour().getDistance(), parcoursVilles(pays, algo.getParcour().getVillesEmprunté(), ">"));
+        assertEquals(1281, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -55,8 +55,8 @@ public class testTrackProchesV2 {
 
         algo.recherche(pays, 0);
 
-        assertEquals(1813, (int) (algo.getParcour().getDistance()));
-        assertEquals(algo.getParcour().getDistance(), parcoursVilles(pays, algo.getParcour().getVillesEmprunté(), ">"));
+        assertEquals(1813, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -72,8 +72,8 @@ public class testTrackProchesV2 {
 
         algo.recherche(pays, 0);
 
-        assertEquals(1640, (int) (algo.getParcour().getDistance()));
-        assertEquals(algo.getParcour().getDistance(), parcoursVilles(pays, algo.getParcour().getVillesEmprunté(), ">"));
+        assertEquals(1640, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -90,8 +90,8 @@ public class testTrackProchesV2 {
 
         algo.recherche(pays, 0);
 
-        assertEquals(13046, (int) (algo.getParcour().getDistance()));
-        assertEquals(algo.getParcour().getDistance(), parcoursVilles(pays, algo.getParcour().getVillesEmprunté(), ">"));
+        assertEquals(13046, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -109,8 +109,8 @@ public class testTrackProchesV2 {
 
         algo.recherche(pays, 0);
 
-        assertEquals(20058, (int) (algo.getParcour().getDistance()));
-        assertEquals(algo.getParcour().getDistance(), parcoursVilles(pays, algo.getParcour().getVillesEmprunté(), ">"));
+        assertEquals(20058, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -129,8 +129,8 @@ public class testTrackProchesV2 {
 
         algo.recherche(pays, 0);
 
-        assertEquals(3081, (int) (algo.getParcour().getDistance()));
-        assertEquals(algo.getParcour().getDistance(), parcoursVilles(pays, algo.getParcour().getVillesEmprunté(), ">"));
+        assertEquals(3081, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
     }
 
     @Test
@@ -150,8 +150,8 @@ public class testTrackProchesV2 {
 
         algo.recherche(pays, 0);
 
-        assertEquals(2451, (int) (algo.getParcour().getDistance()));
-        assertEquals(algo.getParcour().getDistance(), parcoursVilles(pays, algo.getParcour().getVillesEmprunté(), ">"));
+        assertEquals(2451, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
     }
 
     // #endregion test avec les résultats issue de BrutForce v2
@@ -161,11 +161,11 @@ public class testTrackProchesV2 {
 
         algo.recherche(new Pays(6), 0);
 
-        String parcours1 = algo.getParcour().getVillesEmprunté();
+        String parcours1 = algo.getParcours().getVillesEmprunté();
 
         algo.recherche(new Pays(6), 0);
 
-        assertNotEquals(parcours1, algo.getParcour().getVillesEmprunté());
+        assertNotEquals(parcours1, algo.getParcours().getVillesEmprunté());
 
     }
 
@@ -187,7 +187,7 @@ public class testTrackProchesV2 {
 
         algo.recherche(pays, 0);
 
-        double distanceMinimum = algo.getParcour().getDistance();
+        double distanceMinimum = algo.getParcours().getDistance();
 
         pays.setPositionVille(0, new Position(positionX, 2));
         pays.setPositionVille(4, new Position(positionX, 3));
@@ -198,8 +198,8 @@ public class testTrackProchesV2 {
 
         algo.recherche(pays, 0);
 
-        assertEquals(distanceMinimum, algo.getParcour().getDistance());
-        assertEquals(algo.getParcour().getDistance(), parcoursVilles(pays, algo.getParcour().getVillesEmprunté(), ">"));
+        assertEquals(distanceMinimum, algo.getParcours().getDistance());
+        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
 
     }
 
@@ -223,9 +223,9 @@ public class testTrackProchesV2 {
 
             algo.recherche(pays, 0);
 
-            assertEquals(calculeDistanceLinaire(t), algo.getParcour().getDistance());
-            assertEquals(algo.getParcour().getDistance(),
-                    parcoursVilles(pays, algo.getParcour().getVillesEmprunté(), ">"));
+            assertEquals(calculeDistanceLinaire(t), algo.getParcours().getDistance());
+            assertEquals(algo.getParcours().getDistance(),
+                    parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
         }
 
     }
@@ -250,7 +250,7 @@ public class testTrackProchesV2 {
 
         algo.recherche(pays, 0);
 
-        double distanceMinimum = algo.getParcour().getDistance();
+        double distanceMinimum = algo.getParcours().getDistance();
 
         pays.setPositionVille(0, new Position(2, positionY));
         pays.setPositionVille(4, new Position(3, positionY));
@@ -261,8 +261,8 @@ public class testTrackProchesV2 {
 
         algo.recherche(pays, 0);
 
-        assertEquals(distanceMinimum, algo.getParcour().getDistance());
-        assertEquals(algo.getParcour().getDistance(), parcoursVilles(pays, algo.getParcour().getVillesEmprunté(), ">"));
+        assertEquals(distanceMinimum, algo.getParcours().getDistance());
+        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
 
     }
 
@@ -286,9 +286,9 @@ public class testTrackProchesV2 {
 
             algo.recherche(pays, 0);
 
-            assertEquals(calculeDistanceLinaire(t), algo.getParcour().getDistance());
-            assertEquals(algo.getParcour().getDistance(),
-                    parcoursVilles(pays, algo.getParcour().getVillesEmprunté(), ">"));
+            assertEquals(calculeDistanceLinaire(t), algo.getParcours().getDistance());
+            assertEquals(algo.getParcours().getDistance(),
+                    parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
         }
 
     }

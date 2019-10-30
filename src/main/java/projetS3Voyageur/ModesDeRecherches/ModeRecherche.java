@@ -17,7 +17,7 @@ public interface ModeRecherche {
      * 
      * @return {@code Parcours}
      */
-    public Parcours getParcour();
+    public Parcours getParcours();
 
     /**
      * Récupère le nom de l'algortihme de recherche

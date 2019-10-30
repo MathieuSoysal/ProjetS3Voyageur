@@ -6,7 +6,7 @@ public class Villes {
 
     public Villes(int nombreDeVilles) {
         if (nombreDeVilles < 3) {
-            throw new IndexOutOfBoundsException("Veuillez écrire un nombre de villes compris entre 3 et 15");
+            throw new /* TODO : utilisais des exceptions pérsonalisée */ IndexOutOfBoundsException("Veuillez écrire un nombre de villes compris entre 3 et 15");
         }
         this.nombreDeVilles = nombreDeVilles;
         positionDesVilles = new Position[nombreDeVilles];
@@ -17,9 +17,9 @@ public class Villes {
     }
 
     /**
-     * Enregistre une nouvelle position pour une ville donné en paramètre
+     * Enregistre une nouvelle position pour une ville donnée en paramètre
      * 
-     * @param ville       Numéro de la ville dont la position vas être modifier
+     * @param ville       Numéro de la ville dont la position va être modifiée
      * @param newPosVille Nouvelle position
      */
     public void setPositionVille(int ville, Position posVille) {
@@ -46,7 +46,7 @@ public class Villes {
     /**
      * Vérifie si le numéro de la ville saisi est bien valide
      * 
-     * @param ville numéro de ville
+     * @param ville Numéro de la ville à vérifier
      */
     private void verifieNumVille(int ville) {
         if (ville < 0 || ville > nombreDeVilles - 1) {

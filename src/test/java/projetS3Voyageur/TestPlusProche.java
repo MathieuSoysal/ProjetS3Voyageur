@@ -32,8 +32,8 @@ public class TestPlusProche {
 
         plusProche.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->0", plusProche.getParcour().getVillesEmprunté());
-        assertEquals(6, (long) plusProche.getParcour().getDistance());
+        assertEquals("0->1->2->3->0", plusProche.getParcours().getVillesEmprunté());
+        assertEquals(6, (long) plusProche.getParcours().getDistance());
         
 
     }
@@ -54,8 +54,8 @@ public class TestPlusProche {
 
         plusProche.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->4->0", plusProche.getParcour().getVillesEmprunté());
-        assertEquals(8, (long) plusProche.getParcour().getDistance());
+        assertEquals("0->1->2->3->4->0", plusProche.getParcours().getVillesEmprunté());
+        assertEquals(8, (long) plusProche.getParcours().getDistance());
 
     }
 
@@ -76,8 +76,8 @@ public class TestPlusProche {
 
         plusProche.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->4->5->0", plusProche.getParcour().getVillesEmprunté());
-        assertEquals(10, (long) plusProche.getParcour().getDistance());
+        assertEquals("0->1->2->3->4->5->0", plusProche.getParcours().getVillesEmprunté());
+        assertEquals(10, (long) plusProche.getParcours().getDistance());
 
     }
 
@@ -98,8 +98,8 @@ public class TestPlusProche {
 
         plusProche.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->4->5->0", plusProche.getParcour().getVillesEmprunté());
-        assertEquals(10, (long) plusProche.getParcour().getDistance());
+        assertEquals("0->1->2->3->4->5->0", plusProche.getParcours().getVillesEmprunté());
+        assertEquals(10, (long) plusProche.getParcours().getDistance());
 
     }
     // #endregion test sur Y
@@ -120,8 +120,8 @@ public class TestPlusProche {
 
         plusProche.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->0", plusProche.getParcour().getVillesEmprunté());
-        assertEquals(6, (long) plusProche.getParcour().getDistance());
+        assertEquals("0->1->2->3->0", plusProche.getParcours().getVillesEmprunté());
+        assertEquals(6, (long) plusProche.getParcours().getDistance());
 
     }
 
@@ -141,8 +141,8 @@ public class TestPlusProche {
 
         plusProche.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->4->0", plusProche.getParcour().getVillesEmprunté());
-        assertEquals(8, (long) plusProche.getParcour().getDistance());
+        assertEquals("0->1->2->3->4->0", plusProche.getParcours().getVillesEmprunté());
+        assertEquals(8, (long) plusProche.getParcours().getDistance());
 
     }
 
@@ -163,8 +163,8 @@ public class TestPlusProche {
 
         plusProche.recherche(pays, 0);
 
-        assertEquals("0->1->2->3->4->5->0", plusProche.getParcour().getVillesEmprunté());
-        assertEquals(10, (long) plusProche.getParcour().getDistance());
+        assertEquals("0->1->2->3->4->5->0", plusProche.getParcours().getVillesEmprunté());
+        assertEquals(10, (long) plusProche.getParcours().getDistance());
 
     }
 

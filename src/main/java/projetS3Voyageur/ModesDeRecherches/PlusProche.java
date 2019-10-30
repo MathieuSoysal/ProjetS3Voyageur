@@ -78,7 +78,7 @@ public class PlusProche implements ModeRecherche {
      * @return {@code Parcours}
      */
     @Override
-    public Parcours getParcour() {
+    public Parcours getParcours() {
 
         return new Parcours(distanceParcourue, villesEmpruntee);
     }
@@ -90,7 +90,7 @@ public class PlusProche implements ModeRecherche {
      */
     @Override
     public String getNom() {
-        return "PlusProche";
+        return "PlusProche v1";
     }
 
     // #endregion Getters

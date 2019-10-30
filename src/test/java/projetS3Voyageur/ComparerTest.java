@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import projetS3Voyageur.ModesDeRecherches.BrutForce;
+import projetS3Voyageur.ModesDeRecherches.BrutForceV2;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 import projetS3Voyageur.StatsAlgos.Comparer;
 
@@ -14,7 +14,7 @@ public class ComparerTest {
 
     @Test
     public void test_temps_execution_moyen() {
-        ModeRecherche[] listAlgo = {new BrutForce(), new BrutForce()};
+        ModeRecherche[] listAlgo = {new BrutForceV2(), new BrutForceV2()};
         Comparer test = new Comparer(listAlgo);
         test.setNombreDeTest(100);
         test.setNombreDeVilles(10);

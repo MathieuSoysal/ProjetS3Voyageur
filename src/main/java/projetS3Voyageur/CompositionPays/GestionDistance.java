@@ -4,21 +4,21 @@ import static java.lang.Math.hypot;
 
 public class GestionDistance {
 
-    private double distancesV[][]; // tableau de distance entre les villes
+    private double distancesVille[][]; // tableau de distance entre les villes
     private int nbVilles;
     private Villes villes;
 
-    private int dernierNumVille; // pour facilité la lecture du code
+    private int dernierNumVille; // pour faciliter la lecture du code
 
     public GestionDistance(Villes villes) {
 
         this.villes = villes;
         this.nbVilles = villes.getNombreDeVilles();
-        distancesV = new double[nbVilles][nbVilles];
+        distancesVille = new double[nbVilles][nbVilles];
 
         for (int i = 0; i < nbVilles; i++) {
             for (int j = 0; j < nbVilles; j++) {
-                distancesV[i][j] = hypot(ecartEnX(i, j), ecartEnY(i, j));
+                distancesVille[i][j] = hypot(ecartEnX(i, j), ecartEnY(i, j));
             }
         }
 
@@ -27,16 +27,16 @@ public class GestionDistance {
     /**
      * Renvois la distance entre deux villes
      * 
-     * @param ville1 numéro de la premère ville donné en paramètre
-     * @param ville2 numéro de la seconde ville donné en paramètre
-     * @return {@code double}
+     * @param ville1 Numéro de la première ville donnée en paramètre
+     * @param ville2 Numéro de la seconde ville donnée en paramètre
+     * @return {@code double} La distance entre les deux villes
      */
     public double getDistance(int ville1, int ville2) {
-        return distancesV[ville1][ville2];
+        return distancesVille[ville1][ville2];
     }
 
     /**
-     * Cette commande est utilisé après un changement de localisation d'une des
+     * Cette commande est utilisée après un changement de localisation d'une des
      * villes
      * 
      * @param numVille Numéro de la ville dont la localisation à été modifier
@@ -48,34 +48,34 @@ public class GestionDistance {
         for (int villeI = 0; villeI < nbVilles; villeI++) {
             if (villeI != numVille) {
                 hypotegnius = hypot(ecartEnX(villeI, numVille), ecartEnY(villeI, numVille));
-                distancesV[villeI][numVille] = hypotegnius;
-                distancesV[numVille][villeI] = hypotegnius;
+                distancesVille[villeI][numVille] = hypotegnius;
+                distancesVille[numVille][villeI] = hypotegnius;
 
             }
         }
     }
 
-    // #region ces méthodes sont simplement destiné à facilité la lisiblité du code
+    // #region ces méthodes sont simplement destinées à faciliter la lisibilité du code
 
     /**
-     * Retourne l'écart entre deux points sur une même ordonnée X
+     * Retourne l'écart entre deux points sur une même ordonner X
      * 
      * @param ville1
      * @param ville2
-     * @return {@code int} ecart sur l'ordonnée x entre les deux villes. Attention
-     *         le resultat peut-être négatif
+     * @return {@code int} Écart sur l'ordonnée x entre les deux villes. Attention
+     *         le résultat peut être négatif
      */
     private int ecartEnX(int ville1, int ville2) {
         return villes.getPositionVille(ville1).getX() - villes.getPositionVille(ville2).getX();
     }
 
     /**
-     * Retourne l'écart entre deux points sur une même ordonnée y
+     * Retourne l'écart entre deux points sur une même ordonner y
      * 
      * @param ville1
      * @param ville2
-     * @return {@code int} ecart sur l'ordonnée y entre les deux villes. Attention
-     *         le resultat peut-être négatif
+     * @return {@code int} Écart sur l'ordonnée y entre les deux villes. Attention
+     *         le résultat peut être négatif
      */
     private int ecartEnY(int ville1, int ville2) {
         return villes.getPositionVille(ville1).getY() - villes.getPositionVille(ville2).getY();
@@ -84,7 +84,7 @@ public class GestionDistance {
     /**
      * Vérifie si le numéro de la Ville saisi est bien valide
      * 
-     * @param numVille numéro de Ville
+     * @param numVille Numéro de la ville à vérifier
      */
     private void verifieNumVille(int numVille) {
         if (numVille < 0 && numVille > dernierNumVille) {
