@@ -16,8 +16,8 @@ public class Comparer {
 
     private int nombreDeTestes = 20;
 
-    private double tempsMoyenAlgo[];
-    private double tempsMoyenAlgoVariance[];
+    private double tempsMoyenAlgos[];
+    private double margeErreurAlgos[];
 
     private int nombreDeVilles = 10;
     private byte villeDepart = 0;
@@ -29,8 +29,8 @@ public class Comparer {
 
     public Comparer(ModeRecherche[] listAlgo) {
         this.listAlgo = listAlgo;
-        this.tempsMoyenAlgo = new double[listAlgo.length];
-        this.tempsMoyenAlgoVariance = new double[listAlgo.length];
+        this.tempsMoyenAlgos = new double[listAlgo.length];
+        this.margeErreurAlgos = new double[listAlgo.length];
         this.algosDepassantTemps = new boolean[listAlgo.length];
     }
 
@@ -39,9 +39,9 @@ public class Comparer {
     public Comparer(ModeRecherche[] listAlgo, int nombreDeVilles, int nombreDeTests, double tempsMax) {
         this.tempsMax = tempsMax;
         this.listAlgo = listAlgo;
-        this.tempsMoyenAlgo = new double[listAlgo.length];
         this.algosDepassantTemps = new boolean[listAlgo.length];
-        this.tempsMoyenAlgoVariance = new double[listAlgo.length];
+        this.tempsMoyenAlgos = new double[listAlgo.length];
+        this.margeErreurAlgos = new double[listAlgo.length];
         this.nombreDeTestes = nombreDeTests;
         this.nombreDeVilles = nombreDeVilles;
 
@@ -53,8 +53,8 @@ public class Comparer {
 
         barreDeChargementInit();
 
-        this.tempsMoyenAlgo = new double[listAlgo.length];
-        this.tempsMoyenAlgoVariance = new double[listAlgo.length];
+        this.tempsMoyenAlgos = new double[listAlgo.length];
+        this.margeErreurAlgos = new double[listAlgo.length];
 
         for (iterationActuel = 0; iterationActuel < nombreDeTestes; iterationActuel++) {
 
@@ -63,6 +63,14 @@ public class Comparer {
             barreDeChargement(iterationActuel);
         }
 
+        CalculEcartType();
+
+    }
+
+    private void CalculEcartType() {
+        for (int i = 0; i < margeErreurAlgos.length; i++) {
+            margeErreurAlgos[i] = margeErreurAlgos[i] - Math.pow(tempsMoyenAlgos[i], 2);
+        }
     }
 
     public void calculeTempsExecutionBrut() {
@@ -77,13 +85,12 @@ public class Comparer {
 
     public void afficher() {
         double tempsPlusLent = recupéreTempsPlusLent();
-        for (int i = 0; i < tempsMoyenAlgo.length; i++) {
-            double ecartType = Math.sqrt(tempsMoyenAlgoVariance[i] - Math.pow(tempsMoyenAlgo[i], 2));
-            int poucentage = (int) ((((tempsPlusLent) / ((tempsMoyenAlgo[i]))) - 1) * 100);
+        for (int i = 0; i < tempsMoyenAlgos.length; i++) {
+            int poucentage = (int) ((((tempsPlusLent) / ((tempsMoyenAlgos[i]))) - 1) * 100);
 
-            String tempsMoyenObtenue = " :\n Temps moyen de recherche : " + tempsMoyenAlgo[i];
+            String tempsMoyenObtenue = " :\n Temps moyen de recherche : " + tempsMoyenAlgos[i];
             String differenceAvecPlusLent = "\n En moyenne " + poucentage + " % plus rapide que l'algo le plus lent.";
-            String margeErreur = "\n Marge d'erreur : " + ecartType;
+            String margeErreur = "\n Marge d'erreur : " + margeErreurAlgos[i];
 
             System.out.println("\n Résultat avec " + listAlgo[i].getNom() + tempsMoyenObtenue + differenceAvecPlusLent
                     + margeErreur);
@@ -100,13 +107,14 @@ public class Comparer {
         Pays pays = new Pays(nombreDeVilles);
         for (int j = 0; j < listAlgo.length; j++) {
             if (!algosDepassantTemps[j] && (iterationActuel == 0
-                    || ((tempsMoyenAlgo[j] * (nombreDeTestes / iterationActuel))) < (tempsMax * 1000))) {
+                    || ((tempsMoyenAlgos[j] * (nombreDeTestes / iterationActuel))) < (tempsMax * 1000))) {
                 double tempsExecution = calculeTempsExecution(listAlgo[j], pays);
-                tempsMoyenAlgo[j] += tempsExecution / nombreDeTestes;
-                tempsMoyenAlgoVariance[j] += (Math.pow(tempsExecution, 2)) / nombreDeTestes;
+                tempsMoyenAlgos[j] += tempsExecution / nombreDeTestes;
+                margeErreurAlgos[j] += (Math.pow(tempsExecution, 2)) / nombreDeTestes;
             } else {
                 algosDepassantTemps[j] = true;
-                tempsMoyenAlgo[j] = 0;
+                tempsMoyenAlgos[j] = 0;
+                margeErreurAlgos[j] = 0;
             }
         }
     }
@@ -143,7 +151,7 @@ public class Comparer {
 
     private double recupéreTempsPlusLent() {
         double tempsPlusLent = 0.;
-        for (double tempsMoyen : tempsMoyenAlgo) {
+        for (double tempsMoyen : tempsMoyenAlgos) {
             tempsPlusLent = (tempsMoyen > tempsPlusLent) ? tempsMoyen : tempsPlusLent;
         }
         return tempsPlusLent;
@@ -164,11 +172,15 @@ public class Comparer {
     }
 
     public double getTempsMoyenAlgo(int i) {
-        return tempsMoyenAlgo[i];
+        return tempsMoyenAlgos[i];
     }
 
     public double[] getListTempsMoyenAlgo() {
-        return tempsMoyenAlgo;
+        return tempsMoyenAlgos;
+    }
+
+    public double[] getListMargeErreurAlgos() {
+        return margeErreurAlgos;
     }
     // #endregion setters & getters
 }
