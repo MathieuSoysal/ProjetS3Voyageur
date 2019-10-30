@@ -100,7 +100,7 @@ public class Comparer {
                     + margeErreur + "\n");
 
         }
-        System.out.println("Marge d'erreur de la machine : "
+        System.out.println("Marge d'erreur du CurrentTime : "
                 + (int) ((tempsMoyenAlgos[dernierElement] / margeErreurAlgos[dernierElement])) + "%");
 
     }
