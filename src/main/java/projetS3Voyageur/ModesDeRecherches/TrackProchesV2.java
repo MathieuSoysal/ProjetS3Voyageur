@@ -38,7 +38,7 @@ public class TrackProchesV2 implements ModeRecherche {
                 emprunteVille(new byte[nombreDeVilles + 1], 0, this.villeInitiale));
     }
 
-    // #region Badtrack v2
+    // #region Badtrack v2 + Optimisation
 
     /**
      * Recherche récursivement le parcours le plus court possible. En vérifiant que
@@ -81,7 +81,7 @@ public class TrackProchesV2 implements ModeRecherche {
         }
 
     }
-    // #endregion BadTrack v2
+    // #endregion BadTrack v2 + Optimisation
 
     // #region PlusProche v2
 
@@ -96,7 +96,7 @@ public class TrackProchesV2 implements ModeRecherche {
     private void rechercheAuxDistanceProche(int villesVisitees, byte villeActuelle, double distanceParcourue) {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
-
+//TODO : Mettre un backTrack ?
         if (villesVisitees == toutesVillesVisitees) {
             if (distanceOptimum > distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale))
                 distanceOptimum = distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
