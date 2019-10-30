@@ -29,9 +29,9 @@ public class App {
         BrutForceV3_1(), new BrutForceV4(),
         new BackTrackV1(), new BackTrackV2(), new TrackProchesV1(), new TrackProchesV1_1(), new TrackProchesV2()};
         GenererCSV fichierCSV = new GenererCSV();
-        fichierCSV.setTempsMax(1);
-        fichierCSV.setNbIteration(100);
-        fichierCSV.setNbVillesMax(10);
+        fichierCSV.setTempsMax(17);
+        fichierCSV.setNbIteration(110);
+        fichierCSV.setNbVillesMax(15);
         fichierCSV.GenereSyncro(listeAlgo);
 
         // #region analyser approfondie d'un algo en particulier

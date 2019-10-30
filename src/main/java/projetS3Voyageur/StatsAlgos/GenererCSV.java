@@ -59,20 +59,13 @@ public class GenererCSV {
     public void GenereSyncro(ModeRecherche[] listAlgo) {
         Comparer compare;
         this.listAlgo = listAlgo;
-        String[] statsAlgos = new String[listAlgo.length + 1];
-        String[] margeErreurAlgos = new String[listAlgo.length + 1];
         initTupleSyncro();
         compare = new Comparer(listAlgo, 3, nbIteration, tempsMax);
         for (byte nbVille = 3; nbVille != nbVillesMax + 1; nbVille++) {
-            System.out.println("\n Nombre de villes actuel :" + nbVille);
+            System.out.println("\n Nombre de villes actuelles :" + nbVille);
             compare.setNombreDeVilles(nbVille);
             compare.calcule();
-            statsAlgos = convertToString(compare.getListTempsMoyenAlgo());
-            margeErreurAlgos = convertToString(compare.getListMargeErreurAlgos());
-            statsAlgos[0] = String.valueOf(nbVille);
-            margeErreurAlgos[0] = String.valueOf(nbVille);
-            tableauStats.add(statsAlgos.clone());
-            tableauMargeErreur.add(margeErreurAlgos.clone());
+            actualiseStats(compare, nbVille);
         }
 
         writeCSV(tableauMargeErreur, ";", new File(repertoire, "marge_d'erreur-" + nomFichier));
@@ -82,14 +75,25 @@ public class GenererCSV {
 
     }
 
+    private void actualiseStats(Comparer compare, byte nbVille) {
+        tableauStats.add(construitTuple(compare.getListTempsMoyenAlgo(), nbVille));
+        tableauMargeErreur.add(construitTuple(compare.getListMargeErreurAlgos(), nbVille));
+    }
+
+    private String[] construitTuple(double[] listDouble, byte nbVille) {
+        String[] tuple = new String[listDouble.length + 1];
+        tuple = convertToString(listDouble);
+        tuple[0] = String.valueOf(nbVille);
+        return tuple;
+    }
     // #region Outils
 
-    private String[] convertToString(double[] tempsMoyenPourUneVille) {
-        String statsAlgos[] = new String[tempsMoyenPourUneVille.length + 1];
+    private String[] convertToString(double[] listDouble) {
+        String statsAlgos[] = new String[listDouble.length + 1];
 
-        for (int i = 0; i < tempsMoyenPourUneVille.length; i++) {
-            if (tempsMoyenPourUneVille[i] != 0)
-                statsAlgos[i + 1] = String.valueOf(tempsMoyenPourUneVille[i]).replace('.', ',');
+        for (int i = 0; i < listDouble.length; i++) {
+            if (listDouble[i] != 0)
+                statsAlgos[i + 1] = String.valueOf(listDouble[i]).replace('.', ',');
             else
                 statsAlgos[i + 1] = "";
         }
