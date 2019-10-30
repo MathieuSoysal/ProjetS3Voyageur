@@ -33,9 +33,9 @@ public class GenererCSV {
     private ArrayList<String[]> tableauMargeErreur = new ArrayList<>();
 
     private void initTupleSyncro() {
-        String[] attributs = new String[listAlgo.length + 2];
+        String[] attributs = new String[listAlgo.length + 1];
         attributs[0] = "Nombre de villes";
-        for (byte i = 0; i < (listAlgo.length); i++) {
+        for (byte i = 0; i != (listAlgo.length); i++) {
             attributs[i + 1] = listAlgo[i].getNom();
         }
         tableauStats.add(attributs);
@@ -142,8 +142,9 @@ public class GenererCSV {
      */
     @Override
     public String toString() {
-        return "    GenererCSV : \n List des algorithmes de recherches =" + Arrays.toString(listAlgo) + "\n nombre d'itération=" + nbIteration + "\n Nombre de villes maximum ="
-                + nbVillesMax + " \n Temps maximum=" + tempsMax + "]";
+        return "    GenererCSV : \n List des algorithmes de recherches =" + Arrays.toString(listAlgo)
+                + "\n nombre d'itération=" + nbIteration + "\n Nombre de villes maximum =" + nbVillesMax
+                + " \n Temps maximum=" + tempsMax + " seconde" + ((tempsMax > 1) ? "s" : "");
     }
 
     // #endregion Settet
