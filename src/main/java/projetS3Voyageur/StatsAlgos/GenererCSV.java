@@ -1,14 +1,10 @@
 package projetS3Voyageur.StatsAlgos;
 
 import static projetS3Voyageur.StatsAlgos.CSV.writeCSV;
-import static projetS3Voyageur.StatsAlgos.ConfigOrdinateur.enregistreConfig;
 import static projetS3Voyageur.StatsAlgos.Repertorisation.getRepertoire;
 import static projetS3Voyageur.StatsAlgos.Texte.ecrire;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -89,7 +85,9 @@ public class GenererCSV {
     // #region Outils
 
     private String[] convertToString(double[] listDouble) {
-        String statsAlgos[] = new String[listDouble.length + 1];
+
+        String statsAlgos[] = new String[listDouble.length
+                + 1 /* +1 car le premier element est réservé à l'indication du nbVille */];
 
         for (int i = 0; i < listDouble.length; i++) {
             if (listDouble[i] != 0)
