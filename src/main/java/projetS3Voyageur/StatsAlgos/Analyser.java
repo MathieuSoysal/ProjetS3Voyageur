@@ -67,6 +67,8 @@ public class Analyser {
     }
 
     public void calculeTempsExecutionBrut() {
+        varianceCurrentTime = new VarianceCurrentTime(nombreDeTestes);
+
         for (int i = 0; i < nombreDeTestes; i++) {
 
             effectueAlgos();

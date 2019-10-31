@@ -8,7 +8,7 @@ import projetS3Voyageur.ModesDeRecherches.BrutForceV2;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 import projetS3Voyageur.StatsAlgos.Analyser;
 
-public class ComparerTest {
+public class TestAnalyser {
 
 //TODO: ajouter les autres tests
 
