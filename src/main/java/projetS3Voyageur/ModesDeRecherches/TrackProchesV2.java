@@ -304,7 +304,7 @@ public class TrackProchesV2 implements ModeRecherche {
      */
     @Override
     public String getNom() {
-        return "TrackProches v1.2";
+        return "TrackProches v2";
     }
 
     // #endregion Getters
