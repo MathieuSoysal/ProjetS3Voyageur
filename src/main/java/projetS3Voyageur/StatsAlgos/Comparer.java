@@ -26,10 +26,7 @@ public class Comparer {
     private int nombreDeVilles = 10;
     private byte villeDepart = 0;
 
-    private String etapeChargementAttein;
-    private String etapeChargementNonAttein;
-    private final String BARRE_CHARGEMENT_APPARENCE = "[#...................................................................................................]";
-    private String barreDeChargement;
+    private BarreChargement chargement;
 
     public Comparer(ModeRecherche[] listAlgo) {
         this.listAlgo = listAlgo;
@@ -57,7 +54,8 @@ public class Comparer {
         moyenneCurrentTime = 0;
         ecartTypeCurrentTime = 0;
 
-        barreDeChargementInit();
+
+        chargement = new BarreChargement(nombreDeTestes);
 
         tempsMoyenAlgos = new double[listAlgo.length];
         margeErreurAlgos = new double[listAlgo.length];
@@ -67,7 +65,7 @@ public class Comparer {
             effectueAlgos();
             calculVarianceCurrentTime();
 
-            barreDeChargement(iterationActuel);
+            chargement.avancer(iterationActuel);
         }
 
         CalculEcartType();
@@ -135,28 +133,6 @@ public class Comparer {
         moyenneCurrentTime += tempsExecution / (nombreDeTestes * 2);
         ecartTypeCurrentTime += (Math.pow(tempsExecution, 2)) / (nombreDeTestes * 2);
     }
-
-    // #region Outils Barre de Chargement
-    private void barreDeChargementInit() {
-        etapeChargementAttein = "##";
-        etapeChargementNonAttein = "#.";
-        for (int i = 1; i < (int) ((((double) 1) / ((double) nombreDeTestes)) * 100); i++) {
-            etapeChargementAttein += '#';
-            etapeChargementNonAttein += '.';
-        }
-        barreDeChargement = BARRE_CHARGEMENT_APPARENCE;
-        System.out.print(barreDeChargement);
-    }
-
-    private void barreDeChargement(int i) {
-        int charge = (int) ((((double) i) / ((double) nombreDeTestes)) * 100);
-        int chargePrecedant = ((int) ((((double) (i - 1)) / ((double) nombreDeTestes)) * 100));
-        if ((charge - chargePrecedant) != 0) {
-            barreDeChargement = barreDeChargement.replace(etapeChargementNonAttein, etapeChargementAttein);
-        }
-        System.out.print("\r" + barreDeChargement);
-    }
-    // #endregion Outils barre de chargement
 
     // #region outils calcul sur le temps
     private long calculeTempsExecution(ModeRecherche algo, Pays pays) {
