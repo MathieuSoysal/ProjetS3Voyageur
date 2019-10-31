@@ -27,16 +27,6 @@ public class GenererCSV {
     private ArrayList<String[]> tableauStats = new ArrayList<>();
     private ArrayList<String[]> tableauMargeErreur = new ArrayList<>();
 
-    private void initTupleSyncro() {
-        String[] attributs = new String[listAlgo.length + 2];
-        attributs[0] = "Nombre de villes";
-        for (byte i = 0; i != (listAlgo.length); i++) {
-            attributs[i + 1] = listAlgo[i].getNom();
-        }
-        attributs[listAlgo.length + 1] = "Marge d'erreur CurrentTime";
-        tableauStats.add(attributs);
-        tableauMargeErreur.add(attributs);
-    }
 
     /**
      * Cette méthode permet de générer un fichier CSV possèdant les statistique de
@@ -53,15 +43,15 @@ public class GenererCSV {
      * @param nonFichier  Le nom du fichier au quelle les statistique seront stocké
      */
     public void GenereSyncro(ModeRecherche[] listAlgo) {
-        Comparer compare;
+        Analyser compare;
         this.listAlgo = listAlgo;
         initTupleSyncro();
-        compare = new Comparer(listAlgo, 3, nbIteration, tempsMax);
+        compare = new Analyser(listAlgo, 3, nbIteration, tempsMax);
         for (byte nbVille = 3; nbVille != nbVillesMax + 1; nbVille++) {
             System.out.println("\n Nombre de villes actuelles :" + nbVille);
             compare.setNombreDeVilles(nbVille);
-            compare.calcule();
-            actualiseStats(compare, nbVille);
+            compare.analyse();
+            actualiseTableaux(compare, nbVille);
         }
 
         writeCSV(tableauMargeErreur, ";", new File(repertoire, "marge_d'erreur-" + nomFichier));
@@ -71,12 +61,27 @@ public class GenererCSV {
 
     }
 
-    private void actualiseStats(Comparer compare, byte nbVille) {
+    // #region Outils
+
+    private void actualiseTableaux(Analyser compare, byte nbVille) {
 
         tableauStats.add(construitTuple(compare.getListTempsMoyenAlgo(), nbVille, compare.getMargeErreurCurrentTime()));
 
         tableauMargeErreur
                 .add(construitTuple(compare.getListMargeErreurAlgos(), nbVille, compare.getMargeErreurCurrentTime()));
+    }
+
+    // #region manipulation sur les tuples
+
+    private void initTupleSyncro() {
+        String[] attributs = new String[listAlgo.length + 2];
+        attributs[0] = "Nombre de villes";
+        for (byte i = 0; i != (listAlgo.length); i++) {
+            attributs[i + 1] = listAlgo[i].getNom();
+        }
+        attributs[listAlgo.length + 1] = "Marge d'erreur CurrentTime";
+        tableauStats.add(attributs);
+        tableauMargeErreur.add(attributs);
     }
 
     private String[] construitTuple(double[] listDouble, byte nbVille, double margeErreurCurrentTime) {
@@ -85,7 +90,7 @@ public class GenererCSV {
         tuple[listDouble.length + 1] = String.valueOf(margeErreurCurrentTime);
         return tuple;
     }
-    // #region Outils
+    // #endregion manipulation sur les tuples
 
     private String[] convertToString(double[] listDouble) {
 
@@ -106,7 +111,7 @@ public class GenererCSV {
 
     // #endregion Outils
 
-    // #region Setter & Getters
+    // #region Setters
 
     /**
      * @param nbVillesMax the nbVillesMax to set
@@ -130,18 +135,13 @@ public class GenererCSV {
     }
 
     /**
-     * @return the nomFichier
-     */
-    public String getNomFichier() {
-        return nomFichier;
-    }
-
-    /**
      * @param nomFichier the nomFichier to set
      */
     public void setNomFichier(String nomFichier) {
         this.nomFichier = nomFichier;
     }
+
+    // #endregion Setters
 
     /*
      * (non-Javadoc)
@@ -154,7 +154,5 @@ public class GenererCSV {
                 + "\n nombre d'itération=" + nbIteration + "\n Nombre de villes maximum =" + nbVillesMax
                 + " \n Temps maximum=" + tempsMax + " seconde" + ((tempsMax > 1) ? "s" : "");
     }
-
-    // #endregion Settet
 
 }
