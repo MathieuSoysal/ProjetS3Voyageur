@@ -1,143 +1,167 @@
 package projetS3Voyageur.StatsAlgos;
 
 import projetS3Voyageur.Pays;
-import projetS3Voyageur.ModesDeRecherches.*;
+import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class Analyser {
 
-    private static final String BARRE_DE_CHARGEMENT_INIT = "[#...................................................................................................]";
+    // TODO: Cette classe doit aussi pouvoir analyser un algo dans plusieurs nbVille
+    // différents la class GenererCSV doit faire faire cette tâche
 
-    private byte nbVillesMax = 12;
-    private int nbIteration = 100;
+    private int iterationActuel = 0;
+    private double tempsMax = 240;
 
-    private ModeRecherche algo;
+    // Calcul de la varience du CurrentTime :
 
-    private double[] tempsMoyenParVilles = new double[nbVillesMax - 3];
-    private double[] margeErreurParVilles = new double[nbVillesMax - 3];
+    private boolean[] algosDepassantTemps;
+    VarianceCurrentTime varianceCurrentTime = null;
 
-    private String etapeChargementAttein = "##";
-    private String etapeChargementNonAttein = "#.";
-    private String barreDeChargement = BARRE_DE_CHARGEMENT_INIT;
+    private ModeRecherche[] listAlgo;
 
-    public Analyser(ModeRecherche algo) {
-        this.algo = algo;
+    private double tempsMoyenAlgos[];
+    private double margeErreurAlgos[];
+
+    private int nombreDeTestes = 20;
+    private int nombreDeVilles = 10;
+
+    private BarreChargement chargement;
+
+    public Analyser(ModeRecherche[] listAlgo) {
+        this.listAlgo = listAlgo;
+        tempsMoyenAlgos = new double[listAlgo.length];
+        margeErreurAlgos = new double[listAlgo.length];
+        algosDepassantTemps = new boolean[listAlgo.length];
     }
 
-    /**
-     * @param nbVillesMax
-     * @param nbIteration
-     * @param algo
-     */
-    public Analyser(byte nbVillesMax, int nbIteration, ModeRecherche algo) {
-        this.nbVillesMax = nbVillesMax;
-        this.nbIteration = nbIteration;
-        this.algo = algo;
-        this.tempsMoyenParVilles = new double[nbVillesMax - 3];
-        this.margeErreurParVilles = new double[nbVillesMax - 3];
+    // TODO: note pour moi-m^me Mathieu oublie pas que tu as mis en paramètre
+    // tempsMax
+    public Analyser(ModeRecherche[] listAlgo, int nombreDeVilles, int nombreDeTests, double tempsMax) {
+        this.tempsMax = tempsMax;
+        this.listAlgo = listAlgo;
+        this.nombreDeTestes = nombreDeTests;
+        this.nombreDeVilles = nombreDeVilles;
+        algosDepassantTemps = new boolean[listAlgo.length];
+        tempsMoyenAlgos = new double[listAlgo.length];
+        margeErreurAlgos = new double[listAlgo.length];
 
     }
+
+    // #region méthodes de calcul
+
+    public void analyse() {
+
+        varianceCurrentTime = new VarianceCurrentTime(nombreDeTestes);
+        chargement = new BarreChargement(nombreDeTestes);
+
+        tempsMoyenAlgos = new double[listAlgo.length];
+        margeErreurAlgos = new double[listAlgo.length];
+
+        for (iterationActuel = 0; iterationActuel < nombreDeTestes; iterationActuel++) {
+            effectueAlgos();
+
+            chargement.avancer(iterationActuel);
+        }
+
+        CalculEcartType();
+
+    }
+
+    public void calculeTempsExecutionBrut() {
+        for (int i = 0; i < nombreDeTestes; i++) {
+
+            effectueAlgos();
+
+        }
+    }
+
+    // #endregion méthode de calcul
 
     public void afficher() {
-        // TODO: vérifier qu'il à déjà fait un calculer
-        for (int i = 0; i < tempsMoyenParVilles.length; i++) {
-            double ecartType = Math.sqrt(margeErreurParVilles[i] - Math.pow(tempsMoyenParVilles[i], 2));
-            System.out.println("\n " + algo.getNom() + " : " + " Résultat avec " + (i + 3)
-                    + " villes  :\n Temps moyen de recherche : " + tempsMoyenParVilles[i] + "\n Marge d'erreur : "
-                    + ecartType);
+        double tempsPlusLent = recupéreTempsPlusLent();
+        for (int i = 0; i < listAlgo.length; i++) {
+            int poucentage = (int) ((((tempsPlusLent) / ((tempsMoyenAlgos[i]))) - 1) * 100);
+
+            String tempsMoyenObtenue = " :\n Temps moyen de recherche : " + tempsMoyenAlgos[i];
+            String margeErreur = "\n Marge d'erreur : " + margeErreurAlgos[i];
+            String differenceAvecPlusLent = (listAlgo.length == 1) ? ""
+                    : "\n En moyenne " + poucentage + " % plus rapide que l'algo le plus lent.";
+
+            System.out.println("\n Résultat avec " + listAlgo[i].getNom() + tempsMoyenObtenue + differenceAvecPlusLent
+                    + margeErreur + "\n");
 
         }
-    }
+        if (varianceCurrentTime != null)
+            System.out.println("Marge d'erreur du CurrentTime : "
+                    + String.valueOf(getMargeErreurCurrentTime()).substring(0, 4) + "%");
 
-    public void calcul() {
-        barreDeChargementInit(nbIteration);
-        for (byte nbVille = 3; nbVille < nbVillesMax; nbVille++) {
-            barreDeChargement = BARRE_DE_CHARGEMENT_INIT;
-            for (byte i = 0; i < nbIteration; i++) {
-                double tempsExecution = calculeTempsExecution(nbVille);
-                tempsMoyenParVilles[nbVille - 3] += tempsExecution / nbIteration;
-                margeErreurParVilles[nbVille - 3] += (Math.pow(tempsExecution, 2)) / nbIteration;
-                barreDeChargement(i, nbVille);
-            }
-        }
-    }
-
-    public void calculSafe(long tempsMaximum/* en seconde */) {
-        barreDeChargementInit(nbIteration);
-        boolean securite = true;
-        for (byte nbVille = 3; nbVille < nbVillesMax; nbVille++) {
-            barreDeChargement = BARRE_DE_CHARGEMENT_INIT;
-            for (int i = 0; (i < nbIteration) && securite; i++) {
-                double tempsExecution = calculeTempsExecution(nbVille);
-                tempsMoyenParVilles[nbVille - 3] += tempsExecution / nbIteration;
-                margeErreurParVilles[nbVille - 3] += (Math.pow(tempsExecution, 2)) / nbIteration;
-                barreDeChargement(i, nbVille);
-                securite = (i==0) || (((tempsMoyenParVilles[nbVille - 3]
-                        * (nbIteration / i)) < (tempsMaximum * 1000)));
-            }
-            tempsMoyenParVilles[nbVille - 3] = (!securite) ? 0 : tempsMoyenParVilles[nbVille - 3];
-        }
-    }
-
-    // public void calculGroupee(){
-    //     for (byte nbVille = 3; nbVille != nbVillesMax + 1; nbVille++) {
-    //         System.out.println("\n Nombre de villes actuel :" + nbVille);
-    //         compare = new Comparer(listAlgo, nbVille, nbIteration, tempsMax);
-    //         compare.calcule();
-    //         statsAlgo = convertToString(compare.getListTempsMoyenAlgo());
-    //         statsAlgo[0] = String.valueOf(nbVille);
-    //         tuples.add(statsAlgo.clone());
-    //     }
-    // }
-
-    // #region setter / Getter
-
-    public double[] getResultat() {
-        return tempsMoyenParVilles;
     }
 
     /**
-     * @param nbVillesMax the nbVillesMax to set
+     * Execute tous les algorithme dans la liste, en vérifiant qu'il ne dépasse pas
+     * le temps imparti @tempsMax
      */
-    public void setNbVillesMax(byte nbVillesMax) {
-        this.nbVillesMax = nbVillesMax;
+    private void effectueAlgos() {
+        Pays pays = new Pays(nombreDeVilles);
+        varianceCurrentTime.calcul();
+        for (int j = 0; j < listAlgo.length; j++) {
+            if (!algosDepassantTemps[j] && (iterationActuel == 0
+                    || ((tempsMoyenAlgos[j] * (nombreDeTestes / iterationActuel))) < tempsMax * 1000)) {
+                double tempsExecution = TempsExecution.calcule(listAlgo[j], pays);
+                tempsMoyenAlgos[j] += tempsExecution / nombreDeTestes;
+                margeErreurAlgos[j] += (Math.pow(tempsExecution, 2)) / nombreDeTestes;
+            } else {
+                algosDepassantTemps[j] = true;
+                tempsMoyenAlgos[j] = 0;
+                margeErreurAlgos[j] = 0;
+            }
+        }
+        varianceCurrentTime.calcul();
     }
 
-    /**
-     * @param nbIteration the nbIteration to set
-     */
-    public void setNbIteration(int nbIteration) {
-        this.nbIteration = nbIteration;
+    // #region outils calcul sur le temps
+
+    private double recupéreTempsPlusLent() {
+        double tempsPlusLent = 0.;
+        for (double tempsMoyen : tempsMoyenAlgos) {
+            tempsPlusLent = Double.max(tempsPlusLent, tempsMoyen);
+        }
+        return tempsPlusLent;
     }
 
-    // #endregion setter/ getter
-
-    // #region Barre de chargement
-
-    private void barreDeChargementInit(int iMax) {
-        for (int i = 1; i < (int) ((((double) 1) / ((double) iMax)) * 100); i++) {
-            etapeChargementAttein += '#';
-            etapeChargementNonAttein += '.';
+    private void CalculEcartType() {
+        for (int i = 0; i < margeErreurAlgos.length; i++) {
+            margeErreurAlgos[i] = Math.sqrt(margeErreurAlgos[i] - Math.pow(tempsMoyenAlgos[i], 2));
         }
     }
+    // #endregion outils calcul sur le temps
 
-    private void barreDeChargement(int i, byte nbVille) {
-        int charge = (int) ((((double) i) / ((double) nbIteration)) * 100);
-        int chargePrecedant = ((int) ((((double) (i - 1)) / ((double) nbIteration)) * 100));
-        if ((charge - chargePrecedant) != 0) {
-            barreDeChargement = barreDeChargement.replace(etapeChargementNonAttein, etapeChargementAttein);
-        }
-        System.out.print("\rnombre de villes :" + (nbVille + "/" + (nbVillesMax) + " " + barreDeChargement));
+    // #region setters & getters
+    public void setNombreDeTest(int nombreDeTests) {
+        this.nombreDeTestes = nombreDeTests;
     }
 
-    // #endregion barre de Chargement
-
-    // #region Calcul
-    private long calculeTempsExecution(byte nbVilles) {
-        long startTime = System.currentTimeMillis();
-        algo.recherche(new Pays(nbVilles), 0);
-        long endTime = System.currentTimeMillis();
-        return (endTime - startTime);
+    public void setNombreDeVilles(int nombreDeVilles) {
+        this.nombreDeVilles = nombreDeVilles;
     }
-    // #endregion Calcul
 
+    public void setTempsMax(double tempsMax) {
+        this.tempsMax = tempsMax;
+    }
+
+    public double getTempsMoyenAlgo(int i) {
+        return tempsMoyenAlgos[i];
+    }
+
+    public double[] getListTempsMoyenAlgo() {
+        return tempsMoyenAlgos;
+    }
+
+    public double[] getListMargeErreurAlgos() {
+        return margeErreurAlgos;
+    }
+
+    public double getMargeErreurCurrentTime() {
+        return varianceCurrentTime.getMargeErreur();
+    }
+    // #endregion setters & getters
 }
