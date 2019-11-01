@@ -27,7 +27,6 @@ public class GenererCSV {
     private ArrayList<String[]> tableauStats = new ArrayList<>();
     private ArrayList<String[]> tableauMargeErreur = new ArrayList<>();
 
-
     /**
      * Cette méthode permet de générer un fichier CSV possèdant les statistique de
      * temps d'exécution des différents ModeRecherche donnés en paramètre. Sa
@@ -87,7 +86,7 @@ public class GenererCSV {
     private String[] construitTuple(double[] listDouble, byte nbVille, double margeErreurCurrentTime) {
         String[] tuple = convertToString(listDouble);
         tuple[0] = String.valueOf(nbVille);
-        tuple[listDouble.length + 1] = String.valueOf(margeErreurCurrentTime);
+        tuple[listDouble.length + 1] = String.valueOf(margeErreurCurrentTime).replace('.', ',');
         return tuple;
     }
     // #endregion manipulation sur les tuples
@@ -102,7 +101,7 @@ public class GenererCSV {
 
         for (int i = 0; i < listDouble.length; i++) {
             if (listDouble[i] != 0)
-                statsAlgos[i + 1] = String.valueOf(listDouble[i]).replace('.', ',');
+                statsAlgos[i + 1] = String.valueOf(listDouble[i] / 1000/* convertion en seconde */).replace('.', ',');
             else
                 statsAlgos[i + 1] = "";
         }
