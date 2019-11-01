@@ -1,0 +1,5 @@
+    GenererCSV : 
+ List des algorithmes de recherches =[projetS3Voyageur.ModesDeRecherches.BrutForceV2@27d6c5e0, projetS3Voyageur.ModesDeRecherches.BrutForceV3@4f3f5b24, projetS3Voyageur.ModesDeRecherches.BrutForceV3_1@15aeb7ab, projetS3Voyageur.ModesDeRecherches.BrutForceV4@7b23ec81, projetS3Voyageur.ModesDeRecherches.BackTrackV1@6acbcfc0, projetS3Voyageur.ModesDeRecherches.BackTrackV2@5f184fc6, projetS3Voyageur.ModesDeRecherches.TrackProchesV1@3feba861, projetS3Voyageur.ModesDeRecherches.TrackProchesV1_1@5b480cf9, projetS3Voyageur.ModesDeRecherches.TrackProchesV2@6f496d9f]
+ nombre d'itération=100
+ Nombre de villes maximum =20 
+ Temps maximum=25 secondes
