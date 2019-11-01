@@ -31,7 +31,7 @@ public class App {
         GenererCSV fichierCSV = new GenererCSV();
         fichierCSV.setTempsMax(17);
         fichierCSV.setNbIteration(100);
-        fichierCSV.setNbVillesMax(15);
+        fichierCSV.setNbVillesMax(20);
         fichierCSV.GenereSyncro(listeAlgo);
 
         // #region comparer plusieurs algos :
