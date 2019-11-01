@@ -96,7 +96,7 @@ public class TrackProchesV2 implements ModeRecherche {
     private void rechercheAuxDistanceProche(int villesVisitees, byte villeActuelle, double distanceParcourue) {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
-//TODO : Mettre un backTrack ?
+        // TODO : Mettre un backTrack ?
         if (villesVisitees == toutesVillesVisitees) {
             if (distanceOptimum > distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale))
                 distanceOptimum = distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
@@ -223,10 +223,32 @@ public class TrackProchesV2 implements ModeRecherche {
 
     // #region parcours idéal
 
+    /**
+     * Renvois le parcours le plus optimiste possible (en empruntant les chemins les
+     * plus courts). Exemple : il reste 3 villes à visiter alors il prend les trois
+     * meilleurs chemins sans même voir où est-ce qu'ils mènent
+     * 
+     * @param villesVisitees type int qui contient sous forme de bit les villes qui
+     *                       ont été visitées
+     * 
+     * @return {@code double} retourne la distance parcourue en empruntant les
+     *         chemins les plus courts sans voir où ils mènent
+     */
     private double parcoursIdeal(int villesVisitees) {
         return distancesPlusCourt[(nombreDeVilles - Integer.bitCount(villesVisitees))];
     }
 
+    /**
+     * Retourne une distance minimum de toutes les distances possibles au sein d'un
+     * pays, mais supérieur au nombre rentré en paramètre (représente la distance
+     * minimum précédente).
+     * 
+     * @param distanceMinPrecedente Représante le nombre au quelle la distance
+     *                              minimum doit être supérieur
+     * 
+     * @return {@code double} distance minimum de toutes les distances séparant les
+     *         villes d'un pays, mais supérieur à la distanceMinPrecedente
+     */
     private double distancePlusCourtEntre2Villes(double minimumSuperieur, int index) {
         int villesVisitees = 0;
         double resultat = Double.MAX_VALUE;
@@ -255,6 +277,19 @@ public class TrackProchesV2 implements ModeRecherche {
 
     private int[] pairDeVilleVisite;
 
+    // TODO: à voir s'il est possible de faire un meilleur commentaire explicatif
+
+    /**
+     * Retourne une distance minimum de toutes les distances possibles au sein d'un
+     * pays, mais supérieur au nombre rentré en paramètre (représente la distance
+     * minimum précédente).
+     * 
+     * @param distanceMinPrecedente Représante le nombre au quelle la distance
+     *                              minimum doit être supérieur
+     * 
+     * @return {@code double} distance minimum de toutes les distances séparant les
+     *         villes d'un pays, mais supérieur à la distanceMinPrecedente
+     */
     private double[] distancesPlusCourts() {
         pairDeVilleVisite = new int[nombreDeVilles + 1];
         int i = 0;

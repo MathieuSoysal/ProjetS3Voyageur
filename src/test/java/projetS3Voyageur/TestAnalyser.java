@@ -18,7 +18,7 @@ public class TestAnalyser {
         Analyser test = new Analyser(listAlgo);
         test.setNombreDeTest(100);
         test.setNombreDeVilles(10);
-        test.calculeTempsExecutionBrut();
+        test.analyseBrut();
 
         double timeAlgo1 = test.getTempsMoyenAlgo(0);
         double timeAlgo2 = test.getTempsMoyenAlgo(1);

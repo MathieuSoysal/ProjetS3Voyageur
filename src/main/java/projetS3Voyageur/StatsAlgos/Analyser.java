@@ -66,7 +66,7 @@ public class Analyser {
 
     }
 
-    public void calculeTempsExecutionBrut() {
+    public void analyseBrut() {
         varianceCurrentTime = new VarianceCurrentTime(nombreDeTestes);
 
         for (int i = 0; i < nombreDeTestes; i++) {

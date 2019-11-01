@@ -101,7 +101,7 @@ public class TrackProchesV1_1 implements ModeRecherche {
             if (distanceOptimum > distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale))
                 distanceOptimum = distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
         } else {
-            double distanceMin = Long.MAX_VALUE;
+            double distanceMinDeLIteration = Long.MAX_VALUE;
             byte villePlusProche = 0;
             for (int villeFormatBinaire = villeNonVisitee(1,
                     villesVisitees); villeFormatBinaire < ToutesVillesVisitees; villeFormatBinaire = villeNonVisitee(
@@ -110,14 +110,14 @@ public class TrackProchesV1_1 implements ModeRecherche {
                 byte villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));
 
                 double distanceVilleChoisie = pays.getDistanceEntreVilles(villeActuelle, villeChoisie);
-                if (distanceVilleChoisie < distanceMin) {
-                    distanceMin = distanceVilleChoisie;
+                if (distanceVilleChoisie < distanceMinDeLIteration) {
+                    distanceMinDeLIteration = distanceVilleChoisie;
                     villePlusProche = villeChoisie;
                 }
 
             }
             rechercheAuxDistanceProche((villesVisitees + (1 << villePlusProche)), (villePlusProche),
-                    distanceParcourue + distanceMin);
+                    distanceParcourue + distanceMinDeLIteration);
 
         }
 
@@ -222,12 +222,33 @@ public class TrackProchesV1_1 implements ModeRecherche {
 
     // #region parcours idéal
 
+    /**
+     * Renvois le parcours le plus optimiste possible (en empruntant les chemins les
+     * plus courts). Exemple : il reste 3 villes à visiter alors il prend les trois
+     * meilleurs chemins sans même voir où est-ce qu'ils mènent
+     * 
+     * @param villesVisitees type int qui contient sous forme de bit les villes qui
+     *                       ont été visitées
+     * 
+     * @return {@code double} retourne la distance parcourue en empruntant les
+     *         chemins les plus courts sans voir où ils mènent
+     */
     private double parcoursIdeal(int villesVisitees) {
         return distancesPlusCourt[(nombreDeVilles - Integer.bitCount(villesVisitees))];
     }
 
-    // TODO: rendre plus claire la méthode
-    private double distancePlusCourtEntre2Villes(double minimumSuperieur) {
+    /**
+     * Retourne une distance minimum de toutes les distances possibles au sein d'un
+     * pays, mais supérieur au nombre rentré en paramètre (représente la distance
+     * minimum précédente).
+     * 
+     * @param distanceMinPrecedente Représante le nombre au quelle la distance
+     *                              minimum doit être supérieur
+     * 
+     * @return {@code double} distance minimum de toutes les distances séparant les
+     *         villes d'un pays, mais supérieur à la distanceMinPrecedente
+     */
+    private double distancePlusCourtEntre2Villes(double distanceMinPrecedente) {
         int villesVisitees = 0;
         double resultat = Double.MAX_VALUE;
         for (int villeFormatBinaire = villeNonVisitee(1,
@@ -236,19 +257,26 @@ public class TrackProchesV1_1 implements ModeRecherche {
             for (int villeFormatBinaire2 = villeNonVisitee(1,
                     villeFormatBinaire); villeFormatBinaire2 < ToutesVillesVisitees; villeFormatBinaire2 = villeNonVisitee(
                             villeFormatBinaire2 << 1, villeFormatBinaire)) {
-                resultat = (minimumSuperieur < Double.min(resultat,
-                        pays.getDistanceEntreVilles(Math.getExponent(villeFormatBinaire),
-                                Math.getExponent(villeFormatBinaire2))))
-                                        ? Double.min(resultat,
-                                                pays.getDistanceEntreVilles(Math.getExponent(villeFormatBinaire),
-                                                        Math.getExponent(villeFormatBinaire2)))
-                                        : resultat;
+
+                double distanceMinDeLIteration = Double.min(resultat, pays.getDistanceEntreVilles(
+                        Math.getExponent(villeFormatBinaire), Math.getExponent(villeFormatBinaire2)));
+
+                resultat = (distanceMinPrecedente < distanceMinDeLIteration) ? distanceMinDeLIteration : resultat;
             }
 
         }
         return resultat;
     }
 
+    /**
+     * Créé et renvoie un tableau, dont l'index représente le nombre de villes à
+     * visiter, la valeur de chaque case représente la somme des index des distances
+     * les plus courtes du pays. Exemple : pour l'index 2 le tableau renvoie la
+     * somme des trois plus courtes distances du pays
+     * 
+     * @return {@code double[]} Un tableau contenant la somme des distances les plus
+     *         courtes par ordre croissant
+     */
     private double[] distancesPlusCourts() {
         int i = 0;
         double[] resultat = new double[nombreDeVilles];
