@@ -265,7 +265,7 @@ public class TrackProchesV2 implements ModeRecherche {
                 if ((valeurMinimal < resultat) && (minimumSuperieur <= valeurMinimal)
                         && (pairDeVillesNonVisite(villeFormatBinaire | villeFormatBinaire2))) {
                     resultat = valeurMinimal;
-                    pairDeVilleVisite[index] = villeFormatBinaire + villeFormatBinaire2;
+                    pairDeVilleVisitee[index] = villeFormatBinaire + villeFormatBinaire2;
 
                 }
             }
@@ -275,7 +275,7 @@ public class TrackProchesV2 implements ModeRecherche {
         return resultat;
     }
 
-    private int[] pairDeVilleVisite;
+    private int[] pairDeVilleVisitee;
 
     // TODO: à voir s'il est possible de faire un meilleur commentaire explicatif
 
@@ -291,7 +291,7 @@ public class TrackProchesV2 implements ModeRecherche {
      *         villes d'un pays, mais supérieur à la distanceMinPrecedente
      */
     private double[] distancesPlusCourts() {
-        pairDeVilleVisite = new int[nombreDeVilles + 1];
+        pairDeVilleVisitee = new int[nombreDeVilles + 1];
         int i = 0;
         double[] resultat = new double[nombreDeVilles];
         for (double minValue = distancePlusCourtEntre2Villes(0,
@@ -302,10 +302,23 @@ public class TrackProchesV2 implements ModeRecherche {
         return resultat;
     }
 
-    private boolean pairDeVillesNonVisite(int pairDeVilleActuel) {
+    // TODO: trouvé une nouvelle version moins encombrante
+
+    /**
+     * Vérifie si la paire de ville (entré sous forme d'un int possédant deux bits à
+     * 1 les bits à un représente les villes visitées) n'est pas déjà comprise dans
+     * le tableau de pairDeVilleVisitee
+     * 
+     * @param pairDeVilleActuelle Type int dans le quel deux bits sont à 1 ils
+     *                            représantent les villes visitées
+     * 
+     * @return {@code boolean} vrai si la pairDeVilleActuelle rentré en paramètre
+     *         n'est pas visité sinon faux
+     */
+    private boolean pairDeVillesNonVisite(int pairDeVilleActuelle) {
         boolean resultat = true;
-        for (int pairVille : pairDeVilleVisite) {
-            resultat = ((pairDeVilleActuel ^ pairVille) != 0) && resultat;
+        for (int pairVille : pairDeVilleVisitee) {
+            resultat = ((pairDeVilleActuelle ^ pairVille) != 0) && resultat;
         }
         return resultat;
     }
