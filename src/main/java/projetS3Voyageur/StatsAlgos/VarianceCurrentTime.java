@@ -11,25 +11,34 @@ public class VarianceCurrentTime {
     private double esperanceCurrentTime = 0.;
     private double esperanceCarreCurrentTime = 0.;
 
-    private int nombreDeTestes;
+    private int nombreDeTests;
 
     /**
-     * @param nombreDeTestes
+     * @param nombreDeTests {@code int} nombre de tests que l'on compte effectuer
      */
-    public VarianceCurrentTime(int nombreDeTestes) {
-        this.nombreDeTestes = nombreDeTestes;
+    public VarianceCurrentTime(int nombreDeTests) {
+        this.nombreDeTests = nombreDeTests * 2;
     }
 
+    /**
+     * Calcul pour une itération le temps mit pour exécuter l'algorithme ayant un
+     * temps de résolution stable (théoriquement le temps de résolution ne devrait
+     * pas varier) donc la seule variance est celle du CurrentTime
+     */
     public void calcul() {
         double tempsExecution = TempsExecution.calcule(ALGOREFERENCE, PAYSREFERENCE);
-        esperanceCurrentTime += tempsExecution / (nombreDeTestes * 2);
-        esperanceCarreCurrentTime += (Math.pow(tempsExecution, 2)) / (nombreDeTestes * 2);
+        esperanceCurrentTime += tempsExecution / (nombreDeTests);
+        esperanceCarreCurrentTime += (Math.pow(tempsExecution, 2)) / (nombreDeTests);
     }
 
+    /**
+     * Renvoie la marge d'erreur en % du CurrentTime
+     * 
+     * @return {@code double}
+     */
     public double getMargeErreur() {
         double variance = esperanceCarreCurrentTime - Math.pow(esperanceCurrentTime, 2);
         return Math.sqrt(variance) / (esperanceCurrentTime / 100);
     }
-
 
 }
