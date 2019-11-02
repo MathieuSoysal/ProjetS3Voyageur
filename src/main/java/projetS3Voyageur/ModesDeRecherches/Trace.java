@@ -17,6 +17,7 @@ public class Trace extends JFrame {
 
     private JButton btnSinus = new JButton( "Sinus" );
     private JButton btnCosinus = new JButton( "Cosinus" );
+    private JButton btnBruteForce = new JButton( "BruteForce" );
     private Quadrillage grille = new Quadrillage();
 
     public Trace() {
@@ -32,6 +33,8 @@ public class Trace extends JFrame {
         pnlTop.add( btnSinus );
         btnCosinus.addActionListener( this::btnCosinusListener );
         pnlTop.add( btnCosinus );
+        btnBruteForce.addActionListener( this::btnBruteForceListener );
+        pnlTop.add( btnBruteForce );
         contentPane.add( pnlTop, BorderLayout.NORTH );
 
         contentPane.add( grille, BorderLayout.CENTER );
@@ -42,10 +45,14 @@ public class Trace extends JFrame {
     }
 
     private void btnSinusListener( ActionEvent event ) {
-        grille.setFunction( (x) -> Math.sin( x ) );
-    }
+        grille.setFunction( (x) -> 3*x+9 );
+    }/*Math.sin( x )*/
 
     private void btnCosinusListener( ActionEvent event ) {
+        grille.setFunction( (x) -> Math.cos( x ) );
+    }
+
+    private void btnBruteForceListener( ActionEvent event ) {
         grille.setFunction( (x) -> Math.cos( x ) );
     }
 
