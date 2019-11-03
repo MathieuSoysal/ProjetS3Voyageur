@@ -42,15 +42,15 @@ public class GenererCSV {
      * @param nonFichier  Le nom du fichier au quelle les statistique seront stocké
      */
     public void GenereSyncro(ModeRecherche[] listAlgo) {
-        Analyser compare;
+        Analyser analyse;
         this.listAlgo = listAlgo;
         initTupleSyncro();
-        compare = new Analyser(listAlgo, 3, nbIteration, tempsMax);
+        analyse = new Analyser(listAlgo, 3, nbIteration, tempsMax);
         for (byte nbVille = 3; nbVille != nbVillesMax + 1; nbVille++) {
             System.out.println("\n Nombre de villes actuelles :" + nbVille);
-            compare.setNombreDeVilles(nbVille);
-            compare.analyse();
-            actualiseTableaux(compare, nbVille);
+            analyse.setNombreDeVilles(nbVille);
+            analyse.analyse();
+            actualiseTableaux(analyse, nbVille);
         }
 
         writeCSV(tableauMargeErreur, ";", new File(repertoire, "marge_d'erreur-" + nomFichier));
@@ -62,16 +62,30 @@ public class GenererCSV {
 
     // #region Outils
 
-    private void actualiseTableaux(Analyser compare, byte nbVille) {
+    /**
+     * Insére les données de l'analyse pour un nombre de villes dans le tableau
+     * 
+     * @param analyse {@code Analyser} Variable contenant les données de l'analyse
+     * 
+     * @param nbVille {@code byte} le nombre de villes avec lequel l'analyse à été
+     *                effectué
+     * 
+     */// TODO: l'insertions dans la base de donnée SQL peut s'effectuer ici
+    private void actualiseTableaux(Analyser analyse, byte nbVille) {
 
-        tableauStats.add(construitTuple(compare.getListTempsMoyenAlgo(), nbVille, compare.getMargeErreurCurrentTime()));
+        tableauStats.add(construitTuple(analyse.getListTempsMoyenAlgo(), nbVille, analyse.getMargeErreurCurrentTime()));
 
         tableauMargeErreur
-                .add(construitTuple(compare.getListMargeErreurAlgos(), nbVille, compare.getMargeErreurCurrentTime()));
+                .add(construitTuple(analyse.getListMargeErreurAlgos(), nbVille, analyse.getMargeErreurCurrentTime()));
     }
 
     // #region manipulation sur les tuples
 
+    /**
+     * Initialise les attributs des tableaux (TableauStats et tableauMargeErreur)
+     * sous la forme : {Nombre de ville, nom algo n°1,..., nom algo n°x, Marge
+     * d'erreur du Current Time}
+     */
     private void initTupleSyncro() {
         String[] attributs = new String[listAlgo.length + 2];
         attributs[0] = "Nombre de villes";
@@ -83,25 +97,53 @@ public class GenererCSV {
         tableauMargeErreur.add(attributs);
     }
 
-    private String[] construitTuple(double[] listDouble, byte nbVille, double margeErreurCurrentTime) {
-        String[] tuple = convertToString(listDouble);
+    /**
+     * Construit un tuple en respectant les attributs du tableau avec les
+     * informations données en paramètre
+     * 
+     * @param listeDouble            {@code double[]} Représente le temps mis par
+     *                               les algos selon un nombre de villes
+     * 
+     * @param nbVille                {@code byte} Le nombre de villes représentatif
+     *                               des données
+     * 
+     * @param margeErreurCurrentTime {@code double} Représente la marge d'erreur
+     *                               lorsque l'on récupère le temps d'exécution via
+     *                               la currentTime
+     * 
+     * @return {@code String[]} une liste de String, conforme aux attributs des
+     *         tableaux c'est-à-dire : {nombre de villes, Donnée algo n°1,...,
+     *         Donnée algo n°x, Marge d'erreur}
+     */
+    private String[] construitTuple(double[] listeDouble, byte nbVille, double margeErreurCurrentTime) {
+        String[] tuple = convertToString(listeDouble);
         tuple[0] = String.valueOf(nbVille);
-        tuple[listDouble.length + 1] = String.valueOf(margeErreurCurrentTime).replace('.', ',');
+        tuple[listeDouble.length + 1] = String.valueOf(margeErreurCurrentTime).replace('.', ',');
         return tuple;
     }
     // #endregion manipulation sur les tuples
 
-    private String[] convertToString(double[] listDouble) {
+    /**
+     * Convertie une liste de type double en une chaine de caractères conformément
+     * au tuple dans les tableaux, remplace les 0 par un string vide pour éviter de
+     * fausser les données du graphique.
+     * 
+     * @param listeDouble {@code double[]} la liste qui doit être convertie
+     * 
+     * @return {@code String[]} Retourne une liste de String conforme à la norme des
+     *         tuples des tableaux
+     */
+    private String[] convertToString(double[] listeDouble) {
 
-        String statsAlgos[] = new String[listDouble.length
+        String statsAlgos[] = new String[listeDouble.length
                 + 2 /*
                      * +2 car le premier et dernier element sont réservés à l'indication du nbVille
                      * et de la marge d'erreur du currentTime
                      */];
 
-        for (int i = 0; i < listDouble.length; i++) {
-            if (listDouble[i] != 0)
-                statsAlgos[i + 1] = String.valueOf(listDouble[i] / 1000/* convertion en seconde */).replace('.', ',');
+        for (int i = 0; i < listeDouble.length; i++) {
+            if (listeDouble[i] != 0)
+                statsAlgos[i + 1] = String.valueOf(listeDouble[i] / 1000/* convertion en seconde */).replace('.', ',');
             else
                 statsAlgos[i + 1] = "";
         }
