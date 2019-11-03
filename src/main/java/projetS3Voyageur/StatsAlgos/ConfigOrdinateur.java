@@ -9,10 +9,16 @@ import java.io.InputStreamReader;
 
 public class ConfigOrdinateur {
 
-    public static void enregistreConfig(File f) {
+    /**
+     * Enregistre la configuration CPU de l'ordinateur dans un fichier donné en
+     * paramètre
+     * 
+     * @param fichier {@code File} Fichier où les données doivent être enregistrées
+     */
+    public static void enregistreConfig(File fichier) {
         try {
             String commande = "";
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(f, "config.txt")));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(fichier, "config.txt")));
 
             switch (System.getProperty("os.name")) {
             case "Windows 10":
