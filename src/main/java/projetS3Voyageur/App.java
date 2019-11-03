@@ -29,8 +29,8 @@ public class App {
         BrutForceV3_1(), new BrutForceV4(),
         new BackTrackV1(), new BackTrackV2(), new TrackProchesV1(), new TrackProchesV1_1(), new TrackProchesV2()};
         GenererCSV fichierCSV = new GenererCSV();
-        fichierCSV.setTempsMax(17);
-        fichierCSV.setNbIteration(100);
+        fichierCSV.setTempsMax(30);
+        fichierCSV.setNbIteration(150);
         fichierCSV.setNbVillesMax(20);
         fichierCSV.GenereSyncro(listeAlgo);
 
