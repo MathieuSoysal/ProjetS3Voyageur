@@ -13,52 +13,57 @@ public class Analyser {
 
     // Calcul de la varience du CurrentTime :
 
-    private boolean[] algosDepassantTemps;
+    private boolean[] algosDepassantTempsMax;
     VarianceCurrentTime varianceCurrentTime = null;
 
-    private ModeRecherche[] listAlgo;
+    private ModeRecherche[] listeAlgo;
 
     private double tempsMoyenAlgos[];
     private double margeErreurAlgos[];
 
-    private int nombreDeTestes = 20;
-    private int nombreDeVilles = 10;
+    private int nombreDeTests = 20; // par défaut à 29
+    private int nombreDeVilles = 10; // par défaut à 10
 
-    private BarreChargement chargement;
-
-    public Analyser(ModeRecherche[] listAlgo) {
-        this.listAlgo = listAlgo;
-        tempsMoyenAlgos = new double[listAlgo.length];
-        margeErreurAlgos = new double[listAlgo.length];
-        algosDepassantTemps = new boolean[listAlgo.length];
+    public Analyser(ModeRecherche[] listeAlgo) {
+        this.listeAlgo = listeAlgo;
+        tempsMoyenAlgos = new double[listeAlgo.length];
+        margeErreurAlgos = new double[listeAlgo.length];
+        algosDepassantTempsMax = new boolean[listeAlgo.length];
     }
 
     // TODO: note pour moi-m^me Mathieu oublie pas que tu as mis en paramètre
     // tempsMax
-    public Analyser(ModeRecherche[] listAlgo, int nombreDeVilles, int nombreDeTests, double tempsMax) {
+    public Analyser(ModeRecherche[] listeAlgo, int nombreDeVilles, int nombreDeTests, double tempsMax) {
         this.tempsMax = tempsMax;
-        this.listAlgo = listAlgo;
-        this.nombreDeTestes = nombreDeTests;
+        this.listeAlgo = listeAlgo;
+        this.nombreDeTests = nombreDeTests;
         this.nombreDeVilles = nombreDeVilles;
-        algosDepassantTemps = new boolean[listAlgo.length];
-        tempsMoyenAlgos = new double[listAlgo.length];
-        margeErreurAlgos = new double[listAlgo.length];
+        algosDepassantTempsMax = new boolean[listeAlgo.length];
+        tempsMoyenAlgos = new double[listeAlgo.length];
+        margeErreurAlgos = new double[listeAlgo.length];
 
     }
 
     // #region méthodes de calcul
 
+    /**
+     * Analyse la liste des algorithmes donnés dans le constructeur pour un nombre
+     * de ville donné dans le constructeur. La méthode calcule le temps de
+     * résolution de chacun des algorithmes, la marge d'erreur des résultats, et la
+     * marge d'erreur du CurrentTIme
+     */
     public void analyse() {
 
-        varianceCurrentTime = new VarianceCurrentTime(nombreDeTestes);
-        chargement = new BarreChargement(nombreDeTestes);
+        BarreChargement chargement = new BarreChargement(nombreDeTests);
 
-        tempsMoyenAlgos = new double[listAlgo.length];
-        margeErreurAlgos = new double[listAlgo.length];
+        varianceCurrentTime = new VarianceCurrentTime(nombreDeTests);
 
-        for (iterationActuel = 0; iterationActuel < nombreDeTestes; iterationActuel++) {
+        tempsMoyenAlgos = new double[listeAlgo.length];
+        margeErreurAlgos = new double[listeAlgo.length];
+
+        for (iterationActuel = 0; iterationActuel < nombreDeTests; iterationActuel++) {
+
             effectueAlgos();
-
             chargement.avancer(iterationActuel);
         }
 
@@ -66,10 +71,18 @@ public class Analyser {
 
     }
 
+    /**
+     * Méthode identique à analyse() mise à part que analyseBrut() n'affiche pas la
+     * barre de chargement
+     */
     public void analyseBrut() {
-        varianceCurrentTime = new VarianceCurrentTime(nombreDeTestes);
 
-        for (int i = 0; i < nombreDeTestes; i++) {
+        varianceCurrentTime = new VarianceCurrentTime(nombreDeTests);
+
+        tempsMoyenAlgos = new double[listeAlgo.length];
+        margeErreurAlgos = new double[listeAlgo.length];
+
+        for (int i = 0; i < nombreDeTests; i++) {
 
             effectueAlgos();
 
@@ -78,17 +91,27 @@ public class Analyser {
 
     // #endregion méthode de calcul
 
+    /**
+     * Affiche dans la console le résultat de l'analyse des algorithmes, résulat
+     * affiché pour chaque algorithme :
+     *  - temps moyen de recherche
+     *  - marge d'erreur du temps moyen de recherche
+     *  - comparaison en % avec le temps moyen le plus lent
+     * 
+     * En final :
+     *  - la marge d'erreur de la fonction CurrentTime
+     */
     public void afficher() {
         double tempsPlusLent = recupéreTempsPlusLent();
-        for (int i = 0; i < listAlgo.length; i++) {
+        for (int i = 0; i < listeAlgo.length; i++) {
             int poucentage = (int) ((((tempsPlusLent) / ((tempsMoyenAlgos[i]))) - 1) * 100);
 
-            String tempsMoyenObtenue = " :\n Temps moyen de recherche : " + tempsMoyenAlgos[i];
+            String tempsMoyenObtenu = " :\n Temps moyen de recherche : " + tempsMoyenAlgos[i];
             String margeErreur = "\n Marge d'erreur : " + margeErreurAlgos[i];
-            String differenceAvecPlusLent = (listAlgo.length == 1) ? ""
+            String differenceAvecPlusLent = (listeAlgo.length == 1) ? ""
                     : "\n En moyenne " + poucentage + " % plus rapide que l'algo le plus lent.";
 
-            System.out.println("\n Résultat avec " + listAlgo[i].getNom() + tempsMoyenObtenue + differenceAvecPlusLent
+            System.out.println("\n Résultat avec " + listeAlgo[i].getNom() + tempsMoyenObtenu + differenceAvecPlusLent
                     + margeErreur + "\n");
 
         }
@@ -99,20 +122,20 @@ public class Analyser {
     }
 
     /**
-     * Execute tous les algorithme dans la liste, en vérifiant qu'il ne dépasse pas
-     * le temps imparti @tempsMax
+     * Execute tous les algorithme dans la liste, en vérifiant que l'algorithme ne
+     * dépasse pas le temps imparti @tempsMax
      */
     private void effectueAlgos() {
         Pays pays = new Pays(nombreDeVilles);
         varianceCurrentTime.calcul();
-        for (int j = 0; j < listAlgo.length; j++) {
-            if (!algosDepassantTemps[j] && (iterationActuel == 0
-                    || ((tempsMoyenAlgos[j] * (nombreDeTestes / iterationActuel))) < tempsMax * 1000)) {
-                double tempsExecution = TempsExecution.calcule(listAlgo[j], pays);
-                tempsMoyenAlgos[j] += tempsExecution / nombreDeTestes;
-                margeErreurAlgos[j] += (Math.pow(tempsExecution, 2)) / nombreDeTestes;
+        for (int j = 0; j < listeAlgo.length; j++) {
+            if (!algosDepassantTempsMax[j] && (iterationActuel == 0
+                    || ((tempsMoyenAlgos[j] * (nombreDeTests / iterationActuel))) < tempsMax * 1000)) {
+                double tempsExecution = TempsExecution.calcule(listeAlgo[j], pays);
+                tempsMoyenAlgos[j] += tempsExecution / nombreDeTests;
+                margeErreurAlgos[j] += (Math.pow(tempsExecution, 2)) / nombreDeTests;
             } else {
-                algosDepassantTemps[j] = true;
+                algosDepassantTempsMax[j] = true;
                 tempsMoyenAlgos[j] = 0;
                 margeErreurAlgos[j] = 0;
             }
@@ -122,6 +145,11 @@ public class Analyser {
 
     // #region outils calcul sur le temps
 
+    /**
+     * Renvoie le temps d'execution moyen le plus lent de la liste tempsMoyenAlgos
+     * 
+     * @return {@code double} temps d'execution moyen le plus lent de la liste
+     */
     private double recupéreTempsPlusLent() {
         double tempsPlusLent = 0.;
         for (double tempsMoyen : tempsMoyenAlgos) {
@@ -130,6 +158,10 @@ public class Analyser {
         return tempsPlusLent;
     }
 
+    /**
+     * Applique pour chaque case de MargeErreurAlgos la formule de l'ecart-type
+     * selon le théorème de König-Huygens
+     */
     private void CalculEcartType() {
         for (int i = 0; i < margeErreurAlgos.length; i++) {
             margeErreurAlgos[i] = Math.sqrt(margeErreurAlgos[i] - Math.pow(tempsMoyenAlgos[i], 2));
@@ -139,7 +171,7 @@ public class Analyser {
 
     // #region setters & getters
     public void setNombreDeTest(int nombreDeTests) {
-        this.nombreDeTestes = nombreDeTests;
+        this.nombreDeTests = nombreDeTests;
     }
 
     public void setNombreDeVilles(int nombreDeVilles) {
