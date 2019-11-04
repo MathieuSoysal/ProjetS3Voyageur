@@ -22,7 +22,7 @@ public class Repertorisation {
     }
 
     /**
-     * Essaye de récupérer (afin de le renvoyer) nom de l'ordinateur sinon renvois le
+     * Essaye de récupérer (afin de le renvoyer) le nom de l'ordinateur sinon renvoie le
      * nom de la session actuelle
      * 
      * @return {@code String} nom de l'ordinateur sinon nom de la session
