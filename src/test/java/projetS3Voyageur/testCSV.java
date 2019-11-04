@@ -22,7 +22,7 @@ public class testCSV {
 
         CSV.writeCSV(liste, ";", new File("test.csv"));
 
-        assertEquals(liste.get(0)[0], CSV.readCSV(";", "test.csv").get(0)[0]);
+        assertEquals(liste.get(0)[0], CSV.readCSV(";", new File("test.csv")).get(0)[0]);
 
     }
 
@@ -35,9 +35,9 @@ public class testCSV {
 
         CSV.writeCSV(liste, ";", new File("test.csv"));
 
-        assertEquals(liste.get(0)[0], CSV.readCSV(";", "test.csv").get(0)[0]);
-        assertEquals(liste.get(0)[1], CSV.readCSV(";", "test.csv").get(0)[1]);
-        assertEquals(liste.get(0)[2], CSV.readCSV(";", "test.csv").get(0)[2]);
+        assertEquals(liste.get(0)[0], CSV.readCSV(";", new File("test.csv")).get(0)[0]);
+        assertEquals(liste.get(0)[1], CSV.readCSV(";", new File("test.csv")).get(0)[1]);
+        assertEquals(liste.get(0)[2], CSV.readCSV(";", new File("test.csv")).get(0)[2]);
 
     }
 }
