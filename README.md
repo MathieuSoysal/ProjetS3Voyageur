@@ -27,7 +27,7 @@ Réunion du 18 septembre 2019
   
  **Travail à faire pour la prochaine fois :**
 
-* Réaliser un Bruteforce.
+* Réaliser un Brutforce.
 
 
 Réunion du 2 octobre 2019
@@ -40,7 +40,7 @@ Réunion du 2 octobre 2019
 
 **Travail à faire pour la prochaine fois :**
 
-* Vériffication/Amélioration du Bruteforce.
+* Vériffication/Amélioration du Brutforce.
 * Effectuer plusieurs tests.
 * Comparé les résultats (calcul de trajet) obtenue des différents algos BrutForce
 
