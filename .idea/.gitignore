@@ -50,3 +50,5 @@ buildNumber.properties
 
 .travis.yml
 azure-pipelines.yml
+# Datasource local storage ignored files
+/dataSources.local.xml
