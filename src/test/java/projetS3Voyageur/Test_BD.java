@@ -12,6 +12,6 @@ public class Test_BD {
 
 
 
-        assertEquals(true,);
+       /* assertEquals(true);*/
     }
 }

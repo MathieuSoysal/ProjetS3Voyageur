@@ -2,52 +2,60 @@ package projetS3Voyageur.Interface_Graphique;
 
 import java.sql.*;
 
-public class Base {
+public class BaseDeDonnee {
 
-/* pilote jdbc https://fr.osdn.net/projects/sfnet_id2d/downloads/jdbc%20drivers/mysql-connector-java-5.1.15-bin.jar/ */
+    /* pilote jdbc https://fr.osdn.net/projects/sfnet_id2d/downloads/jdbc%20drivers/mysql-connector-java-5.1.15-bin.jar/ */
 
-   /* public boolean connection(){
+    public static Connection connection(){
 
-Connection con = null;
+        Connection con = null;
+        boolean boo = false;
 
-    }*/
+        // chargement du pilote
 
-
-    public static void main(java.lang.String[] args) {
-
-    /*    Connection con = null;
-        ResultSet résultats = null;
-        String requete = "";*/
-
-      /*  // chargement du pilote
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
         } catch (ClassNotFoundException e) {
 
             System.err.println("Impossible de charger le pilote jdbc:odbc\n");
-        }*/
+        }
 
         //connection a la base de données
-/*
+
         System.out.println("connexion à la base de données");
+        boo = true;
 
         try {
 
             /*String DBurl = "jdbc:mysql:zaidn";
             con = DriverManager.getConnection(DBurl);*/
 
-       //     con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn", "XavierCorbier");
+            con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn", "XavierCorbier");
 
-      //  } catch (SQLException e) {
+        } catch (SQLException e) {
 
-       //     System.err.println("Connection à la base de données impossible");;
-       // }
+            System.err.println("Connection à la base de données impossible");
+            boo = false;
+        }
+        return con;
+
+    }
+
+
+    public static void main(java.lang.String[] args) {
+
+        Connection con = null;
+        ResultSet résultats = null;
+        String requete = "";
+
+        connection();
+
 
         //insertion d'un enregistrement dans la table client
-      /*  System.out.println("creation enregistrement");
+        System.out.println("creation enregistrement");
 
-        requete = "INSERT INTO TEST VALUES (3,'Corbier','Xavier')";
+        requete = "INSERT INTO TEST VALUES (10,'Soysal','Mathieu')";
 
         try {
 
@@ -71,11 +79,11 @@ Connection con = null;
         } catch (SQLException e) {
 
             System.err.println("Problème durant l'éxecution");
-        }*/
+        }
 
         //parcours des données retournées
 
-      /*  System.out.println("parcours des données retournées");
+        System.out.println("parcours des données retournées");
 
         try {
 
@@ -98,6 +106,7 @@ Connection con = null;
         }
 
         System.out.println("Fin");
-        System.exit(0);*/
+        System.exit(0);
     }
 }
+
