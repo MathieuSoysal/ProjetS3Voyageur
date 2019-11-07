@@ -5,7 +5,7 @@
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>gloin:5560/isqlplus/</jdbc-url>
+      <jdbc-url>jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn</jdbc-url>
     </data-source>
   </component>
 </project>
