@@ -1,5 +1,7 @@
 package projetS3Voyageur.Interface_Graphique;
 
+import org.junit.platform.commons.util.StringUtils;
+
 import java.sql.Connection;
 
 
@@ -10,7 +12,7 @@ import java.io.FileReader;
 import java.sql.PreparedStatement;
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
+/*import org.apache.commons.lang.StringUtils;*/
 
 import au.com.bytecode.opencsv.CSVReader;
 /*import org.apache.commons.lang3.time.DateUtils;*/
@@ -19,44 +21,44 @@ import au.com.bytecode.opencsv.CSVReader;
 
 public class CSVLoader {
     /**
-     *
      * @author viralpatel.net
-     *
      */
 
 
-        private static final
-      String SQL_INSERT = "INSERT INTO ${table}(${keys}) VALUES(${values})";
-        private static final String TABLE_REGEX = "\\$\\{table\\}";
-        private static final String KEYS_REGEX = "\\$\\{keys\\}";
-        private static final String VALUES_REGEX = "\\$\\{values\\}";
+    private static final
+    String SQL_INSERT = "INSERT INTO ${table}(${keys}) VALUES(${values})";
+    private static final String TABLE_REGEX = "\\$\\{table\\}";
+    private static final String KEYS_REGEX = "\\$\\{keys\\}";
+    private static final String VALUES_REGEX = "\\$\\{values\\}";
 
-        private Connection connection;
-        private char seprator;
+    private Connection connection;
+    private char seprator;
 
-        /**
-         * Public constructor to build CSVLoader object with
-         * Connection details. The connection is closed on success
-         * or failure.
-         * @param connection
-         */
-        public CSVLoader(Connection connection) {
-            this.connection = connection;
-            //Set default separator
-            this.seprator = ',';
-        }
+    /**
+     * Public constructor to build CSVLoader object with
+     * Connection details. The connection is closed on success
+     * or failure.
+     *
+     * @param connection
+     */
+    public CSVLoader(Connection connection) {
+        this.connection = connection;
+        //Set default separator
+        this.seprator = ',';
+    }
 
-        /**
-         * Parse CSV file using OpenCSV library and load in
-         * given database table.
-         * @param csvFile Input CSV file
-         * @param tableName Database table name to import data
-         * @param truncateBeforeLoad Truncate the table before inserting
-         * 			new records.
-         * @throws Exception
-         */
-        public void loadCSV(String csvFile, String tableName, boolean truncateBeforeLoad) throws Exception {
-
+    /**
+     * Parse CSV file using OpenCSV library and load in
+     * given database table.
+     *
+     * @param csvFile            Input CSV file
+     * @param tableName          Database table name to import data
+     * @param truncateBeforeLoad Truncate the table before inserting
+     *                           new records.
+     * @throws Exception
+     */
+    public void loadCSV(String csvFile, String tableName, boolean truncateBeforeLoad) throws Exception {
+/*
             CSVReader csvReader = null;
             if(null == this.connection) {
                 throw new Exception("Not a valid connection.");
@@ -110,9 +112,9 @@ public class CSVLoader {
 
                     if (null != nextLine) {
                         int index = 1;
-                        for (String string : nextLine) {
-                            /*date = DateUtil.convertToDate(string);*/
-                            if (null != date) {
+                        for (String string : nextLine) {*/
+        /*date = DateUtil.convertToDate(string);*/
+                        /*    if (null != date) {
                                 ps.setDate(index++, new java.sql.Date(date
                                         .getTime()));
                             } else {
@@ -149,7 +151,7 @@ public class CSVLoader {
 
         public void setSeprator(char seprator) {
             this.seprator = seprator;
-        }
+        }*/
 
     }
-
+}

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ojdbc15-11.1.0.6.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/Load_CSV_Database_Java_example/lib/ojdbc15-11.1.0.6.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -16,3 +16,27 @@ INSERT INTO `Algo` ( `nom`, `nbVille`, `temps`) VALUES
 
 
 /* https://www.viralpatel.net/java-load-csv-file-to-database/ */
+
+/*
+1) réaliser un test de lecture/ecriture depuis une table quelconque avec JDBC.*/
+
+CREATE DATABASE IF NOT EXISTS Voyageur;
+
+CREATE TABLE TEST3(
+                      id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                      nom VARCHAR(30) NOT NULL,
+                      prenom VARCHAR(30) NOT NULL
+
+);
+
+
+	/*2) proposer un format de table pour une carte, puis un parcours */
+
+	CREATE TABLE  Carte(
+	                        idCarte INT,
+	                        longueur INT,
+	                        largeur INT
+
+    );
+
+    CREATE TABLE
