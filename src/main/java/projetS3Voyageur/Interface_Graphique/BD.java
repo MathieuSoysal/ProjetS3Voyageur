@@ -20,7 +20,7 @@ public class BD {
         }
 
 
-        String BDurl = "jdbc:mysql:zaidn";
+        /*String BDurl = "jdbc:mysql:zaidn";*/
 
         /* con = DriverManager.getConnection(BDurl);*/
 

@@ -4,8 +4,17 @@ import java.sql.*;
 
 public class Base {
 
+/* pilote jdbc https://fr.osdn.net/projects/sfnet_id2d/downloads/jdbc%20drivers/mysql-connector-java-5.1.15-bin.jar/ */
+
+   /* public boolean connection(){
+
+
+
+    }*/
+
 
     public static void main(java.lang.String[] args) {
+
         Connection con = null;
         ResultSet résultats = null;
         String requete = "";
@@ -25,9 +34,10 @@ public class Base {
 
         try {
 
-            String DBurl = "jdbc:mysql:zaidn";
-            con = DriverManager.getConnection(DBurl);
-           /* con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn", "XavierCorbier");*/
+            /*String DBurl = "jdbc:mysql:zaidn";
+            con = DriverManager.getConnection(DBurl);*/
+
+            con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn", "XavierCorbier");
 
         } catch (SQLException e) {
 
