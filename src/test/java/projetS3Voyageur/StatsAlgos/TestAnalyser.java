@@ -1,4 +1,4 @@
-package projetS3Voyageur;
+package projetS3Voyageur.StatsAlgos;
 
 import static org.junit.Assert.assertTrue;
 

@@ -1,4 +1,4 @@
-package projetS3Voyageur;
+package projetS3Voyageur.StatsAlgos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
