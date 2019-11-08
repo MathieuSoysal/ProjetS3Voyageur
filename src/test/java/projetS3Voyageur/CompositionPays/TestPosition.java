@@ -1,6 +1,5 @@
-package projetS3Voyageur;
+package projetS3Voyageur.CompositionPays;
 
-import projetS3Voyageur.CompositionPays.*;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
