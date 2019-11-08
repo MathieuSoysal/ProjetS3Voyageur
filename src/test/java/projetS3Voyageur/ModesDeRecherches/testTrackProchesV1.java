@@ -1,17 +1,18 @@
-package projetS3Voyageur;
+package projetS3Voyageur.ModesDeRecherches;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static projetS3Voyageur.OutilsTest.parcoursVilles;
+import static projetS3Voyageur.OutilsPourTest.parcoursVilles;
 
 import org.junit.Test;
 
+import projetS3Voyageur.Pays;
 import projetS3Voyageur.CompositionPays.Position;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
-import projetS3Voyageur.ModesDeRecherches.TrackProchesV2;
+import projetS3Voyageur.ModesDeRecherches.TrackProchesV1;
 
-public class testTrackProchesV2 {
-    private ModeRecherche algo = new TrackProchesV2();
+public class testTrackProchesV1 {
+    private ModeRecherche algo = new TrackProchesV1();
 
     // #region test avec les résultat issue de BrutForce v2
     @Test
@@ -25,7 +26,8 @@ public class testTrackProchesV2 {
         algo.recherche(pays, 0);
 
         assertEquals(2463, (int) (algo.getParcours().getDistance()));
-        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -40,7 +42,8 @@ public class testTrackProchesV2 {
         algo.recherche(pays, 0);
 
         assertEquals(1281, (int) (algo.getParcours().getDistance()));
-        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -56,7 +59,8 @@ public class testTrackProchesV2 {
         algo.recherche(pays, 0);
 
         assertEquals(1813, (int) (algo.getParcours().getDistance()));
-        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -73,7 +77,8 @@ public class testTrackProchesV2 {
         algo.recherche(pays, 0);
 
         assertEquals(1640, (int) (algo.getParcours().getDistance()));
-        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -91,7 +96,8 @@ public class testTrackProchesV2 {
         algo.recherche(pays, 0);
 
         assertEquals(13046, (int) (algo.getParcours().getDistance()));
-        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -110,7 +116,8 @@ public class testTrackProchesV2 {
         algo.recherche(pays, 0);
 
         assertEquals(20058, (int) (algo.getParcours().getDistance()));
-        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -130,7 +137,8 @@ public class testTrackProchesV2 {
         algo.recherche(pays, 0);
 
         assertEquals(3081, (int) (algo.getParcours().getDistance()));
-        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
@@ -151,7 +159,8 @@ public class testTrackProchesV2 {
         algo.recherche(pays, 0);
 
         assertEquals(2451, (int) (algo.getParcours().getDistance()));
-        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     // #endregion test avec les résultats issue de BrutForce v2
@@ -199,7 +208,8 @@ public class testTrackProchesV2 {
         algo.recherche(pays, 0);
 
         assertEquals(distanceMinimum, algo.getParcours().getDistance());
-        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
 
     }
 
@@ -225,7 +235,7 @@ public class testTrackProchesV2 {
 
             assertEquals(calculeDistanceLinaire(t), algo.getParcours().getDistance());
             assertEquals(algo.getParcours().getDistance(),
-                    parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
+                    parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
         }
 
     }
@@ -262,7 +272,8 @@ public class testTrackProchesV2 {
         algo.recherche(pays, 0);
 
         assertEquals(distanceMinimum, algo.getParcours().getDistance());
-        assertEquals(algo.getParcours().getDistance(), parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
 
     }
 
@@ -288,7 +299,7 @@ public class testTrackProchesV2 {
 
             assertEquals(calculeDistanceLinaire(t), algo.getParcours().getDistance());
             assertEquals(algo.getParcours().getDistance(),
-                    parcoursVilles(pays, algo.getParcours().getVillesEmprunté(), ">"));
+                    parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
         }
 
     }

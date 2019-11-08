@@ -1,11 +1,12 @@
-package projetS3Voyageur;
+package projetS3Voyageur.ModesDeRecherches;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static projetS3Voyageur.OutilsTest.parcoursVilles;
+import static projetS3Voyageur.OutilsPourTest.parcoursVilles;
 
 import org.junit.Test;
 
+import projetS3Voyageur.Pays;
 import projetS3Voyageur.CompositionPays.Position;
 import projetS3Voyageur.ModesDeRecherches.BrutForceV3;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
