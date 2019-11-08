@@ -85,6 +85,7 @@ public class BaseDeDonnee {
             e.printStackTrace();
         }
 
+
         //creation et execution de la requete
         System.out.println("creation et execution de la requête");
         requete = "SELECT * FROM TEST";
