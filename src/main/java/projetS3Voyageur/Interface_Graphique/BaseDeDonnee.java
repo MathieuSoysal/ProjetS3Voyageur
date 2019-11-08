@@ -3,13 +3,14 @@ package projetS3Voyageur.Interface_Graphique;
 import java.sql.*;
 
 public class BaseDeDonnee {
+    private boolean boo = false;
 
     /* pilote jdbc https://fr.osdn.net/projects/sfnet_id2d/downloads/jdbc%20drivers/mysql-connector-java-5.1.15-bin.jar/ */
 
     public static Connection connection(){
 
         Connection con = null;
-        boolean boo = false;
+
 
         // chargement du pilote
 
@@ -24,7 +25,7 @@ public class BaseDeDonnee {
         //connection a la base de données
 
         System.out.println("connexion à la base de données");
-        boo = true;
+
 
         try {
 
@@ -36,10 +37,21 @@ public class BaseDeDonnee {
         } catch (SQLException e) {
 
             System.err.println("Connection à la base de données impossible");
-            boo = false;
+
         }
+
         return con;
 
+    }
+    public static boolean testConnection(Connection c){
+        boolean boo = false;
+        if(c != null){
+            boo = false;
+        }
+        else{
+            boo = true;
+        }
+        return boo;
     }
 
 
@@ -48,8 +60,13 @@ public class BaseDeDonnee {
         Connection con = null;
         ResultSet résultats = null;
         String requete = "";
+        if(connection() != null){
 
-        connection();
+        }
+
+
+        con = connection();
+
 
 
         //insertion d'un enregistrement dans la table client
