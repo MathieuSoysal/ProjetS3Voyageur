@@ -8,31 +8,55 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Map;
 
+import javax.xml.datatype.Duration;
+
 import projetS3Voyageur.ModesDeRecherches.*;
+
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
+import java.lang.management.*;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
+        long start = System.nanoTime();// System.currentTimeMillis();
+        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+        long timeCPU = ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime();
+        long[] allThreadIds = threadMXBean.getAllThreadIds();
+        System.out.println("Total JVM Thread count: " + allThreadIds.length);
+        long nano = 0;
+        for (long id : allThreadIds) {
+            nano += threadMXBean.getThreadCpuTime(id);
+        }
+        for (int i = 0; i < 100; i++)
+            System.out.print("\r"+i*i);
+
+        System.out.printf(
+                "Total cpu time: %s ms; real time: %s "
+                        + (ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime() - timeCPU) / 1E6 + "  ",
+                nano / 1E6, (/* System.currentTimeMillis() */System.nanoTime() - start));
 
         // System.in.read();
-
 
         // Voyageur mrSmins = new Voyageur(new Pays(17), 0);
 
         // System.out.println(mrSmins.getParcours(new TrackProchesV1_1()));
 
         // #region Generer un fichier CSV
-        ModeRecherche[] listeAlgo = { new BrutForceV2(), new BrutForceV3(), new
-        BrutForceV3_1(), new BrutForceV4(),
-        new BackTrackV1(), new BackTrackV2(), new TrackProchesV1(), new TrackProchesV1_1(), new TrackProchesV2()};
-        GenererCSV fichierCSV = new GenererCSV();
-        fichierCSV.setTempsMax(30);
-        fichierCSV.setNbIteration(150);
-        fichierCSV.setNbVillesMax(20);
-        fichierCSV.GenereSyncro(listeAlgo);
+        // ModeRecherche[] listeAlgo = { new BrutForceV2(), new BrutForceV3(), new
+        // BrutForceV3_1(), new BrutForceV4(),
+        // new BackTrackV1(), new BackTrackV2(), new TrackProchesV1(), new
+        // TrackProchesV1_1(),
+        // new TrackProchesV2() };
+        // GenererCSV fichierCSV = new GenererCSV();
+        // fichierCSV.setTempsMax(30);
+        // fichierCSV.setNbIteration(150);
+        // fichierCSV.setNbVillesMax(20);
+        // fichierCSV.GenereSyncro(listeAlgo);
 
         // #region comparer plusieurs algos :
         // ModeRecherche[] listAlgo = {new TrackProchesV1(), new TrackProchesV2()};

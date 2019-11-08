@@ -226,7 +226,7 @@ public class TestBackTrackV1 {
         }
     }
 
-    // #endregion Ajout test COmparaison BrutForceV2
+    // #endregion Ajout test Comparaison BrutForceV2
 
     @Test
     public void test_si_les_villes_ont_des_positions_random() {
