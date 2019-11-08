@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class ConfigOrdinateur {
+class ConfigOrdinateur {
 
     /**
      * Enregistre la configuration CPU de l'ordinateur dans un fichier donné en
@@ -15,7 +15,7 @@ public class ConfigOrdinateur {
      * 
      * @param fichier {@code File} Fichier où les données doivent être enregistrées
      */
-    public static void enregistreConfig(File fichier) {
+    static void enregistreConfig(File fichier) {
         try {
             String commande = "";
             BufferedWriter writer = new BufferedWriter(new FileWriter(new File(fichier, "config.txt")));

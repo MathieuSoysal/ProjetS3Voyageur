@@ -3,7 +3,7 @@ package projetS3Voyageur.StatsAlgos;
 import projetS3Voyageur.Pays;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
-public class Analyser {
+class Analyser {
 
     // TODO: Cette classe doit aussi pouvoir analyser un algo dans plusieurs nbVille
     // différents la class GenererCSV doit faire faire cette tâche
@@ -24,7 +24,7 @@ public class Analyser {
     private int nombreDeTests = 20; // par défaut à 29
     private int nombreDeVilles = 10; // par défaut à 10
 
-    public Analyser(ModeRecherche[] listeAlgo) {
+    Analyser(ModeRecherche[] listeAlgo) {
         this.listeAlgo = listeAlgo;
         tempsMoyenAlgos = new double[listeAlgo.length];
         margeErreurAlgos = new double[listeAlgo.length];
@@ -33,7 +33,7 @@ public class Analyser {
 
     // TODO: note pour moi-m^me Mathieu oublie pas que tu as mis en paramètre
     // tempsMax
-    public Analyser(ModeRecherche[] listeAlgo, int nombreDeVilles, int nombreDeTests, double tempsMax) {
+    Analyser(ModeRecherche[] listeAlgo, int nombreDeVilles, int nombreDeTests, double tempsMax) {
         this.tempsMax = tempsMax;
         this.listeAlgo = listeAlgo;
         this.nombreDeTests = nombreDeTests;
@@ -52,7 +52,7 @@ public class Analyser {
      * résolution de chacun des algorithmes, la marge d'erreur des résultats, et la
      * marge d'erreur du CurrentTIme
      */
-    public void analyse() {
+    void analyse() {
 
         BarreChargement chargement = new BarreChargement(nombreDeTests);
 
@@ -75,7 +75,7 @@ public class Analyser {
      * Méthode identique à analyse() mise à part que analyseBrut() n'affiche pas la
      * barre de chargement
      */
-    public void analyseBrut() {
+     void analyseBrut() {
 
         varianceCurrentTime = new VarianceCurrentTime(nombreDeTests);
 
@@ -101,7 +101,7 @@ public class Analyser {
      * En final :
      *  - la marge d'erreur de la fonction CurrentTime
      */
-    public void afficher() {
+     void afficher() {
         double tempsPlusLent = recupéreTempsPlusLent();
         for (int i = 0; i < listeAlgo.length; i++) {
             int poucentage = (int) ((((tempsPlusLent) / ((tempsMoyenAlgos[i]))) - 1) * 100);

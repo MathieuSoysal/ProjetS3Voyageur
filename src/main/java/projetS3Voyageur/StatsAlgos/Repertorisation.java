@@ -5,7 +5,7 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.Map;
 
-public class Repertorisation {
+class Repertorisation {
 
     /**
      * Renvoie le chemin d'un répertoire en créant ou en choisissant les répertoires
@@ -15,15 +15,15 @@ public class Repertorisation {
      * @return {@code File} renvoie un répertoire en suivant le chemin :
      *         Statistiques/{Nom Ordinateur}/{Date actuelle}/
      */
-    public static File getRepertoire() {
+    static File getRepertoire() {
         File f = new File("Statistiques/" + getNameOrdinateur() + "/" + LocalDate.now());
         f.mkdirs();
         return f;
     }
 
     /**
-     * Essaye de récupérer (afin de le renvoyer) le nom de l'ordinateur sinon renvoie le
-     * nom de la session actuelle
+     * Essaye de récupérer (afin de le renvoyer) le nom de l'ordinateur sinon
+     * renvoie le nom de la session actuelle
      * 
      * @return {@code String} nom de l'ordinateur sinon nom de la session
      */

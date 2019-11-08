@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSV {
+class CSV {
 
     /**
      * Génère ou régénère en écrasant l'ancienne version un fichier CSV avec comme
@@ -24,7 +24,7 @@ public class CSV {
      * @param nomFichier        {@code File} Le fichier qui doit être généré ou
      *                          régénéré
      */
-    public static void writeCSV(List<String[]> donneeEnregistree, String separateur, File nomFichier) {
+    static void writeCSV(List<String[]> donneeEnregistree, String separateur, File nomFichier) {
 
         try (FileWriter writer = new FileWriter(nomFichier)) {
 
@@ -60,7 +60,7 @@ public class CSV {
      * @return {@code String[]} Retourne un tableau de String contenant les éléments
      *         du fichier ciblé.
      */
-    public static List<String[]> readCSV(String separateur, File nomFichier) {
+    static List<String[]> readCSV(String separateur, File nomFichier) {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(nomFichier))) {
 

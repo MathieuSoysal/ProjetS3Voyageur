@@ -4,7 +4,7 @@ import projetS3Voyageur.Pays;
 import projetS3Voyageur.ModesDeRecherches.BrutForceV2;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
-public class VarianceCurrentTime {
+class VarianceCurrentTime {
 
     private final ModeRecherche ALGOREFERENCE = new BrutForceV2();
     private final Pays PAYSREFERENCE = new Pays(9);
@@ -16,7 +16,7 @@ public class VarianceCurrentTime {
     /**
      * @param nombreDeTests {@code int} nombre de tests que l'on compte effectuer
      */
-    public VarianceCurrentTime(int nombreDeTests) {
+    VarianceCurrentTime(int nombreDeTests) {
         this.nombreDeTests = nombreDeTests * 2;
     }
 
@@ -25,7 +25,7 @@ public class VarianceCurrentTime {
      * temps de résolution stable (théoriquement le temps de résolution ne devrait
      * pas varier) donc la seule variance est celle du CurrentTime
      */
-    public void calcul() {
+    void calcul() {
         double tempsExecution = TempsExecution.calcule(ALGOREFERENCE, PAYSREFERENCE);
         esperanceCurrentTime += tempsExecution / (nombreDeTests);
         esperanceCarreCurrentTime += (Math.pow(tempsExecution, 2)) / (nombreDeTests);
@@ -36,7 +36,7 @@ public class VarianceCurrentTime {
      * 
      * @return {@code double}
      */
-    public double getMargeErreur() {
+    double getMargeErreur() {
         double variance = esperanceCarreCurrentTime - Math.pow(esperanceCurrentTime, 2);
         return Math.sqrt(variance) / (esperanceCurrentTime / 100);
     }
