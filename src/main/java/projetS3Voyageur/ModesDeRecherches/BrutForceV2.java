@@ -1,6 +1,7 @@
 package projetS3Voyageur.ModesDeRecherches;
 
 import projetS3Voyageur.*;
+import projetS3Voyageur.CompositionPays.Pays;
 
 public class BrutForceV2 implements ModeRecherche {
     final boolean dejaVisitee = true;

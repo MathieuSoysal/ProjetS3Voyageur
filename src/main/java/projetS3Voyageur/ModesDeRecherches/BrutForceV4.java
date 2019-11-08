@@ -1,8 +1,9 @@
 package projetS3Voyageur.ModesDeRecherches;
 
 import projetS3Voyageur.*;
+import projetS3Voyageur.CompositionPays.Pays;
 
-public class BrutForceV4 implements ModeRecherche {
+class BrutForceV4 implements ModeRecherche {
 
     private int toutesVillesVisitees;
 

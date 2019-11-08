@@ -6,7 +6,7 @@ import static projetS3Voyageur.OutilsPourTest.parcoursVilles;
 
 import org.junit.Test;
 
-import projetS3Voyageur.Pays;
+import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.CompositionPays.Position;
 import projetS3Voyageur.ModesDeRecherches.BrutForceV3;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;

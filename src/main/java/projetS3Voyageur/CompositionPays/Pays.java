@@ -1,6 +1,5 @@
-package projetS3Voyageur;
+package projetS3Voyageur.CompositionPays;
 
-import projetS3Voyageur.CompositionPays.*;
 public class Pays {
     private Villes v;
     private GestionDistance d;

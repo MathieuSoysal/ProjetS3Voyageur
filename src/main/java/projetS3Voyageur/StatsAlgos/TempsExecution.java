@@ -1,6 +1,6 @@
 package projetS3Voyageur.StatsAlgos;
 
-import projetS3Voyageur.Pays;
+import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 class TempsExecution {

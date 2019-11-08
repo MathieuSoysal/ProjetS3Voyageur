@@ -1,6 +1,7 @@
 package projetS3Voyageur.CompositionPays;
 
-public class Position {
+ public class Position {
+     //TODO: les tests l'empéche de la passé en Protected
     private int y;
     private int x;
 

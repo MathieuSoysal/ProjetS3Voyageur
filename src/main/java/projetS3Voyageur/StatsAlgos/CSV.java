@@ -25,7 +25,7 @@ class CSV {
      *                          régénéré
      */
     static void writeCSV(List<String[]> donneeEnregistree, String separateur, File nomFichier) {
-
+        // TODO: est devenue static à cause des tests
         try (FileWriter writer = new FileWriter(nomFichier)) {
 
             for (String[] strings : donneeEnregistree) {

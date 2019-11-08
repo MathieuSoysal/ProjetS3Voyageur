@@ -2,7 +2,7 @@ package projetS3Voyageur.CompositionPays;
 
 import static java.lang.Math.hypot;
 
-public class GestionDistance {
+class GestionDistance {
 
     private double distancesVille[][]; // tableau de distance entre les villes
     private int nbVilles;
@@ -10,7 +10,7 @@ public class GestionDistance {
 
     private int dernierNumVille; // pour faciliter la lecture du code
 
-    public GestionDistance(Villes villes) {
+    GestionDistance(Villes villes) {
 
         this.villes = villes;
         this.nbVilles = villes.getNombreDeVilles();
@@ -31,7 +31,7 @@ public class GestionDistance {
      * @param ville2 Numéro de la seconde ville donnée en paramètre
      * @return {@code double} La distance entre les deux villes
      */
-    public double getDistance(int ville1, int ville2) {
+    double getDistance(int ville1, int ville2) {
         return distancesVille[ville1][ville2];
     }
 
@@ -41,7 +41,7 @@ public class GestionDistance {
      * 
      * @param numVille Numéro de la ville dont la localisation à été modifier
      */
-    public void actualiseNumVille(int numVille) {
+    void actualiseNumVille(int numVille) {
         verifieNumVille(numVille);
         double hypotegnius;
 

@@ -1,12 +1,13 @@
 package projetS3Voyageur.CompositionPays;
 
-public class Villes {
+class Villes {
     private Position[] positionDesVilles;
     private int nombreDeVilles;
 
-    public Villes(int nombreDeVilles) {
+    Villes(int nombreDeVilles) {
         if (nombreDeVilles < 3) {
-            throw new /* TODO : utilisais des exceptions pérsonalisée */ IndexOutOfBoundsException("Veuillez écrire un nombre de villes compris entre 3 et 15");
+            throw new /* TODO : utilisais des exceptions pérsonalisée */ IndexOutOfBoundsException(
+                    "Veuillez écrire un nombre de villes compris entre 3 et 15");
         }
         this.nombreDeVilles = nombreDeVilles;
         positionDesVilles = new Position[nombreDeVilles];
@@ -22,7 +23,7 @@ public class Villes {
      * @param ville       Numéro de la ville dont la position va être modifiée
      * @param newPosVille Nouvelle position
      */
-    public void setPositionVille(int ville, Position posVille) {
+    void setPositionVille(int ville, Position posVille) {
         verifieNumVille(ville);
         positionDesVilles[ville] = posVille;
 
@@ -34,12 +35,12 @@ public class Villes {
      * @param ville numéro de la ville à localiser
      * @return {@Code Position} la localisation de la ville
      */
-    public Position getPositionVille(int ville) {
+    Position getPositionVille(int ville) {
         verifieNumVille(ville);
         return positionDesVilles[ville];
     }
 
-    public int getNombreDeVilles() {
+    int getNombreDeVilles() {
         return nombreDeVilles;
     }
 

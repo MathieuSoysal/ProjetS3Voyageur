@@ -1,5 +1,7 @@
 package projetS3Voyageur;
 
+import projetS3Voyageur.CompositionPays.Pays;
+
 public class OutilsPourTest{
 
     public static double parcoursVilles(Pays pays, String villesEmpruntee,String seprateur) {

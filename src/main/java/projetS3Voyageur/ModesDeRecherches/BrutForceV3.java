@@ -3,6 +3,7 @@ package projetS3Voyageur.ModesDeRecherches;
 import java.util.HashMap;
 
 import projetS3Voyageur.*;
+import projetS3Voyageur.CompositionPays.Pays;
 
 public class BrutForceV3 implements ModeRecherche {
 

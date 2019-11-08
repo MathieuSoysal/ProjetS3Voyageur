@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import projetS3Voyageur.Pays;
+import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.CompositionPays.Position;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 import projetS3Voyageur.ModesDeRecherches.PlusProche;
