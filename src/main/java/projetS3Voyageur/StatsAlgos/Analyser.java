@@ -3,7 +3,7 @@ package projetS3Voyageur.StatsAlgos;
 import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
-class Analyser {
+public class Analyser {
 
     // TODO: Cette classe doit aussi pouvoir analyser un algo dans plusieurs nbVille
     // différents la class GenererCSV doit faire faire cette tâche
@@ -24,7 +24,7 @@ class Analyser {
     private int nombreDeTests = 20; // par défaut à 29
     private int nombreDeVilles = 10; // par défaut à 10
 
-    Analyser(ModeRecherche[] listeAlgo) {
+    public Analyser(ModeRecherche[] listeAlgo) {
         this.listeAlgo = listeAlgo;
         tempsMoyenAlgos = new double[listeAlgo.length];
         margeErreurAlgos = new double[listeAlgo.length];
@@ -52,7 +52,7 @@ class Analyser {
      * résolution de chacun des algorithmes, la marge d'erreur des résultats, et la
      * marge d'erreur du CurrentTIme
      */
-    void analyse() {
+    public void analyse() {
 
         BarreChargement chargement = new BarreChargement(nombreDeTests);
 
@@ -101,7 +101,7 @@ class Analyser {
      * En final :
      *  - la marge d'erreur de la fonction CurrentTime
      */
-     void afficher() {
+     public void afficher() {
         double tempsPlusLent = recupéreTempsPlusLent();
         for (int i = 0; i < listeAlgo.length; i++) {
             int poucentage = (int) ((((tempsPlusLent) / ((tempsMoyenAlgos[i]))) - 1) * 100);

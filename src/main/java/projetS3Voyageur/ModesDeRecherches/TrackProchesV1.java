@@ -2,7 +2,7 @@ package projetS3Voyageur.ModesDeRecherches;
 
 import projetS3Voyageur.CompositionPays.Pays;
 
-class TrackProchesV1 implements ModeRecherche {
+public class TrackProchesV1 implements ModeRecherche {
 
     private int toutesVillesVisitees;
 

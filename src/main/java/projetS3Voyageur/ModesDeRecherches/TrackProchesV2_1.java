@@ -2,7 +2,7 @@ package projetS3Voyageur.ModesDeRecherches;
 
 import projetS3Voyageur.CompositionPays.Pays;
 
-public class TrackProchesV2 implements ModeRecherche {
+public class TrackProchesV2_1 implements ModeRecherche {
 
     private int toutesVillesVisitees;
 
@@ -56,8 +56,7 @@ public class TrackProchesV2 implements ModeRecherche {
 
         if (distanceParcourue < distanceOptimum
                 && ((distanceParcourue + parcoursIdeal(villesVisitees)) <= distanceOptimum)) {
-            if (Integer.bitCount(villesVisitees) > (nombreDeVilles / 2))
-                rechercheAuxDistanceProche(villesVisitees, villeActuelle, distanceParcourue);
+
             if (villesVisitees == toutesVillesVisitees) {
                 final double distanceParcourueFinal = distanceParcourue
                         + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
@@ -367,7 +366,7 @@ public class TrackProchesV2 implements ModeRecherche {
      */
     @Override
     public String getNom() {
-        return "TrackProches v2";
+        return "TrackProches v2.1";
     }
 
     // #endregion Getters

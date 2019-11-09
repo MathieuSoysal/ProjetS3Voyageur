@@ -23,22 +23,22 @@ import java.lang.management.*;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        long start = System.nanoTime();// System.currentTimeMillis();
-        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
-        long timeCPU = ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime();
-        long[] allThreadIds = threadMXBean.getAllThreadIds();
-        System.out.println("Total JVM Thread count: " + allThreadIds.length);
-        long nano = 0;
-        for (long id : allThreadIds) {
-            nano += threadMXBean.getThreadCpuTime(id);
-        }
-        for (int i = 0; i < 100; i++)
-            System.out.print("\r"+i*i);
+        // long start = System.nanoTime();// System.currentTimeMillis();
+        // ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+        // long timeCPU = ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime();
+        // long[] allThreadIds = threadMXBean.getAllThreadIds();
+        // System.out.println("Total JVM Thread count: " + allThreadIds.length);
+        // long nano = 0;
+        // for (long id : allThreadIds) {
+        //     nano += threadMXBean.getThreadCpuTime(id);
+        // }
+        // for (int i = 0; i < 100; i++)
+        //     System.out.print("\r"+i*i);
 
-        System.out.printf(
-                "Total cpu time: %s ms; real time: %s "
-                        + (ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime() - timeCPU) / 1E6 + "  ",
-                nano / 1E6, (/* System.currentTimeMillis() */System.nanoTime() - start));
+        // System.out.printf(
+        //         "Total cpu time: %s ms; real time: %s "
+        //                 + (ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime() - timeCPU) / 1E6 + "  ",
+        //         nano / 1E6, (/* System.currentTimeMillis() */System.nanoTime() - start));
 
         // System.in.read();
 
@@ -59,12 +59,12 @@ public class App {
         // fichierCSV.GenereSyncro(listeAlgo);
 
         // #region comparer plusieurs algos :
-        // ModeRecherche[] listAlgo = {new TrackProchesV1(), new TrackProchesV2()};
-        // Analyser compare = new Analyser(listAlgo);
-        // compare.setNombreDeTest(300);
-        // compare.setNombreDeVilles(12);
-        // compare.analyse();
-        // compare.afficher();
+        ModeRecherche[] listAlgo = {new TrackProchesV2_1(), new TrackProchesV2()};
+        Analyser compare = new Analyser(listAlgo);
+        compare.setNombreDeTest(300);
+        compare.setNombreDeVilles(12);
+        compare.analyse();
+        compare.afficher();
 
         // Pays france = new Pays(14);
         // Voyageur mrSmins = new Voyageur(france, 0);
