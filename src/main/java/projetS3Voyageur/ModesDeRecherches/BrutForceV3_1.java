@@ -1,9 +1,8 @@
 package projetS3Voyageur.ModesDeRecherches;
 
-import projetS3Voyageur.*;
 import projetS3Voyageur.CompositionPays.Pays;
 
-public class BrutForceV3_1 implements ModeRecherche {
+class BrutForceV3_1 implements ModeRecherche {
 
     private int toutesVillesVisitees;
 
@@ -23,7 +22,7 @@ public class BrutForceV3_1 implements ModeRecherche {
      * @param villeInitiale Le numéro de la ville de départ
      */
     @Override
-    public void recherche(Pays pays, int villeInitiale) {
+    public void recherche(final Pays pays, final int villeInitiale) {
         this.pays = pays;
         this.villeInitiale = villeInitiale;
         nombreDeVilles = pays.getNombreDeVilles();
@@ -43,12 +42,14 @@ public class BrutForceV3_1 implements ModeRecherche {
      * @param villesEmpruntees  Stock par ordre chronologique les numéros des villes
      *                          emprunté
      */
-    private void rechercheAux(int villesVisitees, int villeActuelle, double distanceParcourue, int[] villesEmpruntees) {
+    private void rechercheAux(final int villesVisitees, final int villeActuelle, final double distanceParcourue,
+            final int[] villesEmpruntees) {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
 
         if ((villesVisitees + 1) == toutesVillesVisitees) {
-            double distanceParcourueFinal = distanceParcourue
+
+            final double distanceParcourueFinal = distanceParcourue
                     + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
 
             if (distanceParcourueFinal < distanceOptimum) {
@@ -57,11 +58,13 @@ public class BrutForceV3_1 implements ModeRecherche {
             }
         } else {
 
+            int villeChoisie;
+
             for (int villeFormatBinaire = villeNonVisitee(1,
                     villesVisitees); villeFormatBinaire < toutesVillesVisitees; villeFormatBinaire = villeNonVisitee(
                             villeFormatBinaire << 1, villesVisitees)) {
 
-                int villeChoisie = Math.getExponent(villeFormatBinaire);
+                villeChoisie = Math.getExponent(villeFormatBinaire);
 
                 rechercheAux(villesVisitees + villeFormatBinaire, (villeChoisie),
                         distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeChoisie),
@@ -91,7 +94,7 @@ public class BrutForceV3_1 implements ModeRecherche {
      *         (dans la séquence de bits du int) représente une ville non visitée
      *         qui est la nouvelle ville actuelle.
      */
-    private int villeNonVisitee(int villeActuelle, int villesVisitees) {
+    private int villeNonVisitee(int villeActuelle, final int villesVisitees) {
         villeActuelle += villesVisitees;
         return villeActuelle - (villeActuelle & villesVisitees);
     }
@@ -111,7 +114,7 @@ public class BrutForceV3_1 implements ModeRecherche {
      * @return {@code int[]} Une liste de int contenant par ordre chronologique les
      *         villes empruntées
      */
-    private int[] emprunteVille(int[] villesEmpruntees, int indexVilleVisitee, int villeVisitee) {
+    private int[] emprunteVille(int[] villesEmpruntees, final int indexVilleVisitee, final int villeVisitee) {
         villesEmpruntees[indexVilleVisitee] = villeVisitee;
         return villesEmpruntees.clone();
     }

@@ -1,9 +1,10 @@
 package projetS3Voyageur.ModesDeRecherches;
 
-import projetS3Voyageur.*;
+//TODO: cette classe est obsoléte
+
 import projetS3Voyageur.CompositionPays.Pays;
 
-public class PlusProche implements ModeRecherche {
+ class PlusProche implements ModeRecherche {
 
     private static final boolean nonVisitee = false;
     private static final boolean visitee = true;

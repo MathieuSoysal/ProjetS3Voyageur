@@ -1,9 +1,8 @@
 package projetS3Voyageur.ModesDeRecherches;
 
-import projetS3Voyageur.*;
 import projetS3Voyageur.CompositionPays.Pays;
 
-public class TrackProchesV2 implements ModeRecherche {
+class TrackProchesV2 implements ModeRecherche {
 
     private int toutesVillesVisitees;
 
@@ -24,7 +23,7 @@ public class TrackProchesV2 implements ModeRecherche {
      * @param villeInitiale Le numéro de la ville de départ
      */
     @Override
-    public void recherche(Pays pays, int villeInitiale) {
+    public void recherche(final Pays pays, final int villeInitiale) {
         this.pays = pays;
         this.villeInitiale = (byte) villeInitiale;
         nombreDeVilles = (byte) pays.getNombreDeVilles();
@@ -50,7 +49,8 @@ public class TrackProchesV2 implements ModeRecherche {
      * @param villeActuelle     Ville où se situe l'algorithme
      * @param distanceParcourue Distance parcourure depuis la première itération
      */
-    private void rechercheAuxDistance(int villesVisitees, byte villeActuelle, double distanceParcourue) {
+    private void rechercheAuxDistance(final int villesVisitees, final byte villeActuelle,
+            final double distanceParcourue) {
 
         // Je prend en compte que VilleActuelle est déjà une ville visitée
 
@@ -59,7 +59,7 @@ public class TrackProchesV2 implements ModeRecherche {
             if (Integer.bitCount(villesVisitees) > (nombreDeVilles / 2))
                 rechercheAuxDistanceProche(villesVisitees, villeActuelle, distanceParcourue);
             if (villesVisitees == toutesVillesVisitees) {
-                double distanceParcourueFinal = distanceParcourue
+                final double distanceParcourueFinal = distanceParcourue
                         + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
 
                 if (distanceParcourueFinal < distanceOptimum) {
@@ -67,11 +67,13 @@ public class TrackProchesV2 implements ModeRecherche {
                 }
             } else {
 
+                byte villeChoisie;
+
                 for (int villeFormatBinaire = villeNonVisitee(1,
                         villesVisitees); villeFormatBinaire < toutesVillesVisitees; villeFormatBinaire = villeNonVisitee(
                                 villeFormatBinaire << 1, villesVisitees)) {
 
-                    byte villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));
+                    villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));
 
                     rechercheAuxDistance(villesVisitees + villeFormatBinaire, (villeChoisie),
                             distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeChoisie));
@@ -94,23 +96,28 @@ public class TrackProchesV2 implements ModeRecherche {
      * @param villeActuelle     Ville où se situe l'algorithme.
      * @param distanceParcourue Distance parcourue depuis la première itération
      */
-    private void rechercheAuxDistanceProche(int villesVisitees, byte villeActuelle, double distanceParcourue) {
+    private void rechercheAuxDistanceProche(final int villesVisitees, final byte villeActuelle,
+            final double distanceParcourue) {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
         // TODO : Mettre un backTrack ?
         if (villesVisitees == toutesVillesVisitees) {
-            if (distanceOptimum > distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale))
-                distanceOptimum = distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
+            distanceOptimum = Double.min(distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale),
+                    distanceOptimum);
         } else {
+
             double distanceMin = Long.MAX_VALUE;
             byte villePlusProche = 0;
+            byte villeChoisie;
+            double distanceVilleChoisie;
+
             for (int villeFormatBinaire = villeNonVisitee(1,
                     villesVisitees); villeFormatBinaire < toutesVillesVisitees; villeFormatBinaire = villeNonVisitee(
                             villeFormatBinaire << 1, villesVisitees)) {
 
-                byte villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));
+                villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));
+                distanceVilleChoisie = pays.getDistanceEntreVilles(villeActuelle, villeChoisie);
 
-                double distanceVilleChoisie = pays.getDistanceEntreVilles(villeActuelle, villeChoisie);
                 if (distanceVilleChoisie < distanceMin) {
                     distanceMin = distanceVilleChoisie;
                     villePlusProche = villeChoisie;
@@ -143,15 +150,16 @@ public class TrackProchesV2 implements ModeRecherche {
      * @param villesEmpruntees  Stock par ordre chronologique les numéros des villes
      *                          empruntées
      */
-    private void rechercheAuxVillesEmpruntees(int villesVisitees, byte villeActuelle, double distanceParcourue,
-            byte[] villesEmpruntees) {
+    private void rechercheAuxVillesEmpruntees(final int villesVisitees, final byte villeActuelle,
+            final double distanceParcourue, final byte[] villesEmpruntees) {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
         if (distanceParcourue < distanceOptimum
                 && ((distanceParcourue + parcoursIdeal(villesVisitees)) <= distanceOptimum)) {
 
             if (villesVisitees == toutesVillesVisitees) {
-                double distanceParcourueFinal = distanceParcourue
+
+                final double distanceParcourueFinal = distanceParcourue
                         + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
 
                 if (distanceParcourueFinal == distanceOptimum) {
@@ -160,11 +168,13 @@ public class TrackProchesV2 implements ModeRecherche {
                 }
             } else {
 
+                byte villeChoisie;
+
                 for (int villeFormatBinaire = villeNonVisitee(1,
                         villesVisitees); villeFormatBinaire < toutesVillesVisitees; villeFormatBinaire = villeNonVisitee(
                                 villeFormatBinaire << 1, villesVisitees)) {
 
-                    byte villeChoisie = (byte) Math.getExponent(villeFormatBinaire);
+                    villeChoisie = (byte) Math.getExponent(villeFormatBinaire);
 
                     rechercheAuxVillesEmpruntees(villesVisitees + villeFormatBinaire, (villeChoisie),
                             distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeChoisie),
@@ -197,7 +207,7 @@ public class TrackProchesV2 implements ModeRecherche {
      *         (dans la séquence de bits du int) représente une ville non visitée
      *         qui est la nouvelle ville actuelle.
      */
-    private int villeNonVisitee(int villeActuelle, int villesVisitees) {
+    private int villeNonVisitee(int villeActuelle, final int villesVisitees) {
         villeActuelle += villesVisitees;
         return villeActuelle ^ (villeActuelle & villesVisitees);
     }
@@ -217,7 +227,7 @@ public class TrackProchesV2 implements ModeRecherche {
      * @return {@code int[]} Une liste de int contenant par ordre chronologique les
      *         villes empruntées
      */
-    private byte[] emprunteVille(byte[] villesEmpruntees, int indexVilleVisitee, byte villeSuivante) {
+    private byte[] emprunteVille(byte[] villesEmpruntees, final int indexVilleVisitee, final byte villeSuivante) {
         villesEmpruntees[indexVilleVisitee] = villeSuivante;
         return villesEmpruntees.clone();
     }
@@ -235,7 +245,7 @@ public class TrackProchesV2 implements ModeRecherche {
      * @return {@code double} retourne la distance parcourue en empruntant les
      *         chemins les plus courts sans voir où ils mènent
      */
-    private double parcoursIdeal(int villesVisitees) {
+    private double parcoursIdeal(final int villesVisitees) {
         return distancesPlusCourt[(nombreDeVilles - Integer.bitCount(villesVisitees))];
     }
 
@@ -250,17 +260,21 @@ public class TrackProchesV2 implements ModeRecherche {
      * @return {@code double} distance minimum de toutes les distances séparant les
      *         villes d'un pays, mais supérieur à la distanceMinPrecedente
      */
-    private double distancePlusCourtEntre2Villes(double minimumSuperieur, int index) {
+    private double distancePlusCourtEntre2Villes(final double minimumSuperieur, final int index) {
+        // TODO: clarifier les nom de variable
         int villesVisitees = 0;
         double resultat = Double.MAX_VALUE;
+        double valeurMinimal;
+
         for (int villeFormatBinaire = villeNonVisitee(1,
                 villesVisitees); villeFormatBinaire < toutesVillesVisitees; villeFormatBinaire = villeNonVisitee(
                         villeFormatBinaire << 1, villesVisitees)) {
+
             for (int villeFormatBinaire2 = villeNonVisitee(1,
                     villeFormatBinaire); villeFormatBinaire2 < toutesVillesVisitees; villeFormatBinaire2 = villeNonVisitee(
                             villeFormatBinaire2 << 1, villeFormatBinaire)) {
 
-                double valeurMinimal = pays.getDistanceEntreVilles(Math.getExponent(villeFormatBinaire),
+                valeurMinimal = pays.getDistanceEntreVilles(Math.getExponent(villeFormatBinaire),
                         Math.getExponent(villeFormatBinaire2));
 
                 if ((valeurMinimal < resultat) && (minimumSuperieur <= valeurMinimal)
@@ -316,9 +330,9 @@ public class TrackProchesV2 implements ModeRecherche {
      * @return {@code boolean} vrai si la pairDeVilleActuelle rentré en paramètre
      *         n'est pas visité sinon faux
      */
-    private boolean pairDeVillesNonVisite(int pairDeVilleActuelle) {
+    private boolean pairDeVillesNonVisite(final int pairDeVilleActuelle) {
         boolean resultat = true;
-        for (int pairVille : pairDeVilleVisitee) {
+        for (final int pairVille : pairDeVilleVisitee) {
             resultat = ((pairDeVilleActuelle ^ pairVille) != 0) && resultat;
         }
         return resultat;
