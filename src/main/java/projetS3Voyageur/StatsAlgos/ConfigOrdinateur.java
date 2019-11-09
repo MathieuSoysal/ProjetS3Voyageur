@@ -29,12 +29,9 @@ class ConfigOrdinateur {
             }
             Runtime r = Runtime.getRuntime();
             Process p = r.exec(commande);
-            try {
-                p.waitFor();
-            } catch (InterruptedException e) {
-                System.err.println("Erreur lors de l'exécution de la commande :");
-                e.printStackTrace();
-            }
+
+            p.waitFor();
+
             BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line = "";
 
@@ -45,8 +42,11 @@ class ConfigOrdinateur {
             writer.close();
             b.close();
         } catch (IOException ioe) {
-            System.err.print("Erreur lors de l'enregistrement des configurations de l'ordinateur : ");
+            System.err.print("Erreur lors de l'enregistrement des configurations de l'ordinateur dans le fichier : ");
             ioe.printStackTrace();
+        } catch (InterruptedException e) {
+            System.err.println("Erreur lors de l'exécution de la commande System :");
+            e.printStackTrace();
         }
 
     }
