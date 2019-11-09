@@ -12,7 +12,7 @@ import projetS3Voyageur.ModesDeRecherches.BrutForceV2;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class TestBrutForceV2 {
-    private ModeRecherche brutForceV2 = new BrutForceV2();
+    private final ModeRecherche brutForceV2 = new BrutForceV2();
 
     @Test
     public void test_si_les_villes_ont_des_positions_random() {

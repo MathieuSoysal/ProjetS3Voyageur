@@ -12,7 +12,7 @@ import projetS3Voyageur.ModesDeRecherches.BrutForceV3_1;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class TestBrutForceV3_1 {
-    private ModeRecherche brutForceV3_1 = new BrutForceV3_1();
+    private final ModeRecherche brutForceV3_1 = new BrutForceV3_1();
 
     // #region test avec les résultat issue de BrutForce v2
     @Test

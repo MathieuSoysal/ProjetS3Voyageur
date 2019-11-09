@@ -12,7 +12,7 @@ import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 import projetS3Voyageur.ModesDeRecherches.TrackProchesV1;
 
 public class testTrackProchesV1 {
-    private ModeRecherche algo = new TrackProchesV1();
+    private final ModeRecherche algo = new TrackProchesV1();
 
     // #region test avec les résultat issue de BrutForce v2
     @Test

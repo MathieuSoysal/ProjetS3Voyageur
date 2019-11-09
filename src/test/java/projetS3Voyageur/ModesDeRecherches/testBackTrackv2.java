@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.CompositionPays.Position;
-import projetS3Voyageur.ModesDeRecherches.BackTrackV1;
 import projetS3Voyageur.ModesDeRecherches.BackTrackV2;
 import projetS3Voyageur.ModesDeRecherches.BrutForceV2;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;

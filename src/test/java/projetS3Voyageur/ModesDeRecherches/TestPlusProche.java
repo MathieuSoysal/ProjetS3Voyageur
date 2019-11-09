@@ -15,7 +15,7 @@ public class TestPlusProche {
     // class Obsoléte se référé à la deuxième version
     
 
-    private ModeRecherche plusProche = new PlusProche();
+    private final ModeRecherche plusProche = new PlusProche();
 
     // #region test sur Y
     @Ignore

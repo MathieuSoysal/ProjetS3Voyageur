@@ -12,7 +12,7 @@ import projetS3Voyageur.ModesDeRecherches.BrutForceV2;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class TestBackTrackV1 {
-    private ModeRecherche backTrackV1 = new BackTrackV1();
+    private final ModeRecherche backTrackV1 = new BackTrackV1();
 
     // #region Ajout test Comparaison BrutForceV2
 
