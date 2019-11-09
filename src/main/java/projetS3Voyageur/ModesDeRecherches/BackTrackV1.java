@@ -3,8 +3,8 @@ package projetS3Voyageur.ModesDeRecherches;
 import projetS3Voyageur.CompositionPays.Pays;
 
 class BackTrackV1 implements ModeRecherche {
-    private final boolean dejaVisitee = true;
-    private final boolean nonVisitee = false;
+    private static final boolean dejaVisitee = true;
+    private static final boolean nonVisitee = false;
     private Pays pays;
 
     private int villeInitale;

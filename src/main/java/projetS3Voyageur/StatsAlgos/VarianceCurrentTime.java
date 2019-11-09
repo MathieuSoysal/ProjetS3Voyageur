@@ -6,8 +6,8 @@ import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 class VarianceCurrentTime {
 
-    private final ModeRecherche ALGOREFERENCE = new BrutForceV2();
-    private final Pays PAYSREFERENCE = new Pays(9);
+    private static final ModeRecherche ALGOREFERENCE = new BrutForceV2();
+    private static final Pays PAYSREFERENCE = new Pays(9);
     private double esperanceCurrentTime = 0.;
     private double esperanceCarreCurrentTime = 0.;
 

@@ -20,7 +20,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import java.lang.management.*;
 
-public class App {
+class App {
 
     public static void main(String[] args) throws Exception {
         // long start = System.nanoTime();// System.currentTimeMillis();
@@ -30,15 +30,16 @@ public class App {
         // System.out.println("Total JVM Thread count: " + allThreadIds.length);
         // long nano = 0;
         // for (long id : allThreadIds) {
-        //     nano += threadMXBean.getThreadCpuTime(id);
+        // nano += threadMXBean.getThreadCpuTime(id);
         // }
         // for (int i = 0; i < 100; i++)
-        //     System.out.print("\r"+i*i);
+        // System.out.print("\r"+i*i);
 
         // System.out.printf(
-        //         "Total cpu time: %s ms; real time: %s "
-        //                 + (ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime() - timeCPU) / 1E6 + "  ",
-        //         nano / 1E6, (/* System.currentTimeMillis() */System.nanoTime() - start));
+        // "Total cpu time: %s ms; real time: %s "
+        // + (ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime() - timeCPU) /
+        // 1E6 + " ",
+        // nano / 1E6, (/* System.currentTimeMillis() */System.nanoTime() - start));
 
         // System.in.read();
 
@@ -59,7 +60,7 @@ public class App {
         // fichierCSV.GenereSyncro(listeAlgo);
 
         // #region comparer plusieurs algos :
-        ModeRecherche[] listAlgo = {new TrackProchesV2_1(), new TrackProchesV2()};
+        ModeRecherche[] listAlgo = { new TrackProchesV2_1(), new TrackProchesV2() };
         Analyser compare = new Analyser(listAlgo);
         compare.setNombreDeTest(300);
         compare.setNombreDeVilles(12);

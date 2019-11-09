@@ -14,7 +14,7 @@ public class Analyser {
     // Calcul de la varience du CurrentTime :
 
     private boolean[] algosDepassantTempsMax;
-    VarianceCurrentTime varianceCurrentTime = null;
+    private VarianceCurrentTime varianceCurrentTime = null;
 
     private ModeRecherche[] listeAlgo;
 

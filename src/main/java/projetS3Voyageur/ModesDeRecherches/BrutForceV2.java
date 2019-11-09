@@ -4,8 +4,8 @@ import projetS3Voyageur.CompositionPays.Pays;
 
 public class BrutForceV2 implements ModeRecherche {
     // TODO: Les appels des autre méthodes empéche d'enlever le public
-    private final boolean dejaVisitee = true;
-    private final boolean nonVisitee = false;
+    private static final boolean dejaVisitee = true;
+    private static final boolean nonVisitee = false;
     private Pays pays;
 
     private int villeInitale;
