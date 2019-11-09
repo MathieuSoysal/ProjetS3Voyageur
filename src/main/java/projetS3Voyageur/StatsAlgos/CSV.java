@@ -2,6 +2,7 @@ package projetS3Voyageur.StatsAlgos;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -43,7 +44,7 @@ class CSV {
             }
             writer.flush();
         } catch (IOException e) {
-
+            System.err.println("Un problème est survenu lors de l'écriture du fichier CSV :");
             e.printStackTrace();
         }
     }
@@ -73,8 +74,12 @@ class CSV {
                 list.add(array);
             }
             return list;
+        } catch (FileNotFoundException e) {
+            System.err.println("Le fichier CSV donné en paramètre (pour la lecture) n'a pas pu être trouvé :");
+            e.printStackTrace();
+            return null;
         } catch (IOException e) {
-
+            System.err.println("Un problème est survenu lors de la lecture du fichier CSV :");
             e.printStackTrace();
             return null;
         }
