@@ -1,6 +1,6 @@
 package projetS3Voyageur.ModesDeRecherches;
 
-import projetS3Voyageur.*;
+import projetS3Voyageur.CompositionPays.Pays;
 
 public interface ModeRecherche {
 

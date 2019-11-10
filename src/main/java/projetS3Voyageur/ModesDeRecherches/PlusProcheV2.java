@@ -1,8 +1,8 @@
 package projetS3Voyageur.ModesDeRecherches;
 
-import projetS3Voyageur.*;
+import projetS3Voyageur.CompositionPays.Pays;
 
-public class PlusProcheV2 implements ModeRecherche {
+class PlusProcheV2 implements ModeRecherche {
 
     private int toutesVillesVisitees;
 
@@ -22,7 +22,7 @@ public class PlusProcheV2 implements ModeRecherche {
      * @param villeInitiale Le numéro de la ville de départ
      */
     @Override
-    public void recherche(Pays pays, int villeInitiale) {
+    public void recherche(final Pays pays, final int villeInitiale) {
         this.pays = pays;
         this.villeInitiale = (byte) villeInitiale;
         nombreDeVilles = (byte) pays.getNombreDeVilles();
@@ -42,7 +42,7 @@ public class PlusProcheV2 implements ModeRecherche {
      * @param villeActuelle     Ville où se situe l'algorithme.
      * @param distanceParcourue Distance parcourue depuis la première itération
      */
-    private void rechercheAux(int villesVisitees, byte villeActuelle, double distanceParcourue) {
+    private void rechercheAux(final int villesVisitees, final byte villeActuelle, final double distanceParcourue) {
 
         // Je prend en compte que VilleActuelle est déjà une ville visitée
 
@@ -52,13 +52,16 @@ public class PlusProcheV2 implements ModeRecherche {
         } else {
             double distanceMin = Long.MAX_VALUE;
             byte villePlusProche = 0;
+            byte villeChoisie;
+            double distanceVilleChoisie;
+
             for (int villeFormatBinaire = villeNonVisitee(1,
                     villesVisitees); villeFormatBinaire < toutesVillesVisitees; villeFormatBinaire = villeNonVisitee(
                             villeFormatBinaire << 1, villesVisitees)) {
 
-                byte villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));
+                villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));
+                distanceVilleChoisie = pays.getDistanceEntreVilles(villeActuelle, villeChoisie);
 
-                double distanceVilleChoisie = pays.getDistanceEntreVilles(villeActuelle, villeChoisie);
                 if (distanceVilleChoisie < distanceMin) {
                     distanceMin = distanceVilleChoisie;
                     villePlusProche = villeChoisie;
@@ -90,7 +93,7 @@ public class PlusProcheV2 implements ModeRecherche {
      *         (dans la séquence de bits du int) représente une ville non visitée
      *         qui est la nouvelle ville actuelle.
      */
-    private int villeNonVisitee(int villeActuelle, int villesVisitees) {
+    private int villeNonVisitee(int villeActuelle, final int villesVisitees) {
         villeActuelle += villesVisitees;
         return villeActuelle ^ (villeActuelle & villesVisitees);
     }

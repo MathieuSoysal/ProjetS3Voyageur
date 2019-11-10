@@ -4,7 +4,7 @@ public class BarreChargement {
 
     private String etapeChargementAttein = "##";
     private String etapeChargementNonAttein = "#.";
-    private final String BARRE_CHARGEMENT_INIT = "[#...................................................................................................]";
+    private static final String BARRE_CHARGEMENT_INIT = "[#...................................................................................................]";
     private String barreDeChargement;
 
     private int nombreDeTests;

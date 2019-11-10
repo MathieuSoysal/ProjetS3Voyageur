@@ -15,7 +15,7 @@ public class AppTest {
 
     @Test
     public void test_nbVille_inferieur0() {
-        assertThrows(IndexOutOfBoundsException.class, () -> new Villes(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> new Pays(-1));
     }
 
 }

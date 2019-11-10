@@ -2,13 +2,14 @@ package projetS3Voyageur.StatsAlgos;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSV {
+class CSV {
 
     /**
      * Génère ou régénère en écrasant l'ancienne version un fichier CSV avec comme
@@ -24,8 +25,8 @@ public class CSV {
      * @param nomFichier        {@code File} Le fichier qui doit être généré ou
      *                          régénéré
      */
-    public static void writeCSV(List<String[]> donneeEnregistree, String separateur, File nomFichier) {
-
+    static void writeCSV(List<String[]> donneeEnregistree, String separateur, File nomFichier) {
+        // TODO: est devenue static à cause des tests
         try (FileWriter writer = new FileWriter(nomFichier)) {
 
             for (String[] strings : donneeEnregistree) {
@@ -43,7 +44,7 @@ public class CSV {
             }
             writer.flush();
         } catch (IOException e) {
-
+            System.err.println("Un problème est survenu lors de l'écriture du fichier CSV :");
             e.printStackTrace();
         }
     }
@@ -60,7 +61,7 @@ public class CSV {
      * @return {@code String[]} Retourne un tableau de String contenant les éléments
      *         du fichier ciblé.
      */
-    public static List<String[]> readCSV(String separateur, File nomFichier) {
+    static List<String[]> readCSV(String separateur, File nomFichier) {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(nomFichier))) {
 
@@ -73,8 +74,12 @@ public class CSV {
                 list.add(array);
             }
             return list;
+        } catch (FileNotFoundException e) {
+            System.err.println("Le fichier CSV donné en paramètre (pour la lecture) n'a pas pu être trouvé :");
+            e.printStackTrace();
+            return null;
         } catch (IOException e) {
-
+            System.err.println("Un problème est survenu lors de la lecture du fichier CSV :");
             e.printStackTrace();
             return null;
         }

@@ -1,6 +1,7 @@
 package projetS3Voyageur;
 
 
+import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class Voyageur {

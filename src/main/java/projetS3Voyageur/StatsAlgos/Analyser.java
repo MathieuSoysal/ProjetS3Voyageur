@@ -1,6 +1,6 @@
 package projetS3Voyageur.StatsAlgos;
 
-import projetS3Voyageur.Pays;
+import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 public class Analyser {
@@ -14,7 +14,7 @@ public class Analyser {
     // Calcul de la varience du CurrentTime :
 
     private boolean[] algosDepassantTempsMax;
-    VarianceCurrentTime varianceCurrentTime = null;
+    private VarianceCurrentTime varianceCurrentTime = null;
 
     private ModeRecherche[] listeAlgo;
 
@@ -33,7 +33,7 @@ public class Analyser {
 
     // TODO: note pour moi-m^me Mathieu oublie pas que tu as mis en paramètre
     // tempsMax
-    public Analyser(ModeRecherche[] listeAlgo, int nombreDeVilles, int nombreDeTests, double tempsMax) {
+    Analyser(ModeRecherche[] listeAlgo, int nombreDeVilles, int nombreDeTests, double tempsMax) {
         this.tempsMax = tempsMax;
         this.listeAlgo = listeAlgo;
         this.nombreDeTests = nombreDeTests;
@@ -75,7 +75,7 @@ public class Analyser {
      * Méthode identique à analyse() mise à part que analyseBrut() n'affiche pas la
      * barre de chargement
      */
-    public void analyseBrut() {
+     void analyseBrut() {
 
         varianceCurrentTime = new VarianceCurrentTime(nombreDeTests);
 
@@ -101,7 +101,7 @@ public class Analyser {
      * En final :
      *  - la marge d'erreur de la fonction CurrentTime
      */
-    public void afficher() {
+     public void afficher() {
         double tempsPlusLent = recupéreTempsPlusLent();
         for (int i = 0; i < listeAlgo.length; i++) {
             int poucentage = (int) ((((tempsPlusLent) / ((tempsMoyenAlgos[i]))) - 1) * 100);

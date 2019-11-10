@@ -47,7 +47,7 @@ Connection con = null;
         //insertion d'un enregistrement dans la table client
       /*  System.out.println("creation enregistrement");
 
-        requete = "INSERT INTO TEST VALUES (3,'Corbier','Xavier')";
+        requete = "INSERT INTO TEST VALUES (4,'Corbier','Albert')";
 
         try {
 

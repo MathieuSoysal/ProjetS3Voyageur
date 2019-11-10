@@ -34,9 +34,15 @@ CREATE TABLE TEST3(
 
 	CREATE TABLE  Carte(
 	                        idCarte INT,
-	                        longueur INT,
-	                        largeur INT
+	                        nomCarte VARCHAR(35),
+	                        longueur INT NOT NULL,
+	                        largeur INT NOT NULL
 
     );
 
-    CREATE TABLE
+    CREATE TABLE Parcours(
+                              'idParcours' INT NOT NULL,
+                             `nomParcours` varchar(35) NOT NULL,
+                             `nbVille` int(4) NOT NULL,
+                             `temps` time NOT NULL
+    );

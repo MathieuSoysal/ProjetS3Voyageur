@@ -1,10 +1,11 @@
 package projetS3Voyageur.ModesDeRecherches;
 
-import projetS3Voyageur.*;
+import projetS3Voyageur.CompositionPays.Pays;
 
 public class BrutForceV2 implements ModeRecherche {
-    final boolean dejaVisitee = true;
-    final boolean nonVisitee = false;
+    // TODO: Les appels des autre méthodes empéche d'enlever le public
+    private static final boolean dejaVisitee = true;
+    private static final boolean nonVisitee = false;
     private Pays pays;
 
     private int villeInitale;
@@ -20,7 +21,7 @@ public class BrutForceV2 implements ModeRecherche {
      * @param villeInitiale Le numéro de la ville de départ
      */
     @Override
-    public void recherche(Pays pays, int villeInitiale) {
+    public void recherche(final Pays pays, final int villeInitiale) {
         this.pays = pays;
         villeInitale = villeInitiale;
         nombreDeVilles = pays.getNombreDeVilles();
@@ -44,23 +45,28 @@ public class BrutForceV2 implements ModeRecherche {
      * @param villesEmpruntees  Stock par ordre chronologique le numéro des villes
      *                          empruntées
      */
-    private void rechercheAux(boolean villesAVisiter[], int villeActuelle, double distanceParcourue,
-            int nbVillesAVisiter, String villesEmpruntees) {
+    private void rechercheAux(boolean villesAVisiter[], final int villeActuelle, final double distanceParcourue,
+            final int nbVillesAVisiter, final String villesEmpruntees) {
 
         villesAVisiter[villeActuelle] = dejaVisitee;
 
         if (nbVillesAVisiter == 0) {
-            double distanceParcourueFinal = distanceParcourue
+
+            final double distanceParcourueFinal = distanceParcourue
                     + pays.getDistanceEntreVilles(villeActuelle, villeInitale);
 
             if (distanceParcourueFinal < parcoursOptimum.getDistance())
                 parcoursOptimum = new Parcours(distanceParcourueFinal, villesEmpruntees + "->" + villeInitale);
 
         } else {
+
+            double distanceParcourueActuelle;
+
             for (int villeChoisie = 0; villeChoisie < nombreDeVilles; villeChoisie++) {
 
                 if (villesAVisiter[villeChoisie] == nonVisitee) {
-                    double distanceParcourueActuelle = distanceParcourue
+
+                    distanceParcourueActuelle = distanceParcourue
                             + pays.getDistanceEntreVilles(villeActuelle, villeChoisie);
 
                     rechercheAux(villesAVisiter.clone(), villeChoisie, distanceParcourueActuelle, nbVillesAVisiter - 1,
