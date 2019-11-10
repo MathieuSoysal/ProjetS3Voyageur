@@ -1,7 +1,13 @@
 {
     "configurations": [
         {
-
+            "type": "java",
+            "name": "CodeLens (Launch) - LinePanel",
+            "request": "launch",
+            "mainClass": "projetS3Voyageur.LinePanel",
+            "projectName": "ProjetS3Voyageur"
+        },
+        {
             "type": "java",
             "name": "CodeLens (Launch) - CurrentCPU",
             "request": "launch",
