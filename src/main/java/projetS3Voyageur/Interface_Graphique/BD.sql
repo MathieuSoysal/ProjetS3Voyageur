@@ -32,17 +32,17 @@ CREATE TABLE TEST3(
 
 	/*2) proposer un format de table pour une carte, puis un parcours */
 
-	CREATE TABLE  Carte(
-	                        idCarte INT,
-	                        nomCarte VARCHAR(35),
-	                        longueur INT NOT NULL,
-	                        largeur INT NOT NULL
+CREATE TABLE  Carte(
+                       idCarte INT(5) NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+                       nomCarte VARCHAR(35),
+                       longueur INT(5) NOT NULL,
+                       largeur INT(5) NOT NULL
 
-    );
+);
 
-    CREATE TABLE Parcours(
-                              'idParcours' INT NOT NULL,
-                             `nomParcours` varchar(35) NOT NULL,
-                             `nbVille` int(4) NOT NULL,
-                             `temps` time NOT NULL
-    );
+CREATE TABLE Parcours(
+                         idParcours INT(6) AUTO_INCREMENT NOT NULL PRIMARY KEY ,
+                         nomParcours VARCHAR(35) NOT NULL,
+                         nbVille INT(4) NOT NULL,
+                         temps TIME NOT NULL
+);
