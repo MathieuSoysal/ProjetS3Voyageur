@@ -9,8 +9,8 @@ import projetS3Voyageur.CompositionPays.Position;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 import projetS3Voyageur.ModesDeRecherches.PlusProcheV2;
 
-public class testPlusProcheV2 {
-    private final ModeRecherche plusProcheV2 = new PlusProcheV2();
+public class testPlusProcheV3 {
+    private final ModeRecherche plusProcheV2 = new PlusProcheV3();
 
     // #region test sur Y
     @Test
