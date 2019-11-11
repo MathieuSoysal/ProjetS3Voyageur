@@ -15,37 +15,37 @@ Connection con = null;
 
     public static void main(java.lang.String[] args) {
 
-    /*    Connection con = null;
+       Connection con = null;
         ResultSet résultats = null;
-        String requete = "";*/
+        String requete = "";
 
-      /*  // chargement du pilote
+        // chargement du pilote
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
         } catch (ClassNotFoundException e) {
 
             System.err.println("Impossible de charger le pilote jdbc:odbc\n");
-        }*/
+        }
 
         //connection a la base de données
-/*
+
         System.out.println("connexion à la base de données");
 
         try {
 
-            /*String DBurl = "jdbc:mysql:zaidn";
-            con = DriverManager.getConnection(DBurl);*/
+            String DBurl = "jdbc:mysql:zaidn";
+            con = DriverManager.getConnection(DBurl);
 
-       //     con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn", "XavierCorbier");
+           con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn", "XavierCorbier");
 
-      //  } catch (SQLException e) {
+       } catch (SQLException e) {
 
-       //     System.err.println("Connection à la base de données impossible");;
-       // }
+           System.err.println("Connection à la base de données impossible");;
+       }
 
         //insertion d'un enregistrement dans la table client
-      /*  System.out.println("creation enregistrement");
+        System.out.println("creation enregistrement");
 
         requete = "INSERT INTO TEST VALUES (4,'Corbier','Albert')";
 
@@ -71,11 +71,11 @@ Connection con = null;
         } catch (SQLException e) {
 
             System.err.println("Problème durant l'éxecution");
-        }*/
+        }
 
         //parcours des données retournées
 
-      /*  System.out.println("parcours des données retournées");
+        System.out.println("parcours des données retournées");
 
         try {
 
@@ -98,6 +98,6 @@ Connection con = null;
         }
 
         System.out.println("Fin");
-        System.exit(0);*/
+        System.exit(0);
     }
 }
