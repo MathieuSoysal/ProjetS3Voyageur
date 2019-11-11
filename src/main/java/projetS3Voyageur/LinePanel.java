@@ -26,6 +26,8 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import projetS3Voyageur.CompositionPays.Pays;
+import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
+import projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1;;
 
 /**
  * panneau de 300x200 pixels
@@ -42,6 +44,8 @@ public class LinePanel extends JPanel implements MouseListener {
 
     private JButton boutonReset = new JButton("Reinitialiser");
     private JButton boutonCalculer = new JButton("Calculer");
+
+    private ModeRecherche algo = new TrackProchesV2_1();
 
     private Pays graphe;
 
@@ -77,6 +81,22 @@ public class LinePanel extends JPanel implements MouseListener {
                 points.clear();
                 
             }
+                repaint();
+            }
+        });
+
+        boutonCalculer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                graphe = new Pays(points);
+                ModeRecherche algoCalcul = algo;
+                algoCalcul.recherche(graphe, 0);
+                points.clear();
+
+                String parcours = algoCalcul.getParcours().getVillesEmprunté();
+                parcours = parcours.substring(0, parcours.length() - 2);
+                for (String ville : parcours.split(">")) {
+                    points.add(graphe.getPositionVille(Integer.valueOf(ville)));
+                }
           });
 
     }
