@@ -4,14 +4,14 @@
             "type": "java",
             "name": "CodeLens (Launch) - Fenetre",
             "request": "launch",
-            "mainClass": "projetS3Voyageur.Fenetre",
+            "mainClass": "projetS3Voyageur.Interface.Fenetre",
             "projectName": "ProjetS3Voyageur"
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - LinePanel",
+            "name": "CodeLens (Launch) - Fenetre",
             "request": "launch",
-            "mainClass": "projetS3Voyageur.LinePanel",
+            "mainClass": "projetS3Voyageur.Fenetre",
             "projectName": "ProjetS3Voyageur"
         },
         {

@@ -1,4 +1,4 @@
-package projetS3Voyageur;
+package projetS3Voyageur.Interface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +13,7 @@ import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 import projetS3Voyageur.ModesDeRecherches.PlusProcheV2;
 import projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1;
 
-public class Panneau extends JPanel {
+class Panneau extends JPanel {
 
   /**
    *
@@ -24,37 +24,48 @@ public class Panneau extends JPanel {
   private JButton boutonCalculer = new JButton("Calculer");
   private JButton boutonMelanger = new JButton("Melanger");
   private JButton boutonPlusProche = new JButton("Voisin plus proche");
-  
-  private PanneauGraphique graphique = new PanneauGraphique();
-  private ModeRecherche algo = new TrackProchesV2_1();
 
-  public Panneau() {
+  private PanneauGraphique graphique = new PanneauGraphique();
+
+  Panneau() {
+
+    // #region Organisation de l'affichage de la fênetre :
 
     setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-    JPanel box1 = new JPanel();
+    // #region Première Boite
+    JPanel boite1 = new JPanel();
 
-    box1.setLayout(new BoxLayout(box1, BoxLayout.LINE_AXIS));
-    box1.add(graphique);
-    add(box1);
+    boite1.setLayout(new BoxLayout(boite1, BoxLayout.LINE_AXIS));
+    boite1.add(graphique);
+    add(boite1);
+    // #endregion Première Boite
 
-    JPanel box2 = new JPanel();
+    // #region Deuxième Boite
+    JPanel boite2 = new JPanel();
 
-    box2.setLayout(new BoxLayout(box2, BoxLayout.LINE_AXIS));
-    box2.add(boutonReset);
-    box2.add(boutonCalculer);
-    box2.add(boutonMelanger);
-    box2.add(boutonPlusProche);
+    boite2.setLayout(new BoxLayout(boite2, BoxLayout.LINE_AXIS));
+    boite2.add(boutonReset);
+    boite2.add(boutonCalculer);
+    boite2.add(boutonMelanger);
+    boite2.add(boutonPlusProche);
 
-    add(box2);
+    add(boite2);
+    // #endregion Deuxième Boite
+    
+    // #endregion Organisation de l'affichage de la fênetre
 
+    // #region Action des boutons
+
+    // Bouton Plus Proche
     boutonPlusProche.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent event) {
         calculer(new PlusProcheV2());
       }
     });
-    
+
+    // Bouton Mélanger
     boutonMelanger.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent event) {
@@ -63,6 +74,7 @@ public class Panneau extends JPanel {
       }
     });
 
+    // Bouton Reset
     boutonReset.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent event) {
@@ -71,6 +83,7 @@ public class Panneau extends JPanel {
       }
     });
 
+    // Bouton Calculer
     boutonCalculer.addActionListener(new ActionListener() {
 
       @Override
@@ -78,9 +91,11 @@ public class Panneau extends JPanel {
         calculer(new TrackProchesV2_1());
       }
     });
+    // #endregion Action des boutons
   }
 
-  private void calculer(ModeRecherche algo){
+  // #region Outils
+  private void calculer(ModeRecherche algo) {
     Pays pays = new Pays(graphique.points);
     algo.recherche(pays, 0);
     graphique.points.clear();
@@ -93,4 +108,5 @@ public class Panneau extends JPanel {
 
     graphique.repaint();
   }
+  // #endregion Outils
 }

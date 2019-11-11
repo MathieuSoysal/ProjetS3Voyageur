@@ -1,4 +1,4 @@
-package projetS3Voyageur;
+package projetS3Voyageur.Interface;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

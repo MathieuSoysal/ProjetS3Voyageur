@@ -1,4 +1,4 @@
-package projetS3Voyageur;
+package projetS3Voyageur.Interface;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,15 +9,14 @@ import java.awt.event.MouseListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
  * panneau de 300x200 pixels
  * 
- * @author jonathan
+ * @author jonathan & Mathieu
  */
-public class PanneauGraphique extends JPanel implements MouseListener {
+ class PanneauGraphique extends JPanel implements MouseListener {
 
     /**
      *
@@ -30,26 +29,7 @@ public class PanneauGraphique extends JPanel implements MouseListener {
     private int[] positionsX;
     private int[] positionsY;
 
-    public static void main(String[] args) {
-
-        JFrame frame = new JFrame(); // creation de la fenetre
-        JPanel panel = new PanneauGraphique(); // creation du panneau
-
-        frame.setContentPane(panel); // integration du panneau dans la fenetre
-        frame.pack(); // ajustement de la taille de la fenetre au contenu
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null); // centrage
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // quand on clique sur la croix, ca quitte le programme
-                                                              // (ce n'est pas le cas par defaut)
-        frame.setVisible(true); // rend la fenetre visible (ce n'est pas le cas par defaut)
-        frame.setTitle("Voyageur de Commerce");
-
-    }
-
-    /**
-     * constructeur du panneau
-     */
-    public PanneauGraphique() {
+     PanneauGraphique() {
 
         points = new LinkedList<>();
 
@@ -63,7 +43,7 @@ public class PanneauGraphique extends JPanel implements MouseListener {
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
 
-        getPositionsAbs(points);
+        getPositionsX_Y(points);
         graphics.setColor(Color.gray);
         graphics.drawPolyline(positionsX, positionsY, points.size() + 1);
 
@@ -79,13 +59,11 @@ public class PanneauGraphique extends JPanel implements MouseListener {
 
         }
 
-        // getPositionsAbs(pointsOpti);
-        // graphics.setColor(Color.cyan);
-        // graphics.drawPolyline(positionsX, positionsY, points.size() + 1);
-
     }
 
-    private void getPositionsAbs(List<Point> points) {
+    // #region Outils
+
+    private void getPositionsX_Y(List<Point> points) {
         int i = 0;
         positionsY = new int[points.size() + 1];
         positionsX = new int[points.size() + 1];
@@ -98,6 +76,10 @@ public class PanneauGraphique extends JPanel implements MouseListener {
         positionsX[points.size()] = positionsX[0];
 
     }
+
+    // #endregion Outils
+
+    // #region Evenement souris
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
@@ -122,17 +104,5 @@ public class PanneauGraphique extends JPanel implements MouseListener {
 
     }
 
-    /**
-     * @return the points
-     */
-    public List<Point> getPoints() {
-        return points;
-    }
-
-    /**
-     * @param points the points to set
-     */
-    public void setPoints(List<Point> points) {
-        this.points = points;
-    }
+    // #endregion Evenement souris
 }
