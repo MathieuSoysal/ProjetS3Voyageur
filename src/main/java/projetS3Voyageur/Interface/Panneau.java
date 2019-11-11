@@ -6,6 +6,7 @@ import java.util.Collections;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import projetS3Voyageur.CompositionPays.Pays;
@@ -52,7 +53,7 @@ class Panneau extends JPanel {
 
     add(boite2);
     // #endregion Deuxième Boite
-    
+
     // #endregion Organisation de l'affichage de la fênetre
 
     // #region Action des boutons
@@ -61,7 +62,10 @@ class Panneau extends JPanel {
     boutonPlusProche.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent event) {
-        calculer(new PlusProcheV2());
+        if (graphique.points.size() > 3)
+          calculer(new PlusProcheV2());
+        else
+          erreurPointsInsufisant();
       }
     });
 
@@ -85,10 +89,12 @@ class Panneau extends JPanel {
 
     // Bouton Calculer
     boutonCalculer.addActionListener(new ActionListener() {
-
       @Override
       public void actionPerformed(ActionEvent event) {
-        calculer(new TrackProchesV2_1());
+        if (graphique.points.size() > 3)
+          calculer(new TrackProchesV2_1());
+        else
+          erreurPointsInsufisant();
       }
     });
     // #endregion Action des boutons
@@ -108,5 +114,14 @@ class Panneau extends JPanel {
 
     graphique.repaint();
   }
+
+  // #region Exception
+  private void erreurPointsInsufisant() {
+    JOptionPane.showMessageDialog(graphique,
+        "Veuillez d'abord placer au minimum 4 points sur le plant. \n Pour placer un point il suffit de cliquer sur le plant.",
+        "Nombre de points insufisant", JOptionPane.ERROR_MESSAGE);
+  }
+  // #endregion Exception
+
   // #endregion Outils
 }
