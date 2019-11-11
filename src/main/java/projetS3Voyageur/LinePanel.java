@@ -97,10 +97,13 @@ public class LinePanel extends JPanel implements MouseListener {
                 for (String ville : parcours.split(">")) {
                     points.add(graphe.getPositionVille(Integer.valueOf(ville)));
                 }
+
+                repaint();
+            }
           });
 
     }
-
+        });
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
