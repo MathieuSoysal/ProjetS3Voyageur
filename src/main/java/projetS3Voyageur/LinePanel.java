@@ -71,6 +71,7 @@ public class LinePanel extends JPanel implements MouseListener {
 
         points = new LinkedList<>();
 
+        setBackground(Color.darkGray);
         add(boutonReset);
         add(boutonCalculer);
         setPreferredSize(new Dimension(400, 400));
