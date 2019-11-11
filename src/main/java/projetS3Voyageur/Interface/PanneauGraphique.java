@@ -16,7 +16,7 @@ import javax.swing.JPanel;
  * 
  * @author jonathan & Mathieu
  */
- class PanneauGraphique extends JPanel implements MouseListener {
+class PanneauGraphique extends JPanel implements MouseListener {
 
     /**
      *
@@ -29,7 +29,7 @@ import javax.swing.JPanel;
     private int[] positionsX;
     private int[] positionsY;
 
-     PanneauGraphique() {
+    PanneauGraphique() {
 
         points = new LinkedList<>();
 
