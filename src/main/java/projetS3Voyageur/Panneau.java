@@ -54,6 +54,7 @@ public class Panneau extends JPanel {
         calculer(new PlusProcheV2());
       }
     });
+    
     boutonMelanger.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent event) {

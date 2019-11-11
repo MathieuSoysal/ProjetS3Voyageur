@@ -12,7 +12,6 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
 /**
  * panneau de 300x200 pixels
  * 
@@ -25,7 +24,7 @@ public class PanneauGraphique extends JPanel implements MouseListener {
      */
     private static final long serialVersionUID = 4883455012046646573L;
 
-    //TODO: temporairement mit en public pour les tests
+    // TODO: temporairement mit en public pour les tests
     public List<Point> points;
 
     private int[] positionsX;
@@ -68,14 +67,15 @@ public class PanneauGraphique extends JPanel implements MouseListener {
         graphics.setColor(Color.gray);
         graphics.drawPolyline(positionsX, positionsY, points.size() + 1);
 
-        graphics.setColor(Color.orange);
-        graphics.setPaintMode();
-
-        int r =7;
+        int r = 7;
 
         for (Point point : points) {
+            if (point.equals(points.get(0)))
+                graphics.setColor(Color.LIGHT_GRAY);
+            else
+                graphics.setColor(Color.orange);
 
-            graphics.fillOval((int) point.getX()-(r/2), (int) point.getY()-(r/2), r, r);
+            graphics.fillOval((int) point.getX() - (r / 2), (int) point.getY() - (r / 2), r, r);
 
         }
 
