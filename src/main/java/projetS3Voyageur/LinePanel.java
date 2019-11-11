@@ -112,6 +112,16 @@ public class LinePanel extends JPanel implements MouseListener {
         graphics.setColor(Color.gray);
         graphics.drawPolyline(positionsX, positionsY, points.size() + 1);
 
+        graphics.setColor(Color.orange);
+        graphics.setPaintMode();
+        for (Point point : points) {
+            for (int i = 1; i < 6; i++) {
+                graphics.drawOval((int) point.getX() - (i / 2), (int) point.getY() - (i / 2), i, i);
+
+            }
+
+        }
+
         // getPositionsAbs(pointsOpti);
         // graphics.setColor(Color.cyan);
         // graphics.drawPolyline(positionsX, positionsY, points.size() + 1);
