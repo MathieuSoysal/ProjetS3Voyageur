@@ -2,7 +2,7 @@ package projetS3Voyageur.ModesDeRecherches;
 
 import projetS3Voyageur.CompositionPays.Pays;
 
-public class PlusProcheV2 implements ModeRecherche {
+public class PlusProcheV3 implements ModeRecherche {
 
     private int toutesVillesVisitees;
 
@@ -27,10 +27,10 @@ public class PlusProcheV2 implements ModeRecherche {
         this.villeInitiale = (byte) villeInitiale;
         nombreDeVilles = (byte) pays.getNombreDeVilles();
         toutesVillesVisitees = (1 << nombreDeVilles) - 1;
-        distanceOptimum = Double.MAX_VALUE;
+        distanceOptimum = 0;
         villesEmprunteesOptimum = String.valueOf(villeInitiale);
 
-        rechercheAux(1 << this.villeInitiale, this.villeInitiale, 0.0);
+        rechercheAux(1 << this.villeInitiale, this.villeInitiale);
 
     }
 
@@ -40,38 +40,40 @@ public class PlusProcheV2 implements ModeRecherche {
      * 
      * @param villesVisitees    Villes qui ont été visitées jusqu'à présent.
      * @param villeActuelle     Ville où se situe l'algorithme.
-     * @param distanceParcourue Distance parcourue depuis la première itération
      */
-    private void rechercheAux(final int villesVisitees, final byte villeActuelle, final double distanceParcourue) {
+    private void rechercheAux(int villesVisitees, byte villeActuelle) {
 
-        // Je prend en compte que VilleActuelle est déjà une ville visitée
+        byte villePlusProche = villeActuelle;
 
-        if (villesVisitees == toutesVillesVisitees) {
-            villesEmprunteesOptimum += ">" + villeInitiale;
-            distanceOptimum = distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);
-        } else {
-            double distanceMin = Long.MAX_VALUE;
-            byte villePlusProche = 0;
-            byte villeChoisie;
-            double distanceVilleChoisie;
+        for (byte numVille = 0; numVille < nombreDeVilles - 1; numVille++) {
 
-            for (int villeFormatBinaire = villeNonVisitee(1,
-                    villesVisitees); villeFormatBinaire < toutesVillesVisitees; villeFormatBinaire = villeNonVisitee(
-                            villeFormatBinaire << 1, villesVisitees)) {
+            double distanceVillePlusProche = Double.MAX_VALUE;
 
-                villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));
-                distanceVilleChoisie = pays.getDistanceEntreVilles(villeActuelle, villeChoisie);
+            for (int villeFormatBinaire2 = villeNonVisitee(1,
+                    villesVisitees); villeFormatBinaire2 < toutesVillesVisitees; villeFormatBinaire2 = villeNonVisitee(
+                            villeFormatBinaire2 << 1, villesVisitees)) {
 
-                if (distanceVilleChoisie < distanceMin) {
-                    distanceMin = distanceVilleChoisie;
-                    villePlusProche = villeChoisie;
+                                //TODO : à voir si instancier à chaque fois la variable est 
+                final byte villeIteration = (byte) Math.getExponent(villeFormatBinaire2);
+                final double distanceIteration = pays.getDistanceEntreVilles(villeActuelle,
+                        villeIteration);
+
+                if ((distanceIteration < distanceVillePlusProche)) {
+                    villePlusProche = villeIteration;
+                    distanceVillePlusProche = distanceIteration;
                 }
-
             }
+
+            villeActuelle = villePlusProche;
+            distanceOptimum += distanceVillePlusProche;
+            villesVisitees |= 1 << villePlusProche;
             villesEmprunteesOptimum += ">" + villePlusProche;
-            rechercheAux((villesVisitees + (1 << villePlusProche)), (villePlusProche), distanceParcourue + distanceMin);
+            //TODO: possible d'utiliser des méthodes privé pour aléger le code
 
         }
+
+        distanceOptimum += pays.getDistanceEntreVilles(villePlusProche, villeInitiale);
+        villesEmprunteesOptimum += ">" + villeInitiale;
 
     }
 
@@ -121,7 +123,7 @@ public class PlusProcheV2 implements ModeRecherche {
      */
     @Override
     public String getNom() {
-        return "PlusProche v2";
+        return "PlusProche v3";
     }
 
     // #endregion Getters
