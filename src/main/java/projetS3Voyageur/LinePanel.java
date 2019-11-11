@@ -1,7 +1,5 @@
 package projetS3Voyageur;
 
-import static java.lang.Math.random;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -10,20 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
@@ -36,8 +26,12 @@ import projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1;;
  */
 public class LinePanel extends JPanel implements MouseListener {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4883455012046646573L;
+
     private List<Point> points;
-    private List<Point> pointsOpti;
 
     private int[] positionsX;
     private int[] positionsY;
@@ -56,6 +50,7 @@ public class LinePanel extends JPanel implements MouseListener {
 
         frame.setContentPane(panel); // integration du panneau dans la fenetre
         frame.pack(); // ajustement de la taille de la fenetre au contenu
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null); // centrage
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // quand on clique sur la croix, ca quitte le programme
                                                               // (ce n'est pas le cas par defaut)
@@ -80,8 +75,6 @@ public class LinePanel extends JPanel implements MouseListener {
         boutonReset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 points.clear();
-                
-            }
                 repaint();
             }
         });
@@ -101,10 +94,10 @@ public class LinePanel extends JPanel implements MouseListener {
 
                 repaint();
             }
-          });
+        });
 
     }
-        });
+
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
