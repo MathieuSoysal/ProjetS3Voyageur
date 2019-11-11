@@ -2,6 +2,7 @@ package projetS3Voyageur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -20,6 +21,7 @@ public class Panneau extends JPanel {
 
   private JButton boutonReset = new JButton("Reinitialiser");
   private JButton boutonCalculer = new JButton("Calculer");
+  private JButton boutonMelanger = new JButton("Melanger");
 
   private ModeRecherche algo = new TrackProchesV2_1();
 
@@ -39,11 +41,17 @@ public class Panneau extends JPanel {
     box2.setLayout(new BoxLayout(box2, BoxLayout.LINE_AXIS));
     box2.add(boutonReset);
     box2.add(boutonCalculer);
+    box2.add(boutonMelanger);
 
     add(box2);
 
-
-
+    boutonMelanger.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent event) {
+        Collections.shuffle(graphique.points);
+        graphique.repaint();
+      }
+    });
 
     boutonReset.addActionListener(new ActionListener() {
       @Override
