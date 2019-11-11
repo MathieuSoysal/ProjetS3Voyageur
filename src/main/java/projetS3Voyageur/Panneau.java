@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
+import projetS3Voyageur.ModesDeRecherches.PlusProcheV2;
 import projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1;
 
 public class Panneau extends JPanel {
@@ -22,7 +23,9 @@ public class Panneau extends JPanel {
   private JButton boutonReset = new JButton("Reinitialiser");
   private JButton boutonCalculer = new JButton("Calculer");
   private JButton boutonMelanger = new JButton("Melanger");
-
+  private JButton boutonPlusProche = new JButton("Voisin plus proche");
+  
+  private PanneauGraphique graphique = new PanneauGraphique();
   private ModeRecherche algo = new TrackProchesV2_1();
 
   public Panneau() {
@@ -31,7 +34,6 @@ public class Panneau extends JPanel {
 
     JPanel box1 = new JPanel();
 
-    PanneauGraphique graphique = new PanneauGraphique();
     box1.setLayout(new BoxLayout(box1, BoxLayout.LINE_AXIS));
     box1.add(graphique);
     add(box1);
@@ -42,9 +44,16 @@ public class Panneau extends JPanel {
     box2.add(boutonReset);
     box2.add(boutonCalculer);
     box2.add(boutonMelanger);
+    box2.add(boutonPlusProche);
 
     add(box2);
 
+    boutonPlusProche.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent event) {
+        calculer(new PlusProcheV2());
+      }
+    });
     boutonMelanger.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent event) {
@@ -65,19 +74,22 @@ public class Panneau extends JPanel {
 
       @Override
       public void actionPerformed(ActionEvent event) {
-        ModeRecherche algoCalcul = algo;
-        Pays pays = new Pays(graphique.points);
-        algoCalcul.recherche(pays, 0);
-        graphique.points.clear();
-
-        String parcours = algoCalcul.getParcours().getVillesEmprunté();
-        parcours = parcours.substring(0, parcours.length() - 2);
-        for (String ville : parcours.split(">")) {
-          graphique.points.add(pays.getPositionVille(Integer.valueOf(ville)));
-        }
-
-        graphique.repaint();
+        calculer(new TrackProchesV2_1());
       }
     });
+  }
+
+  private void calculer(ModeRecherche algo){
+    Pays pays = new Pays(graphique.points);
+    algo.recherche(pays, 0);
+    graphique.points.clear();
+
+    String parcours = algo.getParcours().getVillesEmprunté();
+    parcours = parcours.substring(0, parcours.length() - 2);
+    for (String ville : parcours.split(">")) {
+      graphique.points.add(pays.getPositionVille(Integer.valueOf(ville)));
+    }
+
+    graphique.repaint();
   }
 }
