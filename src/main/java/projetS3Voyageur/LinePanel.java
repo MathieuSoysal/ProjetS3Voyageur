@@ -149,12 +149,6 @@ public class LinePanel extends JPanel implements MouseListener {
         repaint();
     }
 
-    // try {
-    //     Thread.sleep(3);
-    //   } catch (InterruptedException e) {
-    //     e.printStackTrace();
-    //   }
-
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
     }
@@ -165,8 +159,6 @@ public class LinePanel extends JPanel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
-        points.add(getMousePosition());
-        repaint();
     }
 
     @Override
