@@ -10,8 +10,8 @@ import projetS3Voyageur.ModesDeRecherches.PlusProcheV2;
 
 import java.awt.Point;
 
-public class testPlusProcheV2 {
-    private final ModeRecherche plusProcheV2 = new PlusProcheV2();
+public class testPlusProcheV3 {
+    private final ModeRecherche plusProcheV2 = new PlusProcheV3();
 
     // #region test sur Y
     @Test
@@ -51,8 +51,7 @@ public class testPlusProcheV2 {
         plusProcheV2.recherche(pays, 0);
 
         assertEquals("0>1>2>3>4>0", plusProcheV2.getParcours().getVillesEmprunté());
-        // assertEquals((1 + 1 + 1 + 1 + 4), (long)
-        // plusProcheV2.getParcours().getDistance());
+        assertEquals((1 + 1 + 1 + 1 + 4), (long) plusProcheV2.getParcours().getDistance());
 
     }
 
