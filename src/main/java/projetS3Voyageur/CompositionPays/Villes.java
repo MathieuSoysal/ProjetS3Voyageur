@@ -1,10 +1,13 @@
 package projetS3Voyageur.CompositionPays;
 
 import java.awt.Point;
+import java.util.List;
 
 class Villes {
     private Point[] positionDesVilles;
     private int nombreDeVilles;
+
+
 
     Villes(int nombreDeVilles) {
         if (nombreDeVilles < 3) {
@@ -16,6 +19,15 @@ class Villes {
 
         for (int ville = 0; ville < nombreDeVilles; ville++) {
             positionDesVilles[ville] = new Point((int) (Math.random() * 50), (int) (Math.random() * 50));
+        }
+    }
+
+    Villes(List<Point> points){
+        this.nombreDeVilles = points.size();
+        positionDesVilles = new Point[nombreDeVilles];
+        int i =0;
+        for (Point point : points) {
+            positionDesVilles[i++] = point;
         }
     }
 

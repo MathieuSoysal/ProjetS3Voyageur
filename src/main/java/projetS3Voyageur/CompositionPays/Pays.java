@@ -1,6 +1,7 @@
 package projetS3Voyageur.CompositionPays;
 
 import java.awt.Point;
+import java.util.List;
 
 public final class Pays {
     private Villes v;
@@ -8,6 +9,12 @@ public final class Pays {
 
     public Pays(int nombreDeVilles) {
         v = new Villes(nombreDeVilles);
+        d = new GestionDistance(v);
+
+    }
+
+    public Pays(List<Point> points) {
+        v = new Villes(points);
         d = new GestionDistance(v);
 
     }
