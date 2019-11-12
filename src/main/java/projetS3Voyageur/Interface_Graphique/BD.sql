@@ -40,9 +40,18 @@ CREATE TABLE  Carte(
 
 );
 
-CREATE TABLE Parcours(
-                         idParcours INT(6) AUTO_INCREMENT NOT NULL PRIMARY KEY ,
-                         nomParcours VARCHAR(35) NOT NULL,
+CREATE TABLE ParcoursX(
+                         idParcoursX INT(6) AUTO_INCREMENT NOT NULL PRIMARY KEY ,
+                         /*nomParcours VARCHAR(35) NOT NULL,*/
                          nbVille INT(4) NOT NULL,
                          temps TIME NOT NULL
 );
+
+CREATE  TABLE ParcoursY(
+                        idParcours INT(6) AUTO_INCREMENT NOT NULL  PRIMARY KEY ,
+                        ordreVille VARCHAR,
+
+
+
+
+)
