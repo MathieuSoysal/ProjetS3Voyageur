@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="MySQL - gloin:5560/isqlplus/" uuid="819e6be1-6d09-4c56-8aae-493267cd7bb9">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn</jdbc-url>
+    </data-source>
+  </component>
+</project>
