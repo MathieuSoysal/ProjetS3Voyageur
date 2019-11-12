@@ -24,7 +24,7 @@ class PanneauGraphique extends JPanel implements MouseListener {
     private static final long serialVersionUID = 4883455012046646573L;
 
     // TODO: temporairement mit en public pour les tests
-    public List<Point> points;
+    List<Point> points;
 
     private int[] positionsX;
     private int[] positionsY;

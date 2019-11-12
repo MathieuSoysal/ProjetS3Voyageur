@@ -1,7 +1,6 @@
 package projetS3Voyageur.Interface;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class Fenetre extends JFrame {
   /**
@@ -13,7 +12,7 @@ public class Fenetre extends JFrame {
 
   public static void main(String[] args) {
     JFrame frame = new JFrame(); // creation de la fenetre
-    JPanel panel = new Panneau(); // creation du panneau
+    Panneau panel = new Panneau(); // creation du panneau
 
     frame.setContentPane(panel); // integration du panneau dans la fenetre
     frame.pack(); // ajustement de la taille de la fenetre au contenu
