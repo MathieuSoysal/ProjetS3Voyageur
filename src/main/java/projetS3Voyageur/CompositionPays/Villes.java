@@ -1,8 +1,13 @@
 package projetS3Voyageur.CompositionPays;
 
+import java.awt.Point;
+import java.util.List;
+
 class Villes {
-    private Position[] positionDesVilles;
+    private Point[] positionDesVilles;
     private int nombreDeVilles;
+
+
 
     Villes(int nombreDeVilles) {
         if (nombreDeVilles < 3) {
@@ -10,10 +15,19 @@ class Villes {
                     "Veuillez écrire un nombre de villes compris entre 3 et 15");
         }
         this.nombreDeVilles = nombreDeVilles;
-        positionDesVilles = new Position[nombreDeVilles];
+        positionDesVilles = new Point[nombreDeVilles];
 
         for (int ville = 0; ville < nombreDeVilles; ville++) {
-            positionDesVilles[ville] = new Position((int) (Math.random() * 50), (int) (Math.random() * 50));
+            positionDesVilles[ville] = new Point((int) (Math.random() * 50), (int) (Math.random() * 50));
+        }
+    }
+
+    Villes(List<Point> points){
+        this.nombreDeVilles = points.size();
+        positionDesVilles = new Point[nombreDeVilles];
+        int i =0;
+        for (Point point : points) {
+            positionDesVilles[i++] = point;
         }
     }
 
@@ -23,7 +37,7 @@ class Villes {
      * @param ville       Numéro de la ville dont la position va être modifiée
      * @param newPosVille Nouvelle position
      */
-    void setPositionVille(int ville, Position posVille) {
+    void setPositionVille(int ville, Point posVille) {
         verifieNumVille(ville);
         positionDesVilles[ville] = posVille;
 
@@ -35,7 +49,7 @@ class Villes {
      * @param ville numéro de la ville à localiser
      * @return {@Code Position} la localisation de la ville
      */
-    Position getPositionVille(int ville) {
+    Point getPositionVille(int ville) {
         verifieNumVille(ville);
         return positionDesVilles[ville];
     }

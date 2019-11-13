@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Test;
 
-import projetS3Voyageur.CompositionPays.Position;
 import projetS3Voyageur.CompositionPays.Villes;
+
+import java.awt.Point;
+
 
 public class TestVilles {
 
@@ -44,14 +46,14 @@ public class TestVilles {
 
     @Test
     public void test_setPositionVille_premiereVille() {
-        Position nouvellePos = new Position((int) Math.random() * 50, (int) Math.random() * 50);
+        Point nouvellePos = new Point((int) Math.random() * 50, (int) Math.random() * 50);
         v.setPositionVille(premiereVille, nouvellePos);
         assertEquals(nouvellePos.toString(), v.getPositionVille(premiereVille).toString());
     }
 
     @Test
     public void test_setPositionVille_derniereVille() {
-        Position nouvellePos = new Position((int) Math.random() * 50, (int) Math.random() * 50);
+        Point nouvellePos = new Point((int) Math.random() * 50, (int) Math.random() * 50);
         v.setPositionVille(derniereVille, nouvellePos);
         assertEquals(nouvellePos.toString(), v.getPositionVille(derniereVille).toString());
     }
@@ -59,7 +61,7 @@ public class TestVilles {
     @Test
     public void test_setPositionVille_villeRandom() {
         int ville = (int) Math.random() * (nbVille - 1);
-        Position nouvellePos = new Position((int) Math.random() * 50, (int) Math.random() * 50);
+        Point nouvellePos = new Point((int) Math.random() * 50, (int) Math.random() * 50);
         v.setPositionVille(ville, nouvellePos);
         assertEquals(nouvellePos.toString(), v.getPositionVille(ville).toString());
     }

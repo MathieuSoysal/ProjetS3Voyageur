@@ -1,5 +1,7 @@
 package projetS3Voyageur.CompositionPays;
 
+import java.awt.Point;
+
 import static java.lang.Math.hypot;
 
 class GestionDistance {
@@ -65,7 +67,7 @@ class GestionDistance {
      * @return {@code int} Écart sur l'ordonnée x entre les deux villes. Attention
      *         le résultat peut être négatif
      */
-    private int ecartEnX(int ville1, int ville2) {
+    private double ecartEnX(int ville1, int ville2) {
         return villes.getPositionVille(ville1).getX() - villes.getPositionVille(ville2).getX();
     }
 
@@ -77,7 +79,7 @@ class GestionDistance {
      * @return {@code int} Écart sur l'ordonnée y entre les deux villes. Attention
      *         le résultat peut être négatif
      */
-    private int ecartEnY(int ville1, int ville2) {
+    private double ecartEnY(int ville1, int ville2) {
         return villes.getPositionVille(ville1).getY() - villes.getPositionVille(ville2).getY();
     }
 
