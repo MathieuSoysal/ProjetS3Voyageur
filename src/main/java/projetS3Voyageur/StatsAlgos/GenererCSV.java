@@ -10,11 +10,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
+import projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1;
 
 public class GenererCSV {
 
-    // TODO: Néttoyer la class
+    public static void main(String[] args) throws Exception {
 
+        // #region Comparer avec les résultats de plusProche
+        GenererCSV fichier = new GenererCSV();
+        fichier.genererComparaisonPlusProche(new TrackProchesV2_1());
+
+        // #region Generer un fichier CSV
+        // ModeRecherche[] listeAlgo = { new BrutForceV2(), new BrutForceV3(), new
+        // BrutForceV3_1(), new BrutForceV4(),
+        // new BackTrackV1(), new BackTrackV2(), new TrackProchesV1(), new
+        // TrackProchesV1_1(),
+        // new TrackProchesV2() };
+        // GenererCSV fichierCSV = new GenererCSV();
+        // fichierCSV.setTempsMax(30);
+        // fichierCSV.setNbIteration(150);
+        // fichierCSV.setNbVillesMax(20);
+        // fichierCSV.GenereSyncro(listeAlgo);
+
+    }
+
+    // TODO: Néttoyer la class, Il ne respecte pas le principe Ouvert fermer
+    // TODO: Cette classe doit-elle juste avec
     private byte nbVillesMax = 12;
     private int nbIteration = 100;
     private long tempsMax = 180;
@@ -28,12 +49,13 @@ public class GenererCSV {
     private ArrayList<String[]> tableauMargeErreur = new ArrayList<>();
 
     /**
-     * Cette méthode permet de générer un fichier CSV possèdant les statistique de
-     * temps d'exécution des différents ModeRecherche donnés en paramètre. Sa
-     * spécificité réside dans le fait que pour chaque itération elle donne le même
-     * pays/graphique en paramètre aux différents algorithmes, ainsi la comparaison
-     * entre les différents algos est moins affectée par le facteur aléatoire d'un
-     * pays/graphique.
+     * Cette méthode permet de générer un fichier CSV possèdant les statistiques de
+     * temps d'exécution des différents ModeRecherche donnés en paramètre.
+     * 
+     * Sa spécificité réside dans le fait que pour chaque itération elle donne le
+     * même pays/graphique en paramètre aux différents algorithmes, ainsi la
+     * comparaison entre les différents algos est moins affectée par le facteur
+     * aléatoire d'un pays/graphique.
      * 
      * 
      * @param nbVillesMax Nombre de villes où les algos doivent s'arrêter
