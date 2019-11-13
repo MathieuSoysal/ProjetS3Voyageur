@@ -60,6 +60,36 @@ public class GenererCSV {
 
     }
 
+    /**
+     * Cette méthode permet de générer un fichier CSV possédant les statistiques
+     * comparatifs entre la distance la plus courte obtenue avec l'algo donné en
+     * paramètre et l'algorithme plusProche v.3.
+     * 
+     * Sa spécificité réside dans le fait que pour chaque itération elle donne le
+     * même pays/graphique en paramètre aux différents algorithmes, ainsi la
+     * comparaison entre les différents algos est moins affectée par le facteur
+     * aléatoire d'un pays/graphique.
+     * 
+     * @param algo @{@code ModeRecherche} Algorithme de recherche qui doit être
+     *             comparé
+     */
+    public void genererComparaisonPlusProche(ModeRecherche algo) {
+        ComparePlusProche cpp = new ComparePlusProche();
+        cpp.comparer(algo);
+
+        ArrayList<String[]> tableau = new ArrayList<>();
+
+        String[] tuple = { "Plus Proche Voisin", algo.getNom() };
+        tableau.add(tuple);
+        for (int i = 4; i < 16; i++) {
+            String[] tupleStats = { String.valueOf(cpp.getDistancesPlusProche()[i - 4]).replace('.', ','),
+                    String.valueOf(cpp.getDistancesAlgo()[i - 4]).replace('.', ',') };
+            tableau.add(tupleStats);
+        }
+
+        writeCSV(tableau, ";", new File(repertoire, "comparaisonPlusProche" + nomFichier));
+    }
+
     // #region Outils
 
     /**
