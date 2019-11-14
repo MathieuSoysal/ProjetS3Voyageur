@@ -7,9 +7,11 @@ import static projetS3Voyageur.OutilsPourTest.parcoursVilles;
 import org.junit.Test;
 
 import projetS3Voyageur.CompositionPays.Pays;
-import projetS3Voyageur.CompositionPays.Position;
 import projetS3Voyageur.ModesDeRecherches.BrutForceV2;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
+
+import java.awt.Point;
+
 
 public class TestBrutForceV2 {
     private final ModeRecherche brutForceV2 = new BrutForceV2();
@@ -36,10 +38,10 @@ public class TestBrutForceV2 {
 
         int positionX = (int) (Math.random() * 50);
 
-        pays.setPositionVille(0, new Position(positionX, 2));
-        pays.setPositionVille(1, new Position(positionX, 3));
-        pays.setPositionVille(2, new Position(positionX, 4));
-        pays.setPositionVille(3, new Position(positionX, 5));
+        pays.setPositionVille(0, new Point(positionX, 2));
+        pays.setPositionVille(1, new Point(positionX, 3));
+        pays.setPositionVille(2, new Point(positionX, 4));
+        pays.setPositionVille(3, new Point(positionX, 5));
 
         brutForceV2.recherche(pays, 0);
 
@@ -56,11 +58,11 @@ public class TestBrutForceV2 {
 
         int positionX = (int) (Math.random() * 50);
 
-        pays.setPositionVille(0, new Position(positionX, 2));
-        pays.setPositionVille(1, new Position(positionX, 3));
-        pays.setPositionVille(2, new Position(positionX, 4));
-        pays.setPositionVille(3, new Position(positionX, 5));
-        pays.setPositionVille(4, new Position(positionX, 6));
+        pays.setPositionVille(0, new Point(positionX, 2));
+        pays.setPositionVille(1, new Point(positionX, 3));
+        pays.setPositionVille(2, new Point(positionX, 4));
+        pays.setPositionVille(3, new Point(positionX, 5));
+        pays.setPositionVille(4, new Point(positionX, 6));
 
         brutForceV2.recherche(pays, 0);
 
@@ -77,12 +79,12 @@ public class TestBrutForceV2 {
 
         int positionX = (int) (Math.random() * 50);
 
-        pays.setPositionVille(0, new Position(positionX, 2));
-        pays.setPositionVille(1, new Position(positionX, 3));
-        pays.setPositionVille(2, new Position(positionX, 4));
-        pays.setPositionVille(3, new Position(positionX, 5));
-        pays.setPositionVille(4, new Position(positionX, 6));
-        pays.setPositionVille(5, new Position(positionX, 7));
+        pays.setPositionVille(0, new Point(positionX, 2));
+        pays.setPositionVille(1, new Point(positionX, 3));
+        pays.setPositionVille(2, new Point(positionX, 4));
+        pays.setPositionVille(3, new Point(positionX, 5));
+        pays.setPositionVille(4, new Point(positionX, 6));
+        pays.setPositionVille(5, new Point(positionX, 7));
 
         brutForceV2.recherche(pays, 0);
 
@@ -98,12 +100,12 @@ public class TestBrutForceV2 {
 
         int positionX = (int) (Math.random() * 50);
 
-        pays.setPositionVille(0, new Position(positionX, 2));
-        pays.setPositionVille(1, new Position(positionX, 3));
-        pays.setPositionVille(2, new Position(positionX, 4));
-        pays.setPositionVille(3, new Position(positionX, 5));
-        pays.setPositionVille(4, new Position(positionX, 6));
-        pays.setPositionVille(5, new Position(positionX, 7));
+        pays.setPositionVille(0, new Point(positionX, 2));
+        pays.setPositionVille(1, new Point(positionX, 3));
+        pays.setPositionVille(2, new Point(positionX, 4));
+        pays.setPositionVille(3, new Point(positionX, 5));
+        pays.setPositionVille(4, new Point(positionX, 6));
+        pays.setPositionVille(5, new Point(positionX, 7));
 
         brutForceV2.recherche(pays, 0);
 
@@ -119,23 +121,23 @@ public class TestBrutForceV2 {
 
         int positionX = (int) (Math.random() * 50);
 
-        pays.setPositionVille(0, new Position(positionX, 2));
-        pays.setPositionVille(1, new Position(positionX, 3));
-        pays.setPositionVille(2, new Position(positionX, 4));
-        pays.setPositionVille(3, new Position(positionX, 5));
-        pays.setPositionVille(4, new Position(positionX, 6));
-        pays.setPositionVille(5, new Position(positionX, 7));
+        pays.setPositionVille(0, new Point(positionX, 2));
+        pays.setPositionVille(1, new Point(positionX, 3));
+        pays.setPositionVille(2, new Point(positionX, 4));
+        pays.setPositionVille(3, new Point(positionX, 5));
+        pays.setPositionVille(4, new Point(positionX, 6));
+        pays.setPositionVille(5, new Point(positionX, 7));
 
         brutForceV2.recherche(pays, 0);
 
         double distanceMinimum = brutForceV2.getParcours().getDistance();
 
-        pays.setPositionVille(0, new Position(positionX, 2));
-        pays.setPositionVille(4, new Position(positionX, 3));
-        pays.setPositionVille(5, new Position(positionX, 4));
-        pays.setPositionVille(3, new Position(positionX, 5));
-        pays.setPositionVille(1, new Position(positionX, 6));
-        pays.setPositionVille(2, new Position(positionX, 7));
+        pays.setPositionVille(0, new Point(positionX, 2));
+        pays.setPositionVille(4, new Point(positionX, 3));
+        pays.setPositionVille(5, new Point(positionX, 4));
+        pays.setPositionVille(3, new Point(positionX, 5));
+        pays.setPositionVille(1, new Point(positionX, 6));
+        pays.setPositionVille(2, new Point(positionX, 7));
 
         brutForceV2.recherche(pays, 0);
 
@@ -155,12 +157,12 @@ public class TestBrutForceV2 {
 
             int[] t = genereTableauDeIntRandom(6);
 
-            pays.setPositionVille(1, new Position(positionX, t[1]));
-            pays.setPositionVille(2, new Position(positionX, t[2]));
-            pays.setPositionVille(3, new Position(positionX, t[3]));
-            pays.setPositionVille(0, new Position(positionX, t[0]));
-            pays.setPositionVille(4, new Position(positionX, t[4]));
-            pays.setPositionVille(5, new Position(positionX, t[5]));
+            pays.setPositionVille(1, new Point(positionX, t[1]));
+            pays.setPositionVille(2, new Point(positionX, t[2]));
+            pays.setPositionVille(3, new Point(positionX, t[3]));
+            pays.setPositionVille(0, new Point(positionX, t[0]));
+            pays.setPositionVille(4, new Point(positionX, t[4]));
+            pays.setPositionVille(5, new Point(positionX, t[5]));
 
             brutForceV2.recherche(pays, 0);
 
@@ -182,10 +184,10 @@ public class TestBrutForceV2 {
 
         int positionY = (int) (Math.random() * 50);
 
-        pays.setPositionVille(0, new Position(2, positionY));
-        pays.setPositionVille(1, new Position(3, positionY));
-        pays.setPositionVille(2, new Position(4, positionY));
-        pays.setPositionVille(3, new Position(5, positionY));
+        pays.setPositionVille(0, new Point(2, positionY));
+        pays.setPositionVille(1, new Point(3, positionY));
+        pays.setPositionVille(2, new Point(4, positionY));
+        pays.setPositionVille(3, new Point(5, positionY));
 
         brutForceV2.recherche(pays, 0);
 
@@ -201,11 +203,11 @@ public class TestBrutForceV2 {
 
         int positionY = (int) (Math.random() * 50);
 
-        pays.setPositionVille(0, new Position(2, positionY));
-        pays.setPositionVille(1, new Position(3, positionY));
-        pays.setPositionVille(2, new Position(4, positionY));
-        pays.setPositionVille(3, new Position(5, positionY));
-        pays.setPositionVille(4, new Position(6, positionY));
+        pays.setPositionVille(0, new Point(2, positionY));
+        pays.setPositionVille(1, new Point(3, positionY));
+        pays.setPositionVille(2, new Point(4, positionY));
+        pays.setPositionVille(3, new Point(5, positionY));
+        pays.setPositionVille(4, new Point(6, positionY));
 
         brutForceV2.recherche(pays, 0);
 
@@ -221,12 +223,12 @@ public class TestBrutForceV2 {
 
         int positionY = (int) (Math.random() * 50);
 
-        pays.setPositionVille(0, new Position(2, positionY));
-        pays.setPositionVille(1, new Position(3, positionY));
-        pays.setPositionVille(2, new Position(4, positionY));
-        pays.setPositionVille(3, new Position(5, positionY));
-        pays.setPositionVille(4, new Position(6, positionY));
-        pays.setPositionVille(5, new Position(7, positionY));
+        pays.setPositionVille(0, new Point(2, positionY));
+        pays.setPositionVille(1, new Point(3, positionY));
+        pays.setPositionVille(2, new Point(4, positionY));
+        pays.setPositionVille(3, new Point(5, positionY));
+        pays.setPositionVille(4, new Point(6, positionY));
+        pays.setPositionVille(5, new Point(7, positionY));
 
         brutForceV2.recherche(pays, 0);
 
@@ -242,23 +244,23 @@ public class TestBrutForceV2 {
 
         int positionY = (int) (Math.random() * 50);
 
-        pays.setPositionVille(0, new Position(2, positionY));
-        pays.setPositionVille(1, new Position(3, positionY));
-        pays.setPositionVille(2, new Position(4, positionY));
-        pays.setPositionVille(3, new Position(5, positionY));
-        pays.setPositionVille(4, new Position(6, positionY));
-        pays.setPositionVille(5, new Position(7, positionY));
+        pays.setPositionVille(0, new Point(2, positionY));
+        pays.setPositionVille(1, new Point(3, positionY));
+        pays.setPositionVille(2, new Point(4, positionY));
+        pays.setPositionVille(3, new Point(5, positionY));
+        pays.setPositionVille(4, new Point(6, positionY));
+        pays.setPositionVille(5, new Point(7, positionY));
 
         brutForceV2.recherche(pays, 0);
 
         double distanceMinimum = brutForceV2.getParcours().getDistance();
 
-        pays.setPositionVille(0, new Position(2, positionY));
-        pays.setPositionVille(4, new Position(3, positionY));
-        pays.setPositionVille(5, new Position(4, positionY));
-        pays.setPositionVille(3, new Position(5, positionY));
-        pays.setPositionVille(1, new Position(6, positionY));
-        pays.setPositionVille(2, new Position(7, positionY));
+        pays.setPositionVille(0, new Point(2, positionY));
+        pays.setPositionVille(4, new Point(3, positionY));
+        pays.setPositionVille(5, new Point(4, positionY));
+        pays.setPositionVille(3, new Point(5, positionY));
+        pays.setPositionVille(1, new Point(6, positionY));
+        pays.setPositionVille(2, new Point(7, positionY));
 
         brutForceV2.recherche(pays, 0);
 
@@ -278,12 +280,12 @@ public class TestBrutForceV2 {
 
             int[] t = genereTableauDeIntRandom(6);
 
-            pays.setPositionVille(0, new Position(t[0], positionY));
-            pays.setPositionVille(1, new Position(t[1], positionY));
-            pays.setPositionVille(2, new Position(t[2], positionY));
-            pays.setPositionVille(3, new Position(t[3], positionY));
-            pays.setPositionVille(4, new Position(t[4], positionY));
-            pays.setPositionVille(5, new Position(t[5], positionY));
+            pays.setPositionVille(0, new Point(t[0], positionY));
+            pays.setPositionVille(1, new Point(t[1], positionY));
+            pays.setPositionVille(2, new Point(t[2], positionY));
+            pays.setPositionVille(3, new Point(t[3], positionY));
+            pays.setPositionVille(4, new Point(t[4], positionY));
+            pays.setPositionVille(5, new Point(t[5], positionY));
 
             brutForceV2.recherche(pays, 0);
 

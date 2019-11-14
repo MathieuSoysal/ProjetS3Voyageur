@@ -1,0 +1,15 @@
+
+Interface-Graphique-Java:
+  - src/main/java/projetS3Voyageur/Interface/*
+
+Back-end:
+  - src/main/*
+
+test:
+  - src/test/*
+  
+Algorithme-de-recherche:
+  - src/main/java/projetS3Voyageur/ModesDeRecherches/*
+  
+Statistique:
+  - Statistiques/*

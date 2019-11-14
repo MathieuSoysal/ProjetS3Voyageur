@@ -1,11 +1,20 @@
 package projetS3Voyageur.CompositionPays;
 
+import java.awt.Point;
+import java.util.List;
+
 public final class Pays {
     private Villes v;
     private GestionDistance d;
 
     public Pays(int nombreDeVilles) {
         v = new Villes(nombreDeVilles);
+        d = new GestionDistance(v);
+
+    }
+
+    public Pays(List<Point> points) {
+        v = new Villes(points);
         d = new GestionDistance(v);
 
     }
@@ -20,12 +29,12 @@ public final class Pays {
      * @param Ville       Numéro de la ville dont la position vas être modifier
      * @param newPosVille Nouvelle position
      */
-    public void setPositionVille(int ville, Position posVille) {
+    public void setPositionVille(int ville, Point posVille) {
         v.setPositionVille(ville, posVille);
         d.actualiseNumVille(ville);
     }
 
-    public Position getPositionVille(int ville) {
+    public Point getPositionVille(int ville) {
         return v.getPositionVille(ville);
     }
 

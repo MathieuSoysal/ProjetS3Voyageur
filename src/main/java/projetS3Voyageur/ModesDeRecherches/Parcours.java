@@ -13,7 +13,7 @@ public class Parcours {
         return distanceParcourue;
     }
 
-    String getVillesEmprunté() {
+    public String getVillesEmprunté() {
         return villesEmprunté;
     }
 
