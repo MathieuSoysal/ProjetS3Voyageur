@@ -14,12 +14,12 @@ public class InteractionBD {
      * https://fr.osdn.net/projects/sfnet_id2d/downloads/jdbc%20drivers/mysql-connector-java-5.1.15-bin.jar/
      */
 
-    public static void main(String[] args) {/*ddd*/
+    public static void main(String[] args) {
 
         String idCarte = "89";
         String nbVille = "7";
 
-        InteractionBD.connection();
+        InteractionBD.connexion();
       /*  InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");*/
         List<String> recup = InteractionBD.recuperationBD("SELECT * FROM Carte");
        /* System.out.println(recup);*/
@@ -41,7 +41,7 @@ public class InteractionBD {
         return liste.get(idC);
     }
 
-    public static Connection connection() {
+    public static Connection connexion() {
 
         // chargement du pilote JDBC MySql (ajouter dans les dépendance avec le lien en haut MATHIEU).
 
@@ -55,7 +55,7 @@ public class InteractionBD {
 
         }
 
-        // connection a la base de données
+        // connexion a la base de données
 
         System.out.println("Connexion à la base de données");
 
@@ -66,7 +66,7 @@ public class InteractionBD {
 
         } catch (SQLException e) {
 
-            System.err.println("Connection à la base de données impossible");
+            System.err.println("Connexion à la base de données impossible");
             e.printStackTrace();
 
         }
