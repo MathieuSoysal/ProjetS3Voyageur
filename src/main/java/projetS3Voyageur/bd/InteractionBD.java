@@ -41,34 +41,33 @@ public class InteractionBD {
         return liste.get(indexColonne);
     }
 
-    public static Connection connexion() {
+    /**
+     * Cette méthode permet de connecter la Class à la base de données, elle doit
+     * être effectuée avant toute opération avec celle-ci.
+     * 
+     * @return {@code Boolean} Retourne vrai si la connexion à réussi sinon faux.
+     */
+    public static Boolean connexion() {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
+
+            con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn",
+                    "XavierCorbier");
+            
+            return true;
+
+        } catch (SQLException e) {
+
+            problemeConnexion(e);
+            return false;
 
         } catch (ClassNotFoundException e) {
 
             System.err.println("Le pilote JDBC n'est pas installé \n");
             e.printStackTrace();
-
+            return false;
         }
-
-        // connexion a la base de données
-
-        System.out.println("Connexion à la base de données");
-
-        try {
-
-            InteractionBD.con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn",
-                    "zaidn", "XavierCorbier");
-
-        } catch (SQLException e) {
-
-            problemeConnexion(e);
-
-        }
-
-        return InteractionBD.con;
 
     }
 
