@@ -19,9 +19,12 @@ public class InteractionBD {
         String nbVille = "7";
 
         InteractionBD.connexion();
-      /*  InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");*/
-        List<String> recup = InteractionBD.recuperationBD("SELECT * FROM Carte");
-       /* System.out.println(recup);*/
+        /*
+         * InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" +
+         * nbVille + "')");
+         */
+        List<String[]> recup = InteractionBD.recuperationBD("SELECT * FROM Carte");
+        /* System.out.println(recup); */
 
         /*int i = 0;
 
@@ -33,14 +36,12 @@ public class InteractionBD {
 
     }
 
-    public static String getNbVille(List<String> liste, int indexColonne) {
+    public static String[] getNbVille(List<String[]> liste, int indexColonne) {
 
         return liste.get(indexColonne);
     }
 
     public static Connection connexion() {
-
-        // chargement du pilote JDBC MySql (ajouter dans les dépendance avec le lien en haut MATHIEU).
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -76,18 +77,18 @@ public class InteractionBD {
      * préalablement choisie .
      * 
      * 
-     * @près-requis Exécuter la méthode connexion.
+     * @près-requis Exécuter en amont la méthode connexion().
      * @param requete {@code String} Requête SQL
      * @return {@code Boolean} vrai si la requête à aboutie sinon faux.
      */
     public static Boolean setRequete(String requete) {
 
-        // insertion d'un enregistrement dans la table client
+        // TODO: à voir si on implémente la connection directement ici
 
         try {
-            Statement stmt = con.createStatement();
-            stmt.execute(requete);
+            con.createStatement().execute(requete);
             return true;
+
         } catch (SQLTimeoutException e) {
             delaiDepasse(e);
             return false;
@@ -97,32 +98,38 @@ public class InteractionBD {
         }
     }
 
-    public static List<String> recuperationBD(String requete) {
-
-        List<String> attributs = new ArrayList<>();
-
-        // creation et execution de la requete
-
-        System.out.println("Création et éxecution de la requête SELECT *");
+    /**
+     * Renvoie un {@code List<String[]>} possédant le(s) résultat(s) de la requête
+     * SQl donnée en paramètre.
+     * 
+     * @près-requis Exécuter en amont la méthode connexion()
+     * 
+     * @param requete {@code String} Requête SQL dont le(s) résultat(s) doivent être
+     *                récupérés
+     * 
+     * @return {@code List<String[]>} Résultat de la requête SQL
+     */
+    public static List<String[]> recuperationBD(String requete) {
 
         try {
-            Statement stmt = con.createStatement();
-            ResultSet resultats = stmt.executeQuery(requete);
+            List<String[]> resultatMethode = new ArrayList<>();
+            ResultSet resultatsRequete = con.createStatement().executeQuery(requete);
 
-            // parcours des données retournées
+            final int nbCol = resultatsRequete.getMetaData().getColumnCount();
 
-            System.out.println("Données récuperé :");
-
-            ResultSetMetaData rsmd = resultats.getMetaData();
-            int nbCol = rsmd.getColumnCount();
-            boolean suite = resultats.next();
-
-            while (suite) {
+            String[] tuple = new String[nbCol];
+            while (resultatsRequete.next()) {
 
                 for (int i = 1; i <= nbCol; i++) {
+                    tuple[i - 1] = resultatsRequete.getString(i);
+                }
+                resultatMethode.add(tuple);
+            }
 
-            attributs.add(resultats.getString(i));
-        }
+            resultatsRequete.close();
+
+            return resultatMethode;
+
         } catch (SQLTimeoutException e) {
             delaiDepasse(e);
             return null;
@@ -131,13 +138,13 @@ public class InteractionBD {
             return null;
         }
 
-                suite = resultats.next();
-            }
+    }
 
     // #region Gestion des exceptions
 
     private static void delaiDepasse(SQLTimeoutException e) {
-        System.err.println("Connexion à la base de donnée réussie, mais le délai de réponse impartie a été dépassé. \n");
+        System.err
+                .println("Connexion à la base de donnée réussie, mais le délai de réponse impartie a été dépassé. \n");
         e.printStackTrace();
     }
 
