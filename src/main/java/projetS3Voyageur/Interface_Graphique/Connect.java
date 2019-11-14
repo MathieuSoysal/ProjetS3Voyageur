@@ -1,11 +1,12 @@
 package projetS3Voyageur.Interface_Graphique;
 
+/*package projetS3Voyageur.Interface_Graphique;*/
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/*public class Connect {
+public class Connect {
 
     private Connection con ;
 
@@ -13,7 +14,7 @@ import java.sql.SQLException;
         this.con = null;
     }
 
-    public static Connection connection(){
+    public Connection connection(){
 
 
 
@@ -37,8 +38,7 @@ import java.sql.SQLException;
             /*String DBurl = "jdbc:mysql:zaidn";
             con = DriverManager.getConnection(DBurl);*/
 
-
- /*           this.con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn", "XavierCorbier");
+            this.con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn", "XavierCorbier");
 
         } catch (SQLException e) {
 
@@ -60,4 +60,4 @@ import java.sql.SQLException;
         return boo;
     }
 
-}*/
+}

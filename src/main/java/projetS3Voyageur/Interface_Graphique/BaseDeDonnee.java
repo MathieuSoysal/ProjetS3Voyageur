@@ -3,13 +3,18 @@ package projetS3Voyageur.Interface_Graphique;
 import java.sql.*;
 
 public class BaseDeDonnee {
-    private boolean boo = false;
+
+    private static Connection con = null;
+    private static ResultSet résultats = null;
+    private static String requete = "";
 
     /* pilote jdbc https://fr.osdn.net/projects/sfnet_id2d/downloads/jdbc%20drivers/mysql-connector-java-5.1.15-bin.jar/ */
 
-    public static Connection connection(){
 
-        Connection con = null;
+
+    public static Connection connection() {
+
+
 
 
         // chargement du pilote
@@ -19,7 +24,7 @@ public class BaseDeDonnee {
 
         } catch (ClassNotFoundException e) {
 
-            System.err.println("Impossible de charger le pilote jdbc:odbc\n");
+            System.err.println("le pilote JDBC n'est pas installé \n");
         }
 
         //connection a la base de données
@@ -32,7 +37,7 @@ public class BaseDeDonnee {
             /*String DBurl = "jdbc:mysql:zaidn";
             con = DriverManager.getConnection(DBurl);*/
 
-            con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn", "XavierCorbier");
+            BaseDeDonnee.con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn", "XavierCorbier");
 
         } catch (SQLException e) {
 
@@ -40,61 +45,41 @@ public class BaseDeDonnee {
 
         }
 
-        return con;
+        return BaseDeDonnee.con;
 
     }
-    public static boolean testConnection(Connection c){
-        boolean boo = false;
-        if(c != null){
-            boo = false;
-        }
-        else{
-            boo = true;
-        }
-        return boo;
-    }
 
-
-    public static void main(java.lang.String[] args) {
-
-        Connection con = null;
-        ResultSet résultats = null;
-        String requete = "";
-        if(connection() != null){
-
-        }
-
-
-        con = connection();
-
-
+    public static String setRequete(String r) {
 
         //insertion d'un enregistrement dans la table client
         System.out.println("creation enregistrement");
 
-        requete = "INSERT INTO TEST VALUES (10,'Soysal','Mathieu')";
 
         try {
 
             Statement stmt = con.createStatement();
-            int nbMaj = stmt.executeUpdate(requete);
-            System.out.println("nombre de mise à jour = "+ nbMaj);
+            int nbMaj = stmt.executeUpdate(r);
+            System.out.println("Nombre de mise à jour = " + nbMaj + "\n");
 
         } catch (SQLException e) {
 
             e.printStackTrace();
         }
+        return r;
+    }
 
+    public static void affichageBD(String re){
 
         //creation et execution de la requete
-        System.out.println("creation et execution de la requête");
-        requete = "SELECT * FROM TEST";
+
+        System.out.println("Creation et execution de la requête");
+
 
         try {
             Statement stmt = con.createStatement();
-            résultats = stmt.executeQuery(requete);
+            résultats = stmt.executeQuery(re);
 
-        } catch (SQLException e) {
+        } catch(SQLException e) {
 
             System.err.println("Problème durant l'éxecution");
         }
@@ -122,9 +107,11 @@ public class BaseDeDonnee {
 
             System.err.println(e.getMessage());
         }
-
         System.out.println("Fin");
         System.exit(0);
+
     }
+
+
 }
 

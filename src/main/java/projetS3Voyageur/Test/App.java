@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 public class App {
     private JButton backTrackV2Button;
     private JPanel Courbes;
+    private JSpinner spinner1;
 
     public App() {
         backTrackV2Button.addActionListener(new ActionListener() {

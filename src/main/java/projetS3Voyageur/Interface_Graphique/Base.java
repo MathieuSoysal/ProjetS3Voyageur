@@ -16,7 +16,7 @@ Connection con = null;
     public static void main(java.lang.String[] args) {
 
        Connection con = null;
-        ResultSet résultats = null;
+        ResultSet resultats = null;
         String requete = "";
 
         // chargement du pilote
@@ -34,26 +34,26 @@ Connection con = null;
 
         try {
 
-            String DBurl = "jdbc:mysql:zaidn";
-            con = DriverManager.getConnection(DBurl);
+            /*String DBurl = "jdbc:mysql:zaidn";
+            con = DriverManager.getConnection(DBurl);*/
 
            con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn", "XavierCorbier");
 
-       } catch (SQLException e) {
+        } catch (SQLException e) {
 
            System.err.println("Connection à la base de données impossible");;
-       }
+        }
 
         //insertion d'un enregistrement dans la table client
-        System.out.println("creation enregistrement");
+        System.out.println("creation d'une requête");
 
-        requete = "INSERT INTO TEST VALUES (4,'Corbier','Albert')";
+        requete = "INSERT INTO TEST VALUES (34,'François','Paure')";
 
         try {
 
             Statement stmt = con.createStatement();
             int nbMaj = stmt.executeUpdate(requete);
-            System.out.println("nombre de mise à jour = "+ nbMaj);
+            System.out.println("Nombre de mise à jour (UPDATE, DELETE ou INSERT) = "+ nbMaj);
 
         } catch (SQLException e) {
 
@@ -61,43 +61,44 @@ Connection con = null;
         }
 
         //creation et execution de la requete
-        System.out.println("creation et execution de la requête");
+        System.out.println("Création et éxecution de la requête" + "\n");
         requete = "SELECT * FROM TEST";
 
         try {
             Statement stmt = con.createStatement();
-            résultats = stmt.executeQuery(requete);
+            resultats = stmt.executeQuery(requete);
 
         } catch (SQLException e) {
 
-            System.err.println("Problème durant l'éxecution");
+            System.err.println("Problème(s) durant l'éxecution");
         }
+
 
         //parcours des données retournées
 
-        System.out.println("parcours des données retournées");
+        System.out.println("Données contenu dans la Table : " + "\n");
 
         try {
 
-            ResultSetMetaData rsmd = résultats.getMetaData();
+            ResultSetMetaData rsmd = resultats.getMetaData();
             int nbCol = rsmd.getColumnCount();
-            boolean suite = résultats.next();
+            boolean suite = resultats.next();
 
             while (suite) {
 
                 for (int i = 1; i <= nbCol; i++)
-                    System.out.print(résultats.getString(i) + " ");
+                    System.out.print(" | " + resultats.getString(i) );
                 System.out.println();
-                suite = résultats.next();
+                suite = resultats.next();
             }
 
-            résultats.close();
+            resultats.close();
         } catch (SQLException e) {
 
             System.err.println(e.getMessage());
         }
 
-        System.out.println("Fin");
+        System.out.println("\n" + "Fin");
         System.exit(0);
     }
 }
