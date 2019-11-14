@@ -32,6 +32,8 @@ public class InteractionBD {
         } catch (ClassNotFoundException e) {
 
             System.err.println("le pilote JDBC n'est pas installé \n");
+            e.printStackTrace();
+
         }
 
         // connection a la base de données
@@ -50,6 +52,7 @@ public class InteractionBD {
         } catch (SQLException e) {
 
             System.err.println("Connection à la base de données impossible");
+            e.printStackTrace();
 
         }
 
@@ -63,13 +66,12 @@ public class InteractionBD {
         System.out.println("creation enregistrement");
 
         try {
-
             Statement stmt = con.createStatement();
             int nbMaj = stmt.executeUpdate(r);
             System.out.println("Nombre de mise à jour = " + nbMaj + "\n");
 
         } catch (SQLException e) {
-
+            System.err.println("Erreur lors de l'interaction avec la base de données");
             e.printStackTrace();
         }
         return r;
@@ -110,7 +112,7 @@ public class InteractionBD {
 
             résultats.close();
         } catch (SQLException e) {
-
+            System.err.println("Erreur lors des récupération de données de la base de données");
             System.err.println(e.getMessage());
         }
         System.out.println("Fin");
