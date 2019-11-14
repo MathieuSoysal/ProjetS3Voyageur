@@ -1,21 +1,28 @@
-package projetS3Voyageur.Interface_Graphique;
+package projetS3Voyageur.bd;
 
 import java.sql.*;
 
-public class BaseDeDonnee {
+public class InteractionBD {
 
     private static Connection con = null;
     private static ResultSet résultats = null;
-    private static String requete = "";
 
-    /* pilote jdbc https://fr.osdn.net/projects/sfnet_id2d/downloads/jdbc%20drivers/mysql-connector-java-5.1.15-bin.jar/ */
+    /*
+     * pilote jdbc
+     * https://fr.osdn.net/projects/sfnet_id2d/downloads/jdbc%20drivers/mysql-connector-java-5.1.15-bin.jar/
+     */
 
+    public static void main(String[] args) {
 
+        String idCarte = "1";
+        String nbVille = "3";
+
+        InteractionBD.connection();
+        InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");
+        InteractionBD.affichageBD("SELECT * FROM Carte");
+    }
 
     public static Connection connection() {
-
-
-
 
         // chargement du pilote
 
@@ -27,17 +34,18 @@ public class BaseDeDonnee {
             System.err.println("le pilote JDBC n'est pas installé \n");
         }
 
-        //connection a la base de données
+        // connection a la base de données
 
         System.out.println("connexion à la base de données");
 
-
         try {
 
-            /*String DBurl = "jdbc:mysql:zaidn";
-            con = DriverManager.getConnection(DBurl);*/
+            /*
+             * String DBurl = "jdbc:mysql:zaidn"; con = DriverManager.getConnection(DBurl);
+             */
 
-            BaseDeDonnee.con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn", "XavierCorbier");
+            InteractionBD.con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn",
+                    "zaidn", "XavierCorbier");
 
         } catch (SQLException e) {
 
@@ -45,15 +53,14 @@ public class BaseDeDonnee {
 
         }
 
-        return BaseDeDonnee.con;
+        return InteractionBD.con;
 
-    }/*dd*/
+    }
 
     public static String setRequete(String r) {
 
-        //insertion d'un enregistrement dans la table client
+        // insertion d'un enregistrement dans la table client
         System.out.println("creation enregistrement");
-
 
         try {
 
@@ -68,23 +75,22 @@ public class BaseDeDonnee {
         return r;
     }
 
-    public static void affichageBD(String re){
+    public static void affichageBD(String re) {
 
-        //creation et execution de la requete
+        // creation et execution de la requete
 
         System.out.println("Creation et execution de la requête");
-
 
         try {
             Statement stmt = con.createStatement();
             résultats = stmt.executeQuery(re);
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
 
             System.err.println("Problème durant l'éxecution");
         }
 
-        //parcours des données retournées
+        // parcours des données retournées
 
         System.out.println("parcours des données retournées");
 
@@ -112,6 +118,4 @@ public class BaseDeDonnee {
 
     }
 
-
 }
-
