@@ -5,8 +5,8 @@ public class Application {
 
     public static void main(String[] args) {
 
-        String idCarte = "3";
-        String nbVille= "1";
+        String idCarte = "1";
+        String nbVille= "3";
 
         BaseDeDonnee.connection();
         BaseDeDonnee.setRequete("INSERT INTO Carte VALUES ('"+idCarte+"','"+nbVille+"')");
