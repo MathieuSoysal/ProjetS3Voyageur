@@ -7,7 +7,6 @@ import java.util.List;
 public class InteractionBD {
 
     private static Connection con = null;
-    private static ResultSet resultats = null;
 
     /*
      * pilote jdbc
@@ -32,11 +31,9 @@ public class InteractionBD {
         }*/
         System.out.println(InteractionBD.getNbVille(recup, 2));
 
-
     }
 
-    public static String getNbVille(List<String> liste, int idC){
-
+    public static String getNbVille(List<String> liste, int idC) {
 
         return liste.get(idC);
     }
@@ -75,25 +72,36 @@ public class InteractionBD {
 
     }
 
-    public static String setRequete(String r) {
+    /**
+     * Exécute la requête SQL donnée en paramètre dans la base de données
+     * préalablement choisie .
+     * 
+     * 
+     * @près-requis Exécuter la méthode connexion.
+     * @param requete {@code String} Requête SQL
+     * @return {@code Boolean} vrai si la requête à aboutie sinon faux.
+     */
+    public static Boolean setRequete(String requete) {
 
         // insertion d'un enregistrement dans la table client
-        System.out.println("Création de la requête");
 
         try {
             Statement stmt = con.createStatement();
-            int nbMaj = stmt.executeUpdate(r);
-            System.out.println("Nombre de mise à jour = " + nbMaj + "\n");
-
-        } catch (SQLException e) {
-            System.err.println("Erreur(s) lors de l'interaction avec la base de données");
+            stmt.execute(requete);
+            return true;
+        } catch (SQLTimeoutException e) {
+            System.err.println(
+                    "Connexion à la base de donnée réussie, mais le délai de réponse impartie a été dépassé. ");
             e.printStackTrace();
+            return false;
+        } catch (SQLException e) {
+            System.err.println("Impossible de se connecter à la base de données");
+            e.printStackTrace();
+            return false;
         }
-        return r;
     }
 
-    public static List<String> recuperationBD(String re) {
-
+    public static List<String> recuperationBD(String requete) {
 
         List<String> attributs = new ArrayList<>();
 
@@ -103,18 +111,11 @@ public class InteractionBD {
 
         try {
             Statement stmt = con.createStatement();
-            resultats = stmt.executeQuery(re);
+            ResultSet resultats = stmt.executeQuery(requete);
 
-        } catch (SQLException e) {
+            // parcours des données retournées
 
-            System.err.println("Problème durant l'éxecution");
-        }
-
-        // parcours des données retournées
-
-        System.out.println("Données récuperé :");
-
-        try {
+            System.out.println("Données récuperé :");
 
             ResultSetMetaData rsmd = resultats.getMetaData();
             int nbCol = rsmd.getColumnCount();
@@ -122,7 +123,7 @@ public class InteractionBD {
 
             while (suite) {
 
-                for (int i = 1; i <= nbCol; i++){
+                for (int i = 1; i <= nbCol; i++) {
 
                     attributs.add(resultats.getString(i));
                 }
@@ -133,7 +134,7 @@ public class InteractionBD {
             resultats.close();
         } catch (SQLException e) {
             System.err.println("Erreur lors des récupération de données de la base de données");
-            System.err.println(e.getMessage());
+
         }
         return attributs;
 
