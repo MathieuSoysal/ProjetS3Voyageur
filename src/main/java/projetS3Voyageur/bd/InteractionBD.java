@@ -33,9 +33,9 @@ public class InteractionBD {
 
     }
 
-    public static String getNbVille(List<String> liste, int idC) {
+    public static String getNbVille(List<String> liste, int indexColonne) {
 
-        return liste.get(idC);
+        return liste.get(indexColonne);
     }
 
     public static Connection connexion() {
