@@ -16,13 +16,29 @@ public class InteractionBD {
 
     public static void main(String[] args) {
 
-        String idCarte = "83";
+        String idCarte = "89";
         String nbVille = "7";
 
         InteractionBD.connection();
-        InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");
+      /*  InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");*/
         List<String> recup = InteractionBD.recuperationBD("SELECT * FROM Carte");
-        System.out.println(recup);
+       /* System.out.println(recup);*/
+
+        /*int i = 0;
+
+        for (String s: recup) {
+
+                recup.get();
+        }*/
+        System.out.println(InteractionBD.getNbVille(recup, 2));
+
+
+    }
+
+    public static String getNbVille(List<String> liste, int idC){
+
+
+        return liste.get(idC);
     }
 
     public static Connection connection() {
