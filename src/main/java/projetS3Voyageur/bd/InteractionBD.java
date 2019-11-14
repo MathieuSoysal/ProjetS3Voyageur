@@ -63,8 +63,7 @@ public class InteractionBD {
 
         } catch (SQLException e) {
 
-            System.err.println("Connexion à la base de données impossible");
-            e.printStackTrace();
+            problemeConnexion(e);
 
         }
 
@@ -90,13 +89,10 @@ public class InteractionBD {
             stmt.execute(requete);
             return true;
         } catch (SQLTimeoutException e) {
-            System.err.println(
-                    "Connexion à la base de donnée réussie, mais le délai de réponse impartie a été dépassé. ");
-            e.printStackTrace();
+            delaiDepasse(e);
             return false;
         } catch (SQLException e) {
-            System.err.println("Impossible de se connecter à la base de données");
-            e.printStackTrace();
+            problemeConnexion(e);
             return false;
         }
     }
@@ -125,19 +121,31 @@ public class InteractionBD {
 
                 for (int i = 1; i <= nbCol; i++) {
 
-                    attributs.add(resultats.getString(i));
-                }
+            attributs.add(resultats.getString(i));
+        }
+        } catch (SQLTimeoutException e) {
+            delaiDepasse(e);
+            return null;
+        } catch (SQLException e) {
+            problemeConnexion(e);
+            return null;
+        }
 
                 suite = resultats.next();
             }
 
-            resultats.close();
-        } catch (SQLException e) {
-            System.err.println("Erreur lors des récupération de données de la base de données");
+    // #region Gestion des exceptions
 
-        }
-        return attributs;
-
+    private static void delaiDepasse(SQLTimeoutException e) {
+        System.err.println("Connexion à la base de donnée réussie, mais le délai de réponse impartie a été dépassé. \n");
+        e.printStackTrace();
     }
+
+    private static void problemeConnexion(SQLException e) {
+        System.err.println("Impossible de se connecter à la base de données \n");
+        e.printStackTrace();
+    }
+
+    // #endregion Gestion des excepitons
 
 }
