@@ -14,5 +14,5 @@ Algorithme-de-recherche:
 Statistique:
   - Statistiques/*
   
-Interaction-BD:
+Interaction-Java/BD:
   - src/main/java/projetS3Voyageur/bd/*
