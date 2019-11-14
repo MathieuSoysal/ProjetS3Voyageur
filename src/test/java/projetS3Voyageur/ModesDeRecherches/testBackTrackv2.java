@@ -7,10 +7,11 @@ import static projetS3Voyageur.OutilsPourTest.parcoursVilles;
 import org.junit.Test;
 
 import projetS3Voyageur.CompositionPays.Pays;
-import projetS3Voyageur.CompositionPays.Position;
 import projetS3Voyageur.ModesDeRecherches.BackTrackV2;
 import projetS3Voyageur.ModesDeRecherches.BrutForceV2;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
+
+import java.awt.Point;
 
 public class testBackTrackv2 {
     private ModeRecherche backTrackV1v2 = new BackTrackV2();
@@ -21,10 +22,10 @@ public class testBackTrackv2 {
     @Test
     public void test_4villes_comparaisons_brutForceV2() {
         Pays pays = new Pays(4);
-        pays.setPositionVille(0, new Position(867, 923));
-        pays.setPositionVille(1, new Position(384, 183));
-        pays.setPositionVille(2, new Position(193, 957));
-        pays.setPositionVille(3, new Position(582, 183));
+        pays.setPositionVille(0, new Point(867, 923));
+        pays.setPositionVille(1, new Point(384, 183));
+        pays.setPositionVille(2, new Point(193, 957));
+        pays.setPositionVille(3, new Point(582, 183));
 
         backTrackV1v2.recherche(pays, 0);
 
@@ -36,11 +37,11 @@ public class testBackTrackv2 {
     @Test
     public void test_5villes_comparaisons_brutForceV2() {
         Pays pays = new Pays(5);
-        pays.setPositionVille(0, new Position(58, 264));
-        pays.setPositionVille(1, new Position(39, 754));
-        pays.setPositionVille(2, new Position(36, 124));
-        pays.setPositionVille(3, new Position(54, 754));
-        pays.setPositionVille(4, new Position(29, 745));
+        pays.setPositionVille(0, new Point(58, 264));
+        pays.setPositionVille(1, new Point(39, 754));
+        pays.setPositionVille(2, new Point(36, 124));
+        pays.setPositionVille(3, new Point(54, 754));
+        pays.setPositionVille(4, new Point(29, 745));
 
         backTrackV1v2.recherche(pays, 0);
 
@@ -52,12 +53,12 @@ public class testBackTrackv2 {
     @Test
     public void test_6villes_comparaisons_brutForceV2() {
         Pays pays = new Pays(6);
-        pays.setPositionVille(0, new Position(159, 536));
-        pays.setPositionVille(1, new Position(433, 559));
-        pays.setPositionVille(2, new Position(129, 560));
-        pays.setPositionVille(3, new Position(546, 151));
-        pays.setPositionVille(4, new Position(345, 855));
-        pays.setPositionVille(5, new Position(645, 452));
+        pays.setPositionVille(0, new Point(159, 536));
+        pays.setPositionVille(1, new Point(433, 559));
+        pays.setPositionVille(2, new Point(129, 560));
+        pays.setPositionVille(3, new Point(546, 151));
+        pays.setPositionVille(4, new Point(345, 855));
+        pays.setPositionVille(5, new Point(645, 452));
 
         backTrackV1v2.recherche(pays, 0);
 
@@ -69,13 +70,13 @@ public class testBackTrackv2 {
     @Test
     public void test_7villes_comparaisons_brutForceV2() {
         Pays pays = new Pays(7);
-        pays.setPositionVille(0, new Position(347, 297));
-        pays.setPositionVille(1, new Position(109, 307));
-        pays.setPositionVille(2, new Position(295, 498));
-        pays.setPositionVille(3, new Position(354, 798));
-        pays.setPositionVille(4, new Position(186, 298));
-        pays.setPositionVille(5, new Position(508, 209));
-        pays.setPositionVille(6, new Position(298, 408));
+        pays.setPositionVille(0, new Point(347, 297));
+        pays.setPositionVille(1, new Point(109, 307));
+        pays.setPositionVille(2, new Point(295, 498));
+        pays.setPositionVille(3, new Point(354, 798));
+        pays.setPositionVille(4, new Point(186, 298));
+        pays.setPositionVille(5, new Point(508, 209));
+        pays.setPositionVille(6, new Point(298, 408));
 
         backTrackV1v2.recherche(pays, 0);
 
@@ -87,14 +88,14 @@ public class testBackTrackv2 {
     @Test
     public void test_8villes_comparaisons_brutForceV2() {
         Pays pays = new Pays(8);
-        pays.setPositionVille(0, new Position(134, 309));
-        pays.setPositionVille(1, new Position(5325, 2494));
-        pays.setPositionVille(2, new Position(536, 2553));
-        pays.setPositionVille(3, new Position(284, 1384));
-        pays.setPositionVille(4, new Position(1094, 198));
-        pays.setPositionVille(5, new Position(932, 352));
-        pays.setPositionVille(6, new Position(728, 374));
-        pays.setPositionVille(7, new Position(898, 192));
+        pays.setPositionVille(0, new Point(134, 309));
+        pays.setPositionVille(1, new Point(5325, 2494));
+        pays.setPositionVille(2, new Point(536, 2553));
+        pays.setPositionVille(3, new Point(284, 1384));
+        pays.setPositionVille(4, new Point(1094, 198));
+        pays.setPositionVille(5, new Point(932, 352));
+        pays.setPositionVille(6, new Point(728, 374));
+        pays.setPositionVille(7, new Point(898, 192));
 
         backTrackV1v2.recherche(pays, 0);
 
@@ -106,15 +107,15 @@ public class testBackTrackv2 {
     @Test
     public void test_9villes_comparaisons_brutForceV2() {
         Pays pays = new Pays(9);
-        pays.setPositionVille(0, new Position(1354, 3009));
-        pays.setPositionVille(1, new Position(525, 2424));
-        pays.setPositionVille(2, new Position(5316, 2553));
-        pays.setPositionVille(3, new Position(2814, 1384));
-        pays.setPositionVille(4, new Position(1094, 1918));
-        pays.setPositionVille(5, new Position(9362, 3562));
-        pays.setPositionVille(6, new Position(7208, 3704));
-        pays.setPositionVille(7, new Position(8918, 1922));
-        pays.setPositionVille(8, new Position(8098, 1142));
+        pays.setPositionVille(0, new Point(1354, 3009));
+        pays.setPositionVille(1, new Point(525, 2424));
+        pays.setPositionVille(2, new Point(5316, 2553));
+        pays.setPositionVille(3, new Point(2814, 1384));
+        pays.setPositionVille(4, new Point(1094, 1918));
+        pays.setPositionVille(5, new Point(9362, 3562));
+        pays.setPositionVille(6, new Point(7208, 3704));
+        pays.setPositionVille(7, new Point(8918, 1922));
+        pays.setPositionVille(8, new Point(8098, 1142));
 
         backTrackV1v2.recherche(pays, 0);
 
@@ -126,16 +127,16 @@ public class testBackTrackv2 {
     @Test
     public void test_10villes_comparaisons_brutForceV2() {
         Pays pays = new Pays(10);
-        pays.setPositionVille(0, new Position(225, 993));
-        pays.setPositionVille(1, new Position(812, 685));
-        pays.setPositionVille(2, new Position(36, 490));
-        pays.setPositionVille(3, new Position(237, 590));
-        pays.setPositionVille(4, new Position(440, 635));
-        pays.setPositionVille(5, new Position(471, 779));
-        pays.setPositionVille(6, new Position(879, 270));
-        pays.setPositionVille(7, new Position(704, 52));
-        pays.setPositionVille(8, new Position(530, 24));
-        pays.setPositionVille(9, new Position(890, 152));
+        pays.setPositionVille(0, new Point(225, 993));
+        pays.setPositionVille(1, new Point(812, 685));
+        pays.setPositionVille(2, new Point(36, 490));
+        pays.setPositionVille(3, new Point(237, 590));
+        pays.setPositionVille(4, new Point(440, 635));
+        pays.setPositionVille(5, new Point(471, 779));
+        pays.setPositionVille(6, new Point(879, 270));
+        pays.setPositionVille(7, new Point(704, 52));
+        pays.setPositionVille(8, new Point(530, 24));
+        pays.setPositionVille(9, new Point(890, 152));
 
         backTrackV1v2.recherche(pays, 0);
 
@@ -147,17 +148,17 @@ public class testBackTrackv2 {
     @Test
     public void test_11villes_comparaisons_brutForceV2() {
         Pays pays = new Pays(11);
-        pays.setPositionVille(0, new Position(188, 458));
-        pays.setPositionVille(1, new Position(141, 799));
-        pays.setPositionVille(2, new Position(611, 326));
-        pays.setPositionVille(3, new Position(681, 386));
-        pays.setPositionVille(4, new Position(255, 790));
-        pays.setPositionVille(5, new Position(291, 12));
-        pays.setPositionVille(6, new Position(153, 113));
-        pays.setPositionVille(7, new Position(133, 685));
-        pays.setPositionVille(8, new Position(652, 707));
-        pays.setPositionVille(9, new Position(518, 817));
-        pays.setPositionVille(10, new Position(25, 104));
+        pays.setPositionVille(0, new Point(188, 458));
+        pays.setPositionVille(1, new Point(141, 799));
+        pays.setPositionVille(2, new Point(611, 326));
+        pays.setPositionVille(3, new Point(681, 386));
+        pays.setPositionVille(4, new Point(255, 790));
+        pays.setPositionVille(5, new Point(291, 12));
+        pays.setPositionVille(6, new Point(153, 113));
+        pays.setPositionVille(7, new Point(133, 685));
+        pays.setPositionVille(8, new Point(652, 707));
+        pays.setPositionVille(9, new Point(518, 817));
+        pays.setPositionVille(10, new Point(25, 104));
 
         backTrackV1v2.recherche(pays, 0);
 
@@ -279,23 +280,23 @@ public class testBackTrackv2 {
 
         int positionX = (int) (Math.random() * 50);
 
-        pays.setPositionVille(0, new Position(positionX, 2));
-        pays.setPositionVille(1, new Position(positionX, 3));
-        pays.setPositionVille(2, new Position(positionX, 4));
-        pays.setPositionVille(3, new Position(positionX, 5));
-        pays.setPositionVille(4, new Position(positionX, 6));
-        pays.setPositionVille(5, new Position(positionX, 7));
+        pays.setPositionVille(0, new Point(positionX, 2));
+        pays.setPositionVille(1, new Point(positionX, 3));
+        pays.setPositionVille(2, new Point(positionX, 4));
+        pays.setPositionVille(3, new Point(positionX, 5));
+        pays.setPositionVille(4, new Point(positionX, 6));
+        pays.setPositionVille(5, new Point(positionX, 7));
 
         backTrackV1v2.recherche(pays, 0);
 
         double distanceMinimum = backTrackV1v2.getParcours().getDistance();
 
-        pays.setPositionVille(0, new Position(positionX, 2));
-        pays.setPositionVille(4, new Position(positionX, 3));
-        pays.setPositionVille(5, new Position(positionX, 4));
-        pays.setPositionVille(3, new Position(positionX, 5));
-        pays.setPositionVille(1, new Position(positionX, 6));
-        pays.setPositionVille(2, new Position(positionX, 7));
+        pays.setPositionVille(0, new Point(positionX, 2));
+        pays.setPositionVille(4, new Point(positionX, 3));
+        pays.setPositionVille(5, new Point(positionX, 4));
+        pays.setPositionVille(3, new Point(positionX, 5));
+        pays.setPositionVille(1, new Point(positionX, 6));
+        pays.setPositionVille(2, new Point(positionX, 7));
 
         backTrackV1v2.recherche(pays, 0);
 
@@ -316,12 +317,12 @@ public class testBackTrackv2 {
 
             int[] t = genereTableauDeIntRandom(6);
 
-            pays.setPositionVille(1, new Position(positionX, t[1]));
-            pays.setPositionVille(2, new Position(positionX, t[2]));
-            pays.setPositionVille(3, new Position(positionX, t[3]));
-            pays.setPositionVille(0, new Position(positionX, t[0]));
-            pays.setPositionVille(4, new Position(positionX, t[4]));
-            pays.setPositionVille(5, new Position(positionX, t[5]));
+            pays.setPositionVille(1, new Point(positionX, t[1]));
+            pays.setPositionVille(2, new Point(positionX, t[2]));
+            pays.setPositionVille(3, new Point(positionX, t[3]));
+            pays.setPositionVille(0, new Point(positionX, t[0]));
+            pays.setPositionVille(4, new Point(positionX, t[4]));
+            pays.setPositionVille(5, new Point(positionX, t[5]));
 
             backTrackV1v2.recherche(pays, 0);
 
@@ -343,23 +344,23 @@ public class testBackTrackv2 {
 
         int positionY = (int) (Math.random() * 50);
 
-        pays.setPositionVille(0, new Position(2, positionY));
-        pays.setPositionVille(1, new Position(3, positionY));
-        pays.setPositionVille(2, new Position(4, positionY));
-        pays.setPositionVille(3, new Position(5, positionY));
-        pays.setPositionVille(4, new Position(6, positionY));
-        pays.setPositionVille(5, new Position(7, positionY));
+        pays.setPositionVille(0, new Point(2, positionY));
+        pays.setPositionVille(1, new Point(3, positionY));
+        pays.setPositionVille(2, new Point(4, positionY));
+        pays.setPositionVille(3, new Point(5, positionY));
+        pays.setPositionVille(4, new Point(6, positionY));
+        pays.setPositionVille(5, new Point(7, positionY));
 
         backTrackV1v2.recherche(pays, 0);
 
         double distanceMinimum = backTrackV1v2.getParcours().getDistance();
 
-        pays.setPositionVille(0, new Position(2, positionY));
-        pays.setPositionVille(4, new Position(3, positionY));
-        pays.setPositionVille(5, new Position(4, positionY));
-        pays.setPositionVille(3, new Position(5, positionY));
-        pays.setPositionVille(1, new Position(6, positionY));
-        pays.setPositionVille(2, new Position(7, positionY));
+        pays.setPositionVille(0, new Point(2, positionY));
+        pays.setPositionVille(4, new Point(3, positionY));
+        pays.setPositionVille(5, new Point(4, positionY));
+        pays.setPositionVille(3, new Point(5, positionY));
+        pays.setPositionVille(1, new Point(6, positionY));
+        pays.setPositionVille(2, new Point(7, positionY));
 
         backTrackV1v2.recherche(pays, 0);
 
@@ -380,12 +381,12 @@ public class testBackTrackv2 {
 
             int[] t = genereTableauDeIntRandom(6);
 
-            pays.setPositionVille(0, new Position(t[0], positionY));
-            pays.setPositionVille(1, new Position(t[1], positionY));
-            pays.setPositionVille(2, new Position(t[2], positionY));
-            pays.setPositionVille(3, new Position(t[3], positionY));
-            pays.setPositionVille(4, new Position(t[4], positionY));
-            pays.setPositionVille(5, new Position(t[5], positionY));
+            pays.setPositionVille(0, new Point(t[0], positionY));
+            pays.setPositionVille(1, new Point(t[1], positionY));
+            pays.setPositionVille(2, new Point(t[2], positionY));
+            pays.setPositionVille(3, new Point(t[3], positionY));
+            pays.setPositionVille(4, new Point(t[4], positionY));
+            pays.setPositionVille(5, new Point(t[5], positionY));
 
             backTrackV1v2.recherche(pays, 0);
 

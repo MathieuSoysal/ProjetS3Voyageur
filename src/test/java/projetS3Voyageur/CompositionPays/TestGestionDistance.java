@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.Point;
+
+
 
 public class TestGestionDistance {
     Villes v;
@@ -23,8 +26,8 @@ public class TestGestionDistance {
         init();
         int numVille1 = 0;
         int numVille2 = 1;
-        Position posVille1 = new Position(10, 20);
-        Position posVille2 = new Position(23, 40);
+        Point posVille1 = new Point(10, 20);
+        Point posVille2 = new Point(23, 40);
 
         v.setPositionVille(numVille1, posVille1);
         d.actualiseNumVille(numVille1);
@@ -37,8 +40,8 @@ public class TestGestionDistance {
     public void test_getDistance_and_actualisation_0_et_2() {
         int numVille1 = 0;
         int numVille2 = 2;
-        Position posVille1 = new Position(2, 2);
-        Position posVille2 = new Position(2, 3);
+        Point posVille1 = new Point(2, 2);
+        Point posVille2 = new Point(2, 3);
 
         v.setPositionVille(numVille1, posVille1);
         d.actualiseNumVille(numVille1);
@@ -51,8 +54,8 @@ public class TestGestionDistance {
     public void test_getDistance_and_actualisation_1_et_2() {
         int numVille1 = 1;
         int numVille2 = 2;
-        Position posVille1 = new Position(2, 2);
-        Position posVille2 = new Position(2, 3);
+        Point posVille1 = new Point(2, 2);
+        Point posVille2 = new Point(2, 3);
 
         v.setPositionVille(numVille1, posVille1);
         d.actualiseNumVille(numVille1);
@@ -66,8 +69,8 @@ public class TestGestionDistance {
     public void test_getDistance_0et1_eguale_getDistance_1et0_avecSetPosition() {
         int numVille1 = 0;
         int numVille2 = 2;
-        Position posVille1 = new Position(2, 2);
-        Position posVille2 = new Position(2, 3);
+        Point posVille1 = new Point(2, 2);
+        Point posVille2 = new Point(2, 3);
 
         v.setPositionVille(numVille1, posVille1);
         d.actualiseNumVille(numVille1);
@@ -80,8 +83,8 @@ public class TestGestionDistance {
     public void test_getDistance_2et1_eguale_getDistance_1et2_avecSetPosition() {
         int numVille1 = 1;
         int numVille2 = 2;
-        Position posVille1 = new Position(2, 2);
-        Position posVille2 = new Position(2, 3);
+        Point posVille1 = new Point(2, 2);
+        Point posVille2 = new Point(2, 3);
 
         v.setPositionVille(numVille1, posVille1);
         d.actualiseNumVille(numVille1);
@@ -94,8 +97,8 @@ public class TestGestionDistance {
     public void test_getDistance_2et0_eguale_getDistance_0et2_avecSetPosition() {
         int numVille1 = 1;
         int numVille2 = 2;
-        Position posVille1 = new Position(2, 2);
-        Position posVille2 = new Position(2, 3);
+        Point posVille1 = new Point(2, 2);
+        Point posVille2 = new Point(2, 3);
 
         v.setPositionVille(numVille1, posVille1);
         d.actualiseNumVille(numVille1);
@@ -112,8 +115,8 @@ public class TestGestionDistance {
         int numVille1 = 0;
         int numVille2 = 2;
 
-        Position ville1 = v.getPositionVille(numVille1);
-        Position ville2 = v.getPositionVille(numVille2);
+        Point ville1 = v.getPositionVille(numVille1);
+        Point ville2 = v.getPositionVille(numVille2);
 
         assertEquals(hypotegnius(ville1, ville2), d.getDistance(numVille1, numVille2));
     }
@@ -123,8 +126,8 @@ public class TestGestionDistance {
         int numVille1 = 1;
         int numVille2 = 2;
 
-        Position ville1 = v.getPositionVille(numVille1);
-        Position ville2 = v.getPositionVille(numVille2);
+        Point ville1 = v.getPositionVille(numVille1);
+        Point ville2 = v.getPositionVille(numVille2);
 
         assertEquals(hypotegnius(ville1, ville2), d.getDistance(numVille1, numVille2));
     }
@@ -134,8 +137,8 @@ public class TestGestionDistance {
         int numVille1 = 1;
         int numVille2 = 2;
 
-        Position ville1 = v.getPositionVille(numVille1);
-        Position ville2 = v.getPositionVille(numVille2);
+        Point ville1 = v.getPositionVille(numVille1);
+        Point ville2 = v.getPositionVille(numVille2);
 
         assertEquals(hypotegnius(ville1, ville2), d.getDistance(numVille1, numVille2));
     }
@@ -150,8 +153,8 @@ public class TestGestionDistance {
             int numVille1 = (int) (Math.random() * 4);
             int numVille2 = (int) (Math.random() * 4);
 
-            Position ville1 = villes.getPositionVille(numVille1);
-            Position ville2 = villes.getPositionVille(numVille2);
+            Point ville1 = villes.getPositionVille(numVille1);
+            Point ville2 = villes.getPositionVille(numVille2);
 
             assertEquals(hypotegnius(ville1, ville2), gD.getDistance(numVille1, numVille2));
         }
@@ -193,7 +196,7 @@ public class TestGestionDistance {
      * @param distanceY numéro de la seconde ville en apramètre
      * @return {@code int} retourne l'hyptégnius
      */
-    private double hypotegnius(Position ville1, Position ville2) {
+    private double hypotegnius(Point ville1, Point ville2) {
         return Math.sqrt(Math.pow(ville1.getX() - ville2.getX(), 2) + Math.pow(ville1.getY() - ville2.getY(), 2));
     }
 }

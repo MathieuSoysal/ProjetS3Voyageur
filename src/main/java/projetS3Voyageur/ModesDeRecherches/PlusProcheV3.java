@@ -38,8 +38,8 @@ public class PlusProcheV3 implements ModeRecherche {
      * Recherche la ville la plus proche parmis les villes non visitées pour y
      * aller.
      * 
-     * @param villesVisitees    Villes qui ont été visitées jusqu'à présent.
-     * @param villeActuelle     Ville où se situe l'algorithme.
+     * @param villesVisitees Villes qui ont été visitées jusqu'à présent.
+     * @param villeActuelle  Ville où se situe l'algorithme.
      */
     private void rechercheAux(int villesVisitees, byte villeActuelle) {
 
@@ -53,10 +53,9 @@ public class PlusProcheV3 implements ModeRecherche {
                     villesVisitees); villeFormatBinaire2 < toutesVillesVisitees; villeFormatBinaire2 = villeNonVisitee(
                             villeFormatBinaire2 << 1, villesVisitees)) {
 
-                                //TODO : à voir si instancier à chaque fois la variable est 
+                // TODO : à voir si instancier à chaque fois la variable est
                 final byte villeIteration = (byte) Math.getExponent(villeFormatBinaire2);
-                final double distanceIteration = pays.getDistanceEntreVilles(villeActuelle,
-                        villeIteration);
+                final double distanceIteration = pays.getDistanceEntreVilles(villeActuelle, villeIteration);
 
                 if ((distanceIteration < distanceVillePlusProche)) {
                     villePlusProche = villeIteration;
@@ -68,7 +67,7 @@ public class PlusProcheV3 implements ModeRecherche {
             distanceOptimum += distanceVillePlusProche;
             villesVisitees |= 1 << villePlusProche;
             villesEmprunteesOptimum += ">" + villePlusProche;
-            //TODO: possible d'utiliser des méthodes privé pour aléger le code
+            // TODO: possible d'utiliser des méthodes privé pour aléger le code
 
         }
 
