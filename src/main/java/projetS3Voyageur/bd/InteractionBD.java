@@ -1,11 +1,13 @@
 package projetS3Voyageur.bd;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InteractionBD {
 
     private static Connection con = null;
-    private static ResultSet résultats = null;
+    private static ResultSet resultats = null;
 
     /*
      * pilote jdbc
@@ -14,37 +16,34 @@ public class InteractionBD {
 
     public static void main(String[] args) {
 
-        String idCarte = "1";
-        String nbVille = "3";
+        String idCarte = "83";
+        String nbVille = "7";
 
         InteractionBD.connection();
         InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");
-        InteractionBD.affichageBD("SELECT * FROM Carte");
+        List<String> recup = InteractionBD.recuperationBD("SELECT * FROM Carte");
+        System.out.println(recup);
     }
 
     public static Connection connection() {
 
-        // chargement du pilote
+        // chargement du pilote JDBC MySql (ajouter dans les dépendance avec le lien en haut MATHIEU).
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
         } catch (ClassNotFoundException e) {
 
-            System.err.println("le pilote JDBC n'est pas installé \n");
+            System.err.println("Le pilote JDBC n'est pas installé \n");
             e.printStackTrace();
 
         }
 
         // connection a la base de données
 
-        System.out.println("connexion à la base de données");
+        System.out.println("Connexion à la base de données");
 
         try {
-
-            /*
-             * String DBurl = "jdbc:mysql:zaidn"; con = DriverManager.getConnection(DBurl);
-             */
 
             InteractionBD.con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn",
                     "zaidn", "XavierCorbier");
@@ -63,7 +62,7 @@ public class InteractionBD {
     public static String setRequete(String r) {
 
         // insertion d'un enregistrement dans la table client
-        System.out.println("creation enregistrement");
+        System.out.println("Création de la requête");
 
         try {
             Statement stmt = con.createStatement();
@@ -71,21 +70,24 @@ public class InteractionBD {
             System.out.println("Nombre de mise à jour = " + nbMaj + "\n");
 
         } catch (SQLException e) {
-            System.err.println("Erreur lors de l'interaction avec la base de données");
+            System.err.println("Erreur(s) lors de l'interaction avec la base de données");
             e.printStackTrace();
         }
         return r;
     }
 
-    public static void affichageBD(String re) {
+    public static List<String> recuperationBD(String re) {
+
+
+        List<String> attributs = new ArrayList<>();
 
         // creation et execution de la requete
 
-        System.out.println("Creation et execution de la requête");
+        System.out.println("Création et éxecution de la requête SELECT *");
 
         try {
             Statement stmt = con.createStatement();
-            résultats = stmt.executeQuery(re);
+            resultats = stmt.executeQuery(re);
 
         } catch (SQLException e) {
 
@@ -94,29 +96,30 @@ public class InteractionBD {
 
         // parcours des données retournées
 
-        System.out.println("parcours des données retournées");
+        System.out.println("Données récuperé :");
 
         try {
 
-            ResultSetMetaData rsmd = résultats.getMetaData();
+            ResultSetMetaData rsmd = resultats.getMetaData();
             int nbCol = rsmd.getColumnCount();
-            boolean suite = résultats.next();
+            boolean suite = resultats.next();
 
             while (suite) {
 
-                for (int i = 1; i <= nbCol; i++)
-                    System.out.print(résultats.getString(i) + " ");
-                System.out.println();
-                suite = résultats.next();
+                for (int i = 1; i <= nbCol; i++){
+
+                    attributs.add(resultats.getString(i));
+                }
+
+                suite = resultats.next();
             }
 
-            résultats.close();
+            resultats.close();
         } catch (SQLException e) {
             System.err.println("Erreur lors des récupération de données de la base de données");
             System.err.println(e.getMessage());
         }
-        System.out.println("Fin");
-        System.exit(0);
+        return attributs;
 
     }
 
