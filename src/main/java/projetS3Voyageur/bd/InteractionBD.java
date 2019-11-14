@@ -14,7 +14,7 @@ public class InteractionBD {
      * https://fr.osdn.net/projects/sfnet_id2d/downloads/jdbc%20drivers/mysql-connector-java-5.1.15-bin.jar/
      */
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {/*ddd*/
 
         String idCarte = "89";
         String nbVille = "7";
