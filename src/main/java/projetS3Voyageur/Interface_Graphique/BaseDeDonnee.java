@@ -47,7 +47,7 @@ public class BaseDeDonnee {
 
         return BaseDeDonnee.con;
 
-    }
+    }/*dd*/
 
     public static String setRequete(String r) {
 
