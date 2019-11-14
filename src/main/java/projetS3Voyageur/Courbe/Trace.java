@@ -6,7 +6,8 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class Trace extends JFrame {
+public class Trace extends JFrame {/*dd
+dddd8*/
 
     private static final long serialVersionUID = -3914578220391097071L;
 
