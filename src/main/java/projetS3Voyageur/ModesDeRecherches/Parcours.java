@@ -9,7 +9,7 @@ public class Parcours {
         this.villesEmprunté = villesEmprunté;
     }
 
-    double getDistance() {
+    public double getDistance() {
         return distanceParcourue;
     }
 
