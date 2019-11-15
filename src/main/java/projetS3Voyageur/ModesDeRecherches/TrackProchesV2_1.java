@@ -351,6 +351,8 @@ public class TrackProchesV2_1 implements ModeRecherche {
     @Override
     public Parcours getParcours() {
         // TODO: Ajouter l'exception avec un getParcours sans avoir fait de recherche
+        //FIXME : à retenir une erreur à étais produite :Exception in thread "main" java.lang.NullPointerException
+       // at projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1.getParcours(TrackProchesV2_1.java:354)
         String villesEmpruntees = String.valueOf(villesEmprunteesOptimum[0]);
         for (int i = 1; i < villesEmprunteesOptimum.length; i++) {
             villesEmpruntees += '>' + String.valueOf(villesEmprunteesOptimum[i]);

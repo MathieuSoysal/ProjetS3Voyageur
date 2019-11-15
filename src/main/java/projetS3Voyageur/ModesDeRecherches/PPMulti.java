@@ -14,6 +14,18 @@ public class PPMulti implements ModeRecherche {
     private double distanceOptimum;
     private String villesEmprunteesOptimum;
 
+    public static void main(String[] args) {
+        ModeRecherche ppMulti = new PPMulti();
+        Pays pays = new Pays(4);
+        ppMulti.recherche(pays, 0);
+        System.out.println(ppMulti.getParcours().getVillesEmprunté());
+
+        ModeRecherche trkP = new TrackProchesV2_1();
+        trkP.recherche(pays,0);
+        System.out.println(trkP.getParcours().getVillesEmprunté());
+
+    }
+
     /**
      * Recherche depuis une ville de départ le parcours pour visiter toutes les
      * villes d'un pays, en allant à la ville la plus proche non visitée.
@@ -54,10 +66,11 @@ public class PPMulti implements ModeRecherche {
 
             double distanceVillePlusProche = Double.MAX_VALUE;
 
+            int villesVisiteesIeration = villesVisitees;
             for (int villeFormatBinaire2 = villeNonVisitee(1 << (villeDepart),
                     villesVisitees); villeFormatBinaire2 < toutesVillesVisitees; villeFormatBinaire2 = villeNonVisitee(
-                            villeFormatBinaire2 << 1, villesVisitees)) {
-
+                            villeFormatBinaire2 << 1, villesVisiteesIeration)) {
+                villesVisiteesIeration |= villeFormatBinaire2;
                 // TODO : à voir si instancier à chaque fois la variable est
                 final byte villeIteration = (byte) Math.getExponent(villeFormatBinaire2);
                 final double distanceIteration = pays.getDistanceEntreVilles(villeActuelle, villeIteration);
@@ -70,16 +83,17 @@ public class PPMulti implements ModeRecherche {
 
             villeActuelle = villePlusProche;
             distanceObtenue = distanceVillePlusProche;
+            // TODO: ce block est resté avec l'ancienne version
             villesVisitees |= 1 << villePlusProche;
             villesEmpruntees += ">" + villePlusProche;
             // TODO: possible d'utiliser des méthodes privé pour aléger le code
 
         }
 
-        distanceObtenue += pays.getDistanceEntreVilles(villePlusProche, villeInitiale);
-        if (distanceObtenue < distanceOptimum){
+        distanceObtenue += pays.getDistanceEntreVilles(villePlusProche, villeDepart);
+        if (distanceObtenue < distanceOptimum) {
             distanceOptimum = distanceObtenue;
-            villesEmprunteesOptimum = villesEmpruntees + ">" + villeInitiale;
+            villesEmprunteesOptimum = villesEmpruntees + ">" + villeDepart;
         }
     }
 
@@ -103,7 +117,7 @@ public class PPMulti implements ModeRecherche {
      */
     private int villeNonVisitee(int villeActuelle, final int villesVisitees) {
         villeActuelle += villesVisitees;
-        return (villeActuelle < toutesVillesVisitees || villesVisitees == toutesVillesVisitees)
+        return (villeActuelle <= toutesVillesVisitees || villesVisitees == toutesVillesVisitees)
                 ? (villeActuelle ^ (villeActuelle & villesVisitees))
                 : villeNonVisitee(1, villesVisitees);
     }
