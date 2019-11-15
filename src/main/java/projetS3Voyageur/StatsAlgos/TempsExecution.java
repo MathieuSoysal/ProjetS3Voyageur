@@ -1,7 +1,13 @@
 package projetS3Voyageur.StatsAlgos;
 
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Measurement;
+import org.openjdk.jmh.annotations.Warmup;
 import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
+import projetS3Voyageur.ModesDeRecherches.TrackProchesV2;
+
+import java.util.concurrent.TimeUnit;
 
 class TempsExecution {
     private static final byte villeDepart = 0;
@@ -23,5 +29,29 @@ class TempsExecution {
         long startTime = System.currentTimeMillis();
         algo.recherche(pays, villeDepart);
         return (System.currentTimeMillis() - startTime);
+    }
+
+    @Benchmark
+    @Warmup(iterations = 10, time = 2000, timeUnit = TimeUnit.MILLISECONDS) // 10 warm up iterations without measures
+    @Measurement(iterations = 20, time = 2000, timeUnit = TimeUnit.MILLISECONDS) // 20 iterations of 2000ms each
+    public void benchTrackProcheV2() {
+        Pays p = new Pays(10);
+        ModeRecherche algo = new TrackProchesV2();
+        algo.recherche(p, 0);
+    }
+
+    @Benchmark
+    @Warmup(iterations = 10, time = 2000, timeUnit = TimeUnit.MILLISECONDS) // 10 warm up iterations without measures
+    @Measurement(iterations = 20, time = 2000, timeUnit = TimeUnit.MILLISECONDS) // 20 iterations of 2000ms each
+    public void benchTrackProcheV2Sleep() {
+        Pays p = new Pays(10);
+        ModeRecherche algo = new TrackProchesV2();
+        algo.recherche(p, 0);
+        try{
+            Thread.sleep(100);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+
     }
 }
