@@ -1,7 +1,8 @@
+// noprotect
 var villes = [];
 var nbVilles = prompt('Entrez le nombre de villes :');
-while(!isINT(nbVilles)){
-    nbVilles = prompt('Entrez le nombre de villes :');
+while(!isINT(nbVilles) || nbVilles > 15 || nbVilles < 3){
+    nbVilles = prompt('Entrez un nombre valide de villes:');
 }
 var totalVilles = nbVilles;
 
