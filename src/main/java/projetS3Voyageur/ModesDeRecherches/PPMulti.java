@@ -8,7 +8,6 @@ public class PPMulti implements ModeRecherche {
 
     private Pays pays;
 
-    private byte villeInitiale;
     private byte nombreDeVilles;
 
     private double distanceOptimum;
@@ -21,14 +20,15 @@ public class PPMulti implements ModeRecherche {
         System.out.println(ppMulti.getParcours().getVillesEmprunté());
 
         ModeRecherche trkP = new TrackProchesV2_1();
-        trkP.recherche(pays,0);
+        trkP.recherche(pays, 0);
         System.out.println(trkP.getParcours().getVillesEmprunté());
 
     }
 
     /**
-     * Recherche depuis une ville de départ le parcours pour visiter toutes les
-     * villes d'un pays, en allant à la ville la plus proche non visitée.
+     * Recherche depuis toute les villes de départ possible le parcours le plus
+     * optimisé pour visiter toutes les villes d'un pays, en allant à la ville la
+     * plus proche non visitée.
      * 
      * @param pays          Le pays concerné par la recherche
      * @param villeInitiale Le numéro de la ville de départ
@@ -36,7 +36,6 @@ public class PPMulti implements ModeRecherche {
     @Override
     public void recherche(final Pays pays, final int villeInitiale) {
         this.pays = pays;
-        this.villeInitiale = (byte) villeInitiale;
         nombreDeVilles = (byte) pays.getNombreDeVilles();
         toutesVillesVisitees = (1 << nombreDeVilles) - 1;
         distanceOptimum = Double.MAX_VALUE;
@@ -45,6 +44,12 @@ public class PPMulti implements ModeRecherche {
         for (byte i = 0; i < nombreDeVilles; i++) {
             rechercheAux(1 << i, i);
         }
+
+        final int indexVilleInitial = villesEmprunteesOptimum.indexOf(String.valueOf(villeInitiale));
+
+        villesEmprunteesOptimum = villesEmprunteesOptimum.substring(indexVilleInitial,
+                (villesEmprunteesOptimum.length())) + villesEmprunteesOptimum.substring(0, indexVilleInitial)
+                + villeInitiale;
 
     }
 
@@ -93,7 +98,7 @@ public class PPMulti implements ModeRecherche {
         distanceObtenue += pays.getDistanceEntreVilles(villePlusProche, villeDepart);
         if (distanceObtenue < distanceOptimum) {
             distanceOptimum = distanceObtenue;
-            villesEmprunteesOptimum = villesEmpruntees + ">" + villeDepart;
+            villesEmprunteesOptimum = villesEmpruntees + ">";
         }
     }
 
