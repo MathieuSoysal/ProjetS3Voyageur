@@ -20,14 +20,14 @@ public class InteractionBD {
 
         InteractionBD.connexion();
 
-          InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");
+        InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");
 
         List<String[]> recup = InteractionBD.recuperationBD("SELECT * FROM Carte");
 
         for (String[] s : recup) {
-            for (String str : s ) {
-
-                System.out.println(str);
+            System.out.println();
+            for (String str : s) {
+                System.out.print("|" + str);
             }
 
         }
@@ -61,7 +61,7 @@ public class InteractionBD {
 
             con = DriverManager.getConnection("jdbc:mysql://webinfo.iutmontp.univ-montp2.fr:3306/zaidn", "zaidn",
                     "XavierCorbier");
-            
+
             return true;
 
         } catch (SQLException e) {
