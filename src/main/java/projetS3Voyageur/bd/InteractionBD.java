@@ -22,31 +22,16 @@ public class InteractionBD {
 
         InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");
 
-
         List<String[]> recup = InteractionBD.recuperationBD("SELECT * FROM Carte");
 
         for (String[] s : recup) {
-            System.out.println();
+            System.out.println("|");
             for (String str : s) {
-                System.out.print("|" + str);
+                System.out.print(str + "|");
             }
 
         }
 
-
-        /*int i = 0;
-
-        for (String s: recup) {
-
-                recup.get();
-        }*/
-       /* System.out.println(InteractionBD.getNbVille(recup, 2));*/
-
-    }
-
-    public static String[] getNbVille(List<String[]> liste, int indexColonne) {
-
-        return liste.get(indexColonne);
     }
 
     /**
