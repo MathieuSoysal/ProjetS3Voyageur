@@ -15,16 +15,23 @@ public class InteractionBD {
 
     public static void main(String[] args) {
 
-        String idCarte = "89";
-        String nbVille = "7";
+        String idCarte = "60";
+        String nbVille = "25";
 
         InteractionBD.connexion();
-        /*
-         * InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" +
-         * nbVille + "')");
-         */
+
+          InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");
+
         List<String[]> recup = InteractionBD.recuperationBD("SELECT * FROM Carte");
-        /* System.out.println(recup); */
+
+        for (String[] s : recup) {
+            for (String str : s ) {
+
+                System.out.println(str);
+            }
+
+        }
+
 
         /*int i = 0;
 
@@ -32,7 +39,7 @@ public class InteractionBD {
 
                 recup.get();
         }*/
-        System.out.println(InteractionBD.getNbVille(recup, 2));
+       /* System.out.println(InteractionBD.getNbVille(recup, 2));*/
 
     }
 
