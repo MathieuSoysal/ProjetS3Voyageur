@@ -18,10 +18,13 @@ public class PPMulti implements ModeRecherche {
         Pays pays = new Pays(4);
         ppMulti.recherche(pays, 0);
         System.out.println(ppMulti.getParcours().getVillesEmprunté());
+        System.out.println(ppMulti.getParcours().getDistance());
+
 
         ModeRecherche trkP = new TrackProchesV2_1();
         trkP.recherche(pays, 0);
         System.out.println(trkP.getParcours().getVillesEmprunté());
+        System.out.println(trkP.getParcours().getDistance());
 
     }
 
