@@ -15,12 +15,13 @@ public class InteractionBD {
 
     public static void main(String[] args) {
 
-        String idCarte = "60";
-        String nbVille = "25";
+        String idCarte = "61";
+        String nbVille = "50";
 
         InteractionBD.connexion();
 
           InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");
+
 
         List<String[]> recup = InteractionBD.recuperationBD("SELECT * FROM Carte");
 
@@ -129,7 +130,7 @@ public class InteractionBD {
                 for (int i = 1; i <= nbCol; i++) {
                     tuple[i - 1] = resultatsRequete.getString(i);
                 }
-                resultatMethode.add(tuple);
+                resultatMethode.add(tuple.clone());
             }
 
             resultatsRequete.close();
