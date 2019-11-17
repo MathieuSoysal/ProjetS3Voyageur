@@ -90,7 +90,7 @@ public class PPMulti implements ModeRecherche {
             }
 
             villeActuelle = villePlusProche;
-            distanceObtenue = distanceVillePlusProche;
+            distanceObtenue += distanceVillePlusProche;
             // TODO: ce block est resté avec l'ancienne version
             villesVisitees |= 1 << villePlusProche;
             villesEmpruntees += ">" + villePlusProche;
