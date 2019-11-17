@@ -2,7 +2,7 @@ package projetS3Voyageur.ModesDeRecherches;
 
 import projetS3Voyageur.CompositionPays.Pays;
 
-public class TrackProchesV2_1 implements ModeRecherche {
+public class TrackProchesMulti implements ModeRecherche {
 
     private int toutesVillesVisitees;
 
@@ -31,8 +31,8 @@ public class TrackProchesV2_1 implements ModeRecherche {
         distanceOptimum = Double.MAX_VALUE;
 
         distancesPlusCourt = distancesPlusCourts();
-
-        rechercheAuxDistanceProche(1 << this.villeInitiale, this.villeInitiale, 0.0);
+        for (byte i = 0; i < nombreDeVilles; i++)
+            rechercheAuxDistanceProche(1 << this.villeInitiale, this.villeInitiale);
         rechercheAuxDistance(1 << this.villeInitiale, this.villeInitiale, 0.0);
         rechercheAuxVillesEmpruntees(1 << this.villeInitiale, this.villeInitiale, 0.0,
                 emprunteVille(new byte[nombreDeVilles + 1], 0, this.villeInitiale));
@@ -85,52 +85,54 @@ public class TrackProchesV2_1 implements ModeRecherche {
     }
     // #endregion BadTrack v2 + Optimisation
 
-    // #region PlusProche v2
+    // #region PPMulti
 
     /**
      * Recherche la ville la plus proche parmis les villes non visitées pour y
      * aller.
      * 
-     * @param villesVisitees    Villes qui ont été visitées jusqu'à présent.
-     * @param villeActuelle     Ville où se situe l'algorithme.
-     * @param distanceParcourue Distance parcourue depuis la première itération
+     * @param villesVisitees Villes qui ont été visitées jusqu'à présent.
+     * @param villeActuelle  Ville où se situe l'algorithme.
      */
-    private void rechercheAuxDistanceProche(final int villesVisitees, final byte villeActuelle,
-            final double distanceParcourue) {
+    private void rechercheAuxDistanceProche(int villesVisitees, byte villeDepart) {
 
-        // Je prend en compte que la VilleActuell est déjà une ville visité
-        // TODO : Mettre un backTrack ?
-        if (villesVisitees == toutesVillesVisitees) {
-            distanceOptimum = Double.min(distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale),
-                    distanceOptimum);
-        } else {
+        byte villeActuelle = villeDepart;
+        byte villePlusProche = villeActuelle;
+        double distanceObtenue = 0;
 
-            double distanceMin = Long.MAX_VALUE;
-            byte villePlusProche = 0;
-            byte villeChoisie;
-            double distanceVilleChoisie;
+        for (byte numVille = 0; (distanceObtenue < distanceOptimum) && (numVille < nombreDeVilles - 1); numVille++) {
 
-            for (int villeFormatBinaire = villeNonVisitee(1,
-                    villesVisitees); villeFormatBinaire < toutesVillesVisitees; villeFormatBinaire = villeNonVisitee(
-                            villeFormatBinaire << 1, villesVisitees)) {
+            double distanceVillePlusProche = Double.MAX_VALUE;
 
-                villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));
-                distanceVilleChoisie = pays.getDistanceEntreVilles(villeActuelle, villeChoisie);
+            int villesVisiteesIeration = villesVisitees;
+            for (int villeFormatBinaire2 = villeNonVisitee(1 << (villeDepart),
+                    villesVisitees); villeFormatBinaire2 < toutesVillesVisitees; villeFormatBinaire2 = villeNonVisitee(
+                            villeFormatBinaire2 << 1, villesVisiteesIeration)) {
+                villesVisiteesIeration |= villeFormatBinaire2;
+                // TODO : à voir si instancier à chaque fois la variable est
+                final byte villeIteration = (byte) Math.getExponent(villeFormatBinaire2);
+                final double distanceIteration = pays.getDistanceEntreVilles(villeActuelle, villeIteration);
 
-                if (distanceVilleChoisie < distanceMin) {
-                    distanceMin = distanceVilleChoisie;
-                    villePlusProche = villeChoisie;
+                if ((distanceIteration < distanceVillePlusProche)) {
+                    villePlusProche = villeIteration;
+                    distanceVillePlusProche = distanceIteration;
                 }
-
             }
-            rechercheAuxDistanceProche((villesVisitees + (1 << villePlusProche)), (villePlusProche),
-                    distanceParcourue + distanceMin);
+
+            villeActuelle = villePlusProche;
+            distanceObtenue += distanceVillePlusProche;
+            // TODO: ce block est resté avec l'ancienne version
+            villesVisitees |= 1 << villePlusProche;
 
         }
 
+        distanceObtenue += pays.getDistanceEntreVilles(villePlusProche, villeDepart);
+        if (distanceObtenue < distanceOptimum) {
+            distanceOptimum = distanceObtenue;
+        }
     }
 
-    // #endregion PlusProche v2
+    // #endregion PPMulti
 
     // #region Récupére parcours effectué
 
@@ -153,7 +155,7 @@ public class TrackProchesV2_1 implements ModeRecherche {
             final double distanceParcourue, final byte[] villesEmpruntees) {
 
         // Je prend en compte que la VilleActuell est déjà une ville visité
-        if (distanceParcourue < distanceOptimum
+        if (distanceParcourue <= distanceOptimum
                 && ((distanceParcourue + parcoursIdeal(villesVisitees)) <= distanceOptimum)) {
 
             if (villesVisitees == toutesVillesVisitees) {
@@ -351,8 +353,10 @@ public class TrackProchesV2_1 implements ModeRecherche {
     @Override
     public Parcours getParcours() {
         // TODO: Ajouter l'exception avec un getParcours sans avoir fait de recherche
-        //FIXME : à retenir une erreur à étais produite :Exception in thread "main" java.lang.NullPointerException
-       // at projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1.getParcours(TrackProchesV2_1.java:354)
+        // FIXME : à retenir une erreur à étais produite :Exception in thread "main"
+        // java.lang.NullPointerException
+        // at
+        // projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1.getParcours(TrackProchesV2_1.java:354)
         String villesEmpruntees = String.valueOf(villesEmprunteesOptimum[0]);
         for (int i = 1; i < villesEmprunteesOptimum.length; i++) {
             villesEmpruntees += '>' + String.valueOf(villesEmprunteesOptimum[i]);
