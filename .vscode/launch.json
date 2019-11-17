@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - PPMulti",
+            "request": "launch",
+            "mainClass": "projetS3Voyageur.ModesDeRecherches.PPMulti",
+            "projectName": "ProjetS3Voyageur"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - GenererCSV",
             "request": "launch",
             "mainClass": "projetS3Voyageur.StatsAlgos.GenererCSV",
