@@ -13,7 +13,7 @@ import projetS3Voyageur.ModesDeRecherches.TrackProchesV2;
 import java.awt.Point;
 
 
-public class TestTrackProchesV2 {
+public class testTrackProchesV2 {
     private final ModeRecherche algo = new TrackProchesV2();
 
     // #region test avec les résultat issue de BrutForce v2

@@ -6,10 +6,11 @@ import org.junit.Test;
 
 import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
+import projetS3Voyageur.ModesDeRecherches.PlusProcheV2;
 
 import java.awt.Point;
 
-public class TestPlusProcheV3 {
+public class testPlusProcheV3 {
     private final ModeRecherche plusProcheV2 = new PlusProcheV3();
 
     // #region test sur Y
