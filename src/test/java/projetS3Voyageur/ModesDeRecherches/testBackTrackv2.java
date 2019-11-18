@@ -13,7 +13,7 @@ import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 import java.awt.Point;
 
-public class TestBackTrackv2 {
+public class testBackTrackv2 {
     private ModeRecherche backTrackV1v2 = new BackTrackV2();
 
     // #region Ajout test Comparaison BrutForceV2
