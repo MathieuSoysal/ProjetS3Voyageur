@@ -12,6 +12,8 @@ import projetS3Voyageur.StatsAlgos.CSV;
 
 public class testCSV {
 
+    //TODO: Pour utilisais assertThrow pensais à utilisais throw new
+
     @Test
     public void test_Write_and_Read_avec_un_element() {
 
