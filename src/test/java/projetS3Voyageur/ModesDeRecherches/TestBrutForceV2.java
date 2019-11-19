@@ -6,12 +6,12 @@ import static projetS3Voyageur.OutilsPourTest.parcoursVilles;
 
 import org.junit.Test;
 
+import projetS3Voyageur.CompositionPays.NumVilleException;
 import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.ModesDeRecherches.BrutForceV2;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 import java.awt.Point;
-
 
 public class TestBrutForceV2 {
     private final ModeRecherche brutForceV2 = new BrutForceV2();
@@ -32,7 +32,7 @@ public class TestBrutForceV2 {
     // #region distance linaire sur Y
 
     @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_4villes() {
+    public void test_distanceLinaireSurY_ParcourOptimum_Pour_4villes() throws NumVilleException {
 
         Pays pays = new Pays(4);
 
@@ -52,7 +52,7 @@ public class TestBrutForceV2 {
     }
 
     @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_5villes() {
+    public void test_distanceLinaireSurY_ParcourOptimum_Pour_5villes() throws NumVilleException {
 
         Pays pays = new Pays(5);
 
@@ -73,7 +73,7 @@ public class TestBrutForceV2 {
     }
 
     @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes_distance_linaire() {
+    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes_distance_linaire() throws NumVilleException {
 
         Pays pays = new Pays(6);
 
@@ -94,7 +94,7 @@ public class TestBrutForceV2 {
     }
 
     @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes() {
+    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes() throws NumVilleException {
 
         Pays pays = new Pays(6);
 
@@ -115,7 +115,7 @@ public class TestBrutForceV2 {
     }
 
     @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes_desorde() {
+    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes_desorde() throws NumVilleException {
 
         Pays pays = new Pays(6);
 
@@ -147,7 +147,8 @@ public class TestBrutForceV2 {
     }
 
     @Test // TODO: Précision se test est possible de fair en sorte qu'il soit plus rapide
-    public void test_EXTREME_distanceLinaireSurY_ParcourOptimum_Pour_6villes_on_connais_la_distance_en_avance() {
+    public void test_EXTREME_distanceLinaireSurY_ParcourOptimum_Pour_6villes_on_connais_la_distance_en_avance()
+            throws NumVilleException {
 
         Pays pays = new Pays(6);
 
@@ -178,7 +179,7 @@ public class TestBrutForceV2 {
     // #region distance linaire sur X
 
     @Test
-    public void test_distanceLinaireSurX_distanceLinaireSurX_ParcourOptimum_Pour_4villes() {
+    public void test_distanceLinaireSurX_distanceLinaireSurX_ParcourOptimum_Pour_4villes() throws NumVilleException {
 
         Pays pays = new Pays(4);
 
@@ -197,7 +198,7 @@ public class TestBrutForceV2 {
     }
 
     @Test
-    public void test_distanceLinaireSurX_ParcourOptimum_Pour_5villes() {
+    public void test_distanceLinaireSurX_ParcourOptimum_Pour_5villes() throws NumVilleException {
 
         Pays pays = new Pays(5);
 
@@ -217,7 +218,7 @@ public class TestBrutForceV2 {
     }
 
     @Test
-    public void test_distanceLinaireSurX_ParcourOptimum_Pour_6villes_distance_linaire() {
+    public void test_distanceLinaireSurX_ParcourOptimum_Pour_6villes_distance_linaire() throws NumVilleException {
 
         Pays pays = new Pays(6);
 
@@ -238,7 +239,7 @@ public class TestBrutForceV2 {
     }
 
     @Test
-    public void test_distanceLinaireSurX_ParcourOptimum_Pour_6villes_desorde() {
+    public void test_distanceLinaireSurX_ParcourOptimum_Pour_6villes_desorde() throws NumVilleException {
 
         Pays pays = new Pays(6);
 
@@ -270,7 +271,7 @@ public class TestBrutForceV2 {
     }
 
     @Test // TODO: Précision se test est possible de fair en sorte qu'il soit plus rapide
-    public void test_EXTREME_distanceLinaireSurX_ParcourOptimum_Pour_6villes() {
+    public void test_EXTREME_distanceLinaireSurX_ParcourOptimum_Pour_6villes() throws NumVilleException {
 
         Pays pays = new Pays(6);
 

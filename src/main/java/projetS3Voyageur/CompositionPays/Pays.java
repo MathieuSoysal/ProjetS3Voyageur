@@ -8,12 +8,20 @@ public final class Pays {
     private GestionDistance d;
 
     public Pays(int nombreDeVilles) {
-        v = new Villes(nombreDeVilles);
-        d = new GestionDistance(v);
+        try {
+            v = new Villes(nombreDeVilles);
+        } catch (NombreVillesException e) {
+            e.printStackTrace();
+        }
+        try {
+            d = new GestionDistance(v);
+        } catch (NumVilleException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    public Pays(List<Point> points) {
+    public Pays(List<Point> points) throws NumVilleException {
         v = new Villes(points);
         d = new GestionDistance(v);
 
@@ -28,14 +36,24 @@ public final class Pays {
      * 
      * @param Ville       Numéro de la ville dont la position vas être modifier
      * @param newPosVille Nouvelle position
+     * @throws NumVilleException
      */
-    public void setPositionVille(int ville, Point posVille) {
-        v.setPositionVille(ville, posVille);
+    public void setPositionVille(int ville, Point posVille) throws NumVilleException {
+        try {
+            v.setPositionVille(ville, posVille);
+        } catch (NumVilleException e) {
+            e.printStackTrace();
+        }
         d.actualiseNumVille(ville);
     }
 
     public Point getPositionVille(int ville) {
-        return v.getPositionVille(ville);
+        try {
+            return v.getPositionVille(ville);
+        } catch (NumVilleException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public int getNombreDeVilles() {

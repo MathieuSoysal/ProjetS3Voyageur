@@ -6,35 +6,33 @@ import static projetS3Voyageur.OutilsPourTest.parcoursVilles;
 
 import org.junit.Test;
 
+import projetS3Voyageur.CompositionPays.NumVilleException;
 import projetS3Voyageur.CompositionPays.Pays;
-import projetS3Voyageur.ModesDeRecherches.BrutForceV3;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 
 import java.awt.Point;
 
-
 public class TestBrutForceV3 {
-    private final ModeRecherche brutForceV3 = new BrutForceV3();
+    private final ModeRecherche algo = new BrutForceV3();
 
-    
     // #region test avec les résultat issue de BrutForce v2
     @Test
-    public void test_4villes_comparaisons_brutForce() {
+    public void test_4villes_comparaisons_brutForce() throws NumVilleException {
         Pays pays = new Pays(4);
         pays.setPositionVille(0, new Point(867, 923));
         pays.setPositionVille(1, new Point(384, 183));
         pays.setPositionVille(2, new Point(193, 957));
         pays.setPositionVille(3, new Point(582, 183));
 
-        brutForceV3.recherche(pays, 0);
+        algo.recherche(pays, 0);
 
-        assertEquals(2463, (int) (brutForceV3.getParcours().getDistance()));
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
+        assertEquals(2463, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
-    public void test_5villes_comparaisons_brutForce() {
+    public void test_5villes_comparaisons_brutForce() throws NumVilleException {
         Pays pays = new Pays(5);
         pays.setPositionVille(0, new Point(58, 264));
         pays.setPositionVille(1, new Point(39, 754));
@@ -42,15 +40,15 @@ public class TestBrutForceV3 {
         pays.setPositionVille(3, new Point(54, 754));
         pays.setPositionVille(4, new Point(29, 745));
 
-        brutForceV3.recherche(pays, 0);
+        algo.recherche(pays, 0);
 
-        assertEquals(1281, (int) (brutForceV3.getParcours().getDistance()));
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
+        assertEquals(1281, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
-    public void test_6villes_comparaisons_brutForce() {
+    public void test_6villes_comparaisons_brutForce() throws NumVilleException {
         Pays pays = new Pays(6);
         pays.setPositionVille(0, new Point(159, 536));
         pays.setPositionVille(1, new Point(433, 559));
@@ -59,15 +57,15 @@ public class TestBrutForceV3 {
         pays.setPositionVille(4, new Point(345, 855));
         pays.setPositionVille(5, new Point(645, 452));
 
-        brutForceV3.recherche(pays, 0);
+        algo.recherche(pays, 0);
 
-        assertEquals(1813, (int) (brutForceV3.getParcours().getDistance()));
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
+        assertEquals(1813, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
-    public void test_7villes_comparaisons_brutForce() {
+    public void test_7villes_comparaisons_brutForce() throws NumVilleException {
         Pays pays = new Pays(7);
         pays.setPositionVille(0, new Point(347, 297));
         pays.setPositionVille(1, new Point(109, 307));
@@ -77,15 +75,15 @@ public class TestBrutForceV3 {
         pays.setPositionVille(5, new Point(508, 209));
         pays.setPositionVille(6, new Point(298, 408));
 
-        brutForceV3.recherche(pays, 0);
+        algo.recherche(pays, 0);
 
-        assertEquals(1640, (int) (brutForceV3.getParcours().getDistance()));
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
+        assertEquals(1640, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
-    public void test_8villes_comparaisons_brutForce() {
+    public void test_8villes_comparaisons_brutForce() throws NumVilleException {
         Pays pays = new Pays(8);
         pays.setPositionVille(0, new Point(134, 309));
         pays.setPositionVille(1, new Point(5325, 2494));
@@ -96,15 +94,15 @@ public class TestBrutForceV3 {
         pays.setPositionVille(6, new Point(728, 374));
         pays.setPositionVille(7, new Point(898, 192));
 
-        brutForceV3.recherche(pays, 0);
+        algo.recherche(pays, 0);
 
-        assertEquals(13046, (int) (brutForceV3.getParcours().getDistance()));
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
+        assertEquals(13046, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
-    public void test_9villes_comparaisons_brutForce() {
+    public void test_9villes_comparaisons_brutForce() throws NumVilleException {
         Pays pays = new Pays(9);
         pays.setPositionVille(0, new Point(1354, 3009));
         pays.setPositionVille(1, new Point(525, 2424));
@@ -116,15 +114,15 @@ public class TestBrutForceV3 {
         pays.setPositionVille(7, new Point(8918, 1922));
         pays.setPositionVille(8, new Point(8098, 1142));
 
-        brutForceV3.recherche(pays, 0);
+        algo.recherche(pays, 0);
 
-        assertEquals(20058, (int) (brutForceV3.getParcours().getDistance()));
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
+        assertEquals(20058, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
-    public void test_10villes_comparaisons_brutForce() {
+    public void test_10villes_comparaisons_brutForce() throws NumVilleException {
         Pays pays = new Pays(10);
         pays.setPositionVille(0, new Point(225, 993));
         pays.setPositionVille(1, new Point(812, 685));
@@ -137,15 +135,15 @@ public class TestBrutForceV3 {
         pays.setPositionVille(8, new Point(530, 24));
         pays.setPositionVille(9, new Point(890, 152));
 
-        brutForceV3.recherche(pays, 0);
+        algo.recherche(pays, 0);
 
-        assertEquals(3081, (int) (brutForceV3.getParcours().getDistance()));
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
+        assertEquals(3081, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     @Test
-    public void test_11villes_comparaisons_brutForce() {
+    public void test_11villes_comparaisons_brutForce() throws NumVilleException {
         Pays pays = new Pays(11);
         pays.setPositionVille(0, new Point(188, 458));
         pays.setPositionVille(1, new Point(141, 799));
@@ -159,11 +157,11 @@ public class TestBrutForceV3 {
         pays.setPositionVille(9, new Point(518, 817));
         pays.setPositionVille(10, new Point(25, 104));
 
-        brutForceV3.recherche(pays, 0);
+        algo.recherche(pays, 0);
 
-        assertEquals(2451, (int) (brutForceV3.getParcours().getDistance()));
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
+        assertEquals(2451, (int) (algo.getParcours().getDistance()));
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
     }
 
     // #endregion test avec les résultats issue de BrutForce v2
@@ -171,61 +169,20 @@ public class TestBrutForceV3 {
     @Test
     public void test_si_les_villes_ont_des_positions_random() {
 
-        brutForceV3.recherche(new Pays(6), 0);
+        algo.recherche(new Pays(6), 0);
 
-        String parcours1 = brutForceV3.getParcours().getVillesEmprunté();
+        String parcours1 = algo.getParcours().getVillesEmprunté();
 
-        brutForceV3.recherche(new Pays(6), 0);
+        algo.recherche(new Pays(6), 0);
 
-        assertNotEquals(parcours1, brutForceV3.getParcours().getVillesEmprunté());
+        assertNotEquals(parcours1, algo.getParcours().getVillesEmprunté());
 
     }
 
     // #region distance linaire sur Y
 
     @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_4villes() {
-
-        Pays pays = new Pays(4);
-
-        int positionX = (int) (Math.random() * 50);
-
-        pays.setPositionVille(0, new Point(positionX, 2));
-        pays.setPositionVille(1, new Point(positionX, 3));
-        pays.setPositionVille(2, new Point(positionX, 4));
-        pays.setPositionVille(3, new Point(positionX, 5));
-
-        brutForceV3.recherche(pays, 0);
-
-        assertEquals("0>1>2>3>0", brutForceV3.getParcours().getVillesEmprunté());
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
-
-    }
-
-    @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_5villes() {
-
-        Pays pays = new Pays(5);
-
-        int positionX = (int) (Math.random() * 50);
-
-        pays.setPositionVille(0, new Point(positionX, 2));
-        pays.setPositionVille(1, new Point(positionX, 3));
-        pays.setPositionVille(2, new Point(positionX, 4));
-        pays.setPositionVille(3, new Point(positionX, 5));
-        pays.setPositionVille(4, new Point(positionX, 6));
-
-        brutForceV3.recherche(pays, 0);
-
-        assertEquals("0>1>2>3>4>0", brutForceV3.getParcours().getVillesEmprunté());
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
-
-    }
-
-    @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes_distance_linaire() {
+    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes_desorde() throws NumVilleException {
 
         Pays pays = new Pays(6);
 
@@ -238,53 +195,9 @@ public class TestBrutForceV3 {
         pays.setPositionVille(4, new Point(positionX, 6));
         pays.setPositionVille(5, new Point(positionX, 7));
 
-        brutForceV3.recherche(pays, 0);
+        algo.recherche(pays, 0);
 
-        assertEquals("0>1>2>3>4>5>0", brutForceV3.getParcours().getVillesEmprunté());
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
-
-    }
-
-    @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes() {
-
-        Pays pays = new Pays(6);
-
-        int positionX = (int) (Math.random() * 50);
-
-        pays.setPositionVille(0, new Point(positionX, 2));
-        pays.setPositionVille(1, new Point(positionX, 3));
-        pays.setPositionVille(2, new Point(positionX, 4));
-        pays.setPositionVille(3, new Point(positionX, 5));
-        pays.setPositionVille(4, new Point(positionX, 6));
-        pays.setPositionVille(5, new Point(positionX, 7));
-
-        brutForceV3.recherche(pays, 0);
-
-        assertEquals("0>1>2>3>4>5>0", brutForceV3.getParcours().getVillesEmprunté());
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
-
-    }
-
-    @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes_desorde() {
-
-        Pays pays = new Pays(6);
-
-        int positionX = (int) (Math.random() * 50);
-
-        pays.setPositionVille(0, new Point(positionX, 2));
-        pays.setPositionVille(1, new Point(positionX, 3));
-        pays.setPositionVille(2, new Point(positionX, 4));
-        pays.setPositionVille(3, new Point(positionX, 5));
-        pays.setPositionVille(4, new Point(positionX, 6));
-        pays.setPositionVille(5, new Point(positionX, 7));
-
-        brutForceV3.recherche(pays, 0);
-
-        double distanceMinimum = brutForceV3.getParcours().getDistance();
+        double distanceMinimum = algo.getParcours().getDistance();
 
         pays.setPositionVille(0, new Point(positionX, 2));
         pays.setPositionVille(4, new Point(positionX, 3));
@@ -293,16 +206,17 @@ public class TestBrutForceV3 {
         pays.setPositionVille(1, new Point(positionX, 6));
         pays.setPositionVille(2, new Point(positionX, 7));
 
-        brutForceV3.recherche(pays, 0);
+        algo.recherche(pays, 0);
 
-        assertEquals(distanceMinimum, brutForceV3.getParcours().getDistance());
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
+        assertEquals(distanceMinimum, algo.getParcours().getDistance());
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
 
     }
 
     @Test // TODO: Précision se test est possible de fair en sorte qu'il soit plus rapide
-    public void test_EXTREME_distanceLinaireSurY_ParcourOptimum_Pour_6villes_on_connais_la_distance_en_avance() {
+    public void test_EXTREME_distanceLinaireSurY_ParcourOptimum_Pour_6villes_on_connais_la_distance_en_avance()
+            throws NumVilleException {
 
         Pays pays = new Pays(6);
 
@@ -319,11 +233,11 @@ public class TestBrutForceV3 {
             pays.setPositionVille(4, new Point(positionX, t[4]));
             pays.setPositionVille(5, new Point(positionX, t[5]));
 
-            brutForceV3.recherche(pays, 0);
+            algo.recherche(pays, 0);
 
-            assertEquals(calculeDistanceLinaire(t), brutForceV3.getParcours().getDistance());
-            assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
+            assertEquals(calculeDistanceLinaire(t), algo.getParcours().getDistance());
+            assertEquals(algo.getParcours().getDistance(),
+                    parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
         }
 
     }
@@ -333,48 +247,7 @@ public class TestBrutForceV3 {
     // #region distance linaire sur X
 
     @Test
-    public void test_distanceLinaireSurX_distanceLinaireSurX_ParcourOptimum_Pour_4villes() {
-
-        Pays pays = new Pays(4);
-
-        int positionY = (int) (Math.random() * 50);
-
-        pays.setPositionVille(0, new Point(2, positionY));
-        pays.setPositionVille(1, new Point(3, positionY));
-        pays.setPositionVille(2, new Point(4, positionY));
-        pays.setPositionVille(3, new Point(5, positionY));
-
-        brutForceV3.recherche(pays, 0);
-
-        assertEquals("0>1>2>3>0", brutForceV3.getParcours().getVillesEmprunté());
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
-
-    }
-
-    @Test
-    public void test_distanceLinaireSurX_ParcourOptimum_Pour_5villes() {
-
-        Pays pays = new Pays(5);
-
-        int positionY = (int) (Math.random() * 50);
-
-        pays.setPositionVille(0, new Point(2, positionY));
-        pays.setPositionVille(1, new Point(3, positionY));
-        pays.setPositionVille(2, new Point(4, positionY));
-        pays.setPositionVille(3, new Point(5, positionY));
-        pays.setPositionVille(4, new Point(6, positionY));
-
-        brutForceV3.recherche(pays, 0);
-
-        assertEquals("0>1>2>3>4>0", brutForceV3.getParcours().getVillesEmprunté());
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
-
-    }
-
-    @Test
-    public void test_distanceLinaireSurX_ParcourOptimum_Pour_6villes_distance_linaire() {
+    public void test_distanceLinaireSurX_ParcourOptimum_Pour_6villes_desorde() throws NumVilleException {
 
         Pays pays = new Pays(6);
 
@@ -387,31 +260,9 @@ public class TestBrutForceV3 {
         pays.setPositionVille(4, new Point(6, positionY));
         pays.setPositionVille(5, new Point(7, positionY));
 
-        brutForceV3.recherche(pays, 0);
+        algo.recherche(pays, 0);
 
-        assertEquals("0>1>2>3>4>5>0", brutForceV3.getParcours().getVillesEmprunté());
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
-
-    }
-
-    @Test
-    public void test_distanceLinaireSurX_ParcourOptimum_Pour_6villes_desorde() {
-
-        Pays pays = new Pays(6);
-
-        int positionY = (int) (Math.random() * 50);
-
-        pays.setPositionVille(0, new Point(2, positionY));
-        pays.setPositionVille(1, new Point(3, positionY));
-        pays.setPositionVille(2, new Point(4, positionY));
-        pays.setPositionVille(3, new Point(5, positionY));
-        pays.setPositionVille(4, new Point(6, positionY));
-        pays.setPositionVille(5, new Point(7, positionY));
-
-        brutForceV3.recherche(pays, 0);
-
-        double distanceMinimum = brutForceV3.getParcours().getDistance();
+        double distanceMinimum = algo.getParcours().getDistance();
 
         pays.setPositionVille(0, new Point(2, positionY));
         pays.setPositionVille(4, new Point(3, positionY));
@@ -420,16 +271,16 @@ public class TestBrutForceV3 {
         pays.setPositionVille(1, new Point(6, positionY));
         pays.setPositionVille(2, new Point(7, positionY));
 
-        brutForceV3.recherche(pays, 0);
+        algo.recherche(pays, 0);
 
-        assertEquals(distanceMinimum, brutForceV3.getParcours().getDistance());
-        assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
+        assertEquals(distanceMinimum, algo.getParcours().getDistance());
+        assertEquals(algo.getParcours().getDistance(),
+                parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
 
     }
 
     @Test // TODO: Précision se test est possible de fair en sorte qu'il soit plus rapide
-    public void test_EXTREME_distanceLinaireSurX_ParcourOptimum_Pour_6villes() {
+    public void test_EXTREME_distanceLinaireSurX_ParcourOptimum_Pour_6villes() throws NumVilleException {
 
         Pays pays = new Pays(6);
 
@@ -446,11 +297,11 @@ public class TestBrutForceV3 {
             pays.setPositionVille(4, new Point(t[4], positionY));
             pays.setPositionVille(5, new Point(t[5], positionY));
 
-            brutForceV3.recherche(pays, 0);
+            algo.recherche(pays, 0);
 
-            assertEquals(calculeDistanceLinaire(t), brutForceV3.getParcours().getDistance());
-            assertEquals(brutForceV3.getParcours().getDistance(),
-                parcoursVilles(pays, brutForceV3.getParcours().getVillesEmprunté(),">"));
+            assertEquals(calculeDistanceLinaire(t), algo.getParcours().getDistance());
+            assertEquals(algo.getParcours().getDistance(),
+                    parcoursVilles(pays, algo.getParcours().getVillesEmprunté(),">"));
         }
 
     }
@@ -474,5 +325,4 @@ public class TestBrutForceV3 {
         }
         return tableauDeIntRandom;
     }
-
 }

@@ -5,24 +5,23 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import projetS3Voyageur.CompositionPays.NumVilleException;
 import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
 import projetS3Voyageur.ModesDeRecherches.PlusProche;
 
 import java.awt.Point;
 
-
-public class TestPlusProche { 
+public class TestPlusProche {
 
     // class Obsoléte se référé à la deuxième version
-    
 
     private final ModeRecherche plusProche = new PlusProche();
 
     // #region test sur Y
     @Ignore
     @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_4villes() {
+    public void test_distanceLinaireSurY_ParcourOptimum_Pour_4villes() throws NumVilleException {
 
         Pays pays = new Pays(4);
 
@@ -43,7 +42,7 @@ public class TestPlusProche {
 
     @Ignore
     @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_5villes() {
+    public void test_distanceLinaireSurY_ParcourOptimum_Pour_5villes() throws NumVilleException {
 
         Pays pays = new Pays(5);
 
@@ -64,7 +63,7 @@ public class TestPlusProche {
 
     @Ignore
     @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes_distance_linaire() {
+    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes_distance_linaire() throws NumVilleException {
 
         Pays pays = new Pays(6);
 
@@ -86,7 +85,7 @@ public class TestPlusProche {
 
     @Ignore
     @Test
-    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes() {
+    public void test_distanceLinaireSurY_ParcourOptimum_Pour_6villes() throws NumVilleException {
 
         Pays pays = new Pays(6);
 
@@ -110,7 +109,7 @@ public class TestPlusProche {
 
     @Ignore
     @Test
-    public void test_distanceLinaireSurX_distanceLinaireSurX_ParcourOptimum_Pour_4villes() {
+    public void test_distanceLinaireSurX_distanceLinaireSurX_ParcourOptimum_Pour_4villes() throws NumVilleException {
 
         Pays pays = new Pays(4);
 
@@ -130,7 +129,7 @@ public class TestPlusProche {
 
     @Ignore
     @Test
-    public void test_distanceLinaireSurX_ParcourOptimum_Pour_5villes() {
+    public void test_distanceLinaireSurX_ParcourOptimum_Pour_5villes() throws NumVilleException {
 
         Pays pays = new Pays(5);
 
@@ -151,7 +150,7 @@ public class TestPlusProche {
 
     @Ignore
     @Test
-    public void test_distanceLinaireSurX_ParcourOptimum_Pour_6villes_distance_linaire() {
+    public void test_distanceLinaireSurX_ParcourOptimum_Pour_6villes_distance_linaire() throws NumVilleException {
 
         Pays pays = new Pays(6);
 

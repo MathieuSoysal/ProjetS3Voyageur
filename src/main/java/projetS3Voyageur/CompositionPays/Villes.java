@@ -7,12 +7,9 @@ class Villes {
     private Point[] positionDesVilles;
     private int nombreDeVilles;
 
-
-
-    Villes(int nombreDeVilles) {
+    Villes(int nombreDeVilles) throws NombreVillesException {
         if (nombreDeVilles < 3) {
-            throw new /* TODO : utilisais des exceptions pérsonalisée */ IndexOutOfBoundsException(
-                    "Veuillez écrire un nombre de villes compris entre 3 et 15");
+            throw new NombreVillesException(nombreDeVilles);
         }
         this.nombreDeVilles = nombreDeVilles;
         positionDesVilles = new Point[nombreDeVilles];
@@ -22,10 +19,10 @@ class Villes {
         }
     }
 
-    Villes(List<Point> points){
+    Villes(List<Point> points) {
         this.nombreDeVilles = points.size();
         positionDesVilles = new Point[nombreDeVilles];
-        int i =0;
+        int i = 0;
         for (Point point : points) {
             positionDesVilles[i++] = point;
         }
@@ -36,8 +33,9 @@ class Villes {
      * 
      * @param ville       Numéro de la ville dont la position va être modifiée
      * @param newPosVille Nouvelle position
+     * @throws NumVilleException
      */
-    void setPositionVille(int ville, Point posVille) {
+    void setPositionVille(int ville, Point posVille) throws NumVilleException {
         verifieNumVille(ville);
         positionDesVilles[ville] = posVille;
 
@@ -48,8 +46,9 @@ class Villes {
      * 
      * @param ville numéro de la ville à localiser
      * @return {@Code Position} la localisation de la ville
+     * @throws NumVilleException
      */
-    Point getPositionVille(int ville) {
+    Point getPositionVille(int ville) throws NumVilleException {
         verifieNumVille(ville);
         return positionDesVilles[ville];
     }
@@ -62,11 +61,11 @@ class Villes {
      * Vérifie si le numéro de la ville saisi est bien valide
      * 
      * @param ville Numéro de la ville à vérifier
+     * @throws NumVilleException
      */
-    private void verifieNumVille(int ville) {
+    private void verifieNumVille(int ville) throws NumVilleException {
         if (ville < 0 || ville > nombreDeVilles - 1) {
-            throw new IndexOutOfBoundsException(
-                    "Le numéro de la ville doit être compris entre 0 et " + (nombreDeVilles - 1));
+            throw new NumVilleException(ville, nombreDeVilles - 1);
         }
     }
 

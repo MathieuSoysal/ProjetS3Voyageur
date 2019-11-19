@@ -1,7 +1,5 @@
 package projetS3Voyageur.CompositionPays;
 
-import java.awt.Point;
-
 import static java.lang.Math.hypot;
 
 class GestionDistance {
@@ -12,17 +10,18 @@ class GestionDistance {
 
     private int dernierNumVille; // pour faciliter la lecture du code
 
-    GestionDistance(Villes villes) {
+    GestionDistance(Villes villes) throws NumVilleException {
 
         this.villes = villes;
         this.nbVilles = villes.getNombreDeVilles();
         distancesVille = new double[nbVilles][nbVilles];
 
-        for (int i = 0; i < nbVilles; i++) {
-            for (int j = 0; j < nbVilles; j++) {
-                distancesVille[i][j] = hypot(ecartEnX(i, j), ecartEnY(i, j));
+            for (int i = 0; i < nbVilles; i++) {
+                for (int j = 0; j < nbVilles; j++) {
+                    distancesVille[i][j] = hypot(ecartEnX(i, j), ecartEnY(i, j));
+                }
             }
-        }
+
 
     }
 
@@ -42,8 +41,9 @@ class GestionDistance {
      * villes
      * 
      * @param numVille Numéro de la ville dont la localisation à été modifier
+     * @throws NumVilleException
      */
-    void actualiseNumVille(int numVille) {
+    void actualiseNumVille(int numVille) throws NumVilleException {
         verifieNumVille(numVille);
         double hypotegnius;
 
@@ -57,29 +57,32 @@ class GestionDistance {
         }
     }
 
-    // #region ces méthodes sont simplement destinées à faciliter la lisibilité du code
+    // #region ces méthodes sont simplement destinées à faciliter la lisibilité du
+    // code
 
     /**
      * Retourne l'écart entre deux points sur une même ordonner X
      * 
-     * @param ville1
-     * @param ville2
+     * @param ville1 Numéro de la première ville donnée en paramètre
+     * @param ville2 Numéro de la seconde ville donnée en paramètre
      * @return {@code int} Écart sur l'ordonnée x entre les deux villes. Attention
      *         le résultat peut être négatif
+     * @throws NumVilleException
      */
-    private double ecartEnX(int ville1, int ville2) {
+    private double ecartEnX(int ville1, int ville2) throws NumVilleException {
         return villes.getPositionVille(ville1).getX() - villes.getPositionVille(ville2).getX();
     }
 
     /**
      * Retourne l'écart entre deux points sur une même ordonner y
      * 
-     * @param ville1
-     * @param ville2
+     * @param ville1 Numéro de la première ville donnée en paramètre
+     * @param ville2 Numéro de la seconde ville donnée en paramètre
      * @return {@code int} Écart sur l'ordonnée y entre les deux villes. Attention
      *         le résultat peut être négatif
+     * @throws NumVilleException
      */
-    private double ecartEnY(int ville1, int ville2) {
+    private double ecartEnY(int ville1, int ville2) throws NumVilleException {
         return villes.getPositionVille(ville1).getY() - villes.getPositionVille(ville2).getY();
     }
 

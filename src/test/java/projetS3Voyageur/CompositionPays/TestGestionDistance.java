@@ -14,7 +14,7 @@ public class TestGestionDistance {
     GestionDistance d;
 
     @Before
-    public void init() {
+    private void init() throws NombreVillesException, NumVilleException {
         v = new Villes(3);
         d = new GestionDistance(v);
     }
@@ -22,7 +22,7 @@ public class TestGestionDistance {
     // #region testGetDistance & setDistance
 
     @Test
-    public void test_getDistance_and_actualisation_0_et_1() {
+    public void test_getDistance_and_actualisation_0_et_1() throws NumVilleException, NombreVillesException {
         init();
         int numVille1 = 0;
         int numVille2 = 1;
@@ -37,7 +37,7 @@ public class TestGestionDistance {
     }
 
     @Test
-    public void test_getDistance_and_actualisation_0_et_2() {
+    public void test_getDistance_and_actualisation_0_et_2() throws NumVilleException {
         int numVille1 = 0;
         int numVille2 = 2;
         Point posVille1 = new Point(2, 2);
@@ -51,7 +51,7 @@ public class TestGestionDistance {
     }
 
     @Test
-    public void test_getDistance_and_actualisation_1_et_2() {
+    public void test_getDistance_and_actualisation_1_et_2() throws NumVilleException {
         int numVille1 = 1;
         int numVille2 = 2;
         Point posVille1 = new Point(2, 2);
@@ -66,7 +66,7 @@ public class TestGestionDistance {
 
     // #region Test (getDistance(X,Y) == getDistance(Y,X) ) avec un setPosition
     @Test
-    public void test_getDistance_0et1_eguale_getDistance_1et0_avecSetPosition() {
+    public void test_getDistance_0et1_eguale_getDistance_1et0_avecSetPosition() throws NumVilleException {
         int numVille1 = 0;
         int numVille2 = 2;
         Point posVille1 = new Point(2, 2);
@@ -80,7 +80,7 @@ public class TestGestionDistance {
     }
 
     @Test
-    public void test_getDistance_2et1_eguale_getDistance_1et2_avecSetPosition() {
+    public void test_getDistance_2et1_eguale_getDistance_1et2_avecSetPosition() throws NumVilleException {
         int numVille1 = 1;
         int numVille2 = 2;
         Point posVille1 = new Point(2, 2);
@@ -94,7 +94,7 @@ public class TestGestionDistance {
     }
 
     @Test
-    public void test_getDistance_2et0_eguale_getDistance_0et2_avecSetPosition() {
+    public void test_getDistance_2et0_eguale_getDistance_0et2_avecSetPosition() throws NumVilleException {
         int numVille1 = 1;
         int numVille2 = 2;
         Point posVille1 = new Point(2, 2);
@@ -111,7 +111,7 @@ public class TestGestionDistance {
 
     // #region test getDistance
     @Test
-    public void test_getDistance_entre_0_et_2() {
+    public void test_getDistance_entre_0_et_2() throws NumVilleException {
         int numVille1 = 0;
         int numVille2 = 2;
 
@@ -122,7 +122,7 @@ public class TestGestionDistance {
     }
 
     @Test
-    public void test_getDistance_entre_1_et_2() {
+    public void test_getDistance_entre_1_et_2() throws NumVilleException {
         int numVille1 = 1;
         int numVille2 = 2;
 
@@ -133,7 +133,7 @@ public class TestGestionDistance {
     }
 
     @Test
-    public void test_getDistance_entre_0_et_1() {
+    public void test_getDistance_entre_0_et_1() throws NumVilleException {
         int numVille1 = 1;
         int numVille2 = 2;
 
@@ -144,7 +144,7 @@ public class TestGestionDistance {
     }
 
     @Test
-    public void test_EXTREME_getDistance_entre_deux_villes() {
+    public void test_EXTREME_getDistance_entre_deux_villes() throws NombreVillesException, NumVilleException {
 
         for (int i = 0; i < 30; i++) {
             Villes villes = new Villes(5);
