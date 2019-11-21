@@ -15,7 +15,7 @@ public class InteractionBD {
 
     public static void main(String[] args) {
 
-        String idCarte = "1";
+        String idCarte = "5";
         String nbVille = "54";
 
         String idVille = "4";
@@ -24,18 +24,8 @@ public class InteractionBD {
 
         InteractionBD.connexion();
 
-        //InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");
-
-        //List<String[]> recup = InteractionBD.recuperationBD("SELECT * FROM Carte");
         List<String[]> recupXY = InteractionBD.recuperationBD("SELECT C.idCarte, X, Y FROM Carte C JOIN Ville V ON C.idCarte = V.idCarte WHERE V.idCarte = '" + idCarte +"' ");
 
-        /*for (String[] s : recup) {
-            System.out.println("|");
-            for (String str : s) {
-                System.out.print(str + "|");
-            }
-
-        }*/
 
         for (String[] si : recupXY) {
             System.out.println("\nidVille | X | Y");
@@ -45,6 +35,9 @@ public class InteractionBD {
             }
 
         }
+        System.out.println("\nnb ville de l'idCarte '" + idCarte+ "' = " + "il y a " + GestionBD.getNbVille("5") + " villes.");
+
+        /*System.out.println("\nLes coordonnées de X et Y de toutes les villes de la carte  '" + idCarte+ "' = " + "List " + GestionBD.getXY("5") );*/
 
     }
 
