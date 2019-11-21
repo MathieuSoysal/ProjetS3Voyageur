@@ -15,17 +15,21 @@ public class InteractionBD {
 
     public static void main(String[] args) {
 
-        String idCarte = "61";
-        String nbVille = "50";
+        String idCarte = "1";
+        String nbVille = "54";
+
+        String idVille = "4";
+
+
 
         InteractionBD.connexion();
 
         //InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");
 
         //List<String[]> recup = InteractionBD.recuperationBD("SELECT * FROM Carte");
-        List<String[]> recupXY = InteractionBD.recuperationBD("SELECT C.idCarte, X, Y FROM Carte C JOIN Ville V ON C.idCarte = V.idCarte WHERE C.idCarte = '" + idCarte +"' ");
+        List<String[]> recupXY = InteractionBD.recuperationBD("SELECT C.idCarte, X, Y FROM Carte C JOIN Ville V ON C.idCarte = V.idCarte WHERE V.idCarte = '" + idCarte +"' ");
 
-       /* for (String[] s : recup) {
+        /*for (String[] s : recup) {
             System.out.println("|");
             for (String str : s) {
                 System.out.print(str + "|");
@@ -34,10 +38,10 @@ public class InteractionBD {
         }*/
 
         for (String[] si : recupXY) {
-            System.out.println("|");
+            System.out.println("\nidVille | X | Y");
             for (String strxy : si) {
-                System.out.print(strxy + "X |");
-                System.out.print(strxy + "Y |");
+                System.out.print(strxy + " |");
+
             }
 
         }
