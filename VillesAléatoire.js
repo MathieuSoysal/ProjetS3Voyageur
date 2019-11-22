@@ -28,5 +28,5 @@ function draw() {
 }
 
 function isINT(n){
-    return parseFloat(n) == parseInt(n);
+  return n == parseInt(n);
 }
