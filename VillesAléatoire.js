@@ -1,8 +1,8 @@
 // noprotect
 var villes = [];
-var nbVilles = prompt('Entrez le nombre de villes :');
+var nbVilles = prompt('Entrez un nombre de villes entre 3 et 15 :');
 while(!isINT(nbVilles) || nbVilles > 15 || nbVilles < 3){
-    nbVilles = prompt('Entrez un nombre valide de villes:');
+    nbVilles = prompt('Entrez un nombre valide (entre 3 et 15) de villes:');
 }
 var totalVilles = nbVilles;
 
@@ -20,13 +20,14 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  background(102);
   fill(255,0,0);
   for (var i = 0; i < villes.length; i++) {
-    ellipse(villes[i].x, villes[i].y, 8, 8);
+    circle(villes[i].x, villes[i].y, 8);
   }
 }
 
 function isINT(n){
-  return n == parseInt(n);
+    return n == parseInt(n);
 }
+
