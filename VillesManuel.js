@@ -1,8 +1,7 @@
 // noprotect
 let villes = [];
-let n = 0;
 function setup() {
-  createCanvas(710, 400);
+  createCanvas(400, 400);
   background(102);
   noStroke();
   fill(0, 102);
@@ -17,11 +16,12 @@ function draw() {
 
 //add a circle whenever the mouse is clicked
 function mouseClicked(){
+  
   if(villes.length < 15){
     if(mouseX <= 400 && mouseX >= 0 && mouseY <= 400 && mouseY >= 0){
       //push a new circle to our array
       fill(255,0,0);
-      villes.push( circle(mouseX, mouseY, 7));
+      villes.push( circle(mouseX, mouseY, 8));
       console.log(mouseX, mouseY);
       console.log(villes.length);
     }
