@@ -8,6 +8,9 @@ var totalVilles = nbVilles;
 
 function setup() {
   createCanvas(400, 400);
+  background(102);
+  noStroke();
+  fill(0, 102);
   for (var i = 0; i < totalVilles; i++) {
     var v = createVector(random(width), random(height));
     villes[i] = v;
