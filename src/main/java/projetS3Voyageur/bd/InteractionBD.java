@@ -16,9 +16,6 @@ public class InteractionBD {
     public static void main(String[] args) {
 
         String idCarte = "5";
-        String nbVille = "54";
-
-        String idVille = "4";
 
 
 
@@ -111,10 +108,10 @@ public class InteractionBD {
     public static List<String[]> recuperationBD(String requete) {
 
         try {
-            List<String[]> resultatMethode = new ArrayList<>();
-            ResultSet resultatsRequete = con.createStatement().executeQuery(requete);
-
+            final ResultSet resultatsRequete = con.createStatement().executeQuery(requete);
             final int nbCol = resultatsRequete.getMetaData().getColumnCount();
+
+            List<String[]> resultatMethode = new ArrayList<>();
 
             String[] tuple = new String[nbCol];
             while (resultatsRequete.next()) {
