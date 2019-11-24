@@ -7,7 +7,7 @@ import java.awt.Point;
 
 public class GestionBD {
 
-    private static HashMap<Integer,String> repertoireIdVille = new HashMap<>();
+    private static HashMap<Byte, String> repertoireIdVille = new HashMap<>();
 
     /**
      * Récupère le nombre ville référençais par l'idCarte donnée en paramètre.
@@ -19,8 +19,8 @@ public class GestionBD {
 
         InteractionBD.connexion();
 
-        final List<String[]> recuperationBD = InteractionBD.recuperationBD("SELECT nbVille FROM Carte WHERE idCarte = " + idCarte);
-
+        final List<String[]> recuperationBD = InteractionBD
+                .recuperationBD("SELECT nbVille FROM Carte WHERE idCarte = " + idCarte);
 
         if (recuperationBD.isEmpty()) {
             System.err.println("La requête n'a retourné aucun résultat");
@@ -31,18 +31,20 @@ public class GestionBD {
 
     }
 
-
     /**
      * Renvoie la liste de ville de l'idCarte sous forme d'un tableau de Point
      * 
-     * @param idCarte {@code String} L'idCarte dont la liste de villes doit être extrait.
-     * @return {@code Point[]} 
+     * @param idCarte {@code String} L'idCarte dont la liste de villes doit être
+     *                extrait.
+     * @return {@code Point[]}
      */
     public static Point[] getCarte(final String idCarte) {
 
         InteractionBD.connexion();
 
-        final List<String[]> recuperationXY = InteractionBD.recuperationBD("SELECT  X, Y , V.idVille FROM Carte C JOIN Ville V ON C.idCarte = V.idCarte WHERE V.idCarte = '" + idCarte +"' ");
+        final List<String[]> recuperationXY = InteractionBD.recuperationBD(
+                "SELECT  X, Y , V.idVille FROM Carte C JOIN Ville V ON C.idCarte = V.idCarte WHERE V.idCarte = '"
+                        + idCarte + "' ");
 
         if (recuperationXY.isEmpty()) {
             System.err.println("La requête n'a retourné aucun résultat");
@@ -51,9 +53,9 @@ public class GestionBD {
 
         final Point[] resultat = new Point[getNbVille(idCarte)];
 
-        for (int i = 0; i < resultat.length; i++) {
+        for (byte i = 0; i < resultat.length; i++) {
             final String[] tuple = recuperationXY.get(i);
-            resultat[i] = new Point(Integer.valueOf(tuple[0]),(Integer.valueOf(tuple[1])));
+            resultat[i] = new Point(Integer.valueOf(tuple[0]), (Integer.valueOf(tuple[1])));
             repertoireIdVille.put(i, tuple[2]);
         }
 
@@ -61,7 +63,33 @@ public class GestionBD {
 
     }
 
-    
+    public static void envoieParcours(String villesEmpruntees) {
 
-    //TODO: Faire la méthode d'envoi du parcours (associer les numVille aux idVille)
+        InteractionBD.connexion();
+
+        final String[] listeIdVille = villesEmpruntees.split(">");
+
+        villesEmpruntees = repertoireIdVille.get(Byte.valueOf(listeIdVille[0]));
+
+        for (int i = 1; i < listeIdVille.length; i++) {
+            villesEmpruntees += ">" + repertoireIdVille.get(Byte.valueOf(listeIdVille[0]));
+        }
+
+        InteractionBD.setRequete("Requête pour ajouter la liste" + villesEmpruntees);
+    }
+
+    public static void envoieParcours(final byte[] villesEmpruntees) {
+
+        InteractionBD.connexion();
+
+        String parcours = repertoireIdVille.get(villesEmpruntees[0]);
+
+        for (byte i = 1; i < villesEmpruntees.length; i++) {
+            parcours += ">" + repertoireIdVille.get(villesEmpruntees[i]);
+        }
+
+        InteractionBD.setRequete("Requête pour ajouter la liste" + parcours);
+    }
+
+    // TODO: Je pense qu'il est mieux que ça soit le client qui convertit les numVille en idVille afin d'alléger les calculs serveur
 }
