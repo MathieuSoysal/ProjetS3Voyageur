@@ -63,22 +63,93 @@ public class GestionBD {
 
     }
 
-    public static void envoieParcours(String ordreVille) {
+    /**
+     * Insert un tuple dans la table Parcours avec comme éléments les variables en
+     * paramètre de la méthode.
+     * 
+     * @param idCarte     {@code String} #idCarte
+     * @param nomAlgo     {@code Stirng} nomAlgo
+     * @param fini        {@code boolean} isFinished
+     * @param distance    {@code String} cost
+     * @param ordreVilles {@code String} ordreVilles
+     */
+    public void envoieParcours(final String idCarte, final String nomAlgo, final boolean fini, String ordreVilles,
+            final String distance) {
+
+        insertParcours(idCarte, nomAlgo, fini, distance, convertieNumVersId(ordreVilles));
+    }
+
+    /**
+     * Insert un tuple dans la table Parcours avec comme éléments les variables en
+     * paramètre de la méthode.
+     * 
+     * @param idCarte     {@code String} #idCarte
+     * @param nomAlgo     {@code Stirng} nomAlgo
+     * @param fini        {@code boolean} isFinished
+     * @param distance    {@code String} cost
+     * @param ordreVilles {@code byte[]} ordreVilles
+     */
+    public void envoieParcours(final String idCarte, final String nomAlgo, final boolean fini, final byte[] ordreVilles,
+            final String distance) {
+
+        insertParcours(idCarte, nomAlgo, fini, distance, convertieNumVersId(ordreVilles));
+    }
+
+    // #region Outils
+
+    /**
+     * Insert un tuple dans la table Parcours avec comme éléments les variables en
+     * paramètre de la méthode.
+     * 
+     * @param idCarte     {@code String} #idCarte
+     * @param nomAlgo     {@code Stirng} nomAlgo
+     * @param fini        {@code boolean} isFinished
+     * @param distance    {@code String} cost
+     * @param ordreVilles {@code String} ordreVilles
+     */
+    private void insertParcours(final String idCarte, final String nomAlgo, final boolean fini, final String distance,
+            String ordreVilles) {
+
+        InteractionBD.setRequete(String.format(
+                "INSERT INTO Parcours Set idCarte = '%s', nomAlgo = '%s', isFinished = '%s', ordreVilles = '%s', cost = '%s' ;",
+                idCarte, nomAlgo, ((fini) ? "Oui" : "Non"), ordreVilles, distance));
+    }
+
+    /**
+     * Convertie les numéros de ville présant dans un String vers leur idVille
+     * correspondant.
+     * 
+     * @param ordreVilles {@code String} Contient l'ordre des numéro de ville
+     * @return {@code String} Contient l'ordre des idVille
+     */
+    private static String convertieNumVersId(String ordreVilles) {
 
         InteractionBD.connexion();
 
-        final String[] listeIdVille = ordreVille.split(">");
+        final String[] listeIdVille = ordreVilles.split(">");
 
-        ordreVille = repertoireIdVille.get(Byte.valueOf(listeIdVille[0]));
+        ordreVilles = repertoireIdVille.get(Byte.valueOf(listeIdVille[0]));
 
         for (int i = 1; i < listeIdVille.length; i++) {
-            ordreVille += ">" + repertoireIdVille.get(Byte.valueOf(listeIdVille[i]));
+            ordreVilles += ">" + repertoireIdVille.get(Byte.valueOf(listeIdVille[i]));
         }
 
-        InteractionBD.setRequete("Requête pour ajouter la liste" + ordreVille);
+        return ordreVilles;
     }
 
-    public static void envoieParcours(final byte[] ordreVilles_p) {
+    /**
+     * Convertie les numéro de ville présent au sein du tableau de byte vers leur
+     * idVille corresepondant.
+     * 
+     * Pour renvoyer une chaine de caractères contenant l'ordre des idVille.
+     * 
+     * @param ordreVilles_p {@code byte[]} tableau de {@code byte} contenant l'ordre
+     *                      des numVille
+     * 
+     * @return {@code String} Retourne une chaine de caractères contenant l'ordre
+     *         des idVille
+     */
+    private static String convertieNumVersId(final byte[] ordreVilles_p) {
 
         InteractionBD.connexion();
 
@@ -88,10 +159,10 @@ public class GestionBD {
             ordreVilles += ">" + repertoireIdVille.get(ordreVilles_p[i]);
         }
 
-        InteractionBD.setRequete("Requête pour ajouter la liste" + ordreVilles);
+        return ordreVilles;
     }
+    // #endregion Outils
 
-
-
-    // TODO: Je pense qu'il est mieux que ça soit le client qui convertit les numVille en idVille afin d'alléger les calculs serveur
+    // TODO: Je pense qu'il est mieux que ça soit le client qui convertit les
+    // numVille en idVille afin d'alléger les calculs serveur
 }
