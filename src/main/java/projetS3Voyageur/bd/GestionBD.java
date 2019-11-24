@@ -63,33 +63,35 @@ public class GestionBD {
 
     }
 
-    public static void envoieParcours(String villesEmpruntees) {
+    public static void envoieParcours(String ordreVille) {
 
         InteractionBD.connexion();
 
-        final String[] listeIdVille = villesEmpruntees.split(">");
+        final String[] listeIdVille = ordreVille.split(">");
 
-        villesEmpruntees = repertoireIdVille.get(Byte.valueOf(listeIdVille[0]));
+        ordreVille = repertoireIdVille.get(Byte.valueOf(listeIdVille[0]));
 
         for (int i = 1; i < listeIdVille.length; i++) {
-            villesEmpruntees += ">" + repertoireIdVille.get(Byte.valueOf(listeIdVille[0]));
+            ordreVille += ">" + repertoireIdVille.get(Byte.valueOf(listeIdVille[i]));
         }
 
-        InteractionBD.setRequete("Requête pour ajouter la liste" + villesEmpruntees);
+        InteractionBD.setRequete("Requête pour ajouter la liste" + ordreVille);
     }
 
-    public static void envoieParcours(final byte[] villesEmpruntees) {
+    public static void envoieParcours(final byte[] ordreVilles_p) {
 
         InteractionBD.connexion();
 
-        String parcours = repertoireIdVille.get(villesEmpruntees[0]);
+        String ordreVilles = repertoireIdVille.get(ordreVilles_p[0]);
 
-        for (byte i = 1; i < villesEmpruntees.length; i++) {
-            parcours += ">" + repertoireIdVille.get(villesEmpruntees[i]);
+        for (byte i = 1; i < ordreVilles_p.length; i++) {
+            ordreVilles += ">" + repertoireIdVille.get(ordreVilles_p[i]);
         }
 
-        InteractionBD.setRequete("Requête pour ajouter la liste" + parcours);
+        InteractionBD.setRequete("Requête pour ajouter la liste" + ordreVilles);
     }
+
+
 
     // TODO: Je pense qu'il est mieux que ça soit le client qui convertit les numVille en idVille afin d'alléger les calculs serveur
 }
