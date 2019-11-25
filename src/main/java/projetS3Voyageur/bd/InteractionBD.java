@@ -36,6 +36,13 @@ public class InteractionBD {
 
         /*System.out.println("\nLes coordonnées de X et Y de toutes les villes de la carte  '" + idCarte+ "' = " + "List " + GestionBD.getXY("5") );*/
 
+
+
+        GestionBD GBD = new GestionBD();
+        GBD.getCarte("5");
+
+        GBD.envoieParcours("6","bruteforce", true, "1>2>3", "254" );
+
     }
 
     /**

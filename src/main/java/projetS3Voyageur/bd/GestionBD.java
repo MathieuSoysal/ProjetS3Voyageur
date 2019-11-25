@@ -11,7 +11,7 @@ public class GestionBD {
 
     /**
      * Récupère le nombre ville référençais par l'idCarte donnée en paramètre.
-     * 
+     *
      * @param idCarte {@code String} dont le nombre de ville doit être récupéré.
      * @return {@code Byte} Nbville que l'idCarte référence.
      */
@@ -33,12 +33,12 @@ public class GestionBD {
 
     /**
      * Renvoie la liste de ville de l'idCarte sous forme d'un tableau de Point
-     * 
+     *
      * @param idCarte {@code String} L'idCarte dont la liste de villes doit être
      *                extrait.
      * @return {@code Point[]}
      */
-    public static Point[] getCarte(final String idCarte) {
+    public Point[] getCarte(final String idCarte) {
 
         InteractionBD.connexion();
 
@@ -66,7 +66,7 @@ public class GestionBD {
     /**
      * Insert un tuple dans la table Parcours avec comme éléments les variables en
      * paramètre de la méthode.
-     * 
+     *
      * @param idCarte     {@code String} #idCarte
      * @param nomAlgo     {@code Stirng} nomAlgo
      * @param fini        {@code boolean} isFinished
@@ -74,7 +74,7 @@ public class GestionBD {
      * @param ordreVilles {@code String} ordreVilles
      */
     public void envoieParcours(final String idCarte, final String nomAlgo, final boolean fini, String ordreVilles,
-            final String distance) {
+                               final String distance) {
 
         insertParcours(idCarte, nomAlgo, fini, distance, convertieNumVersId(ordreVilles));
     }
@@ -82,7 +82,7 @@ public class GestionBD {
     /**
      * Insert un tuple dans la table Parcours avec comme éléments les variables en
      * paramètre de la méthode.
-     * 
+     *
      * @param idCarte     {@code String} #idCarte
      * @param nomAlgo     {@code Stirng} nomAlgo
      * @param fini        {@code boolean} isFinished
@@ -90,7 +90,7 @@ public class GestionBD {
      * @param ordreVilles {@code byte[]} ordreVilles
      */
     public void envoieParcours(final String idCarte, final String nomAlgo, final boolean fini, final byte[] ordreVilles,
-            final String distance) {
+                               final String distance) {
 
         insertParcours(idCarte, nomAlgo, fini, distance, convertieNumVersId(ordreVilles));
     }
@@ -100,7 +100,7 @@ public class GestionBD {
     /**
      * Insert un tuple dans la table Parcours avec comme éléments les variables en
      * paramètre de la méthode.
-     * 
+     *
      * @param idCarte     {@code String} #idCarte
      * @param nomAlgo     {@code Stirng} nomAlgo
      * @param fini        {@code boolean} isFinished
@@ -108,17 +108,18 @@ public class GestionBD {
      * @param ordreVilles {@code String} ordreVilles
      */
     private void insertParcours(final String idCarte, final String nomAlgo, final boolean fini, final String distance,
-            String ordreVilles) {
+                                String ordreVilles) {
 
+        InteractionBD.connexion();
         InteractionBD.setRequete(String.format(
                 "INSERT INTO Parcours Set idCarte = '%s', nomAlgo = '%s', isFinished = '%s', ordreVilles = '%s', cost = '%s' ;",
-                idCarte, nomAlgo, ((fini) ? "Oui" : "Non"), ordreVilles, distance));
+                idCarte, nomAlgo, ((fini) ? 1 : 0), ordreVilles, distance));
     }
 
     /**
      * Convertie les numéros de ville présant dans un String vers leur idVille
      * correspondant.
-     * 
+     *
      * @param ordreVilles {@code String} Contient l'ordre des numéro de ville
      * @return {@code String} Contient l'ordre des idVille
      */
@@ -140,12 +141,12 @@ public class GestionBD {
     /**
      * Convertie les numéro de ville présent au sein du tableau de byte vers leur
      * idVille corresepondant.
-     * 
+     *
      * Pour renvoyer une chaine de caractères contenant l'ordre des idVille.
-     * 
+     *
      * @param ordreVilles_p {@code byte[]} tableau de {@code byte} contenant l'ordre
      *                      des numVille
-     * 
+     *
      * @return {@code String} Retourne une chaine de caractères contenant l'ordre
      *         des idVille
      */
