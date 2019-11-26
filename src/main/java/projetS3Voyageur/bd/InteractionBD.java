@@ -150,8 +150,7 @@ public class InteractionBD {
     // #region Gestion des exceptions
 
     private static void delaiDepasse(SQLTimeoutException e) {
-        System.err
-                .println("Connexion à la base de donnée réussie, mais le délai de réponse impartie a été dépassé. \n");
+        System.err.println("Connexion à la base de donnée réussie, mais le délai de réponse impartie a été dépassé. \n");
         e.printStackTrace();
     }
 
