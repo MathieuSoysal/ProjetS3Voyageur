@@ -1,5 +1,6 @@
 package projetS3Voyageur.bd;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,8 +20,7 @@ public class GestionBD {
 
         InteractionBD.connexion();
 
-        final List<String[]> recuperationBD = InteractionBD
-                .recuperationBD("SELECT nbVille FROM Carte WHERE idCarte = " + idCarte);
+        final List<String[]> recuperationBD = InteractionBD.recuperationBD("SELECT nbVille FROM Carte WHERE idCarte = " + idCarte);
 
         if (recuperationBD.isEmpty()) {
             System.err.println("La requête n'a retourné aucun résultat \n");
@@ -53,10 +53,12 @@ public class GestionBD {
 
         final Point[] resultat = new Point[getNbVille(idCarte)];
 
+
         byte i = 0;
         for (final String[] tuple : recuperationXY) {
             resultat[i] = new Point(Integer.valueOf(tuple[0]), (Integer.valueOf(tuple[1])));
-            repertoireIdVille.put(i, tuple[2]);
+            repertoireIdVille.put(i++, tuple[2]);
+
         }
 
         return resultat;
@@ -114,25 +116,29 @@ public class GestionBD {
         InteractionBD.setRequete(String.format(
                 "INSERT INTO Parcours Set idCarte = '%s', nomAlgo = '%s', isFinished = '%s', ordreVilles = '%s', cost = '%s' ;",
                 idCarte, nomAlgo, ((fini) ? 1 : 0), ordreVilles, distance));
+        System.out.println("Le parcours à était insérer dans la base de données\n");
     }
 
     /**
-     * Convertie les numéros de ville présant dans un String vers leur idVille
+     * Convertie les numéros de ville , de l'ordre des villes donnés en paramétre en leurs idVille
      * correspondant.
      *
      * @param ordreVilles {@code String} Contient l'ordre des numéro de ville
      * @return {@code String} Contient l'ordre des idVille
      */
-    private static String convertieNumVersId(String ordreVilles) {
+    private String convertieNumVersId(String ordreVilles) {
 
         InteractionBD.connexion();
 
         final String[] listeIdVille = ordreVilles.split(">");
 
+
         ordreVilles = repertoireIdVille.get(Byte.valueOf(listeIdVille[0]));
+
 
         for (int i = 1; i < listeIdVille.length; i++) {
             ordreVilles += ">" + repertoireIdVille.get(Byte.valueOf(listeIdVille[i]));
+
         }
 
         return ordreVilles;
@@ -150,7 +156,7 @@ public class GestionBD {
      * @return {@code String} Retourne une chaine de caractères contenant l'ordre
      *         des idVille
      */
-    private static String convertieNumVersId(final byte[] ordreVilles_p) {
+    private String convertieNumVersId(final byte[] ordreVilles_p) {
 
         InteractionBD.connexion();
 

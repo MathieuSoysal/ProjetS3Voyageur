@@ -15,7 +15,7 @@ public class InteractionBD {
 
     public static void main(String[] args) {
 
-        String idCarte = "5";
+        String idCarte = "1";
 
 
 
@@ -32,16 +32,20 @@ public class InteractionBD {
             }
 
         }
-        System.out.println("\nnb ville de l'idCarte '" + idCarte+ "' = " + "il y a " + GestionBD.getNbVille("5") + " villes.");
+        System.out.println("\nnb ville de l'idCarte '" + idCarte+ "' = " + "il y a " + GestionBD.getNbVille("1") + " villes.");
 
         /*System.out.println("\nLes coordonnées de X et Y de toutes les villes de la carte  '" + idCarte+ "' = " + "List " + GestionBD.getXY("5") );*/
 
 
 
         GestionBD GBD = new GestionBD();
-        GBD.getCarte("5");
+        GBD.getCarte("1");
 
-        GBD.envoieParcours("6","bruteforce", true, "1>2>3", "254" );
+       // String recup nbVille = InteractionBD.recuperationBD("SELECT C.idCarte, X, Y FROM Carte C JOIN Ville V ON C.idCarte = V.idCarte WHERE V.idCarte = '" + idCarte +"' ");
+
+       GBD.envoieParcours("1","tr", true, "2>0>1", "98" );
+
+
 
     }
 
