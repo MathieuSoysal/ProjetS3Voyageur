@@ -33,12 +33,12 @@ public class TestGestionBD {
         assertEquals(GestionBD.getNbVille("1"), 3);
     }
 
-    @Test
+   /* @Test
     public void test_getCarte_() {
 
         InteractionBD.connexion();
         GestionBD BD = new GestionBD();
        // assertEquals(BD.getCarte("1"), 3);// prb
-    }
+    }*/
 
 }
