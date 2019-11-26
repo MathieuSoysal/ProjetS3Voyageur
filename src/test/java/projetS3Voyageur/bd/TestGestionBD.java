@@ -32,7 +32,7 @@ public class TestGestionBD {
         InteractionBD.connexion();
         assertEquals(GestionBD.getNbVille("1"), 3);
     }
-
+/*58*/
    /* @Test
     public void test_getCarte_() {
 
