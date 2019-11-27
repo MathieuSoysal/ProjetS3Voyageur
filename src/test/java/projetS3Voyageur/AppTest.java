@@ -8,10 +8,6 @@ import projetS3Voyageur.CompositionPays.*;
 
 public class AppTest {
 
-    
-    public void test_if_main_method_was_implemented() {
-        assertDoesNotThrow(() -> App.main(new String[1]));
-    }
 
     @Test
     public void test_nbVille_inferieur0() {
