@@ -10,7 +10,6 @@ public final class Pays {
     public Pays(int nombreDeVilles) {
         v = new Villes(nombreDeVilles);
         d = new GestionDistance(v);
-
     }
 
     public Pays(List<Point> points) {

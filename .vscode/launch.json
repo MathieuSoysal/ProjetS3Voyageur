@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Kruskal",
+            "request": "launch",
+            "mainClass": "projetS3Voyageur.ModesDeRecherches.acm.Kruskal",
+            "projectName": "ProjetS3Voyageur"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - PPMulti",
             "request": "launch",
             "mainClass": "projetS3Voyageur.ModesDeRecherches.PPMulti",
