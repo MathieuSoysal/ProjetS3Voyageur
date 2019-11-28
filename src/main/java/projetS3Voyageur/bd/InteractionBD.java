@@ -15,29 +15,44 @@ public class InteractionBD {
 
     public static void main(String[] args) {
 
-        String idCarte = "61";
-        String nbVille = "50";
+        String idCarte = "1";
+
+
 
         InteractionBD.connexion();
 
-        InteractionBD.setRequete("INSERT INTO Carte VALUES ('" + idCarte + "','" + nbVille + "')");
+        List<String[]> recupXY = InteractionBD.recuperationBD("SELECT C.idCarte, X, Y FROM Carte C JOIN Ville V ON C.idCarte = V.idCarte WHERE V.idCarte = '" + idCarte +"' ");
 
-        List<String[]> recup = InteractionBD.recuperationBD("SELECT * FROM Carte");
 
-        for (String[] s : recup) {
-            System.out.println("|");
-            for (String str : s) {
-                System.out.print(str + "|");
+        for (String[] si : recupXY) {
+            System.out.println("\nidVille | X | Y");
+            for (String strxy : si) {
+                System.out.print(strxy + " |");
+
             }
 
         }
+        System.out.println("\nnb ville de l'idCarte '" + idCarte+ "' = " + "il y a " + GestionBD.getNbVille("1") + " villes.");
+
+        /*System.out.println("\nLes coordonnées de X et Y de toutes les villes de la carte  '" + idCarte+ "' = " + "List " + GestionBD.getXY("5") );*/
+
+
+
+        GestionBD GBD = new GestionBD();
+        GBD.getCarte("1");
+
+        // String recup nbVille = InteractionBD.recuperationBD("SELECT C.idCarte, X, Y FROM Carte C JOIN Ville V ON C.idCarte = V.idCarte WHERE V.idCarte = '" + idCarte +"' ");
+
+        GBD.envoieParcours("1","tr", true, "2>0>1", "98" );
+
+
 
     }
 
     /**
      * Cette méthode permet de connecter la Class à la base de données, elle doit
      * être effectuée avant toute opération avec celle-ci.
-     * 
+     *
      * @return {@code Boolean} Retourne vrai si la connexion à réussi sinon faux.
      */
     public static Boolean connexion() {
@@ -67,8 +82,8 @@ public class InteractionBD {
     /**
      * Exécute la requête SQL donnée en paramètre dans la base de données
      * préalablement choisie .
-     * 
-     * 
+     *
+     *
      * @près-requis Exécuter en amont la méthode connexion().
      * @param requete {@code String} Requête SQL
      * @return {@code Boolean} vrai si la requête à aboutie sinon faux.
@@ -93,21 +108,21 @@ public class InteractionBD {
     /**
      * Renvoie un {@code List<String[]>} possédant le(s) résultat(s) de la requête
      * SQl donnée en paramètre.
-     * 
+     *
      * @près-requis Exécuter en amont la méthode connexion()
-     * 
+     *
      * @param requete {@code String} Requête SQL dont le(s) résultat(s) doivent être
      *                récupérés
-     * 
+     *
      * @return {@code List<String[]>} Résultat de la requête SQL
      */
     public static List<String[]> recuperationBD(String requete) {
 
         try {
-            List<String[]> resultatMethode = new ArrayList<>();
-            ResultSet resultatsRequete = con.createStatement().executeQuery(requete);
-
+            final ResultSet resultatsRequete = con.createStatement().executeQuery(requete);
             final int nbCol = resultatsRequete.getMetaData().getColumnCount();
+
+            List<String[]> resultatMethode = new ArrayList<>();
 
             String[] tuple = new String[nbCol];
             while (resultatsRequete.next()) {
@@ -135,8 +150,7 @@ public class InteractionBD {
     // #region Gestion des exceptions
 
     private static void delaiDepasse(SQLTimeoutException e) {
-        System.err
-                .println("Connexion à la base de donnée réussie, mais le délai de réponse impartie a été dépassé. \n");
+        System.err.println("Connexion à la base de donnée réussie, mais le délai de réponse impartie a été dépassé. \n");
         e.printStackTrace();
     }
 
