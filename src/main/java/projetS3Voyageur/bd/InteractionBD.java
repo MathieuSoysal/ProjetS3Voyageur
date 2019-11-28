@@ -32,6 +32,11 @@ public class InteractionBD {
             }
 
         }
+
+
+       System.out.println("test 1");
+        System.out.println(InteractionBD.recuperationBD("SELECT nbVille FROM Carte WHERE idCarte = 99").get(0)[0]);
+        System.out.println("TEST");
         System.out.println("\nnb ville de l'idCarte '" + idCarte+ "' = " + "il y a " + GestionBD.getNbVille("1") + " villes.");
 
         /*System.out.println("\nLes coordonnées de X et Y de toutes les villes de la carte  '" + idCarte+ "' = " + "List " + GestionBD.getXY("5") );*/
@@ -44,6 +49,7 @@ public class InteractionBD {
        // String recup nbVille = InteractionBD.recuperationBD("SELECT C.idCarte, X, Y FROM Carte C JOIN Ville V ON C.idCarte = V.idCarte WHERE V.idCarte = '" + idCarte +"' ");
 
        GBD.envoieParcours("1","tr", true, "2>0>1", "98" );
+
 
 
 
