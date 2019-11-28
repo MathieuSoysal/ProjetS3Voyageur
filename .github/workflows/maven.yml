@@ -13,7 +13,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         source : "./target/mysql-connector-java-5.1.15-bin.jar"
-        target : "./src/*"
+        target : "./src/**"
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
