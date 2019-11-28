@@ -1,6 +1,5 @@
 package projetS3Voyageur.CompositionPays;
 
-import java.awt.Point;
 
 import static java.lang.Math.hypot;
 

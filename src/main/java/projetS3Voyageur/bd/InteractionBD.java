@@ -41,9 +41,9 @@ public class InteractionBD {
         GestionBD GBD = new GestionBD();
         GBD.getCarte("1");
 
-        // String recup nbVille = InteractionBD.recuperationBD("SELECT C.idCarte, X, Y FROM Carte C JOIN Ville V ON C.idCarte = V.idCarte WHERE V.idCarte = '" + idCarte +"' ");
+       // String recup nbVille = InteractionBD.recuperationBD("SELECT C.idCarte, X, Y FROM Carte C JOIN Ville V ON C.idCarte = V.idCarte WHERE V.idCarte = '" + idCarte +"' ");
 
-        GBD.envoieParcours("1","tr", true, "2>0>1", "98" );
+       GBD.envoieParcours("1","tr", true, "2>0>1", "98" );
 
 
 
@@ -52,7 +52,7 @@ public class InteractionBD {
     /**
      * Cette méthode permet de connecter la Class à la base de données, elle doit
      * être effectuée avant toute opération avec celle-ci.
-     *
+     * 
      * @return {@code Boolean} Retourne vrai si la connexion à réussi sinon faux.
      */
     public static Boolean connexion() {
@@ -82,8 +82,8 @@ public class InteractionBD {
     /**
      * Exécute la requête SQL donnée en paramètre dans la base de données
      * préalablement choisie .
-     *
-     *
+     * 
+     * 
      * @près-requis Exécuter en amont la méthode connexion().
      * @param requete {@code String} Requête SQL
      * @return {@code Boolean} vrai si la requête à aboutie sinon faux.
@@ -108,12 +108,12 @@ public class InteractionBD {
     /**
      * Renvoie un {@code List<String[]>} possédant le(s) résultat(s) de la requête
      * SQl donnée en paramètre.
-     *
+     * 
      * @près-requis Exécuter en amont la méthode connexion()
-     *
+     * 
      * @param requete {@code String} Requête SQL dont le(s) résultat(s) doivent être
      *                récupérés
-     *
+     * 
      * @return {@code List<String[]>} Résultat de la requête SQL
      */
     public static List<String[]> recuperationBD(String requete) {

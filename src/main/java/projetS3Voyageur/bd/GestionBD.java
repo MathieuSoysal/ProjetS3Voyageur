@@ -75,7 +75,7 @@ public class GestionBD {
      * @param ordreVilles {@code String} ordreVilles
      */
     public void envoieParcours(final String idCarte, final String nomAlgo, final boolean fini, String ordreVilles,
-                               final String distance) {
+            final String distance) {
 
         insertParcours(idCarte, nomAlgo, fini, distance, convertieNumVersId(ordreVilles));
     }
@@ -91,7 +91,7 @@ public class GestionBD {
      * @param ordreVilles {@code byte[]} ordreVilles
      */
     public void envoieParcours(final String idCarte, final String nomAlgo, final boolean fini, final byte[] ordreVilles,
-                               final String distance) {
+            final String distance) {
 
         insertParcours(idCarte, nomAlgo, fini, distance, convertieNumVersId(ordreVilles));
     }
@@ -109,7 +109,7 @@ public class GestionBD {
      * @param ordreVilles {@code String} ordreVilles
      */
     private void insertParcours(final String idCarte, final String nomAlgo, final boolean fini, final String distance,
-                                String ordreVilles) {
+            String ordreVilles) {
 
         InteractionBD.connexion();
         InteractionBD.setRequete(String.format(
@@ -156,7 +156,7 @@ public class GestionBD {
      *         des idVille
      */
     private String convertieNumVersId(final byte[] ordreVilles_p) {
-/***/
+
         InteractionBD.connexion();
 
         String ordreVilles = repertoireIdVille.get(ordreVilles_p[0]);
