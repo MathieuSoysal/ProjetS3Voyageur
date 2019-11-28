@@ -156,7 +156,7 @@ public class GestionBD {
      *         des idVille
      */
     private String convertieNumVersId(final byte[] ordreVilles_p) {
-
+/***/
         InteractionBD.connexion();
 
         String ordreVilles = repertoireIdVille.get(ordreVilles_p[0]);
