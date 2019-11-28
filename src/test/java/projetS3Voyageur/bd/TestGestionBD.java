@@ -12,7 +12,7 @@ public class TestGestionBD {
     @Test
     public void test_Connexion() {
 
-        assertEquals(InteractionBD.connexion(), true);
+        assertTrue(InteractionBD.connexion());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class TestGestionBD {
         InteractionBD.connexion();
         assertEquals(3, GestionBD.getNbVille("1"));
     }
-/*58*//*ddf*/
+    
    /* @Test
     public void test_getCarte_() {
 

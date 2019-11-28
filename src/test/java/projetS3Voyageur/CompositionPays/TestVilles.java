@@ -11,6 +11,8 @@ import java.awt.Point;
 
 public class TestVilles {
 
+//TODO : à voir s'il y a pas d'autre tests à rajouter 
+
     final int nbVille = (int) (Math.random() * 9) + 3;
     final int derniereVille = nbVille - 1;
     final int premiereVille = 0;
