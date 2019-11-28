@@ -2,16 +2,14 @@ package projetS3Voyageur.bd;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestInteractionBD {
+class TestInteractionBD {
 
 
     @BeforeAll
