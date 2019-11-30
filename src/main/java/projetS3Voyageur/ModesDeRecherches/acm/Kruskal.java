@@ -1,22 +1,60 @@
 package projetS3Voyageur.ModesDeRecherches.acm;
 
 import projetS3Voyageur.ModesDeRecherches.Parcours;
+
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 import projetS3Voyageur.CompositionPays.Pays;
 
 class Kruskal {
 
-    public static void main(String[] args) {
-        int taille = 4;
-        int villesVisitees = 1 << 1;
-        int overFlow = (1 << (taille)) - 1;
-        for (int i = villeNonVisitee(1, villesVisitees); i < (overFlow >> 1); i = villeNonVisitee(i << 1,
-                villesVisitees)) {
-            villesVisitees |= i;
-            for (int j = villeNonVisitee(1, villesVisitees); j < overFlow; j = villeNonVisitee(j << 1,
+    public static void main(final String[] args) {
+        final int TAILLE = 5;
+        int villesVisitees = (1 << 0) | (1 << 0);
+        final int OVERFLOW = (1 << (TAILLE)) - 1;
+        final Pays pays = new Pays(TAILLE);
+
+        Queue<Integer[]> arbre = new LinkedList<>();
+
+
+        for (int graphe = 0; graphe < OVERFLOW;) {
+            double poidsVecteurMin = Double.MAX_VALUE;
+            Integer[] vecteur = new Integer[2];
+
+            villesVisitees = 0;
+            for (int i = villeNonVisitee(1, villesVisitees); i < (OVERFLOW >> 1); i = villeNonVisitee(i << 1,
                     villesVisitees)) {
-                System.out.println(String.format("[%s,%s]", Math.getExponent(i), Math.getExponent(j)));
+
+                villesVisitees |= i;
+                Integer numVillei = Math.getExponent(i);
+
+                for (int j = villeNonVisitee(1, villesVisitees); j < OVERFLOW; j = villeNonVisitee(j << 1,
+                        villesVisitees)) {
+
+                    Integer numVillej = Math.getExponent(j);
+                    double poidsVecteur = pays.getDistanceEntreVilles(numVillei, numVillej);
+
+                    if (poidsVecteur < poidsVecteurMin && ((graphe ^ (graphe | (i | j))) != 0)) {
+
+                        System.out.println(String.format("[%s,%s] distance : %s", numVillei, numVillej, poidsVecteur));
+                        poidsVecteurMin = poidsVecteur;
+                        vecteur[0] = numVillei;
+                        vecteur[1] = numVillej;
+
+                    }
+                }
             }
+
+            arbre.offer(vecteur.clone());
+            graphe |= ((1 << vecteur[0]) | (1 << vecteur[1]));
         }
+
+        for (Integer[] integers : arbre) {
+            System.out.println(String.format("[%s,%s] distance ->", integers[0], integers[1]));
+        }
+
     }
 
     private static final boolean nonVisitee = false;
@@ -28,13 +66,13 @@ class Kruskal {
     private Parcours parcoursOptimum;
 
     private void initChaineTrie() {
-        int taille = 4;
+        final int TAILLE = 4;
         int villesVisitees = 1 << 1;
-        int overFlow = (1 << (taille)) - 1;
-        for (int i = villeNonVisitee(1, villesVisitees); i < (overFlow >> 1); i = villeNonVisitee(i << 1,
+        final int OVERFLOW = (1 << (TAILLE)) - 1;
+        for (int i = villeNonVisitee(1, villesVisitees); i < (OVERFLOW >> 1); i = villeNonVisitee(i << 1,
                 villesVisitees)) {
             villesVisitees |= i;
-            for (int j = villeNonVisitee(1, villesVisitees); j < overFlow; j = villeNonVisitee(j << 1,
+            for (int j = villeNonVisitee(1, villesVisitees); j < OVERFLOW; j = villeNonVisitee(j << 1,
                     villesVisitees)) {
                 System.out.println(String.format("[%s,%s]", Math.getExponent(i), Math.getExponent(j)));
             }
@@ -57,7 +95,8 @@ class Kruskal {
      *         (dans la séquence de bits du int) représente une ville non visitée
      *         qui est la nouvelle ville actuelle.
      */
-    private static/*TODO: mit en static temporairement */ int villeNonVisitee(int villeActuelle, final int villesVisitees) {
+    private static/* TODO: mit en static temporairement */ int villeNonVisitee(int villeActuelle,
+            final int villesVisitees) {
         villeActuelle += villesVisitees;
         return villeActuelle ^ (villeActuelle & villesVisitees);
     }
