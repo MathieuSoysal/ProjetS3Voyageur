@@ -11,34 +11,43 @@ import projetS3Voyageur.CompositionPays.Pays;
 class Kruskal {
 
     public static void main(final String[] args) {
-        final int TAILLE = 5;
+        final int TAILLE = 6;
         int villesVisitees = (1 << 0) | (1 << 0);
         final int OVERFLOW = (1 << (TAILLE)) - 1;
         final Pays pays = new Pays(TAILLE);
 
         Queue<Integer[]> arbre = new LinkedList<>();
+        final Composant[] INIT_composants = new Composant[TAILLE];
 
+        for (int i = 0; i < INIT_composants.length; i++) {
+            INIT_composants[i] = new Composant(0);
+        }
 
-        for (int graphe = 0; graphe < OVERFLOW;) {
+        int[] composants = new int[TAILLE];
+
+        for (; composants[0] < OVERFLOW;) {
             double poidsVecteurMin = Double.MAX_VALUE;
             Integer[] vecteur = new Integer[2];
 
             villesVisitees = 0;
+            Integer numVillei = 0, numVillej = 0;
+
             for (int i = villeNonVisitee(1, villesVisitees); i < (OVERFLOW >> 1); i = villeNonVisitee(i << 1,
                     villesVisitees)) {
 
                 villesVisitees |= i;
-                Integer numVillei = Math.getExponent(i);
+                numVillei = Math.getExponent(i);
 
                 for (int j = villeNonVisitee(1, villesVisitees); j < OVERFLOW; j = villeNonVisitee(j << 1,
                         villesVisitees)) {
 
-                    Integer numVillej = Math.getExponent(j);
+                    numVillej = Math.getExponent(j);
                     double poidsVecteur = pays.getDistanceEntreVilles(numVillei, numVillej);
 
-                    if (poidsVecteur < poidsVecteurMin && ((graphe ^ (graphe | (i | j))) != 0)) {
+                    System.out.println(String.format("[%s,%s] distance : %s", numVillei, numVillej, poidsVecteur));
+                    if (poidsVecteur < poidsVecteurMin
+                            && (((composants[numVillei] & composants[numVillej]) & (i | j)) != (i | j))) {
 
-                        System.out.println(String.format("[%s,%s] distance : %s", numVillei, numVillej, poidsVecteur));
                         poidsVecteurMin = poidsVecteur;
                         vecteur[0] = numVillei;
                         vecteur[1] = numVillej;
@@ -48,12 +57,34 @@ class Kruskal {
             }
 
             arbre.offer(vecteur.clone());
-            graphe |= ((1 << vecteur[0]) | (1 << vecteur[1]));
+            final int pointsVecteur = (1 << vecteur[0]) | (1 << vecteur[1]);
+
+            int sommetsConnectee = composants[vecteur[0]] | composants[vecteur[1]] | pointsVecteur;
+            for (int i = villeNonVisitee(1, sommetsConnectee ^ OVERFLOW); i < OVERFLOW; i = villeNonVisitee(i << 1,
+                    sommetsConnectee ^ OVERFLOW)) {
+                composants[Math.getExponent(i)] = sommetsConnectee;
+            }
         }
 
         for (Integer[] integers : arbre) {
             System.out.println(String.format("[%s,%s] distance ->", integers[0], integers[1]));
         }
+
+        Composant[] composans = new Composant[3];
+
+        for (int i = 0; i < composans.length; i++) {
+            composans[i] = new Composant(0);
+        }
+        composans[2].bin = 1 << 4;
+
+        composans[0].bin |= composans[1].bin | 2;
+        composans[1] = composans[0];
+        System.out.println(composans[0].bin);
+        composans[0].bin += 1;
+        System.out.println(composans[1].bin);
+        composans[1].bin |= composans[2].bin | 2;
+        composans[2] = composans[1];
+        System.out.println(composans[0].bin);
 
     }
 
