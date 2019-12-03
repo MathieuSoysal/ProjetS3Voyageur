@@ -1,8 +1,6 @@
 package projetS3Voyageur.ModesDeRecherches.acm;
 
-import projetS3Voyageur.ModesDeRecherches.Parcours;
 
-import java.awt.Point;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -15,10 +13,27 @@ class Kruskal {
     private static final int EXTREMITE_X = 0;
 
     public static void main(String[] args) {
-        final int TAILLE = 30;
-        int noeudVisites;
+        Kruskal k = new Kruskal();
+        for (Byte[] arete : k.genereArbre(new Pays(10))) {
+            System.out.println(String.format("[ %s , %s ]", arete[0], arete[1]));
+        }
+
+    }
+
+    /**
+     * Génère et renvoie l'arbre minimum recouvrant du graphe/Pays donné en
+     * paramètre.
+     * 
+     * @param pays {@code Pays} représente le graphe où l'arbre minimum recouvrant
+     *             doit être trouvé.
+     * 
+     * @return {@code Queue<Byte[]>} Retourne la liste des arêtes classées par poids
+     *         avec un ordre croissant.
+     */
+    public Queue<Byte[]> genereArbre(final Pays pays) {
+        final int TAILLE = pays.getNombreDeVilles();
         final int OVERFLOW = (1 << (TAILLE)) - 1;
-        final Pays pays = new Pays(TAILLE);
+        int noeudVisites;
 
         Queue<Byte[]> arbre = new LinkedList<>();
 
@@ -59,21 +74,18 @@ class Kruskal {
 
             actualiseListeAdjacence(OVERFLOW, listeAdjacence, arete);
         }
-
-        for (Byte[] arete : arbre) {
-            System.out.println(String.format("[%s,%s] distance ->", arete[EXTREMITE_X], arete[EXTREMITE_Y]));
-        }
-
+        return arbre;
     }
 
     /**
      * Actualise chacune des villes de la {@code int[]} listeAdjacence donné en
      * paramètre, selon l'arête donnée en paramètre.
      * 
-     * @param OVERFLOW  {@code int}      représente un noeud voisin à tous les autres noeuds du
-     *                       graphe.
+     * @param OVERFLOW       {@code int} représente un noeud voisin à tous les
+     *                       autres noeuds du graphe.
      * @param listeAdjacence {@code int[]} la liste d'ajacence à actualiser.
-     * @param arete {@code Byte[]} La nouvelle arête à ajouter dans la liste d'adjacence.
+     * @param arete          {@code Byte[]} La nouvelle arête à ajouter dans la
+     *                       liste d'adjacence.
      */
     private static void actualiseListeAdjacence(final int OVERFLOW, int[] listeAdjacence, final Byte[] arete) {
 
@@ -87,28 +99,6 @@ class Kruskal {
             listeAdjacence[Math.getExponent(i)] = sommetsConnectee;
         }
 
-    }
-
-    private static final boolean nonVisitee = false;
-    private Pays pays;
-
-    private int villeInitale;
-    private int nombreDeVilles;
-
-    private Parcours parcoursOptimum;
-
-    private void initChaineTrie() {
-        final int TAILLE = 4;
-        int noeudVisites = 1 << 1;
-        final int OVERFLOW = (1 << (TAILLE)) - 1;
-        for (int i = recupereNoeudNonConnecte(1, noeudVisites); i < (OVERFLOW >> 1); i = recupereNoeudNonConnecte(
-                i << 1, noeudVisites)) {
-            noeudVisites |= i;
-            for (int j = recupereNoeudNonConnecte(1, noeudVisites); j < OVERFLOW; j = recupereNoeudNonConnecte(j << 1,
-                    noeudVisites)) {
-                System.out.println(String.format("[%s,%s]", Math.getExponent(i), Math.getExponent(j)));
-            }
-        }
     }
 
     /**
