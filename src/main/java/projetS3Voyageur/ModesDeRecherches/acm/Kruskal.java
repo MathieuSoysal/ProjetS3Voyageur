@@ -1,6 +1,5 @@
 package projetS3Voyageur.ModesDeRecherches.acm;
 
-
 import java.util.LinkedList;
 import java.util.Queue;
 
