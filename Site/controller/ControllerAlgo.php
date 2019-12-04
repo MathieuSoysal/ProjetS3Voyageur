@@ -1,5 +1,5 @@
 <?php
-    require_once File::build_path(array('model', 'ModelVoiture.php'));
+    require_once File::build_path(array('model', 'ModelAlgo.php'));
 
     class ControllerAlgo {
 
@@ -13,7 +13,7 @@
         }
 
         public static function readAll() {
-            $tab_v = ModelAlgo::selectAll();     //appel au modèle pour gerer la BD
+            $tab_a = ModelAlgo::selectAll();     //appel au modèle pour gerer la BD
             $controller = 'algo';
             $view = 'list';
             $pagetitle = 'Liste des algos';

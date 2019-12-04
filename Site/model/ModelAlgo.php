@@ -4,6 +4,8 @@
     class ModelAlgo extends Model{
 
         private $nomAlgo;
+        private $image;
+        private $description;
 
         protected static $object = "algo";
         protected static $primary = "nomAlgo";
@@ -11,9 +13,11 @@
 
         //Constructeur
 
-        public function __construct($nomAlgo = NULL) {
-            if(!is_null($nomAlgo)){
+        public function __construct($nomAlgo = NULL, $image = NULL, $description = NULL) {
+            if(!is_null($nomAlgo) && !is_null($image) && !is_null($description)){
                 $this->nomAlgo = $nomAlgo;
+                $this->image = $image;
+                $this->description = $description;
             }
         }
 
