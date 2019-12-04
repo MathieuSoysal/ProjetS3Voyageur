@@ -1,6 +1,5 @@
 package projetS3Voyageur.ModesDeRecherches.acm;
 
-import java.awt.Point;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -14,8 +13,18 @@ class Kruskal {
 
     public static void main(String[] args) {
         Kruskal k = new Kruskal();
-        for (Byte[] arete : k.genereArbre(new Pays(10))) {
-            System.out.println(String.format("[ %s , %s ]", arete[0], arete[1]));
+        byte i = 0;
+        for (int adjacents : k.genereArbre(new Pays(10))) {
+            System.out.print(String.format("\n Noeud n°%s connectés : ", i));
+
+            int noeudVisite = (1 << i++) | (adjacents ^ ((1 << 10) - 1));
+
+            for (int j = getNoeudNonConnecte(1, noeudVisite); j < ((1 << 10) - 1); j = getNoeudNonConnecte(j << 1,
+                    noeudVisite)) {
+                System.out.print(Math.getExponent(j) + " ");
+                noeudVisite |= j;
+
+            }
         }
 
     }
@@ -27,76 +36,74 @@ class Kruskal {
      * @param pays {@code Pays} représente le graphe où l'arbre minimum recouvrant
      *             doit être trouvé.
      * 
-     * @return {@code Queue<Byte[]>} Retourne la liste des arêtes classées par poids
-     *         avec un ordre croissant.
+     * @return {@code int[]} Retourne la liste d'adjacence des noeuds du graphe.
      */
-    public Queue<Byte[]> genereArbre(final Pays pays) {
+    public int[] genereArbre(final Pays pays) {
         final int TAILLE = pays.getNombreDeVilles();
         final int OVERFLOW = (1 << (TAILLE)) - 1;
         int noeudVisites;
 
-        Queue<Byte[]> arbre = new LinkedList<>();
+        int[] noeudsConnecte = new int[TAILLE], listeAdjacence = new int[TAILLE];
 
-        int[] listeAdjacence = new int[TAILLE];
-
-        while (listeAdjacence[0] < OVERFLOW) {
+        while (noeudsConnecte[0] < OVERFLOW) {
             double poidsAreteMin = Double.MAX_VALUE;
-            Byte[] arete = new Byte[2];
+            Byte[] adjacents = new Byte[2];
 
             noeudVisites = 0;
             byte numVillei = 0, numVillej = 0;
 
-            for (int i = recupereNoeudNonConnecte(1, noeudVisites); i < (OVERFLOW >> 1); i = recupereNoeudNonConnecte(
-                    i << 1, noeudVisites)) {
+            for (int i = getNoeudNonConnecte(1, noeudVisites); i < (OVERFLOW >> 1); i = getNoeudNonConnecte(i << 1,
+                    noeudVisites)) {
 
                 noeudVisites |= i;
                 numVillei = (byte) Math.getExponent(i);
 
-                for (int j = recupereNoeudNonConnecte(1, noeudVisites); j < OVERFLOW; j = recupereNoeudNonConnecte(
-                        j << 1, noeudVisites)) {
+                for (int j = getNoeudNonConnecte(1, noeudVisites); j < OVERFLOW; j = getNoeudNonConnecte(j << 1,
+                        noeudVisites)) {
 
                     numVillej = (byte) Math.getExponent(j);
 
                     final double poidsArete = pays.getDistanceEntreVilles(numVillei, numVillej);
 
                     if (poidsArete < poidsAreteMin
-                            && (((listeAdjacence[numVillei] & listeAdjacence[numVillej]) & (i | j)) != (i | j))) {
+                            && (((noeudsConnecte[numVillei] & noeudsConnecte[numVillej]) & (i | j)) != (i | j))) {
 
                         poidsAreteMin = poidsArete;
-                        arete[EXTREMITE_X] = numVillei;
-                        arete[EXTREMITE_Y] = numVillej;
+                        adjacents[EXTREMITE_X] = numVillei;
+                        adjacents[EXTREMITE_Y] = numVillej;
 
                     }
                 }
             }
 
-            arbre.offer(arete.clone());
+            listeAdjacence[adjacents[EXTREMITE_X]] |= 1 << adjacents[EXTREMITE_Y];
+            listeAdjacence[adjacents[EXTREMITE_Y]] |= 1 << adjacents[EXTREMITE_X];
 
-            actualiseListeAdjacence(OVERFLOW, listeAdjacence, arete);
+            actualiseNoeudsConnecte(OVERFLOW, noeudsConnecte, adjacents);
         }
-        return arbre;
+        return listeAdjacence;
     }
 
     /**
-     * Actualise chacune des villes de la {@code int[]} listeAdjacence donné en
+     * Actualise chacune des villes de la {@code int[]} liste d'ajacence donné en
      * paramètre, selon l'arête donnée en paramètre.
      * 
      * @param OVERFLOW       {@code int} représente un noeud voisin à tous les
      *                       autres noeuds du graphe.
-     * @param listeAdjacence {@code int[]} la liste d'ajacence à actualiser.
-     * @param arete          {@code Byte[]} La nouvelle arête à ajouter dans la
+     * @param noeudsConnecte {@code int[]} la liste d'ajacence à actualiser.
+     * @param adjacents      {@code Byte[]} La nouvelle arête à ajouter dans la
      *                       liste d'adjacence.
      */
-    private static void actualiseListeAdjacence(final int OVERFLOW, int[] listeAdjacence, final Byte[] arete) {
+    private static void actualiseNoeudsConnecte(final int OVERFLOW, int[] noeudsConnecte, final Byte[] adjacents) {
 
-        final int extremitesArete = (1 << arete[EXTREMITE_X]) | (1 << arete[EXTREMITE_Y]);
-        final int sommetsConnectee = listeAdjacence[arete[EXTREMITE_X]] | listeAdjacence[arete[EXTREMITE_Y]]
+        final int extremitesArete = (1 << adjacents[EXTREMITE_X]) | (1 << adjacents[EXTREMITE_Y]);
+        final int sommetsConnectee = noeudsConnecte[adjacents[EXTREMITE_X]] | noeudsConnecte[adjacents[EXTREMITE_Y]]
                 | extremitesArete;
         final int noeudsNonConnectes = sommetsConnectee ^ OVERFLOW;
 
-        for (int i = recupereNoeudNonConnecte(1, noeudsNonConnectes); i < OVERFLOW; i = recupereNoeudNonConnecte(i << 1,
+        for (int i = getNoeudNonConnecte(1, noeudsNonConnectes); i < OVERFLOW; i = getNoeudNonConnecte(i << 1,
                 noeudsNonConnectes)) {
-            listeAdjacence[Math.getExponent(i)] = sommetsConnectee;
+            noeudsConnecte[Math.getExponent(i)] = sommetsConnectee;
         }
 
     }
@@ -108,7 +115,7 @@ class Kruskal {
      * villes déjà visitée elle fait passer la ville actuelle à une ville non
      * visitée.
      * 
-     * @param villeActuelle Chaque bit du int représente une ville seul l'un des
+     * @param noeudActuel Chaque bit du int représente une ville seul l'un des
      *                      bits est à 1, elle représente la ville actuelle
      * 
      * @param noeudVisites  Chaque bit à 1 du int représente les villes visitées.
@@ -117,10 +124,10 @@ class Kruskal {
      *         (dans la séquence de bits du int) représente une ville non visitée
      *         qui est la nouvelle ville actuelle.
      */
-    private static/* TODO: mit en static temporairement */ int recupereNoeudNonConnecte(int villeActuelle,
+    private static/* TODO: mit en static temporairement */ int getNoeudNonConnecte(int noeudActuel,
             final int noeudVisites) {
-        villeActuelle += noeudVisites;
-        return villeActuelle ^ (villeActuelle & noeudVisites);
+        noeudActuel += noeudVisites;
+        return noeudActuel ^ (noeudActuel & noeudVisites);
     }
     // TODO: Pensais à crée une class pour l'utilisation binaire
 
