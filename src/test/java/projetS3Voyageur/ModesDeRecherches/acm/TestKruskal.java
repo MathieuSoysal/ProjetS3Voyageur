@@ -3,6 +3,7 @@ package projetS3Voyageur.ModesDeRecherches.acm;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.awt.Point;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -15,7 +16,8 @@ public class TestKruskal {
     public void test_genererArbre_8noeuds() {
 
         // Trouver via calcul sur papier
-        final byte[][] arbre = { { 4, 5 }, { 0, 1 }, { 0, 2 }, { 2, 7 }, { 1, 5 }, { 3, 4 }, { 6, 7 } };
+        final byte[][] listeAdjacenceNum = { { 2, 3 }, { 1, 6 }, { 1, 8 }, { 5 }, { 6, 4 }, { 5, 2 }, { 8 }, { 3, 7 } };
+        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 8);
         Pays pays = new Pays(8);
 
         pays.setPositionVille(0, new Point(3, 8));
@@ -28,10 +30,8 @@ public class TestKruskal {
         pays.setPositionVille(7, new Point(7, 8));
 
         int i = 0;
-        for (Byte[] arete : kruskal.genereArbre(pays)) {
-            assertEquals(arbre[i][0], arete[0]);
-            assertEquals(arbre[i++][1], arete[1]);
-
+        for (int arete : kruskal.genereArbre(pays)) {
+            assertEquals(listeAdjacence[i++], arete);
         }
     }
 
@@ -39,7 +39,9 @@ public class TestKruskal {
     public void test_genererArbre_7noeuds_part1() {
 
         // Trouver via calcul sur papier
-        final byte[][] arbre = { { 2, 4 }, { 0, 2 }, { 1, 6 }, { 3, 4 }, { 3, 6 }, { 4, 5 } };
+        final byte[][] listeAdjacenceNum = { { 3 }, { 7 }, { 1, 5 }, { 5, 7 }, { 3, 4, 6 }, { 5 }, { 2, 4 } };
+        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 7);
+
         Pays pays = new Pays(7);
 
         pays.setPositionVille(0, new Point(4, 3));
@@ -51,10 +53,8 @@ public class TestKruskal {
         pays.setPositionVille(6, new Point(2, 4));
 
         int i = 0;
-        for (Byte[] arete : kruskal.genereArbre(pays)) {
-            assertEquals(arbre[i][0], arete[0]);
-            assertEquals(arbre[i++][1], arete[1]);
-
+        for (int arete : kruskal.genereArbre(pays)) {
+            assertEquals(listeAdjacence[i++], arete);
         }
     }
 
@@ -62,7 +62,9 @@ public class TestKruskal {
     public void test_genererArbre_7noeuds_part2() {
 
         // Trouver via calcul sur papier
-        final byte[][] arbre = { { 0, 5 }, { 1, 4 }, { 2, 4 }, { 3, 6 }, { 4, 5 }, { 1, 3 } };
+        final byte[][] listeAdjacenceNum = { { 6 }, { 5, 4 }, { 5 }, { 7, 2 }, { 2, 3, 6 }, { 5, 1 }, { 4 } };
+        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 7);
+
         Pays pays = new Pays(7);
 
         pays.setPositionVille(0, new Point(4, 3));
@@ -74,10 +76,8 @@ public class TestKruskal {
         pays.setPositionVille(6, new Point(4, 5));
 
         int i = 0;
-        for (Byte[] arete : kruskal.genereArbre(pays)) {
-            assertEquals(arbre[i][0], arete[0]);
-            assertEquals(arbre[i++][1], arete[1]);
-
+        for (int arete : kruskal.genereArbre(pays)) {
+            assertEquals(listeAdjacence[i++], arete);
         }
     }
 
@@ -85,7 +85,9 @@ public class TestKruskal {
     public void test_genererArbre_6noeuds() {
 
         // Trouver via calcul sur papier
-        final byte[][] arbre = { { 0, 4 }, { 0, 5 }, { 1, 4 }, { 2, 3 }, { 2, 5 } };
+        final byte[][] listeAdjacenceNum = { { 5, 6 }, { 5 }, { 4, 6 }, { 3 }, { 2, 1 }, { 1, 3 } };
+        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 6);
+
         Pays pays = new Pays(6);
 
         pays.setPositionVille(0, new Point(1, 4));
@@ -96,10 +98,22 @@ public class TestKruskal {
         pays.setPositionVille(5, new Point(1, 3));
 
         int i = 0;
-        for (Byte[] arete : kruskal.genereArbre(pays)) {
-            assertEquals(arbre[i][0], arete[0]);
-            assertEquals(arbre[i++][1], arete[1]);
-
+        for (int arete : kruskal.genereArbre(pays)) {
+            assertEquals(listeAdjacence[i++], arete);
         }
+    }
+
+    private int[] valeurBinaire(byte[][] listeAdjacence, int taille) {
+        int[] resultat = new int[taille];
+
+        int i = 0;
+
+        for (byte[] noeudAdjacents : listeAdjacence) {
+            for (byte noeud : noeudAdjacents) {
+                resultat[i] |= (noeud != 0) ? 1 << noeud - 1 : 0;
+            }
+            i++;
+        }
+        return resultat;
     }
 }
