@@ -1,5 +1,9 @@
 package projetS3Voyageur.bd;
 
+
+import projetS3Voyageur.CompositionPays.Pays;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,7 +41,7 @@ public class GestionBD {
      *                extrait.
      * @return {@code Point[]}
      */
-    public Point[] getCarte(final String idCarte) {
+    public List<Point> getCarte(final String idCarte) {
 
         InteractionBD.connexion();
 
@@ -50,17 +54,39 @@ public class GestionBD {
             // TODO: crée une exception
         }
 
-        final Point[] resultat = new Point[getNbVille(idCarte)];
+         List<Point> resultat = new ArrayList<>();
 
 
         byte i = 0;
+
         for (final String[] tuple : recuperationXY) {
-            resultat[i] = new Point(Integer.valueOf(tuple[0]), (Integer.valueOf(tuple[1])));
+
+            resultat.add(new Point(Integer.valueOf(tuple[0]), (Integer.valueOf(tuple[1]))));
+            //System.out.println("Les Points :" + resultat);
             repertoireIdVille.put(i++, tuple[2]);
 
         }
 
         return resultat;
+
+    }
+
+    /**
+     * Renvoie un pays après l'avoir crée grâce à la fonction getCarte()
+     *
+     * @param idCarte {@code String} L'idCarte dont la liste de villes doit être
+     *                extrait pour crée un objet Pays.
+     * @return {@code Pays}
+     */
+
+    public Pays creationPays(final String idCarte) {
+
+        GestionBD GBDD = new GestionBD();
+        //System.out.println("alors c'est daaaaaaaaaaaaaaans" + GBDD.getCarte(idCarte));
+        Pays p = new Pays(GBDD.getCarte(idCarte));
+        //System.out.println("dans creationPays() : "+ p);
+        return p;
+
 
     }
 
