@@ -94,32 +94,32 @@ public class GestionBD {
      * Insert un tuple dans la table Parcours avec comme éléments les variables en
      * paramètre de la méthode.
      *
-     * @param idCarte     {@code String} #idCarte
+     *
      * @param nomAlgo     {@code Stirng} nomAlgo
      * @param fini        {@code boolean} isFinished
      * @param distance    {@code String} cost
      * @param ordreVilles {@code String} ordreVilles
      */
-    public void envoieParcours(final String idCarte, final String nomAlgo, final boolean fini, String ordreVilles,
+    public void envoieParcours(final String nomAlgo, final boolean fini, String ordreVilles,
             final String distance) {
 
-        insertParcours(idCarte, nomAlgo, fini, distance, convertieNumVersId(ordreVilles));
+        insertParcours(nomAlgo, fini, distance, convertieNumVersId(ordreVilles));
     }
 
     /**
      * Insert un tuple dans la table Parcours avec comme éléments les variables en
      * paramètre de la méthode.
      *
-     * @param idCarte     {@code String} #idCarte
+     *
      * @param nomAlgo     {@code Stirng} nomAlgo
      * @param fini        {@code boolean} isFinished
      * @param distance    {@code String} cost
      * @param ordreVilles {@code byte[]} ordreVilles
      */
-    public void envoieParcours(final String idCarte, final String nomAlgo, final boolean fini, final byte[] ordreVilles,
+    public void envoieParcours(final String nomAlgo, final boolean fini, final byte[] ordreVilles,
             final String distance) {
 
-        insertParcours(idCarte, nomAlgo, fini, distance, convertieNumVersId(ordreVilles));
+        insertParcours(nomAlgo, fini, distance, convertieNumVersId(ordreVilles));
     }
 
     // #region Outils
@@ -128,19 +128,19 @@ public class GestionBD {
      * Insert un tuple dans la table Parcours avec comme éléments les variables en
      * paramètre de la méthode.
      *
-     * @param idCarte     {@code String} #idCarte
+     *
      * @param nomAlgo     {@code Stirng} nomAlgo
      * @param fini        {@code boolean} isFinished
      * @param distance    {@code String} cost
      * @param ordreVilles {@code String} ordreVilles
      */
-    private void insertParcours(final String idCarte, final String nomAlgo, final boolean fini, final String distance,
+    private void insertParcours( final String nomAlgo, final boolean fini, final String distance,
             String ordreVilles) {
 
         InteractionBD.connexion();
         InteractionBD.setRequete(String.format(
-                "INSERT INTO Parcours Set idCarte = '%s', nomAlgo = '%s', isFinished = '%s', ordreVilles = '%s', cost = '%s' ;",
-                idCarte, nomAlgo, ((fini) ? 1 : 0), ordreVilles, distance));
+                "INSERT INTO Parcours Set nomAlgo = '%s', isFinished = '%s', ordreVilles = '%s', cost = '%s' ;",
+                 nomAlgo, ((fini) ? 1 : 0), ordreVilles, distance));
         System.out.println("Le parcours à était insérer dans la base de données\n");
     }
 
