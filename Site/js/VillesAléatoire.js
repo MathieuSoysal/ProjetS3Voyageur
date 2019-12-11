@@ -5,6 +5,7 @@ while(!isINT(nbVilles) || nbVilles > 15 || nbVilles < 3){
     nbVilles = prompt('Entrez un nombre valide (entre 3 et 15) de villes:');
 }
 var totalVilles = nbVilles;
+let trajet = [];
 
 function setup() {
   createCanvas(400, 400);
@@ -16,7 +17,6 @@ function setup() {
     villes[i] = v;
   }
 
-
 }
 
 function draw() {
@@ -24,6 +24,10 @@ function draw() {
   fill(255,0,0);
   for (var i = 0; i < villes.length; i++) {
     circle(villes[i].x, villes[i].y, 8);
+  }
+ for (var i = 0; i < villes.length-1; i++) {
+    trajet.push(line(villes[i].x, villes[i].y, villes[i+1].x, villes[i+1].y));
+    //console.log(trajet);
   }
 }
 
