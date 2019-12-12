@@ -20,6 +20,20 @@
             require File::build_path(array('view','view.php'));  //"redirige" vers la vue
         }
 
+        public static function execute() {
+            $a = ModelAlgo::execute($_GET['nomAlgo']);
+            $controller = 'algo';
+            if($a != false){
+                $view = 'execute';
+                $pagetitle = "Exécution: {$_GET['nomAlgo']}";
+                require File::build_path(array('view', 'view.php'));
+            }else{
+                $view = 'error';
+                $pagetitle = 'Erreur';
+                require File::build_path(array('view', 'view.php'));
+            }
+        }
+
     }
 
 ?>
