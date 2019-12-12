@@ -54,7 +54,7 @@ public class InteractionBD {
 
         // String recup nbVille = InteractionBD.recuperationBD("SELECT C.idCarte, X, Y FROM Carte C JOIN Ville V ON C.idCarte = V.idCarte WHERE V.idCarte = '" + idCarte +"' ");
 
-         GBD.envoieParcours("FINAL_2", true, "0>2>1", "98" );
+         GBD.envoieParcours("1","AVEC_ID", true, "0>2>1", "98" );
 
 
         // System.out.println("\n aloooooooo\n");
