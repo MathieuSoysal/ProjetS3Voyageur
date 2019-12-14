@@ -2,21 +2,17 @@ package projetS3Voyageur.Interface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.Collections;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
-import projetS3Voyageur.ModesDeRecherches.PPMulti;
-import projetS3Voyageur.ModesDeRecherches.PlusProcheV3;
-import projetS3Voyageur.ModesDeRecherches.TrackProchesMulti;
+import projetS3Voyageur.ModesDeRecherches.PlusProcheV2;
+import projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1;
 
 class Panneau extends JPanel {
 
@@ -28,11 +24,9 @@ class Panneau extends JPanel {
   private JButton boutonReset = new JButton("Reinitialiser");
   private JButton boutonCalculer = new JButton("Calculer");
   private JButton boutonMelanger = new JButton("Melanger");
-  private JComboBox<String> listeDeroulante = new JComboBox<>();
+  private JButton boutonPlusProche = new JButton("Voisin plus proche");
 
   private PanneauGraphique graphique = new PanneauGraphique();
-
-  private ModeRecherche algo = new TrackProchesMulti();
 
   Panneau() {
 
@@ -55,45 +49,25 @@ class Panneau extends JPanel {
     boite2.add(boutonReset);
     boite2.add(boutonCalculer);
     boite2.add(boutonMelanger);
-    boite2.add(listeDeroulante);
-    // boite2.add(boutonPlusProche);
+    boite2.add(boutonPlusProche);
 
     add(boite2);
     // #endregion Deuxième Boite
 
     // #endregion Organisation de l'affichage de la fênetre
 
-    // Liste déroulante
-    listeDeroulante.addItem("TrackProche");
-    listeDeroulante.addItem("Plus Proche");
-    listeDeroulante.addItem("Plus Proche multiple");
-    listeDeroulante.addItemListener(new ItemListener() {
-
-      @Override
-      public void itemStateChanged(ItemEvent e) {
-        switch (e.getItem().toString()) {
-        case "Plus Proche":
-          algo = new PlusProcheV3();
-          break;
-
-        case "TrackProche":
-          algo = new TrackProchesMulti();
-          break;
-
-        case "Plus Proche multiple":
-          algo = new PPMulti();
-          break;
-
-        default:
-        System.err.println("Une erreur est survenue lors de la selection");
-          break;
-        }
-
-      }
-
-    });
-
     // #region Action des boutons
+
+    // Bouton Plus Proche
+    boutonPlusProche.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent event) {
+        if (graphique.points.size() > 3)
+          calculer(new PlusProcheV2());
+        else
+          erreurPointsInsufisant();
+      }
+    });
 
     // Bouton Mélanger
     boutonMelanger.addActionListener(new ActionListener() {
@@ -118,7 +92,7 @@ class Panneau extends JPanel {
       @Override
       public void actionPerformed(ActionEvent event) {
         if (graphique.points.size() > 3)
-          calculer(algo);
+          calculer(new TrackProchesV2_1());
         else
           erreurPointsInsufisant();
       }
