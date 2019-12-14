@@ -6,12 +6,11 @@ import org.junit.Test;
 
 import projetS3Voyageur.CompositionPays.Pays;
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
-import projetS3Voyageur.ModesDeRecherches.PlusProcheV2;
 
 import java.awt.Point;
 
 public class testPlusProcheV3 {
-    private final ModeRecherche plusProcheV2 = new PlusProcheV3();
+    private final ModeRecherche plusProcheV3 = new PlusProcheV3();
 
     // #region test sur Y
     @Test
@@ -26,11 +25,11 @@ public class testPlusProcheV3 {
         pays.setPositionVille(2, new Point(positionX, 4));
         pays.setPositionVille(3, new Point(positionX, 5));
 
-        plusProcheV2.recherche(pays, 0);
+        plusProcheV3.recherche(pays, 0);
 
-        long distancePlusProcheV2 = (long) plusProcheV2.getParcours().getDistance();
+        long distancePlusProcheV2 = (long) plusProcheV3.getParcours().getDistance();
 
-        assertEquals("0>1>2>3>0", plusProcheV2.getParcours().getVillesEmprunté());
+        assertEquals("0>1>2>3>0", plusProcheV3.getParcours().getVillesEmprunté());
         assertEquals(6, distancePlusProcheV2);
 
     }
@@ -48,10 +47,10 @@ public class testPlusProcheV3 {
         pays.setPositionVille(3, new Point(positionX, 5));
         pays.setPositionVille(4, new Point(positionX, 6));
 
-        plusProcheV2.recherche(pays, 0);
+        plusProcheV3.recherche(pays, 0);
 
-        assertEquals("0>1>2>3>4>0", plusProcheV2.getParcours().getVillesEmprunté());
-        assertEquals((1 + 1 + 1 + 1 + 4), (long) plusProcheV2.getParcours().getDistance());
+        assertEquals("0>1>2>3>4>0", plusProcheV3.getParcours().getVillesEmprunté());
+        assertEquals((1 + 1 + 1 + 1 + 4), (long) plusProcheV3.getParcours().getDistance());
 
     }
 
@@ -69,10 +68,10 @@ public class testPlusProcheV3 {
         pays.setPositionVille(4, new Point(positionX, 6));
         pays.setPositionVille(5, new Point(positionX, 7));
 
-        plusProcheV2.recherche(pays, 0);
+        plusProcheV3.recherche(pays, 0);
 
-        assertEquals("0>1>2>3>4>5>0", plusProcheV2.getParcours().getVillesEmprunté());
-        assertEquals((10), (long) plusProcheV2.getParcours().getDistance());
+        assertEquals("0>1>2>3>4>5>0", plusProcheV3.getParcours().getVillesEmprunté());
+        assertEquals((10), (long) plusProcheV3.getParcours().getDistance());
 
     }
     // #endregion test sur Y
@@ -90,10 +89,10 @@ public class testPlusProcheV3 {
         pays.setPositionVille(2, new Point(4, positionY));
         pays.setPositionVille(3, new Point(5, positionY));
 
-        plusProcheV2.recherche(pays, 0);
+        plusProcheV3.recherche(pays, 0);
 
-        assertEquals("0>1>2>3>0", plusProcheV2.getParcours().getVillesEmprunté());
-        assertEquals(6, (long) plusProcheV2.getParcours().getDistance());
+        assertEquals("0>1>2>3>0", plusProcheV3.getParcours().getVillesEmprunté());
+        assertEquals(6, (long) plusProcheV3.getParcours().getDistance());
 
     }
 
@@ -110,10 +109,10 @@ public class testPlusProcheV3 {
         pays.setPositionVille(3, new Point(5, positionY));
         pays.setPositionVille(4, new Point(6, positionY));
 
-        plusProcheV2.recherche(pays, 0);
+        plusProcheV3.recherche(pays, 0);
 
-        assertEquals("0>1>2>3>4>0", plusProcheV2.getParcours().getVillesEmprunté());
-        assertEquals(8, (long) plusProcheV2.getParcours().getDistance());
+        assertEquals("0>1>2>3>4>0", plusProcheV3.getParcours().getVillesEmprunté());
+        assertEquals(8, (long) plusProcheV3.getParcours().getDistance());
 
     }
 
@@ -131,10 +130,10 @@ public class testPlusProcheV3 {
         pays.setPositionVille(4, new Point(6, positionY));
         pays.setPositionVille(5, new Point(7, positionY));
 
-        plusProcheV2.recherche(pays, 0);
+        plusProcheV3.recherche(pays, 0);
 
-        assertEquals("0>1>2>3>4>5>0", plusProcheV2.getParcours().getVillesEmprunté());
-        assertEquals(10, (long) plusProcheV2.getParcours().getDistance());
+        assertEquals("0>1>2>3>4>5>0", plusProcheV3.getParcours().getVillesEmprunté());
+        assertEquals(10, (long) plusProcheV3.getParcours().getDistance());
 
     }
 
@@ -152,10 +151,10 @@ public class testPlusProcheV3 {
         pays.setPositionVille(4, new Point(5, positionY));
         pays.setPositionVille(3, new Point(6, positionY));
 
-        plusProcheV2.recherche(pays, 0);
+        plusProcheV3.recherche(pays, 0);
 
-        assertEquals("0>2>1>5>4>3>0", plusProcheV2.getParcours().getVillesEmprunté());
-        assertEquals(10, (long) plusProcheV2.getParcours().getDistance());
+        assertEquals("0>2>1>5>4>3>0", plusProcheV3.getParcours().getVillesEmprunté());
+        assertEquals(10, (long) plusProcheV3.getParcours().getDistance());
 
     }
 
