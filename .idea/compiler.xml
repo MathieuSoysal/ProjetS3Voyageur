@@ -7,7 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ProjetS3Voyageur" />
-        <module name="ProjetS3Voyageur1" />
         <module name="Mat" />
       </profile>
     </annotationProcessing>

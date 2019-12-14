@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
-import projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1;
+import projetS3Voyageur.ModesDeRecherches.PPMulti;
+import projetS3Voyageur.ModesDeRecherches.PlusProcheV3;
+import projetS3Voyageur.ModesDeRecherches.TrackProchesMulti;
 
 public class GenererCSV {
 
@@ -18,7 +20,8 @@ public class GenererCSV {
 
         // #region Comparer avec les résultats de plusProche
         GenererCSV fichier = new GenererCSV();
-        fichier.genererComparaisonPlusProche(new TrackProchesV2_1());
+        ModeRecherche[] listAlgo = {new PlusProcheV3(), new TrackProchesMulti(), new PPMulti()};
+        fichier.genererComparaison(listAlgo);
 
         // #region Generer un fichier CSV
         // ModeRecherche[] listeAlgo = { new BrutForceV2(), new BrutForceV3(), new
@@ -95,18 +98,30 @@ public class GenererCSV {
      * @param algo @{@code ModeRecherche} Algorithme de recherche qui doit être
      *             comparé
      */
-    public void genererComparaisonPlusProche(ModeRecherche algo) {
-        ComparePlusProche cpp = new ComparePlusProche();
-        cpp.comparer(algo);
+    public void genererComparaison(ModeRecherche[] listAlgo) {
+        Comparer cpp = new Comparer();
+        cpp.comparer(listAlgo);
 
         ArrayList<String[]> tableau = new ArrayList<>();
 
-        String[] tuple = { "Plus Proche Voisin", algo.getNom() };
-        tableau.add(tuple);
+        // #region Attributs du tableau
+        String[] attributs = new String[listAlgo.length + 1];
+        attributs[0] = "Nombre de villes";
+        for (byte i = 0; i != (listAlgo.length); i++) {
+            attributs[i + 1] = listAlgo[i].getNom();
+        }
+        // #endregion Attributs du tableau
+
+        tableau.add(attributs);
         for (int i = 4; i < 16; i++) {
-            String[] tupleStats = { String.valueOf(cpp.getDistancesPlusProche()[i - 4]).replace('.', ','),
-                    String.valueOf(cpp.getDistancesAlgo()[i - 4]).replace('.', ',') };
-            tableau.add(tupleStats);
+
+            String[] tuple = new String[listAlgo.length + 1];
+            tuple[0] = String.valueOf(i);
+
+            for (byte j = 0; j != (listAlgo.length); j++) {
+                tuple[j + 1] = String.valueOf(cpp.getDistancesAlgo()[i - 4][j]).replace('.', ',');
+            }
+            tableau.add(tuple);
         }
 
         writeCSV(tableau, ";", new File(repertoire, "comparaisonPlusProche" + nomFichier));
