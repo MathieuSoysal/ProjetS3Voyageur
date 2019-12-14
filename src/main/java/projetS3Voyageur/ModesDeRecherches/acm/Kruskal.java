@@ -1,7 +1,5 @@
 package projetS3Voyageur.ModesDeRecherches.acm;
 
-import java.util.LinkedList;
-import java.util.Queue;
 
 import projetS3Voyageur.CompositionPays.Pays;
 
@@ -11,22 +9,12 @@ class Kruskal {
 
     private static final int EXTREMITE_X = 0;
 
+    private int[] listeAdjacence;
+
     public static void main(String[] args) {
         Kruskal k = new Kruskal();
-        byte i = 0;
-        for (int adjacents : k.genereArbre(new Pays(10))) {
-            System.out.print(String.format("\n Noeud n°%s connectés : ", i));
-
-            int noeudVisite = (1 << i++) | (adjacents ^ ((1 << 10) - 1));
-
-            for (int j = getNoeudNonConnecte(1, noeudVisite); j < ((1 << 10) - 1); j = getNoeudNonConnecte(j << 1,
-                    noeudVisite)) {
-                System.out.print(Math.getExponent(j) + " ");
-                noeudVisite |= j;
-
-            }
-        }
-
+        k.genereArbre(new Pays(10));
+        System.out.println(k.toString());
     }
 
     /**
@@ -81,6 +69,7 @@ class Kruskal {
 
             actualiseNoeudsConnecte(OVERFLOW, noeudsConnecte, adjacents);
         }
+        this.listeAdjacence = listeAdjacence;
         return listeAdjacence;
     }
 
@@ -94,7 +83,7 @@ class Kruskal {
      * @param adjacents      {@code Byte[]} La nouvelle arête à ajouter dans la
      *                       liste d'adjacence.
      */
-    private static void actualiseNoeudsConnecte(final int OVERFLOW, int[] noeudsConnecte, final Byte[] adjacents) {
+    private void actualiseNoeudsConnecte(final int OVERFLOW, int[] noeudsConnecte, final Byte[] adjacents) {
 
         final int extremitesArete = (1 << adjacents[EXTREMITE_X]) | (1 << adjacents[EXTREMITE_Y]);
         final int sommetsConnectee = noeudsConnecte[adjacents[EXTREMITE_X]] | noeudsConnecte[adjacents[EXTREMITE_Y]]
@@ -124,11 +113,36 @@ class Kruskal {
      *         (dans la séquence de bits du int) représente une ville non visitée
      *         qui est la nouvelle ville actuelle.
      */
-    private static/* TODO: mit en static temporairement */ int getNoeudNonConnecte(int noeudActuel,
+    private int getNoeudNonConnecte(int noeudActuel,
             final int noeudVisites) {
         noeudActuel += noeudVisites;
         return noeudActuel ^ (noeudActuel & noeudVisites);
     }
     // TODO: Pensais à crée une class pour l'utilisation binaire
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+
+    @Override
+    public String toString() {
+        int i = 0;
+        String resultat = "";
+        for (int adjacents : listeAdjacence) {
+            resultat += (String.format("\n Noeud n°%s connectés : ", i));
+
+            int noeudVisite = (1 << i++) | (adjacents ^ ((1 << 10) - 1));
+
+            for (int j = getNoeudNonConnecte(1, noeudVisite); j < ((1 << 10) - 1); j = getNoeudNonConnecte(j << 1,
+                    noeudVisite)) {
+                resultat += (Math.getExponent(j) + " ");
+                noeudVisite |= j;
+
+            }
+        }
+        return resultat;
+    }
 
 }
