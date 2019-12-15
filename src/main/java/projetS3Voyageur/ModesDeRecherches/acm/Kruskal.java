@@ -1,5 +1,7 @@
 package projetS3Voyageur.ModesDeRecherches.acm;
 
+import java.awt.Point;
+
 import projetS3Voyageur.CompositionPays.Pays;
 
 class Kruskal {
@@ -12,7 +14,17 @@ class Kruskal {
 
     public static void main(String[] args) {
         Kruskal k = new Kruskal();
-        k.genereArbre(new Pays(10), (1 << 4 | 1 << 3));
+
+        Pays pays = new Pays(6);
+
+        pays.setPositionVille(0, new Point(1, 4));
+        pays.setPositionVille(1, new Point(2, 5));
+        pays.setPositionVille(2, new Point(3, 3));
+        pays.setPositionVille(3, new Point(4, 2));
+        pays.setPositionVille(4, new Point(1, 5));
+        pays.setPositionVille(5, new Point(1, 3));
+
+        k.genereArbre(pays, (1 << 3));
         System.out.println(k.toString());
     }
 
@@ -50,8 +62,10 @@ class Kruskal {
         int[] noeudsConnecte = new int[TAILLE], listeAdjacence = new int[TAILLE];
 
         final int OVERFLOW_NOEUD_ADJACENCE = OVERFLOW ^ listeNoirNoeuds;
-        
-        while (noeudsConnecte[0] < OVERFLOW_NOEUD_ADJACENCE) {
+
+        final byte noeudReferant = (byte) getNoeudNonConnecte(0, listeNoirNoeuds);
+
+        while (noeudsConnecte[noeudReferant] < OVERFLOW_NOEUD_ADJACENCE) {
             double poidsAreteMin = Double.MAX_VALUE;
             Byte[] adjacents = new Byte[2];
 

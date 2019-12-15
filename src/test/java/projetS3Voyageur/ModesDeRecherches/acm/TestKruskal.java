@@ -25,7 +25,7 @@ public class TestKruskal {
                 { 1, 5, 6 }, // adjacences noeud num°3
                 { 8, 9 }, // adjacences noeud num°4
                 { 3 }, // adjacences noeud num°5
-                { 3, 9, 7 }, // adjacences noeud num°6
+                { 3, 7, 9 }, // adjacences noeud num°6
                 { 6 }, // adjacences noeud num°7
                 { 2, 4 }, // adjacences noeud num°8
                 { 4, 6 }, // adjacences noeud num°9
@@ -59,8 +59,8 @@ public class TestKruskal {
                 { 1, 6 }, // adjacences noeud num°2
                 { 1, 8 }, // adjacences noeud num°3
                 { 5 }, // adjacences noeud num°4
-                { 6, 4 }, // adjacences noeud num°5
-                { 5, 2 }, // adjacences noeud num°6
+                { 4, 6 }, // adjacences noeud num°5
+                { 2, 5 }, // adjacences noeud num°6
                 { 8 }, // adjacences noeud num°7
                 { 3, 7 }, // adjacences noeud num°8
         };
@@ -121,11 +121,11 @@ public class TestKruskal {
         // Trouver via calcul sur papier
         final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
                 { 6 }, // adjacences noeud num°1
-                { 5, 4 }, // adjacences noeud num°2
+                { 4, 5 }, // adjacences noeud num°2
                 { 5 }, // adjacences noeud num°3
-                { 7, 2 }, // adjacences noeud num°4
+                { 2, 7 }, // adjacences noeud num°4
                 { 2, 3, 6 }, // adjacences noeud num°5
-                { 5, 1 }, // adjacences noeud num°6
+                { 1, 5 }, // adjacences noeud num°6
                 { 4 } // adjacences noeud num°7
         };
         final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 7);
@@ -155,7 +155,7 @@ public class TestKruskal {
                 { 5 }, // adjacences noeud num°2
                 { 4, 6 }, // adjacences noeud num°3
                 { 3 }, // adjacences noeud num°4
-                { 2, 1 }, // adjacences noeud num°5
+                { 1, 2 }, // adjacences noeud num°5
                 { 1, 3 } // adjacences noeud num°6
         };
         final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 6);
@@ -177,6 +177,135 @@ public class TestKruskal {
     // #endregion Avec aucun sommet du graphe déjà visité
 
     // #region Avec des sommets déjà visités
+
+    @Test
+    public void test_genererArbre_8noeuds_Ignore_Noeud2_Noeud3_Noeud4_Noeud7() {
+
+        // Trouver via calcul sur papier
+        final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
+                { 6 }, // adjacences noeud num°1
+                {}, // adjacences noeud num°2 IGNORE
+                {}, // adjacences noeud num°3 IGNORE
+                {}, // adjacences noeud num°4 IGNORE
+                { 6 }, // adjacences noeud num°5
+                { 1, 5, 8 }, // adjacences noeud num°6
+                {}, // adjacences noeud num°7 IGNORE
+                { 6 }, // adjacences noeud num°8
+        };
+
+        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 8);
+        Pays pays = new Pays(8);
+
+        pays.setPositionVille(0, new Point(3, 8));
+        pays.setPositionVille(1, new Point(3, 6));
+        pays.setPositionVille(2, new Point(5, 8));
+        pays.setPositionVille(3, new Point(8, 5));
+        pays.setPositionVille(4, new Point(6, 4));
+        pays.setPositionVille(5, new Point(5, 5));
+        pays.setPositionVille(6, new Point(8, 10));
+        pays.setPositionVille(7, new Point(7, 8));
+
+        int i = 0;
+        for (int arete : kruskal.genereArbre(pays, ((1 << 1) | (1 << 2) | (1 << 6) | (1 << 3)))) {
+            assertEquals(listeAdjacence[i++], arete);
+        }
+    }
+
+    @Test
+    public void test_genererArbre_7noeuds_part1_Ignore_Noeud1_Noeud2_Noeud4_Noeud6() {
+
+        // Trouver via calcul sur papier
+        final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
+                {}, // adjacences noeud num°1 IGNORE
+                {}, // adjacences noeud num°2 IGNORE
+                { 5 }, // adjacences noeud num°3
+                {}, // adjacences noeud num°4 IGNORE
+                { 3, 7 }, // adjacences noeud num°5
+                {}, // adjacences noeud num°6 IGNORE
+                { 5 } // adjacences noeud num°7
+        };
+
+        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 7);
+
+        Pays pays = new Pays(7);
+
+        pays.setPositionVille(0, new Point(4, 3));
+        pays.setPositionVille(1, new Point(3, 5));
+        pays.setPositionVille(2, new Point(3, 2));
+        pays.setPositionVille(3, new Point(1, 3));
+        pays.setPositionVille(4, new Point(2, 2));
+        pays.setPositionVille(5, new Point(1, 1));
+        pays.setPositionVille(6, new Point(2, 4));
+
+        int i = 0;
+        for (int arete : kruskal.genereArbre(pays, ((1 << 0) | (1 << 1) | (1 << 3) | (1 << 5)))) {
+            assertEquals(listeAdjacence[i++], arete);
+        }
+    }
+
+    @Test
+    public void test_genererArbre_7noeuds_part2_Ignore_Noeud7_et_Noeud5() {
+
+        // Trouver via calcul sur papier
+        final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
+                { 6 }, // adjacences noeud num°1
+                { 4, 6 }, // adjacences noeud num°2
+                { 6 }, // adjacences noeud num°3
+                { 2 }, // adjacences noeud num°4
+                {}, // adjacences noeud num°5 IGNORE
+                { 1, 2, 3 }, // adjacences noeud num°6
+                {} // adjacences noeud num°7 IGNORE
+        };
+        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 7);
+
+        Pays pays = new Pays(7);
+
+        pays.setPositionVille(0, new Point(4, 3));
+        pays.setPositionVille(1, new Point(2, 4));
+        pays.setPositionVille(2, new Point(2, 2));
+        pays.setPositionVille(3, new Point(3, 5));
+        pays.setPositionVille(4, new Point(2, 3));
+        pays.setPositionVille(5, new Point(3, 3));
+        pays.setPositionVille(6, new Point(4, 5));
+
+        int i = 0;
+        for (int arete : kruskal.genereArbre(pays, ((1 << 4) | (1 << 6)))) {
+            assertEquals(listeAdjacence[i++], arete);
+        }
+    }
+
+    @Test
+    public void test_genererArbre_6noeuds_part1_IgnoreNoeud3() {
+
+        // Trouver via calcul sur papier
+        final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
+                { 5, 6 }, // adjacences noeud num°1
+                { 5 }, // adjacences noeud num°2
+                {}, // adjacences noeud num°3 IGNORE
+                { 6 }, // adjacences noeud num°4
+                { 1, 2 }, // adjacences noeud num°5
+                { 1, 4 } // adjacences noeud num°6
+        };
+
+        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 6);
+
+        Pays pays = new Pays(6);
+
+        pays.setPositionVille(0, new Point(1, 4));
+        pays.setPositionVille(1, new Point(2, 5));
+        pays.setPositionVille(2, new Point(3, 3));
+        pays.setPositionVille(3, new Point(4, 2));
+        pays.setPositionVille(4, new Point(1, 5));
+        pays.setPositionVille(5, new Point(1, 3));
+
+        int i = 0;
+        for (int arete : kruskal.genereArbre(pays, 1 << 2 /*
+                                                           * TODO implémentais une méthode qui convertie une liste de
+                                                           * numéro de noeud en un vecteur de bit
+                                                           */)) {
+            assertEquals(listeAdjacence[i++], arete);
+        }
+    }
 
     // #endregion Avec des sommets déjà visités
 
