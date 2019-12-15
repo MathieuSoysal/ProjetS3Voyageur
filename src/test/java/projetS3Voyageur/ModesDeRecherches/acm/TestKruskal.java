@@ -11,12 +11,25 @@ import projetS3Voyageur.CompositionPays.Pays;
 public class TestKruskal {
     private Kruskal kruskal = new Kruskal();
 
+    // #region Test genererArbre
+
+    // #region Avec aucun sommet du graphe déjà visité
+
     @Test
     public void test_genererArbre_9noeuds() {
 
         // Trouver via calcul sur papier
-        final byte[][] listeAdjacenceNum = { { 3 }, { 8 }, {1, 5, 6 }, { 8, 9 }, { 3 }, { 3, 9, 7 }, { 6 }, { 2, 4 },
-                { 4, 6 } };
+        final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
+                { 3 }, // adjacences noeud num°1
+                { 8 }, // adjacences noeud num°2
+                { 1, 5, 6 }, // adjacences noeud num°3
+                { 8, 9 }, // adjacences noeud num°4
+                { 3 }, // adjacences noeud num°5
+                { 3, 9, 7 }, // adjacences noeud num°6
+                { 6 }, // adjacences noeud num°7
+                { 2, 4 }, // adjacences noeud num°8
+                { 4, 6 }, // adjacences noeud num°9
+        };
         // TODO: réglé le problème avec le graphe planaire
         final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 9);
         Pays pays = new Pays(9);
@@ -41,7 +54,17 @@ public class TestKruskal {
     public void test_genererArbre_8noeuds() {
 
         // Trouver via calcul sur papier
-        final byte[][] listeAdjacenceNum = { { 2, 3 }, { 1, 6 }, { 1, 8 }, { 5 }, { 6, 4 }, { 5, 2 }, { 8 }, { 3, 7 } };
+        final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
+                { 2, 3 }, // adjacences noeud num°1
+                { 1, 6 }, // adjacences noeud num°2
+                { 1, 8 }, // adjacences noeud num°3
+                { 5 }, // adjacences noeud num°4
+                { 6, 4 }, // adjacences noeud num°5
+                { 5, 2 }, // adjacences noeud num°6
+                { 8 }, // adjacences noeud num°7
+                { 3, 7 }, // adjacences noeud num°8
+        };
+
         final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 8);
         Pays pays = new Pays(8);
 
@@ -64,7 +87,16 @@ public class TestKruskal {
     public void test_genererArbre_7noeuds_part1() {
 
         // Trouver via calcul sur papier
-        final byte[][] listeAdjacenceNum = { { 3 }, { 7 }, { 1, 5 }, { 5, 7 }, { 3, 4, 6 }, { 5 }, { 2, 4 } };
+        final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
+                { 3 }, // adjacences noeud num°1
+                { 7 }, // adjacences noeud num°2
+                { 1, 5 }, // adjacences noeud num°3
+                { 5, 7 }, // adjacences noeud num°4
+                { 3, 4, 6 }, // adjacences noeud num°5
+                { 5 }, // adjacences noeud num°6
+                { 2, 4 } // adjacences noeud num°7
+        };
+
         final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 7);
 
         Pays pays = new Pays(7);
@@ -87,7 +119,15 @@ public class TestKruskal {
     public void test_genererArbre_7noeuds_part2() {
 
         // Trouver via calcul sur papier
-        final byte[][] listeAdjacenceNum = { { 6 }, { 5, 4 }, { 5 }, { 7, 2 }, { 2, 3, 6 }, { 5, 1 }, { 4 } };
+        final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
+                { 6 }, // adjacences noeud num°1
+                { 5, 4 }, // adjacences noeud num°2
+                { 5 }, // adjacences noeud num°3
+                { 7, 2 }, // adjacences noeud num°4
+                { 2, 3, 6 }, // adjacences noeud num°5
+                { 5, 1 }, // adjacences noeud num°6
+                { 4 } // adjacences noeud num°7
+        };
         final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 7);
 
         Pays pays = new Pays(7);
@@ -110,7 +150,14 @@ public class TestKruskal {
     public void test_genererArbre_6noeuds_part1() {
 
         // Trouver via calcul sur papier
-        final byte[][] listeAdjacenceNum = { { 5, 6 }, { 5 }, { 4, 6 }, { 3 }, { 2, 1 }, { 1, 3 } };
+        final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
+                { 5, 6 }, // adjacences noeud num°1
+                { 5 }, // adjacences noeud num°2
+                { 4, 6 }, // adjacences noeud num°3
+                { 3 }, // adjacences noeud num°4
+                { 2, 1 }, // adjacences noeud num°5
+                { 1, 3 } // adjacences noeud num°6
+        };
         final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 6);
 
         Pays pays = new Pays(6);
@@ -127,6 +174,15 @@ public class TestKruskal {
             assertEquals(listeAdjacence[i++], arete);
         }
     }
+    // #endregion Avec aucun sommet du graphe déjà visité
+
+    // #region Avec des sommets déjà visités
+
+    // #endregion Avec des sommets déjà visités
+
+    // #endregion Test genererArbre
+
+    // #region Outils
 
     /**
      * Récupère une liste d'adjacence de numéro de noeud afin de renvoyer un tableau
@@ -149,4 +205,6 @@ public class TestKruskal {
         }
         return resultat;
     }
+    // #endregion Outils
+
 }
