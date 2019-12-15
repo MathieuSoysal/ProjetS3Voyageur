@@ -1,6 +1,5 @@
 package projetS3Voyageur.ModesDeRecherches.acm;
 
-
 import projetS3Voyageur.CompositionPays.Pays;
 
 class Kruskal {
@@ -13,7 +12,7 @@ class Kruskal {
 
     public static void main(String[] args) {
         Kruskal k = new Kruskal();
-        k.genereArbre(new Pays(10));
+        k.genereArbre(new Pays(10), (1 << 4 | 1 << 3));
         System.out.println(k.toString());
     }
 
@@ -27,17 +26,36 @@ class Kruskal {
      * @return {@code int[]} Retourne la liste d'adjacence des noeuds du graphe.
      */
     public int[] genereArbre(final Pays pays) {
+        return genereArbre(pays, 0);
+    }
+
+    /**
+     * Génère et renvoie l'arbre minimum recouvrant du graphe/Pays donné en
+     * paramètre en ignorant les noeuds donnée en pramètre.
+     * 
+     * @param pays            {@code Pays} représente le graphe où l'arbre minimum
+     *                        recouvrant doit être trouvé.
+     * 
+     * @param listeNoirNoeuds {@code int} représente les noeuds qui doivent être
+     *                        ignorés lors de la recherche de l'abre minimum
+     *                        recouvrant. (vecteur de bit où chaque bit représente
+     *                        un noeud)
+     * 
+     * @return {@code int[]} Retourne la liste d'adjacence des noeuds du graphe.
+     */
+    public int[] genereArbre(final Pays pays, final int listeNoirNoeuds) {
         final int TAILLE = pays.getNombreDeVilles();
         final int OVERFLOW = (1 << (TAILLE)) - 1;
-        int noeudVisites;
 
         int[] noeudsConnecte = new int[TAILLE], listeAdjacence = new int[TAILLE];
 
-        while (noeudsConnecte[0] < OVERFLOW) {
+        final int OVERFLOW_NOEUD_ADJACENCE = OVERFLOW ^ listeNoirNoeuds;
+        
+        while (noeudsConnecte[0] < OVERFLOW_NOEUD_ADJACENCE) {
             double poidsAreteMin = Double.MAX_VALUE;
             Byte[] adjacents = new Byte[2];
 
-            noeudVisites = 0;
+            int noeudVisites = listeNoirNoeuds;
             byte numVillei = 0, numVillej = 0;
 
             for (int i = getNoeudNonConnecte(1, noeudVisites); i < (OVERFLOW >> 1); i = getNoeudNonConnecte(i << 1,
@@ -79,7 +97,9 @@ class Kruskal {
      * 
      * @param OVERFLOW       {@code int} représente un noeud voisin à tous les
      *                       autres noeuds du graphe.
+     * 
      * @param noeudsConnecte {@code int[]} la liste d'ajacence à actualiser.
+     * 
      * @param adjacents      {@code Byte[]} La nouvelle arête à ajouter dans la
      *                       liste d'adjacence.
      */
@@ -104,17 +124,16 @@ class Kruskal {
      * villes déjà visitée elle fait passer la ville actuelle à une ville non
      * visitée.
      * 
-     * @param noeudActuel Chaque bit du int représente une ville seul l'un des
-     *                      bits est à 1, elle représente la ville actuelle
+     * @param noeudActuel  Chaque bit du int représente une ville seul l'un des bits
+     *                     est à 1, elle représente la ville actuelle
      * 
-     * @param noeudVisites  Chaque bit à 1 du int représente les villes visitées.
+     * @param noeudVisites Chaque bit à 1 du int représente les villes visitées.
      * 
      * @return {@code int} Renvois un int avec un seul bit à 1, son emplacement
      *         (dans la séquence de bits du int) représente une ville non visitée
      *         qui est la nouvelle ville actuelle.
      */
-    private int getNoeudNonConnecte(int noeudActuel,
-            final int noeudVisites) {
+    private int getNoeudNonConnecte(int noeudActuel, final int noeudVisites) {
         noeudActuel += noeudVisites;
         return noeudActuel ^ (noeudActuel & noeudVisites);
     }
