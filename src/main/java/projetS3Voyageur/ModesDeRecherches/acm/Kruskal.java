@@ -63,7 +63,7 @@ class Kruskal {
 
         final int OVERFLOW_NOEUD_ADJACENCE = OVERFLOW ^ listeNoirNoeuds;
 
-        final byte noeudReferant = (byte) getNoeudNonConnecte(0, listeNoirNoeuds);
+        final byte noeudReferant = (byte) Math.getExponent(getNoeudNonConnecte(1, listeNoirNoeuds));
 
         while (noeudsConnecte[noeudReferant] < OVERFLOW_NOEUD_ADJACENCE) {
             double poidsAreteMin = Double.MAX_VALUE;
