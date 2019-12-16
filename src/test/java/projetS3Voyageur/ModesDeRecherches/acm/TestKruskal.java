@@ -16,6 +16,47 @@ public class TestKruskal {
     // #region Avec aucun sommet du graphe déjà visité
 
     @Test
+    public void test_genererArbre_11noeuds() {
+
+        // Trouver via calcul sur papier
+        final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
+                { 9 }, // adjacences noeud num°1
+                { 5, 6, 7 }, // adjacences noeud num°2
+                { 4, 10, 11 }, // adjacences noeud num°3
+                { 3 }, // adjacences noeud num°4
+                { 2 }, // adjacences noeud num°5
+                { 8 }, // adjacences noeud num°6
+                { 2, 9 }, // adjacences noeud num°7
+                { 2, 6, 11 }, // adjacences noeud num°8
+                { 1, 7, 11 }, // adjacences noeud num°9
+                { 3 }, // adjacences noeud num°10
+                { 3, 8, 9 }, // adjacences noeud num°11
+        };
+
+        final String[] listeAdjacence = formateString(listeAdjacenceNum, 11);
+        Pays pays = new Pays(11);
+
+        pays.setPositionVille(0, new Point(6, 10));
+        pays.setPositionVille(1, new Point(8, 3));
+        pays.setPositionVille(2, new Point(2, 4));
+        pays.setPositionVille(3, new Point(1, 7));
+        pays.setPositionVille(4, new Point(9, 2));
+        pays.setPositionVille(5, new Point(7, 1));
+        pays.setPositionVille(6, new Point(8, 5));
+        pays.setPositionVille(7, new Point(6, 2));
+        pays.setPositionVille(8, new Point(5, 6));
+        pays.setPositionVille(9, new Point(2, 1));
+        pays.setPositionVille(10, new Point(4, 4));
+
+        int i = 0;
+        kruskal.genereArbre(pays);
+        for (String adjacences : kruskal.toString().split("\n")) {
+
+            assertEquals(listeAdjacence[i++], adjacences);
+        }
+    }
+
+    @Test
     public void test_genererArbre_9noeuds() {
 
         // Trouver via calcul sur papier
