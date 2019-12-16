@@ -71,7 +71,7 @@ public class TestKruskal {
                 { 2, 4 }, // adjacences noeud num°8
                 { 4, 6 }, // adjacences noeud num°9
         };
-        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 9);
+        final String[] listeAdjacence = formateString(listeAdjacenceNum, 9);
         Pays pays = new Pays(9);
 
         pays.setPositionVille(0, new Point(1, 1));
@@ -85,8 +85,9 @@ public class TestKruskal {
         pays.setPositionVille(8, new Point(3, 2));
 
         int i = 0;
-        for (int arete : kruskal.genereArbre(pays)) {
-            assertEquals(listeAdjacence[i++], arete);
+        kruskal.genereArbre(pays);
+        for (String adjacences : kruskal.toString().split("\n")) {
+            assertEquals(listeAdjacence[i++], adjacences);
         }
     }
 
@@ -105,7 +106,7 @@ public class TestKruskal {
                 { 3, 7 }, // adjacences noeud num°8
         };
 
-        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 8);
+        final String[] listeAdjacence = formateString(listeAdjacenceNum, 8);
         Pays pays = new Pays(8);
 
         pays.setPositionVille(0, new Point(3, 8));
@@ -118,8 +119,9 @@ public class TestKruskal {
         pays.setPositionVille(7, new Point(7, 8));
 
         int i = 0;
-        for (int arete : kruskal.genereArbre(pays)) {
-            assertEquals(listeAdjacence[i++], arete);
+        kruskal.genereArbre(pays);
+        for (String adjacences : kruskal.toString().split("\n")) {
+            assertEquals(listeAdjacence[i++], adjacences);
         }
     }
 
@@ -137,7 +139,7 @@ public class TestKruskal {
                 { 2, 4 } // adjacences noeud num°7
         };
 
-        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 7);
+        final String[] listeAdjacence = formateString(listeAdjacenceNum, 7);
 
         Pays pays = new Pays(7);
 
@@ -150,8 +152,9 @@ public class TestKruskal {
         pays.setPositionVille(6, new Point(2, 4));
 
         int i = 0;
-        for (int arete : kruskal.genereArbre(pays)) {
-            assertEquals(listeAdjacence[i++], arete);
+        kruskal.genereArbre(pays);
+        for (String adjacences : kruskal.toString().split("\n")) {
+            assertEquals(listeAdjacence[i++], adjacences);
         }
     }
 
@@ -168,7 +171,7 @@ public class TestKruskal {
                 { 1, 5 }, // adjacences noeud num°6
                 { 4 } // adjacences noeud num°7
         };
-        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 7);
+        final String[] listeAdjacence = formateString(listeAdjacenceNum, 7);
 
         Pays pays = new Pays(7);
 
@@ -181,8 +184,9 @@ public class TestKruskal {
         pays.setPositionVille(6, new Point(4, 5));
 
         int i = 0;
-        for (int arete : kruskal.genereArbre(pays)) {
-            assertEquals(listeAdjacence[i++], arete);
+        kruskal.genereArbre(pays);
+        for (String adjacences : kruskal.toString().split("\n")) {
+            assertEquals(listeAdjacence[i++], adjacences);
         }
     }
 
@@ -198,7 +202,7 @@ public class TestKruskal {
                 { 1, 2 }, // adjacences noeud num°5
                 { 1, 3 } // adjacences noeud num°6
         };
-        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 6);
+        final String[] listeAdjacence = formateString(listeAdjacenceNum, 6);
 
         Pays pays = new Pays(6);
 
@@ -210,8 +214,9 @@ public class TestKruskal {
         pays.setPositionVille(5, new Point(1, 3));
 
         int i = 0;
-        for (int arete : kruskal.genereArbre(pays)) {
-            assertEquals(listeAdjacence[i++], arete);
+        kruskal.genereArbre(pays);
+        for (String adjacences : kruskal.toString().split("\n")) {
+            assertEquals(listeAdjacence[i++], adjacences);
         }
     }
     // #endregion Avec aucun sommet du graphe déjà visité
@@ -233,7 +238,7 @@ public class TestKruskal {
                 { 2, 9 }, // adjacences noeud num°8
                 { 1, 5, 8 }, // adjacences noeud num°9
         };
-        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 9);
+        final String[] listeAdjacence = formateString(listeAdjacenceNum, 9);
         Pays pays = new Pays(9);
 
         pays.setPositionVille(0, new Point(1, 1));
@@ -247,8 +252,9 @@ public class TestKruskal {
         pays.setPositionVille(8, new Point(3, 2));
 
         int i = 0;
-        for (int arete : kruskal.genereArbre(pays, ((1 << 2) | (1 << 3) | (1 << 5)))) {
-            assertEquals(listeAdjacence[i++], arete);
+        kruskal.genereArbre(pays, ((1 << 2) | (1 << 3) | (1 << 5)));
+        for (String adjacences : kruskal.toString().split("\n")) {
+            assertEquals(listeAdjacence[i++], adjacences);
         }
     }
 
@@ -267,7 +273,7 @@ public class TestKruskal {
                 { 6 }, // adjacences noeud num°8
         };
 
-        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 8);
+        final String[] listeAdjacence = formateString(listeAdjacenceNum, 8);
         Pays pays = new Pays(8);
 
         pays.setPositionVille(0, new Point(3, 8));
@@ -280,8 +286,9 @@ public class TestKruskal {
         pays.setPositionVille(7, new Point(7, 8));
 
         int i = 0;
-        for (int arete : kruskal.genereArbre(pays, ((1 << 1) | (1 << 2) | (1 << 6) | (1 << 3)))) {
-            assertEquals(listeAdjacence[i++], arete);
+        kruskal.genereArbre(pays, ((1 << 1) | (1 << 2) | (1 << 6) | (1 << 3)));
+        for (String adjacences : kruskal.toString().split("\n")) {
+            assertEquals(listeAdjacence[i++], adjacences);
         }
     }
 
@@ -299,7 +306,7 @@ public class TestKruskal {
                 { 5 } // adjacences noeud num°7
         };
 
-        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 7);
+        final String[] listeAdjacence = formateString(listeAdjacenceNum, 7);
 
         Pays pays = new Pays(7);
 
@@ -312,8 +319,9 @@ public class TestKruskal {
         pays.setPositionVille(6, new Point(2, 4));
 
         int i = 0;
-        for (int arete : kruskal.genereArbre(pays, ((1 << 0) | (1 << 1) | (1 << 3) | (1 << 5)))) {
-            assertEquals(listeAdjacence[i++], arete);
+        kruskal.genereArbre(pays, ((1 << 0) | (1 << 1) | (1 << 3) | (1 << 5)));
+        for (String adjacences : kruskal.toString().split("\n")) {
+            assertEquals(listeAdjacence[i++], adjacences);
         }
     }
 
@@ -330,7 +338,7 @@ public class TestKruskal {
                 { 1, 2, 3 }, // adjacences noeud num°6
                 {} // adjacences noeud num°7 IGNORE
         };
-        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 7);
+        final String[] listeAdjacence = formateString(listeAdjacenceNum, 7);
 
         Pays pays = new Pays(7);
 
@@ -343,8 +351,9 @@ public class TestKruskal {
         pays.setPositionVille(6, new Point(4, 5));
 
         int i = 0;
-        for (int arete : kruskal.genereArbre(pays, ((1 << 4) | (1 << 6)))) {
-            assertEquals(listeAdjacence[i++], arete);
+        kruskal.genereArbre(pays, ((1 << 4) | (1 << 6)));
+        for (String adjacences : kruskal.toString().split("\n")) {
+            assertEquals(listeAdjacence[i++], adjacences);
         }
     }
 
@@ -361,7 +370,7 @@ public class TestKruskal {
                 { 1, 4 } // adjacences noeud num°6
         };
 
-        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 6);
+        final String[] listeAdjacence = formateString(listeAdjacenceNum, 6);
 
         Pays pays = new Pays(6);
 
@@ -373,11 +382,12 @@ public class TestKruskal {
         pays.setPositionVille(5, new Point(1, 3));
 
         int i = 0;
-        for (int arete : kruskal.genereArbre(pays, 1 << 2 /*
-                                                           * TODO implémentais une méthode qui convertie une liste de
-                                                           * numéro de noeud en un vecteur de bit
-                                                           */)) {
-            assertEquals(listeAdjacence[i++], arete);
+        kruskal.genereArbre(pays, 1 << 2 /*
+                                          * TODO implémentais une méthode qui convertie une liste de numéro de noeud en
+                                          * un vecteur de bit
+                                          */);
+        for (String adjacences : kruskal.toString().split("\n")) {
+            assertEquals(listeAdjacence[i++], adjacences);
         }
     }
 
@@ -389,23 +399,22 @@ public class TestKruskal {
 
     /**
      * Récupère une liste d'adjacence de numéro de noeud afin de renvoyer un tableau
-     * de int, (où chaque bite du int représente un noeud).
+     * de String, (où chaque String représente l'adjacacence d'un noeud).
      * 
      * @param listeAdjacence {@code byte[][]} liste d'adjacence des numéros de noeud
      * @param taille         {@code int} la taille du tableau de int à retourner
-     * @return {@code int[]} list d'adjacence sous forme binaire
+     * @return {@code String[]} list d'adjacence des noeuds
      */
-    private int[] valeurBinaire(byte[][] listeAdjacence, int taille) {
-        int[] resultat = new int[taille];
+    private String[] formateString(byte[][] listeAdjacence, int taille) {
+        String[] resultat = new String[taille];
 
-        int i = 0;
-
-        for (byte[] noeudAdjacents : listeAdjacence) {
-            for (byte noeud : noeudAdjacents) {
-                resultat[i] |= (noeud != 0) ? (1 << (noeud - 1)) : 0;
+        for (int i = 0; i < listeAdjacence.length; i++) {
+            resultat[i] = String.format(" Noeud n°%s connectés : ", i);
+            for (byte noeud : listeAdjacence[i]) {
+                resultat[i] += (noeud != 0) ? String.valueOf(noeud - 1) + " " : "";
             }
-            i++;
         }
+
         return resultat;
     }
     // #endregion Outils

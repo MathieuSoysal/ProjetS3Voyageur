@@ -15,16 +15,22 @@ class Kruskal {
     public static void main(String[] args) {
         Kruskal k = new Kruskal();
 
-        Pays pays = new Pays(6);
+        Pays pays = new Pays(11);
 
-        pays.setPositionVille(0, new Point(1, 4));
-        pays.setPositionVille(1, new Point(2, 5));
-        pays.setPositionVille(2, new Point(3, 3));
-        pays.setPositionVille(3, new Point(4, 2));
-        pays.setPositionVille(4, new Point(1, 5));
-        pays.setPositionVille(5, new Point(1, 3));
+        pays.setPositionVille(0, new Point(6, 10));
+        pays.setPositionVille(1, new Point(8, 3));
+        pays.setPositionVille(2, new Point(2, 4));
+        pays.setPositionVille(3, new Point(1, 7));
+        pays.setPositionVille(4, new Point(9, 2));
+        pays.setPositionVille(5, new Point(7, 1));
+        pays.setPositionVille(6, new Point(8, 5));
+        pays.setPositionVille(7, new Point(6, 2));
+        pays.setPositionVille(8, new Point(5, 6));
+        pays.setPositionVille(9, new Point(2, 1));
+        pays.setPositionVille(10, new Point(4, 4));
 
-        k.genereArbre(pays, (1 << 3));
+
+        k.genereArbre(pays);
         System.out.println(k.toString());
     }
 
@@ -164,7 +170,7 @@ class Kruskal {
         int i = 0;
         String resultat = "";
         for (int adjacents : listeAdjacence) {
-            resultat += (String.format("\n Noeud n°%s connectés : ", i));
+            resultat += (String.format(" Noeud n°%s connectés : ", i));
 
             int noeudVisite = (1 << i++) | (adjacents ^ ((1 << 10) - 1));
 
@@ -174,6 +180,7 @@ class Kruskal {
                 noeudVisite |= j;
 
             }
+            resultat += "\n";
         }
         return resultat;
     }
