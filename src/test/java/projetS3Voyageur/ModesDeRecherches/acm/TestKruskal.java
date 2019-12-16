@@ -30,7 +30,6 @@ public class TestKruskal {
                 { 2, 4 }, // adjacences noeud num°8
                 { 4, 6 }, // adjacences noeud num°9
         };
-        // TODO: réglé le problème avec le graphe planaire
         final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 9);
         Pays pays = new Pays(9);
 
@@ -177,6 +176,40 @@ public class TestKruskal {
     // #endregion Avec aucun sommet du graphe déjà visité
 
     // #region Avec des sommets déjà visités
+
+    @Test
+    public void test_genererArbre_9noeuds_Ignore_Noeud3_Noeud4_Noeud6() {
+
+        // Trouver via calcul sur papier
+        final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
+                { 9 }, // adjacences noeud num°1
+                { 8 }, // adjacences noeud num°2
+                {}, // adjacences noeud num°3 IGNORE
+                {}, // adjacences noeud num°4 IGNORE
+                { 7, 9 }, // adjacences noeud num°5
+                {}, // adjacences noeud num°6 IGNORE
+                { 5 }, // adjacences noeud num°7
+                { 2, 9 }, // adjacences noeud num°8
+                { 1, 5, 8 }, // adjacences noeud num°9
+        };
+        final int[] listeAdjacence = valeurBinaire(listeAdjacenceNum, 9);
+        Pays pays = new Pays(9);
+
+        pays.setPositionVille(0, new Point(1, 1));
+        pays.setPositionVille(1, new Point(6, 4));
+        pays.setPositionVille(2, new Point(1, 3));
+        pays.setPositionVille(3, new Point(4, 2));
+        pays.setPositionVille(4, new Point(1, 4));
+        pays.setPositionVille(5, new Point(3, 3));
+        pays.setPositionVille(6, new Point(3, 5));
+        pays.setPositionVille(7, new Point(5, 3));
+        pays.setPositionVille(8, new Point(3, 2));
+
+        int i = 0;
+        for (int arete : kruskal.genereArbre(pays, ((1 << 2) | (1 << 3) | (1 << 5)))) {
+            assertEquals(listeAdjacence[i++], arete);
+        }
+    }
 
     @Test
     public void test_genererArbre_8noeuds_Ignore_Noeud2_Noeud3_Noeud4_Noeud7() {
