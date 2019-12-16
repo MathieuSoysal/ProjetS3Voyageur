@@ -25,8 +25,10 @@ public final class Pays {
     /**
      * Enregistre une nouvelle position pour une ville donné en paramètre
      * 
-     * @param Ville       Numéro de la ville dont la position vas être modifier
-     * @param newPosVille Nouvelle position
+     * @param ville {@code int}       Numéro de la ville dont la position vas être modifier
+     *                    (commence par 0)
+     * 
+     * @param posVille {@code Point} Nouvelle position
      */
     public void setPositionVille(int ville, Point posVille) {
         v.setPositionVille(ville, posVille);
