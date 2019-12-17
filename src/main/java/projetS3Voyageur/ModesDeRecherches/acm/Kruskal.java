@@ -29,7 +29,6 @@ class Kruskal {
         pays.setPositionVille(9, new Point(2, 1));
         pays.setPositionVille(10, new Point(4, 4));
 
-
         k.genereArbre(pays);
         System.out.println(k.toString());
     }
@@ -171,13 +170,14 @@ class Kruskal {
         String resultat = "";
         final int OVERFLOW = ((1 << listeAdjacence.length) - 1);
         for (int adjacents : listeAdjacence) {
-            resultat += (String.format(" Noeud n°%s connectés : ", i));
+            resultat += (String.format(" Noeud n°%s connectés : ", (i + 1)));
+            // Ajout de 1 pour commencé par 1 au lieu de 0
 
-            int noeudVisite = (1 << i++) | (adjacents ^ OVERFLOW );
+            int noeudVisite = (1 << i++) | (adjacents ^ OVERFLOW);
 
             for (int j = getNoeudNonConnecte(1, noeudVisite); j < OVERFLOW; j = getNoeudNonConnecte(j << 1,
                     noeudVisite)) {
-                resultat += (Math.getExponent(j) + " ");
+                resultat += ((Math.getExponent(j) + 1) + " ");
                 noeudVisite |= j;
 
             }

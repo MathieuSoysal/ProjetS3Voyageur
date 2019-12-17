@@ -409,9 +409,9 @@ public class TestKruskal {
         String[] resultat = new String[taille];
 
         for (int i = 0; i < listeAdjacence.length; i++) {
-            resultat[i] = String.format(" Noeud n°%s connectés : ", i);
+            resultat[i] = String.format(" Noeud n°%s connectés : ", i +1);
             for (byte noeud : listeAdjacence[i]) {
-                resultat[i] += (noeud != 0) ? String.valueOf(noeud - 1) + " " : "";
+                resultat[i] += (noeud != 0) ? String.valueOf(noeud) + " " : "";
             }
         }
 
