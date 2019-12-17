@@ -33,7 +33,7 @@ public class TestKruskal {
                 { 3, 8, 9 }, // adjacences noeud num°11
         };
 
-        final String[] listeAdjacence = formateString(listeAdjacenceNum, 11);
+        final String[] listeAdjacence = formatString(listeAdjacenceNum);
         Pays pays = new Pays(11);
 
         pays.setPositionVille(0, new Point(6, 10));
@@ -71,7 +71,7 @@ public class TestKruskal {
                 { 2, 4 }, // adjacences noeud num°8
                 { 4, 6 }, // adjacences noeud num°9
         };
-        final String[] listeAdjacence = formateString(listeAdjacenceNum, 9);
+        final String[] listeAdjacence = formatString(listeAdjacenceNum);
         Pays pays = new Pays(9);
 
         pays.setPositionVille(0, new Point(1, 1));
@@ -106,7 +106,7 @@ public class TestKruskal {
                 { 3, 7 }, // adjacences noeud num°8
         };
 
-        final String[] listeAdjacence = formateString(listeAdjacenceNum, 8);
+        final String[] listeAdjacence = formatString(listeAdjacenceNum);
         Pays pays = new Pays(8);
 
         pays.setPositionVille(0, new Point(3, 8));
@@ -139,7 +139,7 @@ public class TestKruskal {
                 { 2, 4 } // adjacences noeud num°7
         };
 
-        final String[] listeAdjacence = formateString(listeAdjacenceNum, 7);
+        final String[] listeAdjacence = formatString(listeAdjacenceNum);
 
         Pays pays = new Pays(7);
 
@@ -171,7 +171,7 @@ public class TestKruskal {
                 { 1, 5 }, // adjacences noeud num°6
                 { 4 } // adjacences noeud num°7
         };
-        final String[] listeAdjacence = formateString(listeAdjacenceNum, 7);
+        final String[] listeAdjacence = formatString(listeAdjacenceNum);
 
         Pays pays = new Pays(7);
 
@@ -202,7 +202,7 @@ public class TestKruskal {
                 { 1, 2 }, // adjacences noeud num°5
                 { 1, 3 } // adjacences noeud num°6
         };
-        final String[] listeAdjacence = formateString(listeAdjacenceNum, 6);
+        final String[] listeAdjacence = formatString(listeAdjacenceNum);
 
         Pays pays = new Pays(6);
 
@@ -243,7 +243,7 @@ public class TestKruskal {
 
         final byte[] listeNoirNoeud = { 1, 2, 3, 8, 11 };
 
-        final String[] listeAdjacence = formateString(listeAdjacenceNum, 11);
+        final String[] listeAdjacence = formatString(listeAdjacenceNum);
         Pays pays = new Pays(11);
 
         pays.setPositionVille(0, new Point(6, 10));
@@ -281,7 +281,7 @@ public class TestKruskal {
                 { 2, 9 }, // adjacences noeud num°8
                 { 1, 5, 8 }, // adjacences noeud num°9
         };
-        final String[] listeAdjacence = formateString(listeAdjacenceNum, 9);
+        final String[] listeAdjacence = formatString(listeAdjacenceNum);
         final byte[] listeNoirNoeud = { 3, 4, 6 };
         Pays pays = new Pays(9);
 
@@ -317,7 +317,7 @@ public class TestKruskal {
                 { 6 }, // adjacences noeud num°8
         };
 
-        final String[] listeAdjacence = formateString(listeAdjacenceNum, 8);
+        final String[] listeAdjacence = formatString(listeAdjacenceNum);
         final byte[] listeNoirNoeud = { 2, 3, 4, 7 };
         Pays pays = new Pays(8);
 
@@ -351,7 +351,7 @@ public class TestKruskal {
                 { 5 } // adjacences noeud num°7
         };
 
-        final String[] listeAdjacence = formateString(listeAdjacenceNum, 7);
+        final String[] listeAdjacence = formatString(listeAdjacenceNum);
         final byte[] listeNoirNoeud = { 1, 2, 4, 6 };
         Pays pays = new Pays(7);
 
@@ -383,7 +383,7 @@ public class TestKruskal {
                 { 1, 2, 3 }, // adjacences noeud num°6
                 {} // adjacences noeud num°7 IGNORE
         };
-        final String[] listeAdjacence = formateString(listeAdjacenceNum, 7);
+        final String[] listeAdjacence = formatString(listeAdjacenceNum);
         final byte[] listeNoirNoeud = { 5, 7 };
         Pays pays = new Pays(7);
 
@@ -415,7 +415,7 @@ public class TestKruskal {
                 { 1, 4 } // adjacences noeud num°6
         };
 
-        final String[] listeAdjacence = formateString(listeAdjacenceNum, 6);
+        final String[] listeAdjacence = formatString(listeAdjacenceNum);
         final byte[] listeNoirNoeud = { 3 };
         Pays pays = new Pays(6);
 
@@ -466,8 +466,8 @@ public class TestKruskal {
      * @param taille         {@code int} la taille du tableau de int à retourner
      * @return {@code String[]} list d'adjacence des noeuds
      */
-    private String[] formateString(byte[][] listeAdjacence, int taille) {
-        String[] resultat = new String[taille];
+    private String[] formatString(byte[][] listeAdjacence) {
+        String[] resultat = new String[listeAdjacence.length];
 
         for (int i = 0; i < listeAdjacence.length; i++) {
             resultat[i] = String.format(" Noeud n°%s connectés : ", i + 1);
