@@ -169,12 +169,13 @@ class Kruskal {
     public String toString() {
         int i = 0;
         String resultat = "";
+        final int OVERFLOW = ((1 << listeAdjacence.length) - 1);
         for (int adjacents : listeAdjacence) {
             resultat += (String.format(" Noeud n°%s connectés : ", i));
 
-            int noeudVisite = (1 << i++) | (adjacents ^ ((1 << 10) - 1));
+            int noeudVisite = (1 << i++) | (adjacents ^ OVERFLOW );
 
-            for (int j = getNoeudNonConnecte(1, noeudVisite); j < ((1 << 10) - 1); j = getNoeudNonConnecte(j << 1,
+            for (int j = getNoeudNonConnecte(1, noeudVisite); j < OVERFLOW; j = getNoeudNonConnecte(j << 1,
                     noeudVisite)) {
                 resultat += (Math.getExponent(j) + " ");
                 noeudVisite |= j;
