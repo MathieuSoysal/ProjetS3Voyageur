@@ -8,8 +8,6 @@ public class Fenetre extends JFrame {
    */
   private static final long serialVersionUID = 7188911714801716647L;
 
-  // private Panneau pan = new Panneau();
-
   public static void main(String[] args) {
     JFrame frame = new JFrame(); // creation de la fenetre
     Panneau panel = new Panneau(); // creation du panneau
