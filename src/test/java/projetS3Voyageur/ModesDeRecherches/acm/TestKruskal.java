@@ -224,6 +224,47 @@ public class TestKruskal {
     // #region Avec des sommets déjà visités
 
     @Test
+    public void test_genererArbre_11noeuds_Ignore_Noeud1_Noeud2_Noeud3_Noeud8_Noeud11() {
+
+        // Trouver via calcul sur papier
+        final byte[][] listeAdjacenceNum = { // liste d'adjacence des noeuds :
+                {}, // adjacences noeud num°1 IGNORE
+                {}, // adjacences noeud num°2 IGNORE
+                {}, // adjacences noeud num°3 IGNORE
+                { 9 }, // adjacences noeud num°4
+                { 6, 7 }, // adjacences noeud num°5
+                { 5, 10 }, // adjacences noeud num°6
+                { 5, 9 }, // adjacences noeud num°7
+                {}, // adjacences noeud num°8 IGNORE
+                { 4, 7 }, // adjacences noeud num°9
+                { 6 }, // adjacences noeud num°10
+                {}, // adjacences noeud num°11 IGNORE
+        };
+
+        final String[] listeAdjacence = formateString(listeAdjacenceNum, 11);
+        Pays pays = new Pays(11);
+
+        pays.setPositionVille(0, new Point(6, 10));
+        pays.setPositionVille(1, new Point(8, 3));
+        pays.setPositionVille(2, new Point(2, 4));
+        pays.setPositionVille(3, new Point(1, 7));
+        pays.setPositionVille(4, new Point(9, 2));
+        pays.setPositionVille(5, new Point(7, 1));
+        pays.setPositionVille(6, new Point(8, 5));
+        pays.setPositionVille(7, new Point(6, 2));
+        pays.setPositionVille(8, new Point(5, 6));
+        pays.setPositionVille(9, new Point(2, 1));
+        pays.setPositionVille(10, new Point(4, 4));
+
+        int i = 0;
+        kruskal.genereArbre(pays, ((1 << 0) | (1 << 1) | (1 << 2) | (1 << 7) | (1 << 10)));
+        for (String adjacences : kruskal.toString().split("\n")) {
+
+            assertEquals(listeAdjacence[i++], adjacences);
+        }
+    }
+
+    @Test
     public void test_genererArbre_9noeuds_Ignore_Noeud3_Noeud4_Noeud6() {
 
         // Trouver via calcul sur papier
@@ -409,7 +450,7 @@ public class TestKruskal {
         String[] resultat = new String[taille];
 
         for (int i = 0; i < listeAdjacence.length; i++) {
-            resultat[i] = String.format(" Noeud n°%s connectés : ", i +1);
+            resultat[i] = String.format(" Noeud n°%s connectés : ", i + 1);
             for (byte noeud : listeAdjacence[i]) {
                 resultat[i] += (noeud != 0) ? String.valueOf(noeud) + " " : "";
             }
