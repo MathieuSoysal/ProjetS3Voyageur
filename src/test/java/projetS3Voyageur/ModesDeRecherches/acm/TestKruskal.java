@@ -25,10 +25,10 @@ public class TestKruskal {
                 { 4, 10, 11 }, // adjacences noeud num°3
                 { 3 }, // adjacences noeud num°4
                 { 2 }, // adjacences noeud num°5
-                { 8 }, // adjacences noeud num°6
-                { 2, 9 }, // adjacences noeud num°7
-                { 2, 6, 11 }, // adjacences noeud num°8
-                { 1, 7, 11 }, // adjacences noeud num°9
+                { 2, 8 }, // adjacences noeud num°6
+                { 2 }, // adjacences noeud num°7
+                { 6, 11 }, // adjacences noeud num°8
+                { 1, 11 }, // adjacences noeud num°9
                 { 3 }, // adjacences noeud num°10
                 { 3, 8, 9 }, // adjacences noeud num°11
         };
