@@ -68,34 +68,35 @@ class Kruskal {
 
         final int OVERFLOW_NOEUD_ADJACENCE = OVERFLOW ^ listeNoirNoeuds;
 
-        final byte noeudReferant = (byte) Math.getExponent(getNoeudNonConnecte(1, listeNoirNoeuds));
+        final byte NOEUD_REFERANT = (byte) Math.getExponent(getNoeudNonConnecte(1, listeNoirNoeuds));
 
-        while (noeudsConnecte[noeudReferant] < OVERFLOW_NOEUD_ADJACENCE) {
+        while (noeudsConnecte[NOEUD_REFERANT] < OVERFLOW_NOEUD_ADJACENCE) {
             double poidsAreteMin = Double.MAX_VALUE;
             Byte[] adjacents = new Byte[2];
 
             int noeudVisites = listeNoirNoeuds;
-            byte numVillei = 0, numVillej = 0;
+            byte numeroVillei = 0, numeroVillej = 0;
 
             for (int i = getNoeudNonConnecte(1, noeudVisites); i < (OVERFLOW >> 1); i = getNoeudNonConnecte(i << 1,
                     noeudVisites)) {
 
                 noeudVisites |= i;
-                numVillei = (byte) Math.getExponent(i);
+                numeroVillei = (byte) Math.getExponent(i);
 
-                for (int j = getNoeudNonConnecte(1, noeudVisites); j < OVERFLOW; j = getNoeudNonConnecte(j << 1,
-                        noeudVisites)) {
+                for (int valeurBinaireNoeudj = getNoeudNonConnecte(1,
+                        noeudVisites); valeurBinaireNoeudj < OVERFLOW; valeurBinaireNoeudj = getNoeudNonConnecte(
+                                valeurBinaireNoeudj << 1, noeudVisites)) {
 
-                    numVillej = (byte) Math.getExponent(j);
+                    numeroVillej = (byte) Math.getExponent(valeurBinaireNoeudj);
 
-                    final double poidsArete = pays.getDistanceEntreVilles(numVillei, numVillej);
+                    final double POIDS_ARETE = pays.getDistanceEntreVilles(numeroVillei, numeroVillej);
 
-                    if (poidsArete < poidsAreteMin
-                            && (((noeudsConnecte[numVillei] & noeudsConnecte[numVillej]) & (i | j)) != (i | j))) {
+                    if (POIDS_ARETE < poidsAreteMin
+                            && neCreePasDeCycle(noeudsConnecte, numeroVillei, numeroVillej, i, valeurBinaireNoeudj)) {
 
-                        poidsAreteMin = poidsArete;
-                        adjacents[EXTREMITE_X] = numVillei;
-                        adjacents[EXTREMITE_Y] = numVillej;
+                        poidsAreteMin = POIDS_ARETE;
+                        adjacents[EXTREMITE_X] = numeroVillei;
+                        adjacents[EXTREMITE_Y] = numeroVillej;
 
                     }
                 }
@@ -108,6 +109,32 @@ class Kruskal {
         }
         this.listeAdjacence = listeAdjacence;
         return listeAdjacence;
+    }
+
+    /**
+     * Vérifie que l'ajout de l'arete du noeud i au noeud j ne crée pas un cycle
+     * avec le reste de l'arbre.
+     * 
+     * @param noeudsConnecte      {@code int[]} représente la liste d'adjacences des
+     *                            noeuds
+     * @param numeroNoeudi        {@code byte} numéro du noeud i
+     * @param numeroNoeudj        {@code byte} numéro du noeud j
+     * @param valeurBinaireNoeudi {@code int} valeur binaire du noeud i
+     *                            (représentation via un vecteur de bit)
+     * @param valeurBinaireNoeudj {@code int} valeur binaire du noeud j
+     *                            (représentation via vecteur de bit)
+     * 
+     * @return {@code boolean} retourne vrai si le Noeud i et le Noeud j ne crée pas
+     *         de cycle avec la liste d'ajacences.
+     */
+    private boolean neCreePasDeCycle(int[] noeudsConnecte, byte numeroNoeudi, byte numeroNoeudj,
+            int valeurBinaireNoeudi, int valeurBinaireNoeudj) {
+
+        final int INTERSECTION_NOEUDS_CONNECTES = noeudsConnecte[numeroNoeudi] & noeudsConnecte[numeroNoeudj];
+        final int NOEUDS_I_J = valeurBinaireNoeudi | valeurBinaireNoeudj;
+        final int NOEUDS_I_J_DANS_INTERSECTION_NOEUDS_CONNECTES = INTERSECTION_NOEUDS_CONNECTES & NOEUDS_I_J;
+
+        return NOEUDS_I_J_DANS_INTERSECTION_NOEUDS_CONNECTES != NOEUDS_I_J;
     }
 
     /**
@@ -127,10 +154,10 @@ class Kruskal {
         final int extremitesArete = (1 << adjacents[EXTREMITE_X]) | (1 << adjacents[EXTREMITE_Y]);
         final int sommetsConnectee = noeudsConnecte[adjacents[EXTREMITE_X]] | noeudsConnecte[adjacents[EXTREMITE_Y]]
                 | extremitesArete;
-        final int noeudsNonConnectes = sommetsConnectee ^ OVERFLOW;
+        final int valeurBinaireNoeudj = sommetsConnectee ^ OVERFLOW;
 
-        for (int i = getNoeudNonConnecte(1, noeudsNonConnectes); i < OVERFLOW; i = getNoeudNonConnecte(i << 1,
-                noeudsNonConnectes)) {
+        for (int i = getNoeudNonConnecte(1, valeurBinaireNoeudj); i < OVERFLOW; i = getNoeudNonConnecte(i << 1,
+                valeurBinaireNoeudj)) {
             noeudsConnecte[Math.getExponent(i)] = sommetsConnectee;
         }
 
@@ -175,10 +202,11 @@ class Kruskal {
 
             int noeudVisite = (1 << i++) | (adjacents ^ OVERFLOW);
 
-            for (int j = getNoeudNonConnecte(1, noeudVisite); j < OVERFLOW; j = getNoeudNonConnecte(j << 1,
-                    noeudVisite)) {
-                resultat += ((Math.getExponent(j) + 1) + " ");
-                noeudVisite |= j;
+            for (int valeurBinaireNoeudj = getNoeudNonConnecte(1,
+                    noeudVisite); valeurBinaireNoeudj < OVERFLOW; valeurBinaireNoeudj = getNoeudNonConnecte(
+                            valeurBinaireNoeudj << 1, noeudVisite)) {
+                resultat += ((Math.getExponent(valeurBinaireNoeudj) + 1) + " ");
+                noeudVisite |= valeurBinaireNoeudj;
 
             }
             resultat += "\n";
