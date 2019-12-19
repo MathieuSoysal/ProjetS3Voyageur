@@ -75,26 +75,26 @@ class Kruskal {
             Byte[] adjacents = new Byte[2];
 
             int noeudVisites = listeNoirNoeuds;
-            byte numeroVillei = 0, numeroVillej = 0;
+            byte numeroVillei = 0;
 
-            for (int i = getNoeudNonConnecte(1, noeudVisites); i < (OVERFLOW >> 1); i = getNoeudNonConnecte(i << 1,
+            for (int valeurBinaireNoeudi = getNoeudNonConnecte(1, noeudVisites); valeurBinaireNoeudi < (OVERFLOW >> 1); valeurBinaireNoeudi = getNoeudNonConnecte(valeurBinaireNoeudi << 1,
                     noeudVisites)) {
 
-                noeudVisites |= i;
-                numeroVillei = (byte) Math.getExponent(i);
+                noeudVisites |= valeurBinaireNoeudi;
+                numeroVillei = (byte) Math.getExponent(valeurBinaireNoeudi);
 
                 for (int valeurBinaireNoeudj = getNoeudNonConnecte(1,
                         noeudVisites); valeurBinaireNoeudj < OVERFLOW; valeurBinaireNoeudj = getNoeudNonConnecte(
                                 valeurBinaireNoeudj << 1, noeudVisites)) {
 
-                    numeroVillej = (byte) Math.getExponent(valeurBinaireNoeudj);
+                    byte numeroVillej = (byte) Math.getExponent(valeurBinaireNoeudj);
 
-                    final double POIDS_ARETE = pays.getDistanceEntreVilles(numeroVillei, numeroVillej);
+                    double poidsArete = pays.getDistanceEntreVilles(numeroVillei, numeroVillej);
 
-                    if (POIDS_ARETE < poidsAreteMin
-                            && neCreePasDeCycle(noeudsConnecte, numeroVillei, numeroVillej, i, valeurBinaireNoeudj)) {
+                    if (poidsArete < poidsAreteMin
+                            && neCreePasDeCycle(noeudsConnecte, numeroVillei, numeroVillej, valeurBinaireNoeudi, valeurBinaireNoeudj)) {
 
-                        poidsAreteMin = POIDS_ARETE;
+                        poidsAreteMin = poidsArete;
                         adjacents[EXTREMITE_X] = numeroVillei;
                         adjacents[EXTREMITE_Y] = numeroVillej;
 
@@ -112,19 +112,19 @@ class Kruskal {
     }
 
     /**
-     * Vérifie que l'ajout de l'arete du noeud i au noeud j ne crée pas un cycle
+     * Vérifie que l'ajout de l'arete du noeud valeurBinaireNoeudi au noeud j ne crée pas un cycle
      * avec le reste de l'arbre.
      * 
      * @param noeudsConnecte      {@code int[]} représente la liste d'adjacences des
      *                            noeuds
-     * @param numeroNoeudi        {@code byte} numéro du noeud i
+     * @param numeroNoeudi        {@code byte} numéro du noeud valeurBinaireNoeudi
      * @param numeroNoeudj        {@code byte} numéro du noeud j
-     * @param valeurBinaireNoeudi {@code int} valeur binaire du noeud i
+     * @param valeurBinaireNoeudi {@code int} valeur binaire du noeud valeurBinaireNoeudi
      *                            (représentation via un vecteur de bit)
      * @param valeurBinaireNoeudj {@code int} valeur binaire du noeud j
      *                            (représentation via vecteur de bit)
      * 
-     * @return {@code boolean} retourne vrai si le Noeud i et le Noeud j ne crée pas
+     * @return {@code boolean} retourne vrai si le Noeud valeurBinaireNoeudi et le Noeud j ne crée pas
      *         de cycle avec la liste d'ajacences.
      */
     private boolean neCreePasDeCycle(int[] noeudsConnecte, byte numeroNoeudi, byte numeroNoeudj,
@@ -156,9 +156,9 @@ class Kruskal {
                 | extremitesArete;
         final int valeurBinaireNoeudj = sommetsConnectee ^ OVERFLOW;
 
-        for (int i = getNoeudNonConnecte(1, valeurBinaireNoeudj); i < OVERFLOW; i = getNoeudNonConnecte(i << 1,
+        for (int valeurBinaireNoeudi = getNoeudNonConnecte(1, valeurBinaireNoeudj); valeurBinaireNoeudi < OVERFLOW; valeurBinaireNoeudi = getNoeudNonConnecte(valeurBinaireNoeudi << 1,
                 valeurBinaireNoeudj)) {
-            noeudsConnecte[Math.getExponent(i)] = sommetsConnectee;
+            noeudsConnecte[Math.getExponent(valeurBinaireNoeudi)] = sommetsConnectee;
         }
 
     }
@@ -193,14 +193,14 @@ class Kruskal {
 
     @Override
     public String toString() {
-        int i = 0;
+        int numeroNoeudi = 0;
         String resultat = "";
         final int OVERFLOW = ((1 << listeAdjacence.length) - 1);
         for (int adjacents : listeAdjacence) {
-            resultat += (String.format(" Noeud n°%s connectés : ", (i + 1)));
+            resultat += (String.format(" Noeud n°%s connectés : ", (numeroNoeudi + 1)));
             // Ajout de 1 pour commencé par 1 au lieu de 0
 
-            int noeudVisite = (1 << i++) | (adjacents ^ OVERFLOW);
+            int noeudVisite = (1 << numeroNoeudi++) | (adjacents ^ OVERFLOW);
 
             for (int valeurBinaireNoeudj = getNoeudNonConnecte(1,
                     noeudVisite); valeurBinaireNoeudj < OVERFLOW; valeurBinaireNoeudj = getNoeudNonConnecte(
