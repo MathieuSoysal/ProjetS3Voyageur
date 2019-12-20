@@ -9,33 +9,47 @@ public class VecteurBinaire {
 
     // #region Constructeurs
     /**
-     * Chacun des bits des vecteurs binaires représante un noeud, au sein de la class
-     * les vecteurs binaires sont stockés dans un {@code int}.
+     * Chacun des bits des vecteurs binaires représante un noeud, au sein de la
+     * class les vecteurs binaires sont stockés dans un {@code int}.
      * 
      * @param valeurBinaire         Vecteur binaire dans {@code int} seul un de ces
      *                              bits doit être à 1, celui-ci représante le noeud
      *                              actuel.
      * @param listeNoireEmplacement Vecteur binaire dans un {@code int} chacun de
      *                              ces bit à 1 sont ignorés par la class.
-     * @param taille                {@code int} L'effectif des noeuds au sein du
+     * @param taille                {@code byte} L'effectif des noeuds au sein du
      *                              graphe.
      */
-    public VecteurBinaire(int valeurBinaire, int listeNoireEmplacement, int taille) {
+    public VecteurBinaire(int valeurBinaire, int listeNoireEmplacement, byte taille) {
         this.valeurBinaire = valeurBinaire;
         initialise(listeNoireEmplacement, taille);
     }
 
     /**
-     * Chacun des bits des vecteurs binaires représante un noeud, au sein de la class
-     * les vecteurs binaires sont stockés dans un {@code int}.
+     * Chacun des bits des vecteurs binaires représante un noeud, au sein de la
+     * class les vecteurs binaires sont stockés dans un {@code int}.
      * 
      * @param listeNoireEmplacement vecteur binaire dans un {@code int} chacun de
      *                              ces bit à 1 sont ignorés par la class
-     * @param taille                {@code int} L'effectif des noeuds au sein du
+     * @param taille                {@code byte} L'effectif des noeuds au sein du
      *                              graphe.
      */
-    public VecteurBinaire(int listeNoireEmplacement, int taille) {
+    public VecteurBinaire(int listeNoireEmplacement, byte taille) {
         initialise(listeNoireEmplacement, taille);
+    }
+
+    /**
+     * Chacun des bits des vecteurs binaires représante un noeud, au sein de la
+     * class les vecteurs binaires sont stockés dans un {@code int}.
+     * 
+     * @param listeNoireEmplacement vecteur binaire dans un {@code int} chacun de
+     *                              ces bit à 1 sont ignorés par la class
+     * @param OVERFLOW              vecteur de bit dans un {@code int} où tout les
+     *                              bits représantant un noeud sont à 1 sauf le
+     *                              dernier bit.
+     */
+    public VecteurBinaire(int listeNoireEmplacement, final int OVERFLOW) {
+        initialise(listeNoireEmplacement, OVERFLOW);
     }
     // #endregion Contructeurs
 
@@ -69,8 +83,12 @@ public class VecteurBinaire {
         numeroNoeud = (byte) Math.getExponent(valeurBinaire);
     }
 
-    private void initialise(int listeNoireEmplacement, int taille) {
-        this.overflow = (1 << (taille)) - 1;
+    private void initialise(int listeNoireEmplacement, byte taille) {
+        initialise(listeNoireEmplacement, (1 << (taille)) - 1);
+    }
+
+    private void initialise(int listeNoireEmplacement, final int OVERFLOW) {
+        this.overflow = OVERFLOW;
         this.listeNoireEmplacement = listeNoireEmplacement;
         verifieListeNoire();
     }
