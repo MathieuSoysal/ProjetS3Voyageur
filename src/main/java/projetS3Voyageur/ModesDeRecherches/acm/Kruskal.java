@@ -61,42 +61,42 @@ class Kruskal {
      * @return {@code int[]} Retourne la liste d'adjacence des noeuds du graphe.
      */
     public int[] genereArbre(final Pays pays, final int listeNoirNoeuds) {
-        final int TAILLE = pays.getNombreDeVilles();
-        final int OVERFLOW = (1 << (TAILLE)) - 1;
 
-        int[] noeudsConnecte = new int[TAILLE], listeAdjacence = new int[TAILLE];
+        final int TAILLE = pays.getNombreDeVilles();
+
+        final int OVERFLOW = (1 << (TAILLE)) - 1;
 
         final int OVERFLOW_NOEUD_ADJACENCE = OVERFLOW ^ listeNoirNoeuds;
 
         final byte NOEUD_REFERANT = (byte) Math.getExponent(getNoeudNonConnecte(1, listeNoirNoeuds));
 
+        int[] noeudsConnecte = new int[TAILLE], listeAdjacence = new int[TAILLE];
+
         while (noeudsConnecte[NOEUD_REFERANT] < OVERFLOW_NOEUD_ADJACENCE) {
             double poidsAreteMin = Double.MAX_VALUE;
-            Byte[] adjacents = new Byte[2];
+            byte[] adjacents = new byte[2];
 
             int noeudVisites = listeNoirNoeuds;
-            byte numeroVillei = 0;
 
-            for (int valeurBinaireNoeudi = getNoeudNonConnecte(1, noeudVisites); valeurBinaireNoeudi < (OVERFLOW >> 1); valeurBinaireNoeudi = getNoeudNonConnecte(valeurBinaireNoeudi << 1,
-                    noeudVisites)) {
+            for (VecteurBinaire noeudi = new VecteurBinaire( (noeudVisites | (1 << (TAILLE-1))) ,
+                    TAILLE); noeudi.haseNext(); noeudi.next()) {
 
-                noeudVisites |= valeurBinaireNoeudi;
-                numeroVillei = (byte) Math.getExponent(valeurBinaireNoeudi);
+                noeudVisites |= noeudi.getValeurBinaire();
+                byte numeroVillei = noeudi.getNumeroNoeud();
 
-                for (int valeurBinaireNoeudj = getNoeudNonConnecte(1,
-                        noeudVisites); valeurBinaireNoeudj < OVERFLOW; valeurBinaireNoeudj = getNoeudNonConnecte(
-                                valeurBinaireNoeudj << 1, noeudVisites)) {
+                for (VecteurBinaire noeudj = new VecteurBinaire(noeudVisites, TAILLE); noeudj.haseNext(); noeudj
+                        .next()) {
 
-                    byte numeroVillej = (byte) Math.getExponent(valeurBinaireNoeudj);
+                    byte numeroNoeudj = noeudj.getNumeroNoeud();
 
-                    double poidsArete = pays.getDistanceEntreVilles(numeroVillei, numeroVillej);
+                    double poidsArete = pays.getDistanceEntreVilles(numeroVillei, numeroNoeudj);
 
                     if (poidsArete < poidsAreteMin
-                            && neCreePasDeCycle(noeudsConnecte, numeroVillei, numeroVillej, valeurBinaireNoeudi, valeurBinaireNoeudj)) {
+                            && neCreePasDeCycle(noeudsConnecte, noeudi, noeudj)) {
 
                         poidsAreteMin = poidsArete;
                         adjacents[EXTREMITE_X] = numeroVillei;
-                        adjacents[EXTREMITE_Y] = numeroVillej;
+                        adjacents[EXTREMITE_Y] = numeroNoeudj;
 
                     }
                 }
@@ -112,26 +112,23 @@ class Kruskal {
     }
 
     /**
-     * Vérifie que l'ajout de l'arete du noeud valeurBinaireNoeudi au noeud j ne crée pas un cycle
-     * avec le reste de l'arbre.
+     * Vérifie que l'ajout de l'arete du noeud valeurBinaireNoeudi au noeud j ne
+     * crée pas un cycle avec le reste de l'arbre.
      * 
      * @param noeudsConnecte      {@code int[]} représente la liste d'adjacences des
      *                            noeuds
-     * @param numeroNoeudi        {@code byte} numéro du noeud valeurBinaireNoeudi
-     * @param numeroNoeudj        {@code byte} numéro du noeud j
-     * @param valeurBinaireNoeudi {@code int} valeur binaire du noeud valeurBinaireNoeudi
-     *                            (représentation via un vecteur de bit)
-     * @param valeurBinaireNoeudj {@code int} valeur binaire du noeud j
-     *                            (représentation via vecteur de bit)
+     * @param noeudi        {@code VecteurBinaire}  du noeud i
+     * @param noeudj        {@code VecteurBinaire}  du noeud j
      * 
-     * @return {@code boolean} retourne vrai si le Noeud valeurBinaireNoeudi et le Noeud j ne crée pas
-     *         de cycle avec la liste d'ajacences.
+     * @return {@code boolean} retourne vrai si le Noeud valeurBinaireNoeudi et le
+     *         Noeud j ne crée pas de cycle avec la liste d'ajacences.
      */
-    private boolean neCreePasDeCycle(int[] noeudsConnecte, byte numeroNoeudi, byte numeroNoeudj,
-            int valeurBinaireNoeudi, int valeurBinaireNoeudj) {
+    private boolean neCreePasDeCycle(int[] noeudsConnecte, VecteurBinaire noeudi, VecteurBinaire noeudj) {
 
-        final int INTERSECTION_NOEUDS_CONNECTES = noeudsConnecte[numeroNoeudi] & noeudsConnecte[numeroNoeudj];
-        final int NOEUDS_I_J = valeurBinaireNoeudi | valeurBinaireNoeudj;
+        final int INTERSECTION_NOEUDS_CONNECTES = noeudsConnecte[noeudi.getNumeroNoeud()]
+                & noeudsConnecte[noeudj.getNumeroNoeud()];
+
+        final int NOEUDS_I_J = noeudi.getValeurBinaire() | noeudj.getValeurBinaire();
         final int NOEUDS_I_J_DANS_INTERSECTION_NOEUDS_CONNECTES = INTERSECTION_NOEUDS_CONNECTES & NOEUDS_I_J;
 
         return NOEUDS_I_J_DANS_INTERSECTION_NOEUDS_CONNECTES != NOEUDS_I_J;
@@ -149,15 +146,16 @@ class Kruskal {
      * @param adjacents      {@code Byte[]} La nouvelle arête à ajouter dans la
      *                       liste d'adjacence.
      */
-    private void actualiseNoeudsConnecte(final int OVERFLOW, int[] noeudsConnecte, final Byte[] adjacents) {
+    private void actualiseNoeudsConnecte(final int OVERFLOW, int[] noeudsConnecte, final byte[] adjacents) {
 
         final int extremitesArete = (1 << adjacents[EXTREMITE_X]) | (1 << adjacents[EXTREMITE_Y]);
         final int sommetsConnectee = noeudsConnecte[adjacents[EXTREMITE_X]] | noeudsConnecte[adjacents[EXTREMITE_Y]]
                 | extremitesArete;
         final int valeurBinaireNoeudj = sommetsConnectee ^ OVERFLOW;
 
-        for (int valeurBinaireNoeudi = getNoeudNonConnecte(1, valeurBinaireNoeudj); valeurBinaireNoeudi < OVERFLOW; valeurBinaireNoeudi = getNoeudNonConnecte(valeurBinaireNoeudi << 1,
-                valeurBinaireNoeudj)) {
+        for (int valeurBinaireNoeudi = getNoeudNonConnecte(1,
+                valeurBinaireNoeudj); valeurBinaireNoeudi < OVERFLOW; valeurBinaireNoeudi = getNoeudNonConnecte(
+                        valeurBinaireNoeudi << 1, valeurBinaireNoeudj)) {
             noeudsConnecte[Math.getExponent(valeurBinaireNoeudi)] = sommetsConnectee;
         }
 
