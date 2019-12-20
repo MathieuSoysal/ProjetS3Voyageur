@@ -83,6 +83,7 @@ class PanneauGraphique extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
+        //TODO gérer l'exception à 30 ville
         points.add(getMousePosition());
         repaint();
     }

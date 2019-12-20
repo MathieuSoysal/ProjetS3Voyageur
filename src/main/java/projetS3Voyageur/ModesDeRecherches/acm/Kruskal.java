@@ -6,13 +6,13 @@ import projetS3Voyageur.CompositionPays.Pays;
 
 class Kruskal {
 
-//TODO vérifier les fautes d'orthographes
+    // TODO vérifier les fautes d'orthographes
 
     private static final int EXTREMITE_Y = 1;
 
     private static final int EXTREMITE_X = 0;
 
-    private int[] listeAdjacence;
+    private int[] listeAdjacences;
 
     public static void main(String[] args) {
         Kruskal k = new Kruskal();
@@ -52,71 +52,73 @@ class Kruskal {
      * Génère et renvoie l'arbre minimum recouvrant du graphe/Pays donné en
      * paramètre en ignorant les noeuds donnée en pramètre.
      * 
-     * @param pays            {@code Pays} représente le graphe où l'arbre minimum
-     *                        recouvrant doit être trouvé.
+     * @param pays             {@code Pays} représente le graphe où l'arbre minimum
+     *                         recouvrant doit être trouvé.
      * 
-     * @param listeNoirNoeuds {@code int} représente les noeuds qui doivent être
-     *                        ignorés lors de la recherche de l'abre minimum
-     *                        recouvrant. (vecteur de bit où chaque bit représente
-     *                        un noeud)
+     * @param listeNoireNoeuds {@code int} représente les noeuds qui doivent être
+     *                         ignorés lors de la recherche de l'abre minimum
+     *                         recouvrant. (vecteur de bit où chaque bit représente
+     *                         un noeud)
      * 
      * @return {@code int[]} Retourne la liste d'adjacence des noeuds du graphe.
      */
-    public int[] genereArbre(final Pays pays, final int listeNoirNoeuds) {
+    public int[] genereArbre(final Pays pays, final int listeNoireNoeuds) {
 
         final byte TAILLE = (byte) pays.getNombreDeVilles();
 
         final int OVERFLOW = (1 << (TAILLE)) - 1;
 
-        final int OVERFLOW_NOEUD_ADJACENCE = OVERFLOW ^ listeNoirNoeuds;
+        final int OVERFLOW_NOEUD_ADJACENCE = OVERFLOW ^ listeNoireNoeuds;
 
-        final byte NOEUD_REFERANT = getNoeudHorsListeNoire(listeNoirNoeuds);
+        final byte NOEUD_REFERANT = getNoeudHorsListeNoire(listeNoireNoeuds);
 
-        int[] noeudsConnecte = new int[TAILLE], listeAdjacence = new int[TAILLE];
+        int[] noeudsConnecte = new int[TAILLE], listeAdjacences = new int[TAILLE];
 
         while (noeudsConnecte[NOEUD_REFERANT] < OVERFLOW_NOEUD_ADJACENCE) {
-            double poidsAreteMin = Double.MAX_VALUE;
-            byte[] noeudsArete = new byte[2];
+            double poidsMinArete = Double.MAX_VALUE;
+            byte[] aretePoidsMin = new byte[2];
 
-            int noeudVisites = listeNoirNoeuds;
+            int noeudsVisites = listeNoireNoeuds;
 
-            for (VecteurBinaire noeudi = new VecteurBinaire(noeudVisites, OVERFLOW >> 1); noeudi.haseNext(); noeudi
+            for (VecteurBinaire noeudi = new VecteurBinaire(noeudsVisites, OVERFLOW >> 1); noeudi.haseNext(); noeudi
                     .next()) {
 
-                noeudVisites |= noeudi.getValeurBinaire();
-                byte numeroVillei = noeudi.getNumeroNoeud();
+                noeudsVisites |= noeudi.getValeurBinaire();
+                byte numeroNoeudi = noeudi.getNumeroNoeud();
 
-                for (VecteurBinaire noeudj = new VecteurBinaire(noeudVisites, TAILLE); noeudj.haseNext(); noeudj
+                for (VecteurBinaire noeudj = new VecteurBinaire(noeudsVisites, TAILLE); noeudj.haseNext(); noeudj
                         .next()) {
 
                     byte numeroNoeudj = noeudj.getNumeroNoeud();
 
-                    double poidsArete = pays.getDistanceEntreVilles(numeroVillei, numeroNoeudj);
+                    double poidsArete = pays.getDistanceEntreVilles(numeroNoeudi, numeroNoeudj);
 
-                    if (poidsArete < poidsAreteMin && neCreePasDeCycle(noeudsConnecte, noeudi, noeudj)) {
+                    if (poidsArete < poidsMinArete && neCreePasDeCycle(noeudsConnecte, noeudi, noeudj)) {
 
-                        poidsAreteMin = poidsArete;
-                        actualiseNoeudsArete(noeudsArete, numeroVillei, numeroNoeudj);
-
+                        poidsMinArete = poidsArete;
+                        actualiseNoeudsArete(aretePoidsMin, numeroNoeudi, numeroNoeudj);
+                        // TODO Il est possible d'augmenter la portée des variables numereNoeud Pour
+                        // évité d'utilisais l'arete
                     }
                 }
             }
 
-            listeAdjacence[noeudsArete[EXTREMITE_X]] |= 1 << noeudsArete[EXTREMITE_Y];
-            listeAdjacence[noeudsArete[EXTREMITE_Y]] |= 1 << noeudsArete[EXTREMITE_X];
+            listeAdjacences[aretePoidsMin[EXTREMITE_X]] |= 1 << aretePoidsMin[EXTREMITE_Y];
+            listeAdjacences[aretePoidsMin[EXTREMITE_Y]] |= 1 << aretePoidsMin[EXTREMITE_X];
 
-            actualiseNoeudsConnecte(OVERFLOW, noeudsConnecte, noeudsArete);
+            actualiseNoeudsConnecte(OVERFLOW, noeudsConnecte, aretePoidsMin);
         }
-        this.listeAdjacence = listeAdjacence;
-        return listeAdjacence;
+        this.listeAdjacences = listeAdjacences;
+        return listeAdjacences;
     }
 
     /**
-     * Vérifie que l'ajout de l'arete du noeud valeurBinaireNoeudi au noeud j ne
-     * crée pas un cycle avec le reste de l'arbre.
+     * Vérifie que l'ajout de l'arete qui relie le noeud i et le noeud j ne crée pas
+     * un cycle avec le reste de l'arbre.
      * 
-     * @param noeudsConnecte {@code int[]} représente la liste d'adjacences des
-     *                       noeuds
+     * @param noeudsConnecte {@code int[]} chaque {@code int} du tableau représente
+     *                       les noeuds au quelle le noeud est connecté (tout degrès
+     *                       de connexion confondue)
      * @param noeudi         {@code VecteurBinaire} du noeud i
      * @param noeudj         {@code VecteurBinaire} du noeud j
      * 
@@ -141,13 +143,13 @@ class Kruskal {
      * 
      * @param noeudsConnecte {@code int[]} la liste d'ajacence à actualiser.
      * 
-     * @param noeudsArete    {@code Byte[]} La nouvelle arête à ajouter dans la
+     * @param arete          {@code Byte[]} La nouvelle arête à ajouter dans la
      *                       liste d'adjacence.
      */
-    private void actualiseNoeudsConnecte(final int OVERFLOW, int[] noeudsConnecte, final byte[] noeudsArete) {
+    private void actualiseNoeudsConnecte(final int OVERFLOW, int[] noeudsConnecte, final byte[] arete) {
 
-        final int extremitesArete = (1 << noeudsArete[EXTREMITE_X]) | (1 << noeudsArete[EXTREMITE_Y]);
-        final int sommetsConnectee = noeudsConnecte[noeudsArete[EXTREMITE_X]] | noeudsConnecte[noeudsArete[EXTREMITE_Y]]
+        final int extremitesArete = (1 << arete[EXTREMITE_X]) | (1 << arete[EXTREMITE_Y]);
+        final int sommetsConnectee = noeudsConnecte[arete[EXTREMITE_X]] | noeudsConnecte[arete[EXTREMITE_Y]]
                 | extremitesArete;
         final int valeurBinaireNoeudj = sommetsConnectee ^ OVERFLOW;
 
@@ -171,9 +173,9 @@ class Kruskal {
         return (byte) Math.getExponent((noeudHorsListeNoire ^ (noeudHorsListeNoire & listeNoire)));
     }
 
-    private void actualiseNoeudsArete(byte[] noeudsArete, byte numeroVillei, byte numeroNoeudj) {
-        noeudsArete[EXTREMITE_X] = numeroVillei;
-        noeudsArete[EXTREMITE_Y] = numeroNoeudj;
+    private void actualiseNoeudsArete(byte[] arete, byte numeroNoeudi, byte numeroNoeudj) {
+        arete[EXTREMITE_X] = numeroNoeudi;
+        arete[EXTREMITE_Y] = numeroNoeudj;
     }
 
     /*
@@ -186,8 +188,8 @@ class Kruskal {
     public String toString() {
         int numeroNoeudi = 0;
         String resultat = "";
-        final int OVERFLOW = ((1 << listeAdjacence.length) - 1);
-        for (int adjacence : listeAdjacence) {
+        final int OVERFLOW = ((1 << listeAdjacences.length) - 1);
+        for (int adjacence : listeAdjacences) {
             resultat += (String.format(" Noeud n°%s connectés : ", (numeroNoeudi + 1)));
             // Ajout de 1 pour commencé par 1 au lieu de 0
 
