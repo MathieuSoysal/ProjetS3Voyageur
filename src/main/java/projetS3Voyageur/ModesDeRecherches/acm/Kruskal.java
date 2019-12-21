@@ -68,13 +68,13 @@ class Kruskal {
 
         final int OVERFLOW = (1 << (TAILLE)) - 1;
 
-        final int OVERFLOW_NOEUD_ADJACENCE = OVERFLOW ^ listeNoireNoeuds;
+        final int OVERFLOW_RESEAU_NOEUDS = OVERFLOW ^ listeNoireNoeuds;
 
         final byte NOEUD_REFERANT = getNoeudHorsListeNoire(listeNoireNoeuds);
 
-        int[] noeudsConnecte = new int[TAILLE], listeAdjacences = new int[TAILLE];
+        int[] reseauxNoeud = new int[TAILLE], listeAdjacences = new int[TAILLE];
 
-        while (noeudsConnecte[NOEUD_REFERANT] < OVERFLOW_NOEUD_ADJACENCE) {
+        while (reseauxNoeud[NOEUD_REFERANT] < OVERFLOW_RESEAU_NOEUDS) {
             double poidsMinArete = Double.MAX_VALUE;
             byte[] aretePoidsMin = new byte[2];
 
@@ -93,7 +93,7 @@ class Kruskal {
 
                     double poidsArete = pays.getDistanceEntreVilles(numeroNoeudi, numeroNoeudj);
 
-                    if (poidsArete < poidsMinArete && neCreePasDeCycle(noeudsConnecte, noeudi, noeudj)) {
+                    if (poidsArete < poidsMinArete && neCreePasDeCycle(reseauxNoeud, noeudi, noeudj)) {
 
                         poidsMinArete = poidsArete;
                         actualiseNoeudsArete(aretePoidsMin, numeroNoeudi, numeroNoeudj);
@@ -106,7 +106,7 @@ class Kruskal {
             listeAdjacences[aretePoidsMin[EXTREMITE_X]] |= 1 << aretePoidsMin[EXTREMITE_Y];
             listeAdjacences[aretePoidsMin[EXTREMITE_Y]] |= 1 << aretePoidsMin[EXTREMITE_X];
 
-            actualiseNoeudsConnecte(OVERFLOW, noeudsConnecte, aretePoidsMin);
+            actualiseReseauxNoeuds(OVERFLOW, reseauxNoeud, aretePoidsMin);
         }
         this.listeAdjacences = listeAdjacences;
         return listeAdjacences;
@@ -116,19 +116,19 @@ class Kruskal {
      * Vérifie que l'ajout de l'arete qui relie le noeud i et le noeud j ne crée pas
      * un cycle avec le reste de l'arbre.
      * 
-     * @param noeudsConnecte {@code int[]} chaque {@code int} du tableau représente
-     *                       les noeuds au quelle le noeud est connecté (tout degrès
-     *                       de connexion confondue)
-     * @param noeudi         {@code VecteurBinaire} du noeud i
-     * @param noeudj         {@code VecteurBinaire} du noeud j
+     * @param reseauxNoeud {@code int[]} chaque {@code int} du tableau représente
+     *                     les noeuds au quelle le noeud est connecté (tout degrès
+     *                     de connexion confondue)
+     * @param noeudi       {@code VecteurBinaire} du noeud i
+     * @param noeudj       {@code VecteurBinaire} du noeud j
      * 
      * @return {@code boolean} retourne vrai si le Noeud valeurBinaireNoeudi et le
      *         Noeud j ne crée pas de cycle avec la liste d'ajacences.
      */
-    private boolean neCreePasDeCycle(int[] noeudsConnecte, VecteurBinaire noeudi, VecteurBinaire noeudj) {
+    private boolean neCreePasDeCycle(int[] reseauxNoeud, VecteurBinaire noeudi, VecteurBinaire noeudj) {
 
-        final int INTERSECTION_NOEUDS_CONNECTES = noeudsConnecte[noeudi.getNumeroNoeud()]
-                & noeudsConnecte[noeudj.getNumeroNoeud()];
+        final int INTERSECTION_NOEUDS_CONNECTES = reseauxNoeud[noeudi.getNumeroNoeud()]
+                & reseauxNoeud[noeudj.getNumeroNoeud()];
 
         final int NOEUDS_I_J = noeudi.getValeurBinaire() | noeudj.getValeurBinaire();
         final int NOEUDS_I_J_DANS_INTERSECTION_NOEUDS_CONNECTES = INTERSECTION_NOEUDS_CONNECTES & NOEUDS_I_J;
@@ -141,21 +141,23 @@ class Kruskal {
      * paramètre, selon l'arête donnée en paramètre.
      * 
      * 
-     * @param noeudsConnecte {@code int[]} la liste d'ajacence à actualiser.
+     * @param reseauxNoeud {@code int[]} chaque {@code int} du tableau représente
+     *                     les noeuds au quelle le noeud est connecté (tous degrès
+     *                     de connexion confondue)
      * 
-     * @param arete          {@code Byte[]} La nouvelle arête à ajouter dans la
-     *                       liste d'adjacence.
+     * @param arete        {@code Byte[]} La nouvelle arete à ajouter dans les
+     *                     reseau de connxion des noeuds.
      */
-    private void actualiseNoeudsConnecte(final int OVERFLOW, int[] noeudsConnecte, final byte[] arete) {
+    private void actualiseReseauxNoeuds(final int OVERFLOW, int[] reseauxNoeud, final byte[] arete) {
 
-        final int extremitesArete = (1 << arete[EXTREMITE_X]) | (1 << arete[EXTREMITE_Y]);
-        final int sommetsConnectee = noeudsConnecte[arete[EXTREMITE_X]] | noeudsConnecte[arete[EXTREMITE_Y]]
-                | extremitesArete;
-        final int valeurBinaireNoeudj = sommetsConnectee ^ OVERFLOW;
+        final int ESTREMITES_ARETE = (1 << arete[EXTREMITE_X]) | (1 << arete[EXTREMITE_Y]);
+        final int RESEAU_ACTUEL = reseauxNoeud[arete[EXTREMITE_X]] | reseauxNoeud[arete[EXTREMITE_Y]];
+        final int NOUVEAU_RESEAU = RESEAU_ACTUEL | ESTREMITES_ARETE;
+        final int NOEUDS_HORS_RESEAU = NOUVEAU_RESEAU ^ OVERFLOW;
 
-        for (VecteurBinaire noeudi = new VecteurBinaire(valeurBinaireNoeudj, OVERFLOW); noeudi.haseNext(); noeudi
+        for (VecteurBinaire noeudi = new VecteurBinaire(NOEUDS_HORS_RESEAU, OVERFLOW); noeudi.haseNext(); noeudi
                 .next()) {
-            noeudsConnecte[noeudi.getNumeroNoeud()] = sommetsConnectee;
+            reseauxNoeud[noeudi.getNumeroNoeud()] = NOUVEAU_RESEAU;
         }
 
     }
