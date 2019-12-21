@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import projetS3Voyageur.StatsAlgos.CSV;
 
-public class TestCSV {
+public class testCSV {
 
     @Test
     public void test_Write_and_Read_avec_un_element() {
