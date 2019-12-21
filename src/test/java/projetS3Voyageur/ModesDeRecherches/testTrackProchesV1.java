@@ -2,7 +2,7 @@ package projetS3Voyageur.ModesDeRecherches;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static projetS3Voyageur.OutilsPourTest.parcoursVilles;
+import static projetS3Voyageur.OutilsTest.parcoursVilles;
 
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ import projetS3Voyageur.ModesDeRecherches.TrackProchesV1;
 import java.awt.Point;
 
 
-public class testTrackProchesV1 {
+public class TestTrackProchesV1 {
     private final ModeRecherche algo = new TrackProchesV1();
 
     // #region test avec les résultat issue de BrutForce v2

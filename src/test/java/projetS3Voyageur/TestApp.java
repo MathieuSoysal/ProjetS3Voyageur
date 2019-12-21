@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import projetS3Voyageur.CompositionPays.*;
 
-public class AppTest {
+public class TestApp {
 
     
     public void test_if_main_method_was_implemented() {

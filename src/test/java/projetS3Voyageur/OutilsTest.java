@@ -2,7 +2,7 @@ package projetS3Voyageur;
 
 import projetS3Voyageur.CompositionPays.Pays;
 
-public class OutilsPourTest{
+public class OutilsTest{
 
     public static double parcoursVilles(Pays pays, String villesEmpruntee,String seprateur) {
         String[] villesEmprunteString = villesEmpruntee.split(seprateur);

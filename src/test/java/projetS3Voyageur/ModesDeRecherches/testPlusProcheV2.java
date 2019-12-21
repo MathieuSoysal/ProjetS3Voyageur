@@ -10,7 +10,7 @@ import projetS3Voyageur.ModesDeRecherches.PlusProcheV2;
 
 import java.awt.Point;
 
-public class testPlusProcheV2 {
+public class TestPlusProcheV2 {
     private final ModeRecherche plusProcheV2 = new PlusProcheV2();
 
     // #region test sur Y
