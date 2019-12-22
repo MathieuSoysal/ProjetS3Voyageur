@@ -15,8 +15,8 @@ public class VecteurBinaire {
      * @param valeurBinaire         Vecteur binaire dans {@code int} seul un de ces
      *                              bits doit être à 1, celui-ci représante le noeud
      *                              actuel.
-     * @param listeNoireEmplacement Vecteur binaire dans un {@code int} chacun de
-     *                              ces bit à 1 sont ignorés par la class.
+     * @param listeNoireEmplacement Vecteur de bits dans un {@code int} , chacun des
+     *                              des bits à 1 sont ignorés par la class
      * @param taille                {@code byte} L'effectif des noeuds au sein du
      *                              graphe.
      */
@@ -29,8 +29,8 @@ public class VecteurBinaire {
      * Chacun des bits des vecteurs binaires représante un noeud, au sein de la
      * class les vecteurs binaires sont stockés dans un {@code int}.
      * 
-     * @param listeNoireEmplacement vecteur binaire dans un {@code int} chacun de
-     *                              ces bit à 1 sont ignorés par la class
+     * @param listeNoireEmplacement Vecteur de bits dans un {@code int} , chacun des
+     *                              des bits à 1 sont ignorés par la class
      * @param taille                {@code byte} L'effectif des noeuds au sein du
      *                              graphe.
      */
@@ -42,9 +42,9 @@ public class VecteurBinaire {
      * Chacun des bits des vecteurs binaires représante un noeud, au sein de la
      * class les vecteurs binaires sont stockés dans un {@code int}.
      * 
-     * @param listeNoireEmplacement vecteur binaire dans un {@code int} chacun de
-     *                              ces bit à 1 sont ignorés par la class
-     * @param OVERFLOW              vecteur de bit dans un {@code int} où tout les
+     * @param listeNoireEmplacement Vecteur de bits dans un {@code int} , chacun des
+     *                              des bits à 1 sont ignorés par la class
+     * @param OVERFLOW              Vecteur de bits dans un {@code int} où tous les
      *                              bits représantant un noeud sont à 1 sauf le
      *                              dernier bit.
      */

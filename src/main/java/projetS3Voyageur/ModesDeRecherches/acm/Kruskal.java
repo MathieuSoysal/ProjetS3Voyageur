@@ -12,6 +12,8 @@ class Kruskal {
 
     private static final int EXTREMITE_X = 0;
 
+    private int OVERFLOW;
+
     private int[] listeAdjacences;
 
     public static void main(String[] args) {
@@ -57,7 +59,7 @@ class Kruskal {
      * 
      * @param listeNoireNoeuds {@code int} représente les noeuds qui doivent être
      *                         ignorés lors de la recherche de l'abre minimum
-     *                         recouvrant. (vecteur de bit où chaque bit représente
+     *                         recouvrant. (vecteur de bits où chaque bit représente
      *                         un noeud)
      * 
      * @return {@code int[]} Retourne la liste d'adjacence des noeuds du graphe.
@@ -66,15 +68,15 @@ class Kruskal {
 
         final byte TAILLE = (byte) pays.getNombreDeVilles();
 
-        final int OVERFLOW = (1 << (TAILLE)) - 1;
+        this.OVERFLOW = (1 << (TAILLE)) - 1;
 
         final int OVERFLOW_RESEAU_NOEUDS = OVERFLOW ^ listeNoireNoeuds;
 
         final byte NOEUD_REFERANT = getNoeudHorsListeNoire(listeNoireNoeuds);
 
-        int[] reseauxNoeud = new int[TAILLE], listeAdjacences = new int[TAILLE];
+        int[] reseauNoeuds = new int[TAILLE], listeAdjacences = new int[TAILLE];
 
-        while (reseauxNoeud[NOEUD_REFERANT] < OVERFLOW_RESEAU_NOEUDS) {
+        while (reseauNoeuds[NOEUD_REFERANT] < OVERFLOW_RESEAU_NOEUDS) {
             double poidsMinArete = Double.MAX_VALUE;
             byte[] aretePoidsMin = new byte[2];
 
@@ -93,7 +95,7 @@ class Kruskal {
 
                     double poidsArete = pays.getDistanceEntreVilles(numeroNoeudi, numeroNoeudj);
 
-                    if (poidsArete < poidsMinArete && neCreePasDeCycle(reseauxNoeud, noeudi, noeudj)) {
+                    if (poidsArete < poidsMinArete && neCreePasDeCycle(reseauNoeuds, noeudi, noeudj)) {
 
                         poidsMinArete = poidsArete;
                         actualiseNoeudsArete(aretePoidsMin, numeroNoeudi, numeroNoeudj);
@@ -103,69 +105,45 @@ class Kruskal {
                 }
             }
 
-            listeAdjacences[aretePoidsMin[EXTREMITE_X]] |= 1 << aretePoidsMin[EXTREMITE_Y];
-            listeAdjacences[aretePoidsMin[EXTREMITE_Y]] |= 1 << aretePoidsMin[EXTREMITE_X];
+            actualiseListeAdjacences(listeAdjacences, aretePoidsMin);
 
-            actualiseReseauxNoeuds(OVERFLOW, reseauxNoeud, aretePoidsMin);
+            actualiseReseauxNoeuds(OVERFLOW, reseauNoeuds, aretePoidsMin);
         }
         this.listeAdjacences = listeAdjacences;
         return listeAdjacences;
     }
 
-    /**
+    // #region Boite à outils de la class
+
+        /**
      * Vérifie que l'ajout de l'arete qui relie le noeud i et le noeud j ne crée pas
      * un cycle avec le reste de l'arbre.
      * 
-     * @param reseauxNoeud {@code int[]} chaque {@code int} du tableau représente
+     * @param reseauNoeuds {@code int[]} chaque {@code int} du tableau représente
      *                     les noeuds au quelle le noeud est connecté (tout degrès
      *                     de connexion confondue)
-     * @param noeudi       {@code VecteurBinaire} du noeud i
-     * @param noeudj       {@code VecteurBinaire} du noeud j
+     * @param noeudi       {@code VecteurBinaire} représantant l'une des extrémité
+     *                     de l'arete
+     * @param noeudj       {@code VecteurBinaire} représantant l'une des extrémité
+     *                     de l'arete
      * 
-     * @return {@code boolean} retourne vrai si le Noeud valeurBinaireNoeudi et le
-     *         Noeud j ne crée pas de cycle avec la liste d'ajacences.
+     * @return {@code boolean} retourne {@code true} si ne crée pas de cycle, sinon
+     *         {@code false}.
      */
-    private boolean neCreePasDeCycle(int[] reseauxNoeud, VecteurBinaire noeudi, VecteurBinaire noeudj) {
+    private boolean neCreePasDeCycle(int[] reseauNoeuds, VecteurBinaire noeudi, VecteurBinaire noeudj) {
 
-        final int INTERSECTION_NOEUDS_CONNECTES = reseauxNoeud[noeudi.getNumeroNoeud()]
-                & reseauxNoeud[noeudj.getNumeroNoeud()];
+        final int INTERSECTION = reseauNoeuds[noeudi.getNumeroNoeud()] & reseauNoeuds[noeudj.getNumeroNoeud()];
 
-        final int NOEUDS_I_J = noeudi.getValeurBinaire() | noeudj.getValeurBinaire();
-        final int NOEUDS_I_J_DANS_INTERSECTION_NOEUDS_CONNECTES = INTERSECTION_NOEUDS_CONNECTES & NOEUDS_I_J;
+        final int I_J = noeudi.getValeurBinaire() | noeudj.getValeurBinaire();
+        final int I_J_COMPRIS_DANS_INTERSECTION = INTERSECTION & I_J;
 
-        return NOEUDS_I_J_DANS_INTERSECTION_NOEUDS_CONNECTES != NOEUDS_I_J;
-    }
-
-    /**
-     * Actualise chacune des villes de la {@code int[]} liste d'ajacence donné en
-     * paramètre, selon l'arête donnée en paramètre.
-     * 
-     * 
-     * @param reseauxNoeud {@code int[]} chaque {@code int} du tableau représente
-     *                     les noeuds au quelle le noeud est connecté (tous degrès
-     *                     de connexion confondue)
-     * 
-     * @param arete        {@code Byte[]} La nouvelle arete à ajouter dans les
-     *                     reseau de connxion des noeuds.
-     */
-    private void actualiseReseauxNoeuds(final int OVERFLOW, int[] reseauxNoeud, final byte[] arete) {
-
-        final int ESTREMITES_ARETE = (1 << arete[EXTREMITE_X]) | (1 << arete[EXTREMITE_Y]);
-        final int RESEAU_ACTUEL = reseauxNoeud[arete[EXTREMITE_X]] | reseauxNoeud[arete[EXTREMITE_Y]];
-        final int NOUVEAU_RESEAU = RESEAU_ACTUEL | ESTREMITES_ARETE;
-        final int NOEUDS_HORS_RESEAU = NOUVEAU_RESEAU ^ OVERFLOW;
-
-        for (VecteurBinaire noeudi = new VecteurBinaire(NOEUDS_HORS_RESEAU, OVERFLOW); noeudi.haseNext(); noeudi
-                .next()) {
-            reseauxNoeud[noeudi.getNumeroNoeud()] = NOUVEAU_RESEAU;
-        }
-
+        return I_J_COMPRIS_DANS_INTERSECTION != I_J;
     }
 
     /**
      * Renvoie un numéro de noeud qui n'est pas compris dans la liste noire.
      * 
-     * @param listeNoire Chaque bit à 1 du int représente les noeuds à ignoré.
+     * @param listeNoire Chaque bit à 1 du int représente les noeuds à ignorer.
      * 
      * @return {@code byte} Renvoie un numéro de noeud qui n'est pas compris dans la
      *         liste noire.
@@ -175,10 +153,46 @@ class Kruskal {
         return (byte) Math.getExponent((noeudHorsListeNoire ^ (noeudHorsListeNoire & listeNoire)));
     }
 
+    // #region méthodes actualisant une liste
+
+    /**
+     * Actualise chacune des villes de la {@code int[]} liste d'ajacence donné en
+     * paramètre, selon l'arête donnée en paramètre.
+     * 
+     * 
+     * @param reseauNoeuds {@code int[]} chaque {@code int} du tableau représente
+     *                     les noeuds au quelle le noeud est connecté (tous degrès
+     *                     de connexion confondue)
+     * 
+     * @param arete        {@code Byte[]} La nouvelle arete à ajouter dans les
+     *                     reseau de connxion des noeuds.
+     */
+    private void actualiseReseauxNoeuds(final int OVERFLOW, int[] reseauNoeuds, final byte[] arete) {
+
+        final int EXTREMITES_ARETE = (1 << arete[EXTREMITE_X]) | (1 << arete[EXTREMITE_Y]);
+        final int UNION_RESEAUX = reseauNoeuds[arete[EXTREMITE_X]] | reseauNoeuds[arete[EXTREMITE_Y]];
+        final int NOUVEAU_RESEAU = UNION_RESEAUX | EXTREMITES_ARETE;
+        final int NOEUDS_HORS_RESEAU = NOUVEAU_RESEAU ^ OVERFLOW;
+
+        for (VecteurBinaire noeudi = new VecteurBinaire(NOEUDS_HORS_RESEAU, OVERFLOW); noeudi.haseNext(); noeudi
+                .next()) {
+            reseauNoeuds[noeudi.getNumeroNoeud()] = NOUVEAU_RESEAU;
+        }
+
+    }
+
     private void actualiseNoeudsArete(byte[] arete, byte numeroNoeudi, byte numeroNoeudj) {
         arete[EXTREMITE_X] = numeroNoeudi;
         arete[EXTREMITE_Y] = numeroNoeudj;
     }
+
+    private void actualiseListeAdjacences(int[] listeAdjacences, byte[] aretePoidsMin) {
+        listeAdjacences[aretePoidsMin[EXTREMITE_X]] |= 1 << aretePoidsMin[EXTREMITE_Y];
+        listeAdjacences[aretePoidsMin[EXTREMITE_Y]] |= 1 << aretePoidsMin[EXTREMITE_X];
+    }
+
+    // #endregion méthodes actualisant une liste
+    // #endregion Boite à outils de la class
 
     /*
      * (non-Javadoc)
@@ -188,23 +202,42 @@ class Kruskal {
 
     @Override
     public String toString() {
-        int numeroNoeudi = 0;
+
         String resultat = "";
-        final int OVERFLOW = ((1 << listeAdjacences.length) - 1);
-        for (int adjacence : listeAdjacences) {
+
+        for (int numeroNoeudi = 0; numeroNoeudi < listeAdjacences.length; numeroNoeudi++) {
+
             resultat += (String.format(" Noeud n°%s connectés : ", (numeroNoeudi + 1)));
             // Ajout de 1 pour commencé par 1 au lieu de 0
 
-            int noeudVisite = (1 << numeroNoeudi++) | (adjacence ^ OVERFLOW);
+            resultat += recupereAdjacenceFormatNumerique(listeAdjacences[numeroNoeudi], numeroNoeudi) + "\n";
 
-            for (VecteurBinaire noeudi = new VecteurBinaire(noeudVisite, OVERFLOW); noeudi.haseNext(); noeudi.next()) {
-                resultat += ((noeudi.getNumeroNoeud() + 1) + " ");
-                noeudVisite |= noeudi.getValeurBinaire();
-
-            }
-            resultat += "\n";
         }
         return resultat;
+    }
+
+    /**
+     * Renvoie un {@code String} possédant une suite de numéro de noeuds
+     * correspondant à l'adjacence du noeud donné en paramètre.
+     * 
+     * @param adjacence   {@code int} Adjacence sous forme de vecteur de bit
+     * @param numeroNoeud {@code byte} Numero du noeud auquel l'adjacence doit être
+     *                    convertie en format numérique.
+     * @return {@code String} suite de numéro de noeuds correspondant à l'adjacence
+     *         du noeud donné en paramètre.
+     */
+    private String recupereAdjacenceFormatNumerique(int adjacence, int numeroNoeud) {
+        String adjacenceFormatNumerique = "";
+
+        int noeudsHorsAdjacence = (1 << numeroNoeud) | (adjacence ^ OVERFLOW);
+
+        for (VecteurBinaire noeudi = new VecteurBinaire(noeudsHorsAdjacence, OVERFLOW); noeudi.haseNext(); noeudi
+                .next()) {
+
+            adjacenceFormatNumerique += ((noeudi.getNumeroNoeud() + 1) + " ");
+        }
+
+        return adjacenceFormatNumerique;
     }
 
 }
