@@ -34,8 +34,21 @@ public class VecteurBinaire {
      * @param taille                {@code byte} L'effectif des noeuds au sein du
      *                              graphe.
      */
-    public VecteurBinaire(int listeNoireEmplacement, byte taille) {
+    private VecteurBinaire(int listeNoireEmplacement, byte taille) {
         initialise(listeNoireEmplacement, taille);
+    }
+
+    /**
+     * Chacun des bits des vecteurs binaires représante un noeud, au sein de la
+     * class les vecteurs binaires sont stockés dans un {@code int}.
+     * 
+     * @param listeNoireEmplacement Vecteur de bits dans un {@code int} , chacun des
+     *                              des bits à 1 sont ignorés par la class
+     * @param taille                {@code byte} L'effectif des noeuds au sein du
+     *                              graphe.
+     */
+    public static VecteurBinaire AvecTaille(int listeNoireEmplacement, byte taille) {
+        return new VecteurBinaire(listeNoireEmplacement, taille);
     }
 
     /**
@@ -48,8 +61,22 @@ public class VecteurBinaire {
      *                              bits représantant un noeud sont à 1 sauf le
      *                              dernier bit.
      */
-    public VecteurBinaire(int listeNoireEmplacement, final int OVERFLOW) {
+    private VecteurBinaire(int listeNoireEmplacement, final int OVERFLOW) {
         initialise(listeNoireEmplacement, OVERFLOW);
+    }
+
+    /**
+     * Chacun des bits des vecteurs binaires représante un noeud, au sein de la
+     * class les vecteurs binaires sont stockés dans un {@code int}.
+     * 
+     * @param listeNoireEmplacement Vecteur de bits dans un {@code int} , chacun des
+     *                              des bits à 1 sont ignorés par la class
+     * @param OVERFLOW              Vecteur de bits dans un {@code int} où tous les
+     *                              bits représantant un noeud sont à 1 sauf le
+     *                              dernier bit.
+     */
+    public static VecteurBinaire AvecOVERFLOW(int listeNoireEmplacement, final int OVERFLOW) {
+        return new VecteurBinaire(listeNoireEmplacement, OVERFLOW);
     }
     // #endregion Contructeurs
 

@@ -82,14 +82,14 @@ class Kruskal {
 
             int noeudsVisites = listeNoireNoeuds;
 
-            for (VecteurBinaire noeudi = new VecteurBinaire(noeudsVisites, OVERFLOW >> 1); noeudi.haseNext(); noeudi
-                    .next()) {
+            for (VecteurBinaire noeudi = VecteurBinaire.AvecOVERFLOW(noeudsVisites, OVERFLOW >> 1); noeudi
+                    .haseNext(); noeudi.next()) {
 
                 noeudsVisites |= noeudi.getValeurBinaire();
                 byte numeroNoeudi = noeudi.getNumeroNoeud();
 
-                for (VecteurBinaire noeudj = new VecteurBinaire(noeudsVisites, TAILLE); noeudj.haseNext(); noeudj
-                        .next()) {
+                for (VecteurBinaire noeudj = VecteurBinaire.AvecOVERFLOW(noeudsVisites, OVERFLOW); noeudj
+                        .haseNext(); noeudj.next()) {
 
                     byte numeroNoeudj = noeudj.getNumeroNoeud();
 
@@ -115,7 +115,7 @@ class Kruskal {
 
     // #region Boite à outils de la class
 
-        /**
+    /**
      * Vérifie que l'ajout de l'arete qui relie le noeud i et le noeud j ne crée pas
      * un cycle avec le reste de l'arbre.
      * 
@@ -174,8 +174,8 @@ class Kruskal {
         final int NOUVEAU_RESEAU = UNION_RESEAUX | EXTREMITES_ARETE;
         final int NOEUDS_HORS_RESEAU = NOUVEAU_RESEAU ^ OVERFLOW;
 
-        for (VecteurBinaire noeudi = new VecteurBinaire(NOEUDS_HORS_RESEAU, OVERFLOW); noeudi.haseNext(); noeudi
-                .next()) {
+        for (VecteurBinaire noeudi = VecteurBinaire.AvecOVERFLOW(NOEUDS_HORS_RESEAU, OVERFLOW); noeudi
+                .haseNext(); noeudi.next()) {
             reseauNoeuds[noeudi.getNumeroNoeud()] = NOUVEAU_RESEAU;
         }
 
@@ -231,8 +231,8 @@ class Kruskal {
 
         int noeudsHorsAdjacence = (1 << numeroNoeud) | (adjacence ^ OVERFLOW);
 
-        for (VecteurBinaire noeudi = new VecteurBinaire(noeudsHorsAdjacence, OVERFLOW); noeudi.haseNext(); noeudi
-                .next()) {
+        for (VecteurBinaire noeudi = VecteurBinaire.AvecOVERFLOW(noeudsHorsAdjacence, OVERFLOW); noeudi
+                .haseNext(); noeudi.next()) {
 
             adjacenceFormatNumerique += ((noeudi.getNumeroNoeud() + 1) + " ");
         }
