@@ -13,6 +13,9 @@ class Kruskal {
     private static final int EXTREMITE_X = 0;
 
     private int OVERFLOW;
+    private Pays graphe;
+    private int listeNoireNoeuds;
+    private int[] reseauxNoeuds;
 
     private int[] listeAdjacences;
 
@@ -65,74 +68,105 @@ class Kruskal {
      * @return {@code int[]} Retourne la liste d'adjacence des noeuds du graphe.
      */
     public int[] genereArbre(final Pays pays, final int listeNoireNoeuds) {
-
+        this.graphe = pays;
+        this.listeNoireNoeuds = listeNoireNoeuds;
         final byte TAILLE = (byte) pays.getNombreDeVilles();
-
         this.OVERFLOW = (1 << (TAILLE)) - 1;
 
-        final int OVERFLOW_RESEAU_NOEUDS = OVERFLOW ^ listeNoireNoeuds;
+        reseauxNoeuds = new int[TAILLE];
+        listeAdjacences = new int[TAILLE];
 
-        final byte NOEUD_REFERANT = getNoeudHorsListeNoire(listeNoireNoeuds);
+        while (!arbreEstRecouvrant()) {
 
-        int[] reseauNoeuds = new int[TAILLE], listeAdjacences = new int[TAILLE];
+            byte[] aretePoidsMin = RecupereAretePoidsMininum();
 
-        while (reseauNoeuds[NOEUD_REFERANT] < OVERFLOW_RESEAU_NOEUDS) {
-            double poidsMinArete = Double.MAX_VALUE;
-            byte[] aretePoidsMin = new byte[2];
-
-            int noeudsVisites = listeNoireNoeuds;
-
-            for (VecteurBinaire noeudi = VecteurBinaire.AvecOVERFLOW(noeudsVisites, OVERFLOW >> 1); noeudi
-                    .haseNext(); noeudi.next()) {
-
-                noeudsVisites |= noeudi.getValeurBinaire();
-                byte numeroNoeudi = noeudi.getNumeroNoeud();
-
-                for (VecteurBinaire noeudj = VecteurBinaire.AvecOVERFLOW(noeudsVisites, OVERFLOW); noeudj
-                        .haseNext(); noeudj.next()) {
-
-                    byte numeroNoeudj = noeudj.getNumeroNoeud();
-
-                    double poidsArete = pays.getDistanceEntreVilles(numeroNoeudi, numeroNoeudj);
-
-                    if (poidsArete < poidsMinArete && neCreePasDeCycle(reseauNoeuds, noeudi, noeudj)) {
-
-                        poidsMinArete = poidsArete;
-                        actualiseNoeudsArete(aretePoidsMin, numeroNoeudi, numeroNoeudj);
-                        // TODO Il est possible d'augmenter la portée des variables numereNoeud Pour
-                        // évité d'utilisais l'arete
-                    }
-                }
-            }
-
-            actualiseListeAdjacences(listeAdjacences, aretePoidsMin);
-
-            actualiseReseauxNoeuds(OVERFLOW, reseauNoeuds, aretePoidsMin);
+            actualiseListeAdjacences(aretePoidsMin);
+            actualiseReseauxNoeuds(aretePoidsMin);
         }
-        this.listeAdjacences = listeAdjacences;
         return listeAdjacences;
+    }
+
+    @Override
+    public String toString() {
+
+        String resultat = "";
+
+        for (int numeroNoeudi = 0; numeroNoeudi < listeAdjacences.length; numeroNoeudi++) {
+
+            resultat += (String.format(" Noeud n°%s connectés : ", (numeroNoeudi + 1)));
+            // Ajout de 1 pour commencé par 1 au lieu de 0
+
+            resultat += recupereAdjacenceFormatNumerique(listeAdjacences[numeroNoeudi], numeroNoeudi) + "\n";
+
+        }
+        return resultat;
     }
 
     // #region Boite à outils de la class
 
     /**
+     * @return {@code true} si l'abre est recouvrant, sinon {@code false}.
+     */
+    private boolean arbreEstRecouvrant() {
+        final int OVERFLOW_RESEAU_NOEUDS = OVERFLOW ^ listeNoireNoeuds;
+        final byte NOEUD_REFERANT = getNoeudHorsListeNoire(listeNoireNoeuds);
+
+        return reseauxNoeuds[NOEUD_REFERANT] >= OVERFLOW_RESEAU_NOEUDS;
+    }
+
+    /**
+     * Renvoie l'arete de poids le plus faible ne créant pas de cycle au sein des
+     * reseaux de noeuds donné en paramètre.
+     * 
+     * @param reseauxNoeuds {@code int[]} Représante des reseaux de noeuds auquelle
+     *                      l'arete doit être trouvé.
+     * @return {@code byte[]} Possédant deux numéros de noeuds indiquant les
+     *         extremités de l'arete.
+     */
+    private byte[] RecupereAretePoidsMininum() {
+        double poidsMinArete = Double.MAX_VALUE;
+        byte[] aretePoidsMin = new byte[2];
+        int noeudsVisites = listeNoireNoeuds;
+
+        for (VecteurBinaire noeudi = VecteurBinaire.AvecOVERFLOW(noeudsVisites, OVERFLOW >> 1); noeudi
+                .haseNext(); noeudi.next()) {
+
+            noeudsVisites |= noeudi.getValeurBinaire();
+            byte numeroNoeudi = noeudi.getNumeroNoeud();
+
+            for (VecteurBinaire noeudj = VecteurBinaire.AvecOVERFLOW(noeudsVisites, OVERFLOW); noeudj.haseNext(); noeudj
+                    .next()) {
+
+                byte numeroNoeudj = noeudj.getNumeroNoeud();
+                double poidsArete = graphe.getDistanceEntreVilles(numeroNoeudi, numeroNoeudj);
+
+                if (poidsArete < poidsMinArete && neCreePasDeCycle(reseauxNoeuds, noeudi, noeudj)) {
+                    poidsMinArete = poidsArete;
+                    actualiseNoeudsArete(aretePoidsMin, numeroNoeudi, numeroNoeudj);
+                }
+            }
+        }
+        return aretePoidsMin;
+    }
+
+    /**
      * Vérifie que l'ajout de l'arete qui relie le noeud i et le noeud j ne crée pas
      * un cycle avec le reste de l'arbre.
      * 
-     * @param reseauNoeuds {@code int[]} chaque {@code int} du tableau représente
-     *                     les noeuds au quelle le noeud est connecté (tout degrès
-     *                     de connexion confondue)
-     * @param noeudi       {@code VecteurBinaire} représantant l'une des extrémité
-     *                     de l'arete
-     * @param noeudj       {@code VecteurBinaire} représantant l'une des extrémité
-     *                     de l'arete
+     * @param reseauxNoeuds {@code int[]} chaque {@code int} du tableau représente
+     *                      les noeuds au quelle le noeud est connecté (tout degrès
+     *                      de connexion confondue)
+     * @param noeudi        {@code VecteurBinaire} représantant l'une des extrémité
+     *                      de l'arete
+     * @param noeudj        {@code VecteurBinaire} représantant l'une des extrémité
+     *                      de l'arete
      * 
      * @return {@code boolean} retourne {@code true} si ne crée pas de cycle, sinon
      *         {@code false}.
      */
-    private boolean neCreePasDeCycle(int[] reseauNoeuds, VecteurBinaire noeudi, VecteurBinaire noeudj) {
+    private boolean neCreePasDeCycle(int[] reseauxNoeuds, VecteurBinaire noeudi, VecteurBinaire noeudj) {
 
-        final int INTERSECTION = reseauNoeuds[noeudi.getNumeroNoeud()] & reseauNoeuds[noeudj.getNumeroNoeud()];
+        final int INTERSECTION = reseauxNoeuds[noeudi.getNumeroNoeud()] & reseauxNoeuds[noeudj.getNumeroNoeud()];
 
         final int I_J = noeudi.getValeurBinaire() | noeudj.getValeurBinaire();
         final int I_J_COMPRIS_DANS_INTERSECTION = INTERSECTION & I_J;
@@ -156,27 +190,27 @@ class Kruskal {
     // #region méthodes actualisant une liste
 
     /**
-     * Actualise chacune des villes de la {@code int[]} liste d'ajacence donné en
-     * paramètre, selon l'arête donnée en paramètre.
+     * Actualise chacun des reseaux de noeuds affecté par l'ajout de la nouvelle
+     * arete.
      * 
      * 
-     * @param reseauNoeuds {@code int[]} chaque {@code int} du tableau représente
-     *                     les noeuds au quelle le noeud est connecté (tous degrès
-     *                     de connexion confondue)
+     * @param reseauxNoeuds {@code int[]} chaque {@code int} du tableau représente
+     *                      le reseau de connexion d'un noeud (tous degrès de
+     *                      connexion confondue)
      * 
-     * @param arete        {@code Byte[]} La nouvelle arete à ajouter dans les
-     *                     reseau de connxion des noeuds.
+     * @param arete         {@code byte[]} La nouvelle arete à ajouter dans les
+     *                      reseaux de connexion des noeuds.
      */
-    private void actualiseReseauxNoeuds(final int OVERFLOW, int[] reseauNoeuds, final byte[] arete) {
+    private void actualiseReseauxNoeuds(final byte[] arete) {
 
         final int EXTREMITES_ARETE = (1 << arete[EXTREMITE_X]) | (1 << arete[EXTREMITE_Y]);
-        final int UNION_RESEAUX = reseauNoeuds[arete[EXTREMITE_X]] | reseauNoeuds[arete[EXTREMITE_Y]];
+        final int UNION_RESEAUX = reseauxNoeuds[arete[EXTREMITE_X]] | reseauxNoeuds[arete[EXTREMITE_Y]];
         final int NOUVEAU_RESEAU = UNION_RESEAUX | EXTREMITES_ARETE;
         final int NOEUDS_HORS_RESEAU = NOUVEAU_RESEAU ^ OVERFLOW;
 
         for (VecteurBinaire noeudi = VecteurBinaire.AvecOVERFLOW(NOEUDS_HORS_RESEAU, OVERFLOW); noeudi
                 .haseNext(); noeudi.next()) {
-            reseauNoeuds[noeudi.getNumeroNoeud()] = NOUVEAU_RESEAU;
+            reseauxNoeuds[noeudi.getNumeroNoeud()] = NOUVEAU_RESEAU;
         }
 
     }
@@ -186,34 +220,9 @@ class Kruskal {
         arete[EXTREMITE_Y] = numeroNoeudj;
     }
 
-    private void actualiseListeAdjacences(int[] listeAdjacences, byte[] aretePoidsMin) {
+    private void actualiseListeAdjacences(byte[] aretePoidsMin) {
         listeAdjacences[aretePoidsMin[EXTREMITE_X]] |= 1 << aretePoidsMin[EXTREMITE_Y];
         listeAdjacences[aretePoidsMin[EXTREMITE_Y]] |= 1 << aretePoidsMin[EXTREMITE_X];
-    }
-
-    // #endregion méthodes actualisant une liste
-    // #endregion Boite à outils de la class
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-
-    @Override
-    public String toString() {
-
-        String resultat = "";
-
-        for (int numeroNoeudi = 0; numeroNoeudi < listeAdjacences.length; numeroNoeudi++) {
-
-            resultat += (String.format(" Noeud n°%s connectés : ", (numeroNoeudi + 1)));
-            // Ajout de 1 pour commencé par 1 au lieu de 0
-
-            resultat += recupereAdjacenceFormatNumerique(listeAdjacences[numeroNoeudi], numeroNoeudi) + "\n";
-
-        }
-        return resultat;
     }
 
     /**
@@ -239,5 +248,6 @@ class Kruskal {
 
         return adjacenceFormatNumerique;
     }
-
+    // #endregion méthodes actualisant une liste
+    // #endregion Boite à outils de la class
 }
