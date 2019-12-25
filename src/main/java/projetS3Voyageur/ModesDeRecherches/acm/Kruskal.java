@@ -115,13 +115,8 @@ class Kruskal {
     }
 
     /**
-     * Renvoie l'arete de poids le plus faible ne créant pas de cycle au sein des
-     * reseaux de noeuds donné en paramètre.
-     * 
-     * @param reseauxNoeuds {@code int[]} Représante des reseaux de noeuds auquelle
-     *                      l'arete doit être trouvé.
-     * @return {@code byte[]} Possédant deux numéros de noeuds indiquant les
-     *         extremités de l'arete.
+     * Renvoie l'arete de poids le plus faible qui ne crée pas de cycle au sein des
+     * reseaux de noeuds.
      */
     private byte[] RecupereAretePoidsMininum() {
         double poidsMinArete = Double.MAX_VALUE;
@@ -192,12 +187,6 @@ class Kruskal {
     /**
      * Actualise chacun des reseaux de noeuds affecté par l'ajout de la nouvelle
      * arete.
-     * 
-     * 
-     * @param reseauxNoeuds {@code int[]} chaque {@code int} du tableau représente
-     *                      le reseau de connexion d'un noeud (tous degrès de
-     *                      connexion confondue)
-     * 
      * @param arete         {@code byte[]} La nouvelle arete à ajouter dans les
      *                      reseaux de connexion des noeuds.
      */
