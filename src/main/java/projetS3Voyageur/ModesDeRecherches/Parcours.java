@@ -4,7 +4,7 @@ public class Parcours {
     private double distanceParcourue;
     private String villesEmprunté;
 
-    Parcours(double distanceParcourue, String villesEmprunté) {
+    public Parcours(double distanceParcourue, String villesEmprunté) {
         this.distanceParcourue = distanceParcourue;
         this.villesEmprunté = villesEmprunté;
     }

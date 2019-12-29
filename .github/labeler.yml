@@ -10,6 +10,9 @@ test:
   
 Algorithme-de-recherche:
   - src/main/java/projetS3Voyageur/ModesDeRecherches/*
-  
+
+Algorithme arbre minimum recouvrant:
+  - src/main/java/projetS3Voyageur/ModesDeRecherches/acm
+
 Statistique:
   - Statistiques/*
