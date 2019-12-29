@@ -1,12 +1,8 @@
 package projetS3Voyageur.ModesDeRecherches.acm;
 
-import java.awt.Point;
-
 import projetS3Voyageur.CompositionPays.Pays;
 
 class Kruskal {
-
-    // TODO vérifier les fautes d'orthographes
 
     private static final int EXTREMITE_Y = 1;
 
@@ -19,26 +15,6 @@ class Kruskal {
 
     private int[] listeAdjacences;
 
-    public static void main(String[] args) {
-        Kruskal k = new Kruskal();
-
-        Pays pays = new Pays(11);
-
-        pays.setPositionVille(0, new Point(6, 10));
-        pays.setPositionVille(1, new Point(8, 3));
-        pays.setPositionVille(2, new Point(2, 4));
-        pays.setPositionVille(3, new Point(1, 7));
-        pays.setPositionVille(4, new Point(9, 2));
-        pays.setPositionVille(5, new Point(7, 1));
-        pays.setPositionVille(6, new Point(8, 5));
-        pays.setPositionVille(7, new Point(6, 2));
-        pays.setPositionVille(8, new Point(5, 6));
-        pays.setPositionVille(9, new Point(2, 1));
-        pays.setPositionVille(10, new Point(4, 4));
-
-        k.genereArbre(pays);
-        System.out.println(k.toString());
-    }
 
     /**
      * Génère et renvoie l'arbre minimum recouvrant du graphe/Pays donné en
