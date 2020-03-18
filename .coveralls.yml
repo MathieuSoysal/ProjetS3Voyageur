@@ -1,1 +1,1 @@
-repo_token: secrets.GITHUB_TOKEN_COVERALLS
+repo_token: ${{ secrets.GITHUB_TOKEN_COVERALLS }}
