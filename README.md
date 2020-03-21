@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/MathieuSoysal/ProjetS3Voyageur/badge.svg?branch=master)](https://coveralls.io/github/MathieuSoysal/ProjetS3Voyageur?branch=master)
+
 # ![](logo-voyageur.png) Le voyageur de commerce 
 ### IUT Montpellier-Sète – Département Informatique
 * **Eléves:** [Zaid Nadir](mailto:nadir.zaid@etu.umontpellier.fr), [Soysal Mathieu](mailto:mathieu.soysal@etu.umontpellier.fr), [Delon Matthias](mailto:matthias.delon@etu.umontpellier.fr), [Ravet-lecourt Florian](mailto:florian.ravet-lecourt@etu.umontpellier.fr)

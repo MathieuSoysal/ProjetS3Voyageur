@@ -1,4 +1,4 @@
-	dist: trusty
+dist: trusty
 group: edge
 language: java
 sudo: required
@@ -9,4 +9,4 @@ directories:
 script:
   - mvn clean install
 after_success:
-  - mvn clean test jacoco:report coveralls:report -DrepoToken= ${{ secrets.GITHUB_TOKEN_COVERALLS }}
+  - mvn clean test jacoco:report coveralls:report -DrepoToken=${{ secrets.GITHUB_TOKEN_COVERALLS }}
