@@ -13,3 +13,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: build with Maven
+      working-directory: java
+      run: mvn verify sonar:sonar
