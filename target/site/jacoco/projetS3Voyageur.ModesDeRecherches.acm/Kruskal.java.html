@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Kruskal.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProjetS3Voyageur</a> &gt; <a href="index.source.html" class="el_package">projetS3Voyageur.ModesDeRecherches.acm</a> &gt; <span class="el_source">Kruskal.java</span></div><h1>Kruskal.java</h1><pre class="source lang-java linenums">package projetS3Voyageur.ModesDeRecherches.acm;
+
+import projetS3Voyageur.CompositionPays.Pays;
+
+<span class="fc" id="L5">class Kruskal {</span>
+
+    private static final int EXTREMITE_Y = 1;
+
+    private static final int EXTREMITE_X = 0;
+
+    private int OVERFLOW;
+    private Pays graphe;
+    private int listeNoireNoeuds;
+    private int[] reseauxNoeuds;
+
+    private int[] listeAdjacences;
+
+
+    /**
+     * Génère et renvoie l'arbre minimum recouvrant du graphe/Pays donné en
+     * paramètre.
+     * 
+     * @param pays {@code Pays} représente le graphe où l'arbre minimum recouvrant
+     *             doit être trouvé.
+     * 
+     * @return {@code int[]} Retourne la liste d'adjacence des noeuds du graphe.
+     */
+    public int[] genereArbre(final Pays pays) {
+<span class="fc" id="L29">        return genereArbre(pays, 0);</span>
+    }
+
+    /**
+     * Génère et renvoie l'arbre minimum recouvrant du graphe/Pays donné en
+     * paramètre en ignorant les noeuds donnée en pramètre.
+     * 
+     * @param pays             {@code Pays} représente le graphe où l'arbre minimum
+     *                         recouvrant doit être trouvé.
+     * 
+     * @param listeNoireNoeuds {@code int} représente les noeuds qui doivent être
+     *                         ignorés lors de la recherche de l'abre minimum
+     *                         recouvrant. (vecteur de bits où chaque bit représente
+     *                         un noeud)
+     * 
+     * @return {@code int[]} Retourne la liste d'adjacence des noeuds du graphe.
+     */
+    public int[] genereArbre(final Pays pays, final int listeNoireNoeuds) {
+<span class="fc" id="L47">        this.graphe = pays;</span>
+<span class="fc" id="L48">        this.listeNoireNoeuds = listeNoireNoeuds;</span>
+<span class="fc" id="L49">        final byte TAILLE = (byte) pays.getNombreDeVilles();</span>
+<span class="fc" id="L50">        this.OVERFLOW = (1 &lt;&lt; (TAILLE)) - 1;</span>
+
+<span class="fc" id="L52">        reseauxNoeuds = new int[TAILLE];</span>
+<span class="fc" id="L53">        listeAdjacences = new int[TAILLE];</span>
+
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        while (!arbreEstRecouvrant()) {</span>
+
+<span class="fc" id="L57">            byte[] aretePoidsMin = RecupereAretePoidsMininum();</span>
+
+<span class="fc" id="L59">            actualiseListeAdjacences(aretePoidsMin);</span>
+<span class="fc" id="L60">            actualiseReseauxNoeuds(aretePoidsMin);</span>
+        }
+<span class="fc" id="L62">        return listeAdjacences;</span>
+    }
+
+    @Override
+    public String toString() {
+
+<span class="fc" id="L68">        String resultat = &quot;&quot;;</span>
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        for (int numeroNoeudi = 0; numeroNoeudi &lt; listeAdjacences.length; numeroNoeudi++) {</span>
+
+<span class="fc" id="L72">            resultat += (String.format(&quot; Noeud n°%s connectés : &quot;, (numeroNoeudi + 1)));</span>
+            // Ajout de 1 pour commencé par 1 au lieu de 0
+
+<span class="fc" id="L75">            resultat += recupereAdjacenceFormatNumerique(listeAdjacences[numeroNoeudi], numeroNoeudi) + &quot;\n&quot;;</span>
+
+        }
+<span class="fc" id="L78">        return resultat;</span>
+    }
+
+    // #region Boite à outils de la class
+
+    /**
+     * @return {@code true} si l'abre est recouvrant, sinon {@code false}.
+     */
+    private boolean arbreEstRecouvrant() {
+<span class="fc" id="L87">        final int OVERFLOW_RESEAU_NOEUDS = OVERFLOW ^ listeNoireNoeuds;</span>
+<span class="fc" id="L88">        final byte NOEUD_REFERANT = getNoeudHorsListeNoire(listeNoireNoeuds);</span>
+
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        return reseauxNoeuds[NOEUD_REFERANT] &gt;= OVERFLOW_RESEAU_NOEUDS;</span>
+    }
+
+    /**
+     * Renvoie l'arete de poids le plus faible qui ne crée pas de cycle au sein des
+     * reseaux de noeuds.
+     */
+    private byte[] RecupereAretePoidsMininum() {
+<span class="fc" id="L98">        double poidsMinArete = Double.MAX_VALUE;</span>
+<span class="fc" id="L99">        byte[] aretePoidsMin = new byte[2];</span>
+<span class="fc" id="L100">        int noeudsVisites = listeNoireNoeuds;</span>
+
+<span class="fc" id="L102">        for (VecteurBinaire noeudi = VecteurBinaire.AvecOVERFLOW(noeudsVisites, OVERFLOW &gt;&gt; 1); noeudi</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">                .haseNext(); noeudi.next()) {</span>
+
+<span class="fc" id="L105">            noeudsVisites |= noeudi.getValeurBinaire();</span>
+<span class="fc" id="L106">            byte numeroNoeudi = noeudi.getNumeroNoeud();</span>
+
+<span class="fc bfc" id="L108" title="All 2 branches covered.">            for (VecteurBinaire noeudj = VecteurBinaire.AvecOVERFLOW(noeudsVisites, OVERFLOW); noeudj.haseNext(); noeudj</span>
+<span class="fc" id="L109">                    .next()) {</span>
+
+<span class="fc" id="L111">                byte numeroNoeudj = noeudj.getNumeroNoeud();</span>
+<span class="fc" id="L112">                double poidsArete = graphe.getDistanceEntreVilles(numeroNoeudi, numeroNoeudj);</span>
+
+<span class="fc bfc" id="L114" title="All 4 branches covered.">                if (poidsArete &lt; poidsMinArete &amp;&amp; neCreePasDeCycle(reseauxNoeuds, noeudi, noeudj)) {</span>
+<span class="fc" id="L115">                    poidsMinArete = poidsArete;</span>
+<span class="fc" id="L116">                    actualiseNoeudsArete(aretePoidsMin, numeroNoeudi, numeroNoeudj);</span>
+                }
+            }
+        }
+<span class="fc" id="L120">        return aretePoidsMin;</span>
+    }
+
+    /**
+     * Vérifie que l'ajout de l'arete qui relie le noeud i et le noeud j ne crée pas
+     * un cycle avec le reste de l'arbre.
+     * 
+     * @param reseauxNoeuds {@code int[]} chaque {@code int} du tableau représente
+     *                      les noeuds au quelle le noeud est connecté (tout degrès
+     *                      de connexion confondue)
+     * @param noeudi        {@code VecteurBinaire} représantant l'une des extrémité
+     *                      de l'arete
+     * @param noeudj        {@code VecteurBinaire} représantant l'une des extrémité
+     *                      de l'arete
+     * 
+     * @return {@code boolean} retourne {@code true} si ne crée pas de cycle, sinon
+     *         {@code false}.
+     */
+    private boolean neCreePasDeCycle(int[] reseauxNoeuds, VecteurBinaire noeudi, VecteurBinaire noeudj) {
+
+<span class="fc" id="L140">        final int INTERSECTION = reseauxNoeuds[noeudi.getNumeroNoeud()] &amp; reseauxNoeuds[noeudj.getNumeroNoeud()];</span>
+
+<span class="fc" id="L142">        final int I_J = noeudi.getValeurBinaire() | noeudj.getValeurBinaire();</span>
+<span class="fc" id="L143">        final int I_J_COMPRIS_DANS_INTERSECTION = INTERSECTION &amp; I_J;</span>
+
+<span class="fc bfc" id="L145" title="All 2 branches covered.">        return I_J_COMPRIS_DANS_INTERSECTION != I_J;</span>
+    }
+
+    /**
+     * Renvoie un numéro de noeud qui n'est pas compris dans la liste noire.
+     * 
+     * @param listeNoire Chaque bit à 1 du int représente les noeuds à ignorer.
+     * 
+     * @return {@code byte} Renvoie un numéro de noeud qui n'est pas compris dans la
+     *         liste noire.
+     */
+    private byte getNoeudHorsListeNoire(final int listeNoire) {
+<span class="fc" id="L157">        int noeudHorsListeNoire = listeNoire + 1;</span>
+<span class="fc" id="L158">        return (byte) Math.getExponent((noeudHorsListeNoire ^ (noeudHorsListeNoire &amp; listeNoire)));</span>
+    }
+
+    // #region méthodes actualisant une liste
+
+    /**
+     * Actualise chacun des reseaux de noeuds affecté par l'ajout de la nouvelle
+     * arete.
+     * @param arete         {@code byte[]} La nouvelle arete à ajouter dans les
+     *                      reseaux de connexion des noeuds.
+     */
+    private void actualiseReseauxNoeuds(final byte[] arete) {
+
+<span class="fc" id="L171">        final int EXTREMITES_ARETE = (1 &lt;&lt; arete[EXTREMITE_X]) | (1 &lt;&lt; arete[EXTREMITE_Y]);</span>
+<span class="fc" id="L172">        final int UNION_RESEAUX = reseauxNoeuds[arete[EXTREMITE_X]] | reseauxNoeuds[arete[EXTREMITE_Y]];</span>
+<span class="fc" id="L173">        final int NOUVEAU_RESEAU = UNION_RESEAUX | EXTREMITES_ARETE;</span>
+<span class="fc" id="L174">        final int NOEUDS_HORS_RESEAU = NOUVEAU_RESEAU ^ OVERFLOW;</span>
+
+<span class="fc" id="L176">        for (VecteurBinaire noeudi = VecteurBinaire.AvecOVERFLOW(NOEUDS_HORS_RESEAU, OVERFLOW); noeudi</span>
+<span class="fc bfc" id="L177" title="All 2 branches covered.">                .haseNext(); noeudi.next()) {</span>
+<span class="fc" id="L178">            reseauxNoeuds[noeudi.getNumeroNoeud()] = NOUVEAU_RESEAU;</span>
+        }
+
+<span class="fc" id="L181">    }</span>
+
+    private void actualiseNoeudsArete(byte[] arete, byte numeroNoeudi, byte numeroNoeudj) {
+<span class="fc" id="L184">        arete[EXTREMITE_X] = numeroNoeudi;</span>
+<span class="fc" id="L185">        arete[EXTREMITE_Y] = numeroNoeudj;</span>
+<span class="fc" id="L186">    }</span>
+
+    private void actualiseListeAdjacences(byte[] aretePoidsMin) {
+<span class="fc" id="L189">        listeAdjacences[aretePoidsMin[EXTREMITE_X]] |= 1 &lt;&lt; aretePoidsMin[EXTREMITE_Y];</span>
+<span class="fc" id="L190">        listeAdjacences[aretePoidsMin[EXTREMITE_Y]] |= 1 &lt;&lt; aretePoidsMin[EXTREMITE_X];</span>
+<span class="fc" id="L191">    }</span>
+
+    /**
+     * Renvoie un {@code String} possédant une suite de numéro de noeuds
+     * correspondant à l'adjacence du noeud donné en paramètre.
+     * 
+     * @param adjacence   {@code int} Adjacence sous forme de vecteur de bit
+     * @param numeroNoeud {@code byte} Numero du noeud auquel l'adjacence doit être
+     *                    convertie en format numérique.
+     * @return {@code String} suite de numéro de noeuds correspondant à l'adjacence
+     *         du noeud donné en paramètre.
+     */
+    private String recupereAdjacenceFormatNumerique(int adjacence, int numeroNoeud) {
+<span class="fc" id="L204">        String adjacenceFormatNumerique = &quot;&quot;;</span>
+
+<span class="fc" id="L206">        int noeudsHorsAdjacence = (1 &lt;&lt; numeroNoeud) | (adjacence ^ OVERFLOW);</span>
+
+<span class="fc" id="L208">        for (VecteurBinaire noeudi = VecteurBinaire.AvecOVERFLOW(noeudsHorsAdjacence, OVERFLOW); noeudi</span>
+<span class="fc bfc" id="L209" title="All 2 branches covered.">                .haseNext(); noeudi.next()) {</span>
+
+<span class="fc" id="L211">            adjacenceFormatNumerique += ((noeudi.getNumeroNoeud() + 1) + &quot; &quot;);</span>
+        }
+
+<span class="fc" id="L214">        return adjacenceFormatNumerique;</span>
+    }
+    // #endregion méthodes actualisant une liste
+    // #endregion Boite à outils de la class
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

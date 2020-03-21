@@ -1,0 +1,7 @@
+organization=mathieusoysal
+projectKey=MathieuSoysal_ProjetS3Voyageur
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.6039
+dashboardUrl=https://sonarcloud.io/dashboard?id=MathieuSoysal_ProjetS3Voyageur
+ceTaskId=AXD_cJLL3oZ8uyuRjbII
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AXD_cJLL3oZ8uyuRjbII

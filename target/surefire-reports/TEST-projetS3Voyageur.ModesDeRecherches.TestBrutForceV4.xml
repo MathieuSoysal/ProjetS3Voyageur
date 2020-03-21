@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="13" failures="0" name="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" time="0.239" errors="0" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="sun.boot.library.path" value="C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\jre\bin"/>
+    <property name="java.vm.version" value="25.222-b10"/>
+    <property name="java.vm.vendor" value=""/>
+    <property name="maven.multiModuleProjectDirectory" value="D:\OneDrive\Université\Projets\ProjetS3Voyageur"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="FR"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="D:\OneDrive\Université\Projets\ProjetS3Voyageur"/>
+    <property name="java.runtime.version" value="1.8.0_222-b10"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\jre\lib\endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="C:\Users\Mathi\AppData\Local\Temp\"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="classworlds.conf" value="C:\Program Files\apache-maven-3.6.2\bin\..\bin\m2.conf"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files\dotnet\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Git\cmd;C:\Users\Mathi\Anaconda3;C:\Users\Mathi\Anaconda3\Library\mingw-w64\bin;C:\Users\Mathi\Anaconda3\Library\usr\bin;C:\Users\Mathi\Anaconda3\Library\bin;C:\Users\Mathi\Anaconda3\Scripts;C:\Users\Mathi\Anaconda2;C:\Users\Mathi\Anaconda2\Library\mingw-w64\bin;C:\Users\Mathi\Anaconda2\Library\usr\bin;C:\Users\Mathi\Anaconda2\Library\bin;C:\Users\Mathi\Anaconda2\Scripts;C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\bin;C:\Users\Mathi\AppData\Local\Microsoft\WindowsApps;C:\Users\Mathi\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Mathi\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.7_qbz5n2kfra8p0\LocalCache\local-packages\Python37\Scripts;C:\MinGW\bin;C:\Program Files\apache-maven-3.6.2\bin;C:\Users\Mathi\AppData\Local\GitHubDesktop\bin;C:\Users\Mathi\.dotnet\tools;."/>
+    <property name="maven.conf" value="C:\Program Files\apache-maven-3.6.2\bin\../conf"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.0"/>
+    <property name="library.jansi.path" value="C:\Program Files\apache-maven-3.6.2\bin\..\lib\jansi-native"/>
+    <property name="user.home" value="C:\Users\Mathi"/>
+    <property name="user.timezone" value="Europe/Paris"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="user.name" value="Mathi"/>
+    <property name="java.class.path" value="C:\Program Files\apache-maven-3.6.2\bin\..\boot\plexus-classworlds-2.6.0.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher verify sonar:sonar"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="fr"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_222"/>
+    <property name="java.ext.dirs" value="C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\jre\lib\resources.jar;C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\jre\lib\rt.jar;C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\jre\lib\sunrsasign.jar;C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\jre\lib\jsse.jar;C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\jre\lib\jce.jar;C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\jre\lib\charsets.jar;C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\jre\lib\jfr.jar;C:\Users\Mathi\AppData\Local\Programs\AdoptOpenJDK\jre\classes"/>
+    <property name="sun.stderr.encoding" value="cp850"/>
+    <property name="java.vendor" value="AdoptOpenJDK"/>
+    <property name="maven.home" value="C:\Program Files\apache-maven-3.6.2\bin\.."/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.stdout.encoding" value="cp850"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_10villes_comparaisons_brutForce" time="0.072"/>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_11villes_comparaisons_brutForce" time="0.154"/>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_EXTREME_distanceLinaireSurY_ParcourOptimum_Pour_6villes_on_connais_la_distance_en_avance" time="0.002"/>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_si_les_villes_ont_des_positions_random" time="0.001"/>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_distanceLinaireSurX_ParcourOptimum_Pour_6villes_desorde" time="0"/>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_distanceLinaireSurY_ParcourOptimum_Pour_6villes_desorde" time="0.001"/>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_4villes_comparaisons_brutForce" time="0.001"/>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_5villes_comparaisons_brutForce" time="0"/>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_6villes_comparaisons_brutForce" time="0"/>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_7villes_comparaisons_brutForce" time="0"/>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_8villes_comparaisons_brutForce" time="0.001"/>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_9villes_comparaisons_brutForce" time="0.004"/>
+  <testcase classname="projetS3Voyageur.ModesDeRecherches.TestBrutForceV4" name="test_EXTREME_distanceLinaireSurX_ParcourOptimum_Pour_6villes" time="0.003"/>
+</testsuite>

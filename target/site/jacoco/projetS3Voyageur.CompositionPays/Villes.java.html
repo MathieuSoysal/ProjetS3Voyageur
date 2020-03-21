@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Villes.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProjetS3Voyageur</a> &gt; <a href="index.source.html" class="el_package">projetS3Voyageur.CompositionPays</a> &gt; <span class="el_source">Villes.java</span></div><h1>Villes.java</h1><pre class="source lang-java linenums">package projetS3Voyageur.CompositionPays;
+
+import java.awt.Point;
+import java.util.List;
+
+class Villes {
+    private Point[] positionDesVilles;
+    private int nombreDeVilles;
+
+
+
+<span class="fc" id="L12">    Villes(int nombreDeVilles) {</span>
+<span class="fc bfc" id="L13" title="All 2 branches covered.">        if (nombreDeVilles &lt; 3) {</span>
+<span class="fc" id="L14">            throw new /* TODO : utilisais des exceptions pérsonalisée */ IndexOutOfBoundsException(</span>
+<span class="fc" id="L15">                    &quot;Veuillez écrire un nombre de villes compris entre 3 et 15&quot;);</span>
+        }
+<span class="fc" id="L17">        this.nombreDeVilles = nombreDeVilles;</span>
+<span class="fc" id="L18">        positionDesVilles = new Point[nombreDeVilles];</span>
+
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        for (int ville = 0; ville &lt; nombreDeVilles; ville++) {</span>
+<span class="fc" id="L21">            positionDesVilles[ville] = new Point((int) (Math.random() * 50), (int) (Math.random() * 50));</span>
+        }
+<span class="fc" id="L23">    }</span>
+
+<span class="nc" id="L25">    Villes(List&lt;Point&gt; points){</span>
+<span class="nc" id="L26">        this.nombreDeVilles = points.size();</span>
+<span class="nc" id="L27">        positionDesVilles = new Point[nombreDeVilles];</span>
+<span class="nc" id="L28">        int i =0;</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        for (Point point : points) {</span>
+<span class="nc" id="L30">            positionDesVilles[i++] = point;</span>
+        }
+<span class="nc" id="L32">    }</span>
+
+    /**
+     * Enregistre une nouvelle position pour une ville donnée en paramètre
+     * 
+     * @param ville       Numéro de la ville dont la position va être modifiée
+     * @param newPosVille Nouvelle position
+     */
+    void setPositionVille(int ville, Point posVille) {
+<span class="fc" id="L41">        verifieNumVille(ville);</span>
+<span class="fc" id="L42">        positionDesVilles[ville] = posVille;</span>
+
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * Retourne la localisation d'un numéro de ville donnée en paramètre
+     * 
+     * @param ville numéro de la ville à localiser
+     * @return {@Code Position} la localisation de la ville
+     */
+    Point getPositionVille(int ville) {
+<span class="fc" id="L53">        verifieNumVille(ville);</span>
+<span class="fc" id="L54">        return positionDesVilles[ville];</span>
+    }
+
+    int getNombreDeVilles() {
+<span class="fc" id="L58">        return nombreDeVilles;</span>
+    }
+
+    /**
+     * Vérifie si le numéro de la ville saisi est bien valide
+     * 
+     * @param ville Numéro de la ville à vérifier
+     */
+    private void verifieNumVille(int ville) {
+<span class="pc bpc" id="L67" title="1 of 4 branches missed.">        if (ville &lt; 0 || ville &gt; nombreDeVilles - 1) {</span>
+<span class="fc" id="L68">            throw new IndexOutOfBoundsException(</span>
+<span class="fc" id="L69">                    &quot;Le numéro de la ville doit être compris entre 0 et &quot; + (nombreDeVilles - 1));</span>
+        }
+<span class="fc" id="L71">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

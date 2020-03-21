@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PPMulti.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProjetS3Voyageur</a> &gt; <a href="index.source.html" class="el_package">projetS3Voyageur.ModesDeRecherches</a> &gt; <span class="el_source">PPMulti.java</span></div><h1>PPMulti.java</h1><pre class="source lang-java linenums">package projetS3Voyageur.ModesDeRecherches;
+
+import projetS3Voyageur.CompositionPays.Pays;
+
+<span class="fc" id="L5">public class PPMulti implements ModeRecherche {</span>
+
+    private int toutesVillesVisitees;
+
+    private Pays pays;
+
+    private byte nombreDeVilles;
+
+    private double distanceOptimum;
+    private String villesEmprunteesOptimum;
+
+    public static void main(String[] args) {
+<span class="nc" id="L17">        ModeRecherche ppMulti = new PPMulti();</span>
+<span class="nc" id="L18">        Pays pays = new Pays(4);</span>
+<span class="nc" id="L19">        ppMulti.recherche(pays, 0);</span>
+<span class="nc" id="L20">        System.out.println(ppMulti.getParcours().getVillesEmprunté());</span>
+<span class="nc" id="L21">        System.out.println(ppMulti.getParcours().getDistance());</span>
+
+
+<span class="nc" id="L24">        ModeRecherche trkP = new TrackProchesMulti();</span>
+<span class="nc" id="L25">        trkP.recherche(pays, 0);</span>
+<span class="nc" id="L26">        System.out.println(trkP.getParcours().getVillesEmprunté());</span>
+<span class="nc" id="L27">        System.out.println(trkP.getParcours().getDistance());</span>
+
+<span class="nc" id="L29">    }</span>
+
+    /**
+     * Recherche depuis toute les villes de départ possible le parcours le plus
+     * optimisé pour visiter toutes les villes d'un pays, en allant à la ville la
+     * plus proche non visitée.
+     * 
+     * @param pays          Le pays concerné par la recherche
+     * @param villeInitiale Le numéro de la ville de départ
+     */
+    @Override
+    public void recherche(final Pays pays, final int villeInitiale) {
+<span class="fc" id="L41">        this.pays = pays;</span>
+<span class="fc" id="L42">        nombreDeVilles = (byte) pays.getNombreDeVilles();</span>
+<span class="fc" id="L43">        toutesVillesVisitees = (1 &lt;&lt; nombreDeVilles) - 1;</span>
+<span class="fc" id="L44">        distanceOptimum = Double.MAX_VALUE;</span>
+<span class="fc" id="L45">        villesEmprunteesOptimum = String.valueOf(villeInitiale);</span>
+
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        for (byte i = 0; i &lt; nombreDeVilles; i++) {</span>
+<span class="fc" id="L48">            rechercheAux(1 &lt;&lt; i, i);</span>
+        }
+
+<span class="fc" id="L51">        final int indexVilleInitial = villesEmprunteesOptimum.indexOf(String.valueOf(villeInitiale));</span>
+
+<span class="fc" id="L53">        villesEmprunteesOptimum = villesEmprunteesOptimum.substring(indexVilleInitial,</span>
+<span class="fc" id="L54">                (villesEmprunteesOptimum.length())) + villesEmprunteesOptimum.substring(0, indexVilleInitial)</span>
+<span class="fc" id="L55">                + villeInitiale;</span>
+
+<span class="fc" id="L57">    }</span>
+
+    /**
+     * Recherche la ville la plus proche parmis les villes non visitées pour y
+     * aller.
+     * 
+     * @param villesVisitees Villes qui ont été visitées jusqu'à présent.
+     * @param villeActuelle  Ville où se situe l'algorithme.
+     */
+    private void rechercheAux(int villesVisitees, byte villeDepart) {
+
+<span class="fc" id="L68">        byte villeActuelle = villeDepart;</span>
+<span class="fc" id="L69">        byte villePlusProche = villeActuelle;</span>
+<span class="fc" id="L70">        double distanceObtenue = 0;</span>
+<span class="fc" id="L71">        String villesEmpruntees = String.valueOf(villeDepart);</span>
+
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        for (byte numVille = 0; numVille &lt; nombreDeVilles - 1; numVille++) {</span>
+
+<span class="fc" id="L75">            double distanceVillePlusProche = Double.MAX_VALUE;</span>
+
+<span class="fc" id="L77">            int villesVisiteesIeration = villesVisitees;</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">            for (int villeFormatBinaire2 = villeNonVisitee(1 &lt;&lt; (villeDepart),</span>
+<span class="fc" id="L79">                    villesVisitees); villeFormatBinaire2 &lt; toutesVillesVisitees; villeFormatBinaire2 = villeNonVisitee(</span>
+<span class="fc" id="L80">                            villeFormatBinaire2 &lt;&lt; 1, villesVisiteesIeration)) {</span>
+<span class="fc" id="L81">                villesVisiteesIeration |= villeFormatBinaire2;</span>
+                // TODO : à voir si instancier à chaque fois la variable est
+<span class="fc" id="L83">                final byte villeIteration = (byte) Math.getExponent(villeFormatBinaire2);</span>
+<span class="fc" id="L84">                final double distanceIteration = pays.getDistanceEntreVilles(villeActuelle, villeIteration);</span>
+
+<span class="fc bfc" id="L86" title="All 2 branches covered.">                if ((distanceIteration &lt; distanceVillePlusProche)) {</span>
+<span class="fc" id="L87">                    villePlusProche = villeIteration;</span>
+<span class="fc" id="L88">                    distanceVillePlusProche = distanceIteration;</span>
+                }
+            }
+
+<span class="fc" id="L92">            villeActuelle = villePlusProche;</span>
+<span class="fc" id="L93">            distanceObtenue += distanceVillePlusProche;</span>
+            // TODO: ce block est resté avec l'ancienne version
+<span class="fc" id="L95">            villesVisitees |= 1 &lt;&lt; villePlusProche;</span>
+<span class="fc" id="L96">            villesEmpruntees += &quot;&gt;&quot; + villePlusProche;</span>
+            // TODO: possible d'utiliser des méthodes privé pour aléger le code
+
+        }
+
+<span class="fc" id="L101">        distanceObtenue += pays.getDistanceEntreVilles(villePlusProche, villeDepart);</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (distanceObtenue &lt; distanceOptimum) {</span>
+<span class="fc" id="L103">            distanceOptimum = distanceObtenue;</span>
+<span class="fc" id="L104">            villesEmprunteesOptimum = villesEmpruntees + &quot;&gt;&quot;;</span>
+        }
+<span class="fc" id="L106">    }</span>
+
+    // #region Outils
+
+    /**
+     * Renvois un type int où chaque bit représente une ville, si un bit 0 elle
+     * n'est pas visitée, si un bit vaut 1 elle a été visitée. La méthode récupère
+     * les villes visitées et la ville actuelle si la ville actuelle fait partie des
+     * villes déjà visitée elle fait passer la ville actuelle à une ville non
+     * visitée.
+     * 
+     * @param villeActuelle  Chaque bit du int représente une ville seul l'un des
+     *                       bits est à 1, elle représente la ville actuelle
+     * 
+     * @param villesVisitees Chaque bit à 1 du int représente les villes visitées.
+     * 
+     * @return {@code int} Renvois un int avec un seul bit à 1, son emplacement
+     *         (dans la séquence de bits du int) représente une ville non visitée
+     *         qui est la nouvelle ville actuelle.
+     */
+    private int villeNonVisitee(int villeActuelle, final int villesVisitees) {
+<span class="fc" id="L127">        villeActuelle += villesVisitees;</span>
+<span class="fc bfc" id="L128" title="All 4 branches covered.">        return (villeActuelle &lt;= toutesVillesVisitees || villesVisitees == toutesVillesVisitees)</span>
+<span class="fc" id="L129">                ? (villeActuelle ^ (villeActuelle &amp; villesVisitees))</span>
+<span class="fc" id="L130">                : villeNonVisitee(1, villesVisitees);</span>
+    }
+
+    // #endregion Outils
+
+    // #region Getters
+
+    /**
+     * @près-requis : Cette méthode doit être exécuté après la méthode recherche().
+     * 
+     * @return {@code Parcours} parcours le plus optimisé qu'il ai trouvé
+     */
+    @Override
+    public Parcours getParcours() {
+        // TODO: Ajouter l'exception avec un getParcours sans avoir fait de recherche
+
+<span class="fc" id="L146">        return new Parcours(distanceOptimum, villesEmprunteesOptimum);</span>
+    }
+
+    /**
+     * Renvois le nom de l'algorithme de recherche
+     * 
+     * @return {@code String} Nom de l'algorithme
+     */
+    @Override
+    public String getNom() {
+<span class="nc" id="L156">        return &quot;PlusProche v3&quot;;</span>
+    }
+
+    // #endregion Getters
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

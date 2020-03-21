@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GestionDistance.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProjetS3Voyageur</a> &gt; <a href="index.source.html" class="el_package">projetS3Voyageur.CompositionPays</a> &gt; <span class="el_source">GestionDistance.java</span></div><h1>GestionDistance.java</h1><pre class="source lang-java linenums">package projetS3Voyageur.CompositionPays;
+
+
+import static java.lang.Math.hypot;
+
+class GestionDistance {
+
+    private double distancesVille[][]; // tableau de distance entre les villes
+    private int nbVilles;
+    private Villes villes;
+
+    private int dernierNumVille; // pour faciliter la lecture du code
+
+<span class="fc" id="L14">    GestionDistance(Villes villes) {</span>
+
+<span class="fc" id="L16">        this.villes = villes;</span>
+<span class="fc" id="L17">        this.nbVilles = villes.getNombreDeVilles();</span>
+<span class="fc" id="L18">        distancesVille = new double[nbVilles][nbVilles];</span>
+
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        for (int i = 0; i &lt; nbVilles; i++) {</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">            for (int j = 0; j &lt; nbVilles; j++) {</span>
+<span class="fc" id="L22">                distancesVille[i][j] = hypot(ecartEnX(i, j), ecartEnY(i, j));</span>
+            }
+        }
+
+<span class="fc" id="L26">    }</span>
+
+    /**
+     * Renvois la distance entre deux villes
+     * 
+     * @param ville1 Numéro de la première ville donnée en paramètre
+     * @param ville2 Numéro de la seconde ville donnée en paramètre
+     * @return {@code double} La distance entre les deux villes
+     */
+    double getDistance(int ville1, int ville2) {
+<span class="fc" id="L36">        return distancesVille[ville1][ville2];</span>
+    }
+
+    /**
+     * Cette commande est utilisée après un changement de localisation d'une des
+     * villes
+     * 
+     * @param numVille Numéro de la ville dont la localisation à été modifier
+     */
+    void actualiseNumVille(int numVille) {
+<span class="fc" id="L46">        verifieNumVille(numVille);</span>
+        double hypotegnius;
+
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        for (int villeI = 0; villeI &lt; nbVilles; villeI++) {</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            if (villeI != numVille) {</span>
+<span class="fc" id="L51">                hypotegnius = hypot(ecartEnX(villeI, numVille), ecartEnY(villeI, numVille));</span>
+<span class="fc" id="L52">                distancesVille[villeI][numVille] = hypotegnius;</span>
+<span class="fc" id="L53">                distancesVille[numVille][villeI] = hypotegnius;</span>
+
+            }
+        }
+<span class="fc" id="L57">    }</span>
+
+    // #region ces méthodes sont simplement destinées à faciliter la lisibilité du code
+
+    /**
+     * Retourne l'écart entre deux points sur une même ordonner X
+     * 
+     * @param ville1
+     * @param ville2
+     * @return {@code int} Écart sur l'ordonnée x entre les deux villes. Attention
+     *         le résultat peut être négatif
+     */
+    private double ecartEnX(int ville1, int ville2) {
+<span class="fc" id="L70">        return villes.getPositionVille(ville1).getX() - villes.getPositionVille(ville2).getX();</span>
+    }
+
+    /**
+     * Retourne l'écart entre deux points sur une même ordonner y
+     * 
+     * @param ville1
+     * @param ville2
+     * @return {@code int} Écart sur l'ordonnée y entre les deux villes. Attention
+     *         le résultat peut être négatif
+     */
+    private double ecartEnY(int ville1, int ville2) {
+<span class="fc" id="L82">        return villes.getPositionVille(ville1).getY() - villes.getPositionVille(ville2).getY();</span>
+    }
+
+    /**
+     * Vérifie si le numéro de la Ville saisi est bien valide
+     * 
+     * @param numVille Numéro de la ville à vérifier
+     */
+    private void verifieNumVille(int numVille) {
+<span class="pc bpc" id="L91" title="3 of 4 branches missed.">        if (numVille &lt; 0 &amp;&amp; numVille &gt; dernierNumVille) {</span>
+<span class="nc" id="L92">            throw new IndexOutOfBoundsException(</span>
+<span class="nc" id="L93">                    &quot;Le numéro de la ville doit être compris entre 0 et &quot; + dernierNumVille);</span>
+        }
+<span class="fc" id="L95">    }</span>
+
+    // #endregion
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

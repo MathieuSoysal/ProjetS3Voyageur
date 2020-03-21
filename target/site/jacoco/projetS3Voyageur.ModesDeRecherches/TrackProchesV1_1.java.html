@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TrackProchesV1_1.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProjetS3Voyageur</a> &gt; <a href="index.source.html" class="el_package">projetS3Voyageur.ModesDeRecherches</a> &gt; <span class="el_source">TrackProchesV1_1.java</span></div><h1>TrackProchesV1_1.java</h1><pre class="source lang-java linenums">package projetS3Voyageur.ModesDeRecherches;
+
+import projetS3Voyageur.CompositionPays.Pays;
+
+<span class="nc" id="L5">class TrackProchesV1_1 implements ModeRecherche {</span>
+
+    private int ToutesVillesVisitees;
+
+    private Pays pays;
+    private double[] distancesPlusCourt;
+
+    private byte villeInitiale;
+    private byte nombreDeVilles;
+
+    private double distanceOptimum;
+    private byte[] villesEmprunteesOptimum;
+
+    /**
+     * Recherche depuis une ville de départ le parcours pour visiter toutes les
+     * villes d'un pays, en allant à la ville la plus proche non visitée.
+     * 
+     * @param pays          Le pays concerné par la recherche
+     * @param villeInitiale Le numéro de la ville de départ
+     */
+    @Override
+    public void recherche(final Pays pays, final int villeInitiale) {
+<span class="nc" id="L27">        this.pays = pays;</span>
+<span class="nc" id="L28">        this.villeInitiale = (byte) villeInitiale;</span>
+<span class="nc" id="L29">        nombreDeVilles = (byte) pays.getNombreDeVilles();</span>
+<span class="nc" id="L30">        ToutesVillesVisitees = (1 &lt;&lt; nombreDeVilles) - 1;</span>
+<span class="nc" id="L31">        distanceOptimum = Double.MAX_VALUE;</span>
+
+<span class="nc" id="L33">        distancesPlusCourt = distancesPlusCourts();</span>
+
+<span class="nc" id="L35">        rechercheAuxDistanceProche(1 &lt;&lt; this.villeInitiale, this.villeInitiale, 0.0);</span>
+<span class="nc" id="L36">        rechercheAuxDistance(1 &lt;&lt; this.villeInitiale, this.villeInitiale, 0.0);</span>
+<span class="nc" id="L37">        rechercheAuxVillesEmpruntees(1 &lt;&lt; this.villeInitiale, this.villeInitiale, 0.0,</span>
+<span class="nc" id="L38">                emprunteVille(new byte[nombreDeVilles + 1], 0, this.villeInitiale));</span>
+<span class="nc" id="L39">    }</span>
+
+    // #region Badtrack v2
+
+    /**
+     * Recherche récursivement le parcours le plus court possible. En vérifiant que
+     * la distance parcourue ne soit pas plus longue que la distance la plus courte
+     * enregistré.
+     * 
+     * @param villesVisitees    Villes qui reste à visitée.
+     * @param villeActuelle     Ville où se situe l'algorithme
+     * @param distanceParcourue Distance parcourure depuis la première itération
+     */
+    private void rechercheAuxDistance(final int villesVisitees, final byte villeActuelle,
+            final double distanceParcourue) {
+
+        // Je prend en compte que la VilleActuell est déjà une ville visité
+
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (distanceParcourue &lt; distanceOptimum</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">                &amp;&amp; ((distanceParcourue + parcoursIdeal(villesVisitees)) &lt; distanceOptimum)) {</span>
+
+<span class="nc bnc" id="L60" title="All 2 branches missed.">            if (Integer.bitCount(villesVisitees) &gt; (nombreDeVilles / 2))</span>
+<span class="nc" id="L61">                rechercheAuxDistanceProche(villesVisitees, villeActuelle, distanceParcourue);</span>
+
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            if (villesVisitees == ToutesVillesVisitees) {</span>
+
+<span class="nc" id="L65">                final double distanceParcourueFinal = distanceParcourue</span>
+<span class="nc" id="L66">                        + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);</span>
+
+<span class="nc bnc" id="L68" title="All 2 branches missed.">                if (distanceParcourueFinal &lt; distanceOptimum)</span>
+<span class="nc" id="L69">                    distanceOptimum = distanceParcourueFinal;</span>
+
+<span class="nc" id="L71">            } else {</span>
+
+                byte villeChoisie;
+
+<span class="nc bnc" id="L75" title="All 2 branches missed.">                for (int villeFormatBinaire = villeNonVisitee(1,</span>
+<span class="nc" id="L76">                        villesVisitees); villeFormatBinaire &lt; ToutesVillesVisitees; villeFormatBinaire = villeNonVisitee(</span>
+<span class="nc" id="L77">                                villeFormatBinaire &lt;&lt; 1, villesVisitees)) {</span>
+
+<span class="nc" id="L79">                    villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));</span>
+
+<span class="nc" id="L81">                    rechercheAuxDistance(villesVisitees + villeFormatBinaire, (villeChoisie),</span>
+<span class="nc" id="L82">                            distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeChoisie));</span>
+
+                }
+
+            }
+        }
+
+<span class="nc" id="L89">    }</span>
+    // #endregion BadTrack v2
+
+    // #region PlusProche v2
+
+    /**
+     * Recherche la ville la plus proche parmis les villes non visitées pour y
+     * aller.
+     * 
+     * @param villesVisitees    Villes qui ont été visitées jusqu'à présent.
+     * @param villeActuelle     Ville où se situe l'algorithme.
+     * @param distanceParcourue Distance parcourue depuis la première itération
+     */
+    private void rechercheAuxDistanceProche(final int villesVisitees, final byte villeActuelle,
+            final double distanceParcourue) {
+
+        // Je prend en compte que la VilleActuell est déjà une ville visité
+
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        if (villesVisitees == ToutesVillesVisitees) {</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">            if (distanceOptimum &gt; distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale))</span>
+<span class="nc" id="L109">                distanceOptimum = distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);</span>
+<span class="nc" id="L110">        } else {</span>
+<span class="nc" id="L111">            double distanceMinDeLIteration = Long.MAX_VALUE;</span>
+<span class="nc" id="L112">            byte villePlusProche = 0;</span>
+            byte villeChoisie;
+            double distanceVilleChoisie;
+
+<span class="nc bnc" id="L116" title="All 2 branches missed.">            for (int villeFormatBinaire = villeNonVisitee(1,</span>
+<span class="nc" id="L117">                    villesVisitees); villeFormatBinaire &lt; ToutesVillesVisitees; villeFormatBinaire = villeNonVisitee(</span>
+<span class="nc" id="L118">                            villeFormatBinaire &lt;&lt; 1, villesVisitees)) {</span>
+
+<span class="nc" id="L120">                villeChoisie = (byte) (Math.getExponent(villeFormatBinaire));</span>
+<span class="nc" id="L121">                distanceVilleChoisie = pays.getDistanceEntreVilles(villeActuelle, villeChoisie);</span>
+
+<span class="nc bnc" id="L123" title="All 2 branches missed.">                if (distanceVilleChoisie &lt; distanceMinDeLIteration) {</span>
+<span class="nc" id="L124">                    distanceMinDeLIteration = distanceVilleChoisie;</span>
+<span class="nc" id="L125">                    villePlusProche = villeChoisie;</span>
+                }
+
+            }
+<span class="nc" id="L129">            rechercheAuxDistanceProche((villesVisitees + (1 &lt;&lt; villePlusProche)), (villePlusProche),</span>
+<span class="nc" id="L130">                    distanceParcourue + distanceMinDeLIteration);</span>
+
+        }
+
+<span class="nc" id="L134">    }</span>
+
+    // #endregion PlusProche v2
+
+    // #region Récupére parcours effectué
+
+    /**
+     * Recherche récursivement le parcours le plus court possible. En vérifiant que
+     * la distance parcourue n'est pas plus longue que la distance la distance
+     * optimum enregistrée via rechercheDistanceAux().
+     * 
+     * @param villesVisitees    Villes qui ont été visitées depuis la première
+     *                          itération
+     * 
+     * @param villeActuelle     Ville dans laquelle se situe l'algo
+     * 
+     * @param distanceParcourue Distance parcourue depuis la première itération
+     * 
+     * @param villesEmpruntees  Stock par ordre chronologique les numéros des villes
+     *                          empruntées
+     */
+    private void rechercheAuxVillesEmpruntees(int villesVisitees, byte villeActuelle, double distanceParcourue,
+            byte[] villesEmprunté) {
+
+        // Je prend en compte que la VilleActuell est déjà une ville visité
+<span class="nc bnc" id="L159" title="All 2 branches missed.">        if (distanceParcourue &lt; distanceOptimum) {</span>
+
+<span class="nc bnc" id="L161" title="All 2 branches missed.">            if (villesVisitees == ToutesVillesVisitees) {</span>
+<span class="nc" id="L162">                final double distanceParcourueFinal = distanceParcourue</span>
+<span class="nc" id="L163">                        + pays.getDistanceEntreVilles(villeActuelle, villeInitiale);</span>
+
+<span class="nc bnc" id="L165" title="All 2 branches missed.">                if (distanceParcourueFinal == distanceOptimum) {</span>
+<span class="nc" id="L166">                    distanceOptimum = distanceParcourueFinal;</span>
+<span class="nc" id="L167">                    villesEmprunteesOptimum = emprunteVille(villesEmprunté, nombreDeVilles, villeInitiale);</span>
+                }
+<span class="nc" id="L169">            } else {</span>
+
+                byte villeChoisie;
+
+<span class="nc bnc" id="L173" title="All 2 branches missed.">                for (int villeFormatBinaire = villeNonVisitee(1,</span>
+<span class="nc" id="L174">                        villesVisitees); villeFormatBinaire &lt; ToutesVillesVisitees; villeFormatBinaire = villeNonVisitee(</span>
+<span class="nc" id="L175">                                villeFormatBinaire &lt;&lt; 1, villesVisitees)) {</span>
+
+<span class="nc" id="L177">                    villeChoisie = (byte) Math.getExponent(villeFormatBinaire);</span>
+
+<span class="nc" id="L179">                    rechercheAuxVillesEmpruntees(villesVisitees + villeFormatBinaire, (villeChoisie),</span>
+<span class="nc" id="L180">                            distanceParcourue + pays.getDistanceEntreVilles(villeActuelle, villeChoisie),</span>
+<span class="nc" id="L181">                            emprunteVille(villesEmprunté, Integer.bitCount(villesVisitees), villeChoisie));</span>
+
+                }
+
+            }
+        }
+
+<span class="nc" id="L188">    }</span>
+
+    // #endregion Récupére parcours
+
+    // #region Outils utile
+
+    /**
+     * Renvois un type int où chaque bit représente une ville, si un bit 0 elle
+     * n'est pas visitée, si un bit vaut 1 elle a été visitée. La méthode récupère
+     * les villes visitées et la ville actuelle si la ville actuelle fait partie des
+     * villes déjà visitée elle fait passer la ville actuelle à une ville non
+     * visitée.
+     * 
+     * @param villeActuelle  Chaque bit du int représente une ville seul l'un des
+     *                       bits est à 1, elle représente la ville actuelle
+     * 
+     * @param villesVisitees Chaque bit à 1 du int représente les villes visitées.
+     * 
+     * @return {@code int} Renvois un int avec un seul bit à 1, son emplacement
+     *         (dans la séquence de bits du int) représente une ville non visitée
+     *         qui est la nouvelle ville actuelle.
+     */
+    private int villeNonVisitee(int villeActuelle, final int villesVisitees) {
+<span class="nc" id="L211">        villeActuelle += villesVisitees;</span>
+<span class="nc" id="L212">        return villeActuelle ^ (villeActuelle &amp; villesVisitees);</span>
+    }
+
+    /**
+     * Stock par ordre chronologique la nouvelle ville visitée à la liste des villes
+     * visitées.
+     * 
+     * @param villesEmpruntees  Tableau de int où chaque case représente le numéro
+     *                          d'une ville visité
+     * 
+     * @param indexVilleVisitee index auquel le numéro de la ville visité doit être
+     *                          ajouté
+     * 
+     * @param villeVisitee      Numéro de la ville visitée
+     * 
+     * @return {@code int[]} Une liste de int contenant par ordre chronologique les
+     *         villes empruntées
+     */
+    private byte[] emprunteVille(byte[] villesEmpruntees, final int indexVilleVisitee, final byte villeSuivante) {
+<span class="nc" id="L231">        villesEmpruntees[indexVilleVisitee] = villeSuivante;</span>
+<span class="nc" id="L232">        return villesEmpruntees.clone();</span>
+    }
+
+    // #region parcours idéal
+
+    /**
+     * Renvois le parcours le plus optimiste possible (en empruntant les chemins les
+     * plus courts). Exemple : il reste 3 villes à visiter alors il prend les trois
+     * meilleurs chemins sans même voir où est-ce qu'ils mènent
+     * 
+     * @param villesVisitees type int qui contient sous forme de bit les villes qui
+     *                       ont été visitées
+     * 
+     * @return {@code double} retourne la distance parcourue en empruntant les
+     *         chemins les plus courts sans voir où ils mènent
+     */
+    private double parcoursIdeal(final int villesVisitees) {
+<span class="nc" id="L249">        return distancesPlusCourt[(nombreDeVilles - Integer.bitCount(villesVisitees))];</span>
+    }
+
+    /**
+     * Retourne une distance minimum de toutes les distances possibles au sein d'un
+     * pays, mais supérieur au nombre rentré en paramètre (représente la distance
+     * minimum précédente).
+     * 
+     * @param distanceMinPrecedente Représante le nombre au quelle la distance
+     *                              minimum doit être supérieur
+     * 
+     * @return {@code double} distance minimum de toutes les distances séparant les
+     *         villes d'un pays, mais supérieur à la distanceMinPrecedente
+     */
+    private double distancePlusCourtEntre2Villes(final double distanceMinPrecedente) {
+<span class="nc" id="L264">        int villesVisitees = 0;</span>
+<span class="nc" id="L265">        double resultat = Double.MAX_VALUE;</span>
+<span class="nc bnc" id="L266" title="All 2 branches missed.">        for (int villeFormatBinaire = villeNonVisitee(1,</span>
+<span class="nc" id="L267">                villesVisitees); villeFormatBinaire &lt; ToutesVillesVisitees; villeFormatBinaire = villeNonVisitee(</span>
+<span class="nc" id="L268">                        villeFormatBinaire &lt;&lt; 1, villesVisitees)) {</span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">            for (int villeFormatBinaire2 = villeNonVisitee(1,</span>
+<span class="nc" id="L270">                    villeFormatBinaire); villeFormatBinaire2 &lt; ToutesVillesVisitees; villeFormatBinaire2 = villeNonVisitee(</span>
+<span class="nc" id="L271">                            villeFormatBinaire2 &lt;&lt; 1, villeFormatBinaire)) {</span>
+
+<span class="nc" id="L273">                double distanceMinDeLIteration = Double.min(resultat, pays.getDistanceEntreVilles(</span>
+<span class="nc" id="L274">                        Math.getExponent(villeFormatBinaire), Math.getExponent(villeFormatBinaire2)));</span>
+
+<span class="nc bnc" id="L276" title="All 2 branches missed.">                resultat = (distanceMinPrecedente &lt; distanceMinDeLIteration) ? distanceMinDeLIteration : resultat;</span>
+            }
+
+        }
+<span class="nc" id="L280">        return resultat;</span>
+    }
+
+    /**
+     * Créé et renvoie un tableau, dont l'index représente le nombre de villes à
+     * visiter, la valeur de chaque case représente la somme des index des distances
+     * les plus courtes du pays. Exemple : pour l'index 2 le tableau renvoie la
+     * somme des trois plus courtes distances du pays
+     * 
+     * @return {@code double[]} Un tableau contenant la somme des distances les plus
+     *         courtes par ordre croissant
+     */
+    private double[] distancesPlusCourts() {
+<span class="nc" id="L293">        int i = 0;</span>
+<span class="nc" id="L294">        double[] resultat = new double[nombreDeVilles];</span>
+<span class="nc bnc" id="L295" title="All 2 branches missed.">        for (double minValue = distancePlusCourtEntre2Villes(0); resultat[nombreDeVilles</span>
+<span class="nc" id="L296">                - 1] == 0.; minValue = distancePlusCourtEntre2Villes(minValue)) {</span>
+<span class="nc bnc" id="L297" title="All 2 branches missed.">            resultat[i++] = minValue + resultat[(i == 1) ? 0 : i - 2];</span>
+        }
+
+<span class="nc" id="L300">        return resultat;</span>
+    }
+
+    // #endregion parcours idéal
+
+    // #endregion Outils Utile
+
+    // #region Getters
+
+    /**
+     * @près-requis : Cette méthode doit être exécuté après la méthode recherche().
+     * 
+     * @return {@code Parcours} parcours le plus optimisé qu'il ai trouvé
+     */
+    @Override
+    public Parcours getParcours() {
+        // TODO: Ajouter l'exception avec un getParcours sans avoir fait de recherche
+<span class="nc" id="L317">        String villesEmpruntees = String.valueOf(villesEmprunteesOptimum[0]);</span>
+<span class="nc bnc" id="L318" title="All 2 branches missed.">        for (int i = 1; i &lt; villesEmprunteesOptimum.length; i++) {</span>
+<span class="nc" id="L319">            villesEmpruntees += '&gt;' + String.valueOf(villesEmprunteesOptimum[i]);</span>
+        }
+
+<span class="nc" id="L322">        return new Parcours(distanceOptimum, villesEmpruntees);</span>
+    }
+
+    /**
+     * Renvois le nom de l'algorithme de recherche
+     * 
+     * @return {@code String} Nom de l'algorithme
+     */
+    @Override
+    public String getNom() {
+<span class="nc" id="L332">        return &quot;TrackProches v1.1&quot;;</span>
+    }
+
+    // #endregion Getters
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

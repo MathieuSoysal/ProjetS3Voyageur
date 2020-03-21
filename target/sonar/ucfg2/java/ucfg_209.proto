@@ -1,0 +1,98 @@
+
+VprojetS3Voyageur.ModesDeRecherches.TrackProchesV2_1#distancePlusCourtEntre2Villes(DI)DÉ
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaÜ Ü(0"11*ª
+2É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaça ç(pß
+§
+É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaça é(@	
+%9int"HprojetS3Voyageur.ModesDeRecherches.TrackProchesV2_1#villeNonVisitee(II)I*75
+3projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1*
+""*
+""*
+9
+1*ª
+3É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaëk ë(zß
+§
+É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaëk í(I	
+%8int"HprojetS3Voyageur.ModesDeRecherches.TrackProchesV2_1#villeNonVisitee(II)I*75
+3projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1*
+""*
+""*
+2
+7*π
+5É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaò ò(1®
+•
+É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaò ò([
+%7boolean"MprojetS3Voyageur.ModesDeRecherches.TrackProchesV2_1#pairDeVillesNonVisite(I)Z*75
+3projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1*
+""*
+3*˚
+7É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaî  î($ˇ
+¸
+É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaî  î($+
+%3%projetS3Voyageur.CompositionPays.Pays"__id*A*?5
+3projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1"
+pays–
+Õ
+É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaî< î(`	
+%4int"java.lang.Math#getExponent(F)I*"
+java.lang.Math*
+""–
+Õ
+É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaï ï(=	
+%5int"java.lang.Math#getExponent(F)I*"
+java.lang.Math*
+""øº
+É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaî  ï(>
+%6double"AprojetS3Voyageur.CompositionPays.Pays#getDistanceEntreVilles(II)D*-
++
+%3%projetS3Voyageur.CompositionPays.Pays*
+	
+%4int*
+	
+%5int2getDistanceEntreVilles(II)*
+3
+5*π
+9É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaê+ ê(:•
+¢
+É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaê+ ë('	
+%2int"HprojetS3Voyageur.ModesDeRecherches.TrackProchesV2_1#villeNonVisitee(II)I*75
+3projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1*2*
+""*
+2
+7*‚
+11É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaà à(•
+¢
+É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaâ â(*
+%0double"__id*
+""•
+¢
+É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.javaå& ç(	
+%1int"HprojetS3Voyageur.ModesDeRecherches.TrackProchesV2_1#villeNonVisitee(II)I*75
+3projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1*2*
+""*
+9
+1*ö
+1É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.java° °("é
+É
+wD:/OneDrive/Universit√©/Projets/ProjetS3Voyageur/src/main/java/projetS3Voyageur/ModesDeRecherches/TrackProchesV2_1.java° °(
+"":
+"":
+""B75
+3projetS3Voyageur.ModesDeRecherches.TrackProchesV2_1

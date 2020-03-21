@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TempsExecution.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProjetS3Voyageur</a> &gt; <a href="index.source.html" class="el_package">projetS3Voyageur.StatsAlgos</a> &gt; <span class="el_source">TempsExecution.java</span></div><h1>TempsExecution.java</h1><pre class="source lang-java linenums">package projetS3Voyageur.StatsAlgos;
+
+import projetS3Voyageur.CompositionPays.Pays;
+import projetS3Voyageur.ModesDeRecherches.ModeRecherche;
+
+<span class="nc" id="L6">class TempsExecution {</span>
+    private static final byte villeDepart = 0;
+
+    /**
+     * Retourne le temps passé en millisecondes entre le début et la fin de
+     * l'algorithme pour récupérer le plus court trajet du pays donné en paramètre.
+     * 
+     * @param algo {@code ModeRecherche} Algorithme dont le temps d'exécution doit
+     *             être récupéré
+     * 
+     * @param pays {@code Pays} Pays dont l'algorithme doit obtenir le parcours le
+     *             plus court
+     * 
+     * @return {@code long} Retourne le temps passé en millisecondes entre le début
+     *         et la fin de l'algorithme
+     */
+    static long calcule(ModeRecherche algo, Pays pays) {
+<span class="fc" id="L23">        long startTime = System.currentTimeMillis();</span>
+<span class="fc" id="L24">        algo.recherche(pays, villeDepart);</span>
+<span class="fc" id="L25">        return (System.currentTimeMillis() - startTime);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

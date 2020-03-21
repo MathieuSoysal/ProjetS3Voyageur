@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Texte.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProjetS3Voyageur</a> &gt; <a href="index.source.html" class="el_package">projetS3Voyageur.StatsAlgos</a> &gt; <span class="el_source">Texte.java</span></div><h1>Texte.java</h1><pre class="source lang-java linenums">package projetS3Voyageur.StatsAlgos;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+<span class="nc" id="L7">class Texte {</span>
+
+    /**
+     * Ecrie dans un fichier texte (préalablement choisi) le texte mit en paramètre
+     * 
+     * @param fichier {@code File} Fichier qu'il faut crée/choisir
+     * @param texte   {@code String} Texte qu'il faut écrire
+     */
+    static void ecrire(File fichier, String texte) {
+<span class="nc" id="L16">        try (FileWriter writer = new FileWriter(fichier)) {</span>
+<span class="nc" id="L17">            writer.write(texte);</span>
+<span class="nc" id="L18">            writer.close();</span>
+<span class="nc" id="L19">        } catch (IOException ioe) {</span>
+<span class="nc" id="L20">            System.err.println(&quot;Erreur lors de la création/choix du fichier&quot;);</span>
+<span class="nc" id="L21">            ioe.printStackTrace();</span>
+        }
+<span class="nc" id="L23">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
