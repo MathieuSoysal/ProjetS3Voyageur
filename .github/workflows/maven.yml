@@ -1,4 +1,4 @@
-name: Java CI
+name: Java CI, master branche
 
 on:
   push:
