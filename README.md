@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/MathieuSoysal/ProjetS3Voyageur/badge.svg?branch=master)](https://coveralls.io/github/MathieuSoysal/ProjetS3Voyageur?branch=master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MathieuSoysal_ProjetS3Voyageur&metric=alert_status)](https://sonarcloud.io/dashboard?id=MathieuSoysal_ProjetS3Voyageur) [![Coverage Status](https://coveralls.io/repos/github/MathieuSoysal/ProjetS3Voyageur/badge.svg?branch=master)](https://coveralls.io/github/MathieuSoysal/ProjetS3Voyageur?branch=master)
 
 # ![](logo-voyageur.png) Le voyageur de commerce 
 ### IUT Montpellier-Sète – Département Informatique
