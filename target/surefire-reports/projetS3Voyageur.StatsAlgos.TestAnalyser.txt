@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: projetS3Voyageur.StatsAlgos.TestAnalyser
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 31.359 s <<< FAILURE! - in projetS3Voyageur.StatsAlgos.TestAnalyser
-test_temps_execution_moyen  Time elapsed: 30.638 s  <<< FAILURE!
-java.lang.AssertionError
-	at projetS3Voyageur.StatsAlgos.TestAnalyser.test_temps_execution_moyen(TestAnalyser.java:28)
-

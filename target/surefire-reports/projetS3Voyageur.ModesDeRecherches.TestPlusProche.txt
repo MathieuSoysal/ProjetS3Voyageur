@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: projetS3Voyageur.ModesDeRecherches.TestPlusProche
--------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 7, Time elapsed: 0.036 sec

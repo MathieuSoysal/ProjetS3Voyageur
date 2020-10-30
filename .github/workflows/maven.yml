@@ -1,15 +1,38 @@
-name: Java CI
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Github Actions
 
 on:
   push:
-    branches:
-      - 'master'
+    branches: [master]
+  pull_request:
+    branches: [master]
 
 jobs:
+  build:
+    name: Build with Maven
+    runs-on: ubuntu-latest
 
-  test:
-    name: Test - Units & Integrations
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+      - name: Compile dependencies
+        run: mvn clean compile assembly:single
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  docker:
+    name: Publish - Docker Hub
     runs-on: ubuntu-18.04
+    needs: [build]
+    env:
+      REPO: ${{ secrets.DOCKER_REPO }}
 
     steps:
       - uses: actions/checkout@v1
@@ -17,8 +40,12 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Maven Verify
-        run: mvn -B clean verify -Pintegration-test
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+      - name: Build Docker image
+        run: docker build --rm -f "src/main/docker/Dockerfile" -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+      - name: Publish Docker image
+        run: docker push $REPO
 
   sonar:
     name: Test - SonarCloud Scan
