@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static projetS3Voyageur.OutilsPourTest.parcoursVilles;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import projetS3Voyageur.CompositionPays.Pays;
@@ -159,6 +160,7 @@ public class testTrackProchesV2 {
 
     // #endregion test avec les résultats issue de BrutForce v2
 
+    @Ignore
     @Test
     public void test_si_les_villes_ont_des_positions_random() {
 
